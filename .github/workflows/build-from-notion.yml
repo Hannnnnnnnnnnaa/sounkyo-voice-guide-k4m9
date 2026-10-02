@@ -1,0 +1,41 @@
+# Notionの台本DBと読み上げ辞書から、音声と guide.json を作り直してコミットする。
+# 使い方：リポジトリの Settings > Secrets に NOTION_TOKEN（台本DB・読み上げ辞書・SKM場所DBを共有したインテグレーションのトークン）を登録し、
+# Actions タブの「Notionから音声を作り直す」で Run workflow を押す。
+name: Notionから音声を作り直す
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - name: 音声エンジンを用意
+        run: |
+          mkdir -p tts && cd tts
+          base=https://github.com/VOICEVOX
+          curl -sSLO $base/voicevox_core/releases/download/0.16.0/voicevox_core-0.16.0-cp310-abi3-manylinux_2_34_x86_64.whl
+          curl -sSL $base/onnxruntime-builder/releases/download/voicevox_onnxruntime-1.17.3/voicevox_onnxruntime-linux-x64-1.17.3.tgz | tar xz
+          curl -sSL https://github.com/r9y9/open_jtalk/releases/download/v1.11.1/open_jtalk_dic_utf_8-1.11.tar.gz | tar xz
+          for v in 1 2 12; do curl -sSLO $base/voicevox_vvm/releases/download/0.16.0/$v.vvm; done
+          for f in kokoro-v1.0.int8.onnx voices-v1.0.bin; do curl -sSLO https://github.com/thewh1teagle/kokoro-onnx/releases/download/model-files-v1.0/$f; done
+          cp ../tools/vv.py .
+          pip install ./voicevox_core-*.whl kokoro-onnx soundfile numpy
+          sudo apt-get install -y ffmpeg
+      - name: Notionから作り直す
+        env:
+          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+          TTS_DIR: ${{ github.workspace }}/tts
+        run: python tools/build.py --notion
+      - name: コミット
+        run: |
+          rm -rf tts
+          git config user.name "voice-guide-bot"
+          git config user.email "voice-guide-bot@users.noreply.github.com"
+          git add audio guide.json
+          git diff --cached --quiet || git commit -m "Notionから音声を作り直し"
+          git push

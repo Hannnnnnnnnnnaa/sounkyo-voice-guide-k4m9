@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>層雲峡 音声ガイド 試作</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Shippori+Mincho:wght@600&display=swap">
+<style>
+/* Layout: one phone-width column — status, settings, start, trail points in walking order, log. */
+:root{
+  --bg:#f3f1ea; --surface:#fbfaf6; --ink:#232822; --muted:#626a5f; --line:#d9d6c9;
+  --accent:#a8432c; --accent-ink:#fff8f3; --moss:#4c6a4a;
+  --ok:#2f6b3f; --ok-bg:#e1eedf; --warn:#8a5a10; --warn-bg:#f5ead2; --off-bg:#ebe8de;
+  --display:"Shippori Mincho","Hiragino Mincho ProN","Yu Mincho",serif;
+  --body:"Zen Kaku Gothic New","Hiragino Sans","Noto Sans JP",system-ui,sans-serif;
+  --mono:ui-monospace,"SFMono-Regular",Menlo,monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#171a17; --surface:#1f231f; --ink:#e8e6dc; --muted:#a3a99c; --line:#343a33;
+  --accent:#e0795d; --accent-ink:#1b0f0a; --moss:#9cbf96;
+  --ok:#9fd3a8; --ok-bg:#1f3324; --warn:#e8c27a; --warn-bg:#382c15; --off-bg:#262a25; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#171a17; --surface:#1f231f; --ink:#e8e6dc; --muted:#a3a99c; --line:#343a33;
+  --accent:#e0795d; --accent-ink:#1b0f0a; --moss:#9cbf96;
+  --ok:#9fd3a8; --ok-bg:#1f3324; --warn:#e8c27a; --warn-bg:#382c15; --off-bg:#262a25; color-scheme:dark}
+*{box-sizing:border-box}
+html{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.7}
+.wrap{max-width:560px;margin:0 auto;padding-inline:16px;padding-block:20px 48px;display:flex;flex-direction:column;gap:20px}
+h1{font-family:var(--display);font-weight:600;font-size:1.75rem;line-height:1.25;margin:0;text-wrap:balance}
+.lede{margin:4px 0 0;color:var(--muted);font-size:.9rem}
+.eyebrow{font-size:.72rem;letter-spacing:.12em;color:var(--moss);font-weight:700}
+.status{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.chip{display:inline-flex;align-items:center;gap:6px;font-size:.78rem;padding:3px 10px;border-radius:999px;background:var(--off-bg);color:var(--muted);font-variant-numeric:tabular-nums}
+.chip.ok{background:var(--ok-bg);color:var(--ok)} .chip.warn{background:var(--warn-bg);color:var(--warn)}
+.chip i{width:7px;height:7px;border-radius:50%;background:currentColor;display:inline-block}
+.notice{font-size:.85rem;background:var(--warn-bg);color:var(--warn);padding:10px 12px;border-radius:8px}
+.controls{display:flex;flex-direction:column;gap:10px}
+.field{display:flex;flex-direction:column;gap:4px}
+.field>span{font-size:.75rem;color:var(--muted);letter-spacing:.06em}
+.seg{display:flex;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.seg button{flex:1;border:0;background:transparent;color:var(--muted);font:inherit;font-size:.85rem;padding:8px 4px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+button{font-family:var(--body)}
+.primary{border:0;border-radius:10px;background:var(--accent);color:var(--accent-ink);font-size:1rem;font-weight:700;padding:14px;cursor:pointer}
+.primary[data-on="true"]{background:var(--surface);color:var(--accent);box-shadow:inset 0 0 0 2px var(--accent)}
+.ghost{border:1px solid var(--line);background:transparent;color:var(--ink);border-radius:8px;font-size:.82rem;padding:7px 12px;cursor:pointer}
+button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.route{display:flex;flex-direction:column;border-left:2px dashed var(--line);margin-left:9px}
+.point{position:relative;padding:4px 0 24px 22px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.point::before{content:"";position:absolute;left:-9px;top:10px;width:16px;height:16px;border-radius:50%;background:var(--bg);border:3px solid var(--moss)}
+.point[data-state="in"]::before{border-color:var(--accent);background:var(--accent)}
+.point[data-state="playing"]::before{border-color:var(--accent);background:var(--accent);box-shadow:0 0 0 5px color-mix(in srgb,var(--accent) 25%,transparent)}
+.point h2{font-family:var(--display);font-weight:600;font-size:1.2rem;margin:0;line-height:1.3}
+.meta{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:.8rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.script{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-size:.92rem;margin:0}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.row label{font-size:.8rem;color:var(--muted)}
+.row input{width:4.5em;font:inherit;font-size:.85rem;padding:5px 8px;border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--ink);font-variant-numeric:tabular-nums}
+.log h3{font-size:.85rem;margin:0;color:var(--muted);font-weight:700}
+.log pre{font-family:var(--mono);font-size:.74rem;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:10px;margin:6px 0 0;max-height:220px;overflow:auto;white-space:pre-wrap;word-break:break-all}
+.foot{font-size:.78rem;color:var(--muted);display:flex;flex-direction:column;gap:6px}
+.foot a{color:inherit}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">層雲峡 アンビエント・ガイド ／ 試作</div>
+    <h1>層雲峡 音声ガイド 試作</h1>
+    <p class="lede">スマホを持って歩くと、地点に近づいたときに台本の音声が流れます。はじめて使う場所では、現地で「ここを地点に登録」を押してください。</p>
+  </header>
+
+  <div class="status" aria-live="polite">
+    <span class="chip" id="geoChip"><i></i><span id="geoText">位置：未開始</span></span>
+    <span class="chip" id="wakeChip"><i></i><span id="wakeText">画面：通常</span></span>
+    <span class="chip" id="dataChip"><i></i><span id="dataText">台本：読み込み中</span></span>
+  </div>
+  <div class="notice" id="notice" hidden></div>
+
+  <div class="controls">
+    <div class="field"><span>台本</span>
+      <div class="seg" role="group" aria-label="台本の種類" id="modeSeg">
+        <button id="m-core" data-mode="core" aria-pressed="true">日本語</button>
+        <button id="m-kids" data-mode="kids" aria-pressed="false">子ども向け</button>
+        <button id="m-en" data-mode="en" aria-pressed="false">English</button>
+      </div>
+    </div>
+    <div class="field"><span>声</span>
+      <div class="seg" role="group" aria-label="声" id="voiceSeg"></div>
+    </div>
+    <button class="primary" id="startBtn" data-on="false">テストを開始</button>
+  </div>
+
+  <section class="route" id="route" aria-label="地点"></section>
+
+  <section class="log">
+    <div class="row" style="justify-content:space-between">
+      <h3>記録</h3>
+      <div class="row">
+        <button class="ghost" id="resetBtn">再生済みを解除</button>
+        <button class="ghost" id="copyBtn">記録をコピー</button>
+      </div>
+    </div>
+    <pre id="log">（テストを開始すると、位置の精度と再生した時刻がここに残ります）</pre>
+  </section>
+
+  <footer class="foot">
+    <span>台本はNotionの台本DBから書き出したものです（層雲峡ナレッジマップで裏取り済みの事実のみ）。館長の確認前の下書きです。</span>
+    <span>紅葉谷の散策道は6月〜11月上旬のみ開放（層雲峡観光協会）。画面を消すと位置の取得が止まるので、テスト中は画面をつけたままにします。</span>
+    <span id="credit">音声：</span>
+  </footer>
+</div>
+<audio id="player" preload="auto" playsinline></audio>
+<script>
+const SILENT="data:audio/mpeg;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjYwLjE2LjEwMAAAAAAAAAAAAAAA//NwwAAAAAAAAAAAAEluZm8AAAAPAAAADAAABZwAMjIyMjIyMjJFRUVFRUVFRVhYWFhYWFhYampqampqampqfX19fX19fX2QkJCQkJCQkKKioqKioqKiorW1tbW1tbW1yMjIyMjIyMja2tra2tra2trt7e3t7e3t7f//////////AAAAAExhdmM2MC4zMQAAAAAAAAAAAAAAACQDNwAAAAAAAAWcHqGxZwAAAAAAAAAAAAAAAAD/80DEAAAAA0gAAAAATEFNRTMuMTAwVVVVVVVVVVVVVUxBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQsRbAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVVUxBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQMSkAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVTEFNRTMuMTAwVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//NCxKMAAANIAAAAAFVVVVVVVVVVVVVVVVVVVVVVVVVVTEFNRTMuMTAwVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//NAxKQAAANIAAAAAFVVVVVVVVVVVVVVVVVVVVVVVVVMQU1FMy4xMDBVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVX/80LEowAAA0gAAAAAVVVVVVVVVVVVVVVVVVVVVVVVVVVMQU1FMy4xMDBVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVX/80DEpAAAA0gAAAAAVVVVVVVVVVVVVVVVVVVVVVVVVUxBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQsSjAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVVUxBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQMSkAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVTEFNRTMuMTAwVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//NCxKMAAANIAAAAAFVVVVVVVVVVVVVVVVVVVVVVVVVVTEFNRTMuMTAwVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//NAxKQAAANIAAAAAFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVX/80LEowAAA0gAAAAAVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVU=";
+const KEY="sounkyo-voice-guide-v1";
+let saved={};try{saved=JSON.parse(localStorage.getItem(KEY)||"{}")}catch(e){saved={}}
+const persist=()=>{try{localStorage.setItem(KEY,JSON.stringify(saved))}catch(e){}};
+let guide=null,mode="core",voice={ja:"himari",en:"heart"},running=false,watchId=null,last=null,wakeLock=null,nowPlaying=null;
+const played=new Set(),lines=[],$=id=>document.getElementById(id),player=$("player");
+const fmt=d=>d.toLocaleTimeString("ja-JP",{hour:"2-digit",minute:"2-digit",second:"2-digit"});
+function log(m){lines.push(fmt(new Date())+"  "+m);$("log").textContent=lines.join("\n");$("log").scrollTop=1e9}
+function chip(id,txt,cls,t){$(id).className="chip"+(cls?" "+cls:"");$(txt).textContent=t}
+function dist(a,b){const R=6371000,r=x=>x*Math.PI/180,dLa=r(b.lat-a.lat),dLo=r(b.lng-a.lng);
+  const h=Math.sin(dLa/2)**2+Math.cos(r(a.lat))*Math.cos(r(b.lat))*Math.sin(dLo/2)**2;return 2*R*Math.asin(Math.sqrt(h))}
+const lang=()=>mode==="en"?"en":"ja";
+const track=p=>p.audio[`${mode}:${voice[lang()]}`];
+
+function renderVoices(){
+  const seg=$("voiceSeg");seg.innerHTML="";
+  Object.entries(guide.voices[lang()]).forEach(([id,v])=>{
+    const b=document.createElement("button");b.id="v-"+id;b.textContent=v.label;b.setAttribute("aria-pressed",String(voice[lang()]===id));
+    b.addEventListener("click",()=>{voice[lang()]=id;renderVoices();render()});seg.appendChild(b)});
+  const ja=Object.values(guide.voices.ja).map(v=>v.credit),en=[...new Set(Object.values(guide.voices.en).map(v=>v.credit))];
+  $("credit").textContent=`音声：${ja.join("、")}（日本語）／ ${en.join("、")}（英語）。台本の書き出し：${guide.exported_at}`;
+}
+
+function render(){
+  if(!guide)return;const route=$("route");route.innerHTML="";
+  guide.points.forEach((p,i)=>{
+    const s=saved[p.id]||{},radius=s.radius||40;let d=null,state="out";
+    if(last&&s.lat){d=dist(last,s);if(d<=radius)state="in"}
+    if(nowPlaying===p.id)state="playing";
+    const t=track(p);
+    const where=s.lat?`登録済み（±${Math.round(s.acc)}m）`:"未登録";
+    const tag=nowPlaying===p.id?"再生中":played.has(p.id)?"再生済み":state==="in"?"範囲内":"範囲外";
+    const el=document.createElement("article");el.className="point";el.dataset.state=state;
+    el.innerHTML=`<div><h2>${p.place}</h2><div class="meta"><span>地点${i+1}</span><span>${t?t.seconds+"秒":""}</span><span>${where}</span><span>${d==null?"距離 —":"あと "+Math.round(d)+" m"}</span><span>${tag}</span></div></div>
+      <p class="script" lang="${lang()}">${p[mode]}</p>
+      <div class="row">
+        <button class="ghost" data-act="here" data-id="${p.id}">ここを地点に登録</button>
+        <button class="ghost" data-act="play" data-id="${p.id}">${nowPlaying===p.id?"止める":"いま再生"}</button>
+        ${s.lat?`<button class="ghost" data-act="clear" data-id="${p.id}">登録を消す</button>`:""}
+        <label for="r-${p.id}">半径</label><input id="r-${p.id}" type="number" inputmode="numeric" min="10" max="200" step="5" value="${radius}" data-id="${p.id}"><label for="r-${p.id}">m</label>
+      </div>`;
+    route.appendChild(el)});
+}
+
+function play(p,why){
+  const t=track(p);if(!t)return;
+  player.src=t.src;nowPlaying=p.id;render();
+  player.play().then(()=>log(`${p.place} 再生開始［${why}］${last?" 精度±"+Math.round(last.acc)+"m":""}`))
+    .catch(e=>{nowPlaying=null;render();log(`${p.place} を再生できませんでした（${e.name}）。「テストを開始」を押してから試してください`)});
+  if("mediaSession" in navigator)navigator.mediaSession.metadata=new MediaMetadata({title:p.place,artist:"層雲峡 音声ガイド"});
+}
+player.addEventListener("ended",()=>{if(nowPlaying){const p=guide.points.find(x=>x.id===nowPlaying);log(`${p.place} 再生終了`)}nowPlaying=null;render()});
+
+function onPos(pos){
+  last={lat:pos.coords.latitude,lng:pos.coords.longitude,acc:pos.coords.accuracy};
+  chip("geoChip","geoText",last.acc<=30?"ok":"warn",`位置：±${Math.round(last.acc)}m`);
+  if(running&&!nowPlaying){for(const p of guide.points){const s=saved[p.id];if(!s||!s.lat||played.has(p.id))continue;
+    const d=dist(last,s);if(d<=(s.radius||40)){played.add(p.id);play(p,`自動 距離${Math.round(d)}m`);break}}}
+  render();
+}
+function onErr(err){
+  chip("geoChip","geoText","warn","位置：使えない");
+  $("notice").textContent=(err.code===1?"位置の利用が許可されていません。ブラウザの設定でこのサイトの位置情報を許可してください。":"位置を取得できませんでした。空が開けた場所で少し待ってください。")+" 位置が使えない間も「いま再生」で音声は聞けます。";
+  $("notice").hidden=false;log("位置エラー: "+(err.message||err.code));
+}
+
+async function toggle(){
+  running=!running;const b=$("startBtn");b.dataset.on=String(running);b.textContent=running?"テストを止める":"テストを開始";
+  if(running){
+    player.src=SILENT;player.play().catch(()=>{});
+    try{wakeLock=await navigator.wakeLock.request("screen");chip("wakeChip","wakeText","ok","画面：つけたまま");
+      wakeLock.addEventListener("release",()=>chip("wakeChip","wakeText","","画面：通常"))}catch(e){chip("wakeChip","wakeText","warn","画面：手動でつけたまま")}
+    if(navigator.geolocation){watchId=navigator.geolocation.watchPosition(onPos,onErr,{enableHighAccuracy:true,maximumAge:2000,timeout:20000});chip("geoChip","geoText","","位置：取得中");log("テスト開始")}
+    else onErr({code:2,message:"この端末は位置情報に対応していません"});
+  }else{
+    if(watchId!=null)navigator.geolocation.clearWatch(watchId);watchId=null;
+    try{wakeLock&&wakeLock.release()}catch(e){}
+    player.pause();nowPlaying=null;render();log("テスト停止");
+  }
+}
+
+$("route").addEventListener("click",e=>{
+  const b=e.target.closest("button");if(!b)return;const p=guide.points.find(x=>x.id===b.dataset.id);
+  if(b.dataset.act==="play"){if(nowPlaying===p.id){player.pause();nowPlaying=null;render();log(`${p.place} を停止`)}else play(p,"手動")}
+  if(b.dataset.act==="here"){
+    if(!last){log(`${p.place}：まだ位置が取れていません。テストを開始して精度が出るまで待ってください`);return}
+    saved[p.id]={...(saved[p.id]||{}),lat:last.lat,lng:last.lng,acc:last.acc};persist();
+    log(`${p.place} を登録 ${last.lat.toFixed(5)}, ${last.lng.toFixed(5)} ±${Math.round(last.acc)}m`);render()}
+  if(b.dataset.act==="clear"){const r=(saved[p.id]||{}).radius;saved[p.id]=r?{radius:r}:{};persist();log(`${p.place} の登録を消去`);render()}
+});
+$("route").addEventListener("change",e=>{
+  if(!e.target.matches("input[type=number]"))return;const v=Math.max(10,Math.min(200,+e.target.value||40));
+  saved[e.target.dataset.id]={...(saved[e.target.dataset.id]||{}),radius:v};persist();log(`半径を ${v}m に変更`);render()});
+document.querySelectorAll("#modeSeg button").forEach(b=>b.addEventListener("click",()=>{
+  mode=b.dataset.mode;document.querySelectorAll("#modeSeg button").forEach(x=>x.setAttribute("aria-pressed",String(x===b)));renderVoices();render()}));
+$("startBtn").addEventListener("click",toggle);
+$("resetBtn").addEventListener("click",()=>{played.clear();log("再生済みを解除");render()});
+$("copyBtn").addEventListener("click",async()=>{
+  const t=lines.join("\n")||"（記録なし）";
+  try{await navigator.clipboard.writeText(t);log("記録をコピーしました")}
+  catch(e){const r=document.createRange();r.selectNodeContents($("log"));const s=getSelection();s.removeAllRanges();s.addRange(r);log("コピーできなかったので記録を選択しました。長押しでコピーしてください")}});
+
+fetch("guide.json",{cache:"no-store"}).then(r=>r.json()).then(g=>{guide=g;chip("dataChip","dataText","ok",`台本：${g.points.length}本`);renderVoices();render()})
+  .catch(()=>{chip("dataChip","dataText","warn","台本：読み込めない");$("notice").textContent="台本（guide.json）を読み込めませんでした。ページを再読み込みしてください。";$("notice").hidden=false});
+</script>
+</body>
+</html>

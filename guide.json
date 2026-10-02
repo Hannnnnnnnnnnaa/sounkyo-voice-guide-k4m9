@@ -1,0 +1,252 @@
+{
+ "built_from": "Notion SAKB 台本DB（MVP採用 かつ SKM照合=整合済）と 読み上げ辞書",
+ "exported_at": "2026-10-02",
+ "voices": {
+  "ja": {
+   "himari": {
+    "label": "冥鳴ひまり",
+    "credit": "VOICEVOX:冥鳴ひまり"
+   },
+   "sora": {
+    "label": "九州そら",
+    "credit": "VOICEVOX:九州そら"
+   },
+   "suzume": {
+    "label": "雀松朱司",
+    "credit": "VOICEVOX:雀松朱司"
+   }
+  },
+  "en": {
+   "heart": {
+    "label": "Heart（女性）",
+    "credit": "Kokoro TTS"
+   },
+   "michael": {
+    "label": "Michael（男性）",
+    "credit": "Kokoro TTS"
+   }
+  }
+ },
+ "points": [
+  {
+   "id": "momijidani-entrance",
+   "topic": "紅葉谷の入口：紅葉の滝まで片道およそ30分",
+   "place": "紅葉谷",
+   "notion_page": "3edfd841a42c81d1afa5ce136ff4d9f9",
+   "target_seconds": 30,
+   "core": "ここから紅葉谷の散策道です。終点の紅葉の滝までは、片道およそ30分。そこでは、今は入れなくなった「小函」のような柱状節理と滝を、一度に見ることができます。この道を歩けるのは6月から11月上旬まで。足元に気をつけて、谷の奥へ進んでみましょう。",
+   "kids": "ここから「紅葉谷」の道がはじまります。いちばん奥の「紅葉の滝」まで、歩いておよそ30分。えんぴつをたばねたような岩のかべと、滝が待っています。すべらないように、足もとをよく見て歩こう。",
+   "en": "This is the start of the Momijidani trail. It takes about 30 minutes, one way, to reach the waterfall at the end. There you can see columnar rock walls and a waterfall together, much like the Kobako gorge, which is now closed to visitors. The trail is open from June to early November. Watch your step as you head into the valley.",
+   "audio": {
+    "core:himari": {
+     "src": "audio/momijidani-entrance-core-himari.mp3",
+     "seconds": 25.8
+    },
+    "core:sora": {
+     "src": "audio/momijidani-entrance-core-sora.mp3",
+     "seconds": 36.0
+    },
+    "core:suzume": {
+     "src": "audio/momijidani-entrance-core-suzume.mp3",
+     "seconds": 24.8
+    },
+    "kids:himari": {
+     "src": "audio/momijidani-entrance-kids-himari.mp3",
+     "seconds": 20.8
+    },
+    "kids:sora": {
+     "src": "audio/momijidani-entrance-kids-sora.mp3",
+     "seconds": 29.6
+    },
+    "kids:suzume": {
+     "src": "audio/momijidani-entrance-kids-suzume.mp3",
+     "seconds": 19.8
+    },
+    "en:heart": {
+     "src": "audio/momijidani-entrance-en-heart.mp3",
+     "seconds": 20.4
+    },
+    "en:michael": {
+     "src": "audio/momijidani-entrance-en-michael.mp3",
+     "seconds": 22.2
+    }
+   }
+  },
+  {
+   "id": "momiji-falls",
+   "topic": "紅葉の滝：閉ざされた小函の面影を、ここで",
+   "place": "紅葉の滝（紅葉谷の終点）",
+   "notion_page": "3edfd841a42c8150ad0edb8200e3caf6",
+   "target_seconds": 60,
+   "core": "終点の紅葉の滝です。滝のまわりに立ち並ぶ、柱のような岩壁は柱状節理。層雲峡の柱状節理は、約3万年前の火砕流が自らの熱で固まり、冷えて縮むときに割れてできたものです。かつては石狩川沿いの小函でも、こうした景色を間近に見られました。しかし崩落や落石が続き、今は通行禁止です。ここは、その面影を自分の足でたどり着ける場所なのです。",
+   "kids": "ここがいちばん奥の「紅葉の滝」です。まわりの岩、えんぴつをたばねたみたいに見えるかな？むかし、大きな噴火で熱い火山灰の流れがかたまり、冷えるときにちぢんで、こんな柱の形に割れたんだよ。この景色を見られる場所は、いまはあまり多くないんだ。",
+   "en": "You have reached the waterfall at the end of the trail. The column-shaped rock walls around it are columnar joints. In Sounkyo, these formed about 30,000 years ago, when a pyroclastic flow welded itself solid with its own heat and cracked into columns as it cooled. Visitors once saw views like this along the Ishikari River at Kobako, but after a rockfall disaster and repeated falling rocks, that route is now closed. This trail lets you walk into that lost scenery yourself.",
+   "audio": {
+    "core:himari": {
+     "src": "audio/momiji-falls-core-himari.mp3",
+     "seconds": 33.9
+    },
+    "core:sora": {
+     "src": "audio/momiji-falls-core-sora.mp3",
+     "seconds": 46.1
+    },
+    "core:suzume": {
+     "src": "audio/momiji-falls-core-suzume.mp3",
+     "seconds": 32.5
+    },
+    "kids:himari": {
+     "src": "audio/momiji-falls-kids-himari.mp3",
+     "seconds": 24.7
+    },
+    "kids:sora": {
+     "src": "audio/momiji-falls-kids-sora.mp3",
+     "seconds": 34.4
+    },
+    "kids:suzume": {
+     "src": "audio/momiji-falls-kids-suzume.mp3",
+     "seconds": 23.3
+    },
+    "en:heart": {
+     "src": "audio/momiji-falls-en-heart.mp3",
+     "seconds": 30.8
+    },
+    "en:michael": {
+     "src": "audio/momiji-falls-en-michael.mp3",
+     "seconds": 34.3
+    }
+   }
+  },
+  {
+   "id": "ginga-ryusei",
+   "topic": "銀河・流星の滝 — 名称由来・地形・氷瀑",
+   "place": "銀河の滝・流星の滝",
+   "notion_page": "397fd841a42c8166995bcff957d71330",
+   "target_seconds": 60,
+   "core": "不動岩という絶壁をはさんで、2本の滝が並んでいます。太い一本で力強く落ちるのが流星の滝、細い白糸のように幾筋にも分かれて落ちるのが銀河の滝。その対照的な姿から、男滝・女滝とも呼ばれ、ふたつとも日本の滝百選に選ばれています。落差は流星が約90メートル、銀河が約120メートル。滝を背に20分ほど斜面を登ると、双瀑台から2本を同時に眺められます。",
+   "kids": "大きな岩をはさんで、滝が2本ならんでいるよ。太くてどーんと落ちるのが「流星の滝」、細い糸みたいに分かれて落ちるのが「銀河の滝」。どっちがおもしろい？ふたつとも、日本のすてきな滝100にえらばれているんだよ。",
+   "en": "Two waterfalls stand side by side, divided by a cliff called Fudo-iwa. Ryusei Falls drops in a single powerful stream, while Ginga Falls splits into many fine white threads. Because of this contrast, they are also called the 'male' and 'female' falls, and both are listed among Japan's Top 100 Waterfalls. Ryusei is about 90 meters high and Ginga about 120 meters. Climb the slope behind you for about 20 minutes to the Sobaku-dai viewpoint to see both at once.",
+   "audio": {
+    "core:himari": {
+     "src": "audio/ginga-ryusei-core-himari.mp3",
+     "seconds": 34.4
+    },
+    "core:sora": {
+     "src": "audio/ginga-ryusei-core-sora.mp3",
+     "seconds": 48.0
+    },
+    "core:suzume": {
+     "src": "audio/ginga-ryusei-core-suzume.mp3",
+     "seconds": 32.6
+    },
+    "kids:himari": {
+     "src": "audio/ginga-ryusei-kids-himari.mp3",
+     "seconds": 20.9
+    },
+    "kids:sora": {
+     "src": "audio/ginga-ryusei-kids-sora.mp3",
+     "seconds": 28.8
+    },
+    "kids:suzume": {
+     "src": "audio/ginga-ryusei-kids-suzume.mp3",
+     "seconds": 20.0
+    },
+    "en:heart": {
+     "src": "audio/ginga-ryusei-en-heart.mp3",
+     "seconds": 32.5
+    },
+    "en:michael": {
+     "src": "audio/ginga-ryusei-en-michael.mp3",
+     "seconds": 34.7
+    }
+   }
+  },
+  {
+   "id": "obako",
+   "topic": "大函の柱状節理と渓谷形成",
+   "place": "大函",
+   "notion_page": "397fd841a42c81e7bdb4e203be72b1a7",
+   "target_seconds": 60,
+   "core": "約3万年前、お鉢平カルデラができた噴火で火砕流が谷を埋め、自らの余熱で焼き固まって溶結凝灰岩になった。冷えて縮むときに縦に割れたのが、大函の柱状節理。その後、石狩川がこの岩を下へ掘り込み、峡谷ができた。",
+   "kids": "むかし、大きな噴火で、熱い火山灰や軽石の流れが谷をうめつくしました。それが自分の熱でかたまり、冷えるときにちぢんで、えんぴつをたばねたような柱になりました。アイヌの人たちは、箱のようなこのがけを「スウォオプ・ニセイ」と呼んでいたといわれています。",
+   "en": "These columns are not lava. About 30,000 years ago, the eruption that created the Ohachidaira caldera sent a pyroclastic flow into this valley. It welded itself solid with its own heat, then cracked into columns as it cooled. The Ishikari River later cut down through the rock, carving the gorge. The Ainu are said to have called this box-like cliff 'Suwop-nisey'.",
+   "audio": {
+    "core:himari": {
+     "src": "audio/obako-core-himari.mp3",
+     "seconds": 20.6
+    },
+    "core:sora": {
+     "src": "audio/obako-core-sora.mp3",
+     "seconds": 28.5
+    },
+    "core:suzume": {
+     "src": "audio/obako-core-suzume.mp3",
+     "seconds": 20.0
+    },
+    "kids:himari": {
+     "src": "audio/obako-kids-himari.mp3",
+     "seconds": 23.8
+    },
+    "kids:sora": {
+     "src": "audio/obako-kids-sora.mp3",
+     "seconds": 34.5
+    },
+    "kids:suzume": {
+     "src": "audio/obako-kids-suzume.mp3",
+     "seconds": 22.3
+    },
+    "en:heart": {
+     "src": "audio/obako-en-heart.mp3",
+     "seconds": 23.7
+    },
+    "en:michael": {
+     "src": "audio/obako-en-michael.mp3",
+     "seconds": 25.8
+    }
+   }
+  },
+  {
+   "id": "naming-1921",
+   "topic": "1921年、「層雲峡」という名前が生まれた",
+   "place": "層雲峡温泉街",
+   "notion_page": "3edfd841a42c811e9f65f9d398148ee5",
+   "target_seconds": 60,
+   "core": "1921年（大正10年）8月、文人・大町桂月がこの峡谷を「層雲峡」と名づけた。それまでは「霊山碧水峡」と呼ばれていた。名前の着想は、アイヌ語の「ソウンペッ（滝のある川）」と双雲別川にあるとされる。",
+   "kids": "およそ100年前、大町桂月という文章を書く人が、ここに「層雲峡」という名前をつけました。その前は「霊山碧水峡」という名前でした。アイヌ語の「ソウンペッ（滝のある川）」がヒントになったといわれています。",
+   "en": "The name 'Sounkyo' was given in August 1921 by the writer Omachi Keigetsu. Before that, the gorge was known as 'Reizan Hekisui-kyo'. The name is said to have been inspired by the Ainu word 'Soun-pet', meaning 'a river with waterfalls', and by the name of a nearby river.",
+   "audio": {
+    "core:himari": {
+     "src": "audio/naming-1921-core-himari.mp3",
+     "seconds": 22.7
+    },
+    "core:sora": {
+     "src": "audio/naming-1921-core-sora.mp3",
+     "seconds": 35.8
+    },
+    "core:suzume": {
+     "src": "audio/naming-1921-core-suzume.mp3",
+     "seconds": 22.1
+    },
+    "kids:himari": {
+     "src": "audio/naming-1921-kids-himari.mp3",
+     "seconds": 21.3
+    },
+    "kids:sora": {
+     "src": "audio/naming-1921-kids-sora.mp3",
+     "seconds": 32.6
+    },
+    "kids:suzume": {
+     "src": "audio/naming-1921-kids-suzume.mp3",
+     "seconds": 20.6
+    },
+    "en:heart": {
+     "src": "audio/naming-1921-en-heart.mp3",
+     "seconds": 18.9
+    },
+    "en:michael": {
+     "src": "audio/naming-1921-en-michael.mp3",
+     "seconds": 21.0
+    }
+   }
+  }
+ ]
+}

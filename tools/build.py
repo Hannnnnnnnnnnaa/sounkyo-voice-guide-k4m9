@@ -1,0 +1,171 @@
+"""Build the voice guide's audio and guide.json from the Notion 台本DB.
+
+Source of truth is Notion:
+  - 台本DB（旧ナレッジ・コンテキストDB）: rows with MVP採用 = checked and SKM照合 = 整合済
+  - 読み上げ辞書: 表記 -> よみ (+ アクセント型), registered in the engine's user dictionary (screen text is unchanged)
+
+Usage
+  python3 tools/build.py                    # read tools/notion_export.json (written by Claude from Notion)
+  NOTION_TOKEN=secret_xxx python3 tools/build.py --notion   # read Notion directly with an integration token
+
+Engines (both free, run offline once downloaded)
+  Japanese: VOICEVOX CORE 0.16 (credit "VOICEVOX:<voice>" is required on the page)
+  English : Kokoro-82M via kokoro-onnx (Apache-2.0)
+Set TTS_DIR to the folder holding the VOICEVOX runtime, dictionary, .vvm models and Kokoro files.
+"""
+import argparse, io, json, os, re, subprocess, sys, urllib.request, wave
+import numpy as np
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+TTS_DIR = os.environ.get("TTS_DIR", os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "tts"))
+SCRIPT_DB = "394fd841a42c801e93aefb86a376294b"
+DICT_DB = "3155e6665c0244568a2edecd26eb962d"
+
+# Voices offered in the player. style ids are VOICEVOX style ids.
+JA_VOICES = {
+    "himari": {"label": "冥鳴ひまり", "credit": "VOICEVOX:冥鳴ひまり", "style": 14, "model": "1"},
+    "sora":   {"label": "九州そら",   "credit": "VOICEVOX:九州そら",   "style": 16, "model": "2"},
+    "suzume": {"label": "雀松朱司",   "credit": "VOICEVOX:雀松朱司",   "style": 52, "model": "12"},
+}
+EN_VOICES = {
+    "heart":   {"label": "Heart（女性）",   "credit": "Kokoro TTS", "voice": "af_heart"},
+    "michael": {"label": "Michael（男性）", "credit": "Kokoro TTS", "voice": "am_michael"},
+}
+# Delivery per mode: speed, pitch, intonation, pause between sentences (s)
+JA_MODES = {"core": dict(speed=1.0, pitch=0.0, inton=1.15, gap=0.5),
+            "kids": dict(speed=0.93, pitch=0.03, inton=1.3, gap=0.6)}
+
+
+# ---------- Notion ----------
+def notion_query(db, token):
+    rows, cursor = [], None
+    while True:
+        body = {"page_size": 100, **({"start_cursor": cursor} if cursor else {})}
+        req = urllib.request.Request(f"https://api.notion.com/v1/databases/{db}/query",
+            data=json.dumps(body).encode(), method="POST",
+            headers={"Authorization": f"Bearer {token}", "Notion-Version": "2022-06-28",
+                     "Content-Type": "application/json"})
+        d = json.load(urllib.request.urlopen(req))
+        rows += d["results"]
+        if not d.get("has_more"): return rows
+        cursor = d["next_cursor"]
+
+
+def notion_page_title(pid, token):
+    req = urllib.request.Request(f"https://api.notion.com/v1/pages/{pid}",
+        headers={"Authorization": f"Bearer {token}", "Notion-Version": "2022-06-28"})
+    p = json.load(urllib.request.urlopen(req))
+    for v in p["properties"].values():
+        if v["type"] == "title": return "".join(t["plain_text"] for t in v["title"])
+    return ""
+
+
+def text(prop):
+    if not prop: return ""
+    key = prop["type"]
+    return "".join(t["plain_text"] for t in prop.get(key, [])) if key in ("title", "rich_text") else ""
+
+
+def slug(title, n):
+    s = re.sub(r"[^a-z0-9]+", "-", title.lower()).strip("-")
+    return s or f"point-{n}"
+
+
+def from_notion(token):
+    scripts = []
+    for i, r in enumerate(notion_query(SCRIPT_DB, token), 1):
+        p = r["properties"]
+        if not p["MVP採用"]["checkbox"]: continue
+        if (p["SKM照合"]["select"] or {}).get("name") != "整合済": continue
+        places = p["場所（SKM）"]["relation"]
+        scripts.append(dict(id=f"s{p['ID']['unique_id']['number']}", notion_page=r["id"].replace("-", ""),
+            topic=text(p["トピック名"]), place=notion_page_title(places[0]["id"], token) if places else "",
+            place_page=places[0]["id"].replace("-", "") if places else "",
+            target_seconds=p["推奨音声尺(秒)"]["number"] or 60,
+            core=text(p["【翻訳】コア"]), kids=text(p["【翻訳】子供派"]), en=text(p["【翻訳】海外"])))
+    dic = [dict(surface=text(r["properties"]["表記"]), reading=text(r["properties"]["よみ"]),
+                accent=(r["properties"].get("アクセント型") or {}).get("number") or 0,
+                status=(r["properties"]["確認状況"]["select"] or {}).get("name", ""))
+           for r in notion_query(DICT_DB, token)]
+    return {"scripts": scripts, "dictionary": [d for d in dic if d["surface"] and d["reading"]]}
+
+
+# ---------- Text ----------
+def sentences(s):
+    parts = re.split(r"(?<=[。！？!?])", s)
+    return [p.strip() for p in parts if p.strip()]
+
+
+# ---------- Audio ----------
+def silence(sec, sr):
+    return np.zeros(int(sec * sr), dtype=np.float32)
+
+
+def wav_bytes_to_np(b):
+    with wave.open(io.BytesIO(b)) as w:
+        sr = w.getframerate()
+        x = np.frombuffer(w.readframes(w.getnframes()), dtype=np.int16).astype(np.float32) / 32768
+    return x, sr
+
+
+def to_mp3(x, sr, path):
+    pcm = (np.clip(x, -1, 1) * 32767).astype(np.int16).tobytes()
+    subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-f", "s16le", "-ar", str(sr), "-ac", "1", "-i", "-",
+                    "-af", "loudnorm=I=-16:TP=-1.5:LRA=11", "-ar", "44100", "-b:a", "96k", path],
+                   input=pcm, check=True)
+    return round(len(x) / sr, 1)
+
+
+def build(data):
+    sys.path.insert(0, TTS_DIR)
+    import vv
+    from kokoro_onnx import Kokoro
+    kokoro = Kokoro(os.path.join(TTS_DIR, "kokoro-v1.0.int8.onnx"), os.path.join(TTS_DIR, "voices-v1.0.bin"))
+    vv.synth(tuple(sorted({v["model"] for v in JA_VOICES.values()})))
+    vv.set_dictionary(data["dictionary"])
+    os.makedirs(os.path.join(ROOT, "audio"), exist_ok=True)
+    points = []
+    for s in data["scripts"]:
+        audio = {}
+        for mode, m in JA_MODES.items():
+            spoken = s[mode]
+            for vid, v in JA_VOICES.items():
+                chunks, sr = [], 24000
+                for sent in sentences(spoken):
+                    x, sr = wav_bytes_to_np(vv.wav(sent, v["style"], speed=m["speed"], pitch=m["pitch"],
+                                                   intonation=m["inton"], pause=1.1))
+                    chunks += [x, silence(m["gap"], sr)]
+                name = f"audio/{s['id']}-{mode}-{vid}.mp3"
+                audio[f"{mode}:{vid}"] = {"src": name, "seconds": to_mp3(np.concatenate(chunks[:-1]), sr, os.path.join(ROOT, name))}
+        for vid, v in EN_VOICES.items():
+            chunks = []
+            for sent in sentences(s["en"]):
+                x, sr = kokoro.create(sent, voice=v["voice"], speed=0.95, lang="en-us")
+                chunks += [x.astype(np.float32), silence(0.45, sr)]
+            name = f"audio/{s['id']}-en-{vid}.mp3"
+            audio[f"en:{vid}"] = {"src": name, "seconds": to_mp3(np.concatenate(chunks[:-1]), sr, os.path.join(ROOT, name))}
+        points.append({k: s[k] for k in ("id", "topic", "place", "notion_page", "target_seconds", "core", "kids", "en")} | {"audio": audio})
+        print("built", s["id"], {k: a["seconds"] for k, a in audio.items()})
+    guide = {"built_from": data.get("source", "Notion"), "exported_at": data.get("exported_at", ""),
+             "voices": {"ja": {k: {"label": v["label"], "credit": v["credit"]} for k, v in JA_VOICES.items()},
+                        "en": {k: {"label": v["label"], "credit": v["credit"]} for k, v in EN_VOICES.items()}},
+             "points": points}
+    json.dump(guide, open(os.path.join(ROOT, "guide.json"), "w"), ensure_ascii=False, indent=1)
+
+
+if __name__ == "__main__":
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--notion", action="store_true", help="read Notion directly (needs NOTION_TOKEN)")
+    ap.add_argument("--readings", action="store_true", help="only print how each sentence will be read")
+    a = ap.parse_args()
+    data = from_notion(os.environ["NOTION_TOKEN"]) if a.notion else json.load(open(os.path.join(ROOT, "tools/notion_export.json")))
+    if a.readings:
+        sys.path.insert(0, TTS_DIR); import vv
+        vv.synth(tuple(sorted({v["model"] for v in JA_VOICES.values()})))
+        vv.set_dictionary(data["dictionary"])
+        for s in data["scripts"]:
+            for mode in JA_MODES:
+                for sent in sentences(s[mode]):
+                    print(f"[{s['id']}/{mode}] {vv.reading(sent)}")
+    else:
+        build(data)
