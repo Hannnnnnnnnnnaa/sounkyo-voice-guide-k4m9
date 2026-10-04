@@ -292,7 +292,7 @@ function renderSee(){
   g.innerHTML=cats.map((c,i)=>{const list=hl.filter(x=>x.category===c);
     return `<details class="group"${i===0?" open":""}><summary><span class="chev"></span>${esc(c)}<span class="n">${list.length}</span></summary><div class="items">`+
     list.map(x=>{const now=inSeason(x.when,season);
-      return `<details class="item"><summary>${x.map_number?`<span class="num" title="散策マップの番号">${x.map_number}</span>`:""}<span class="nm">${esc(x.name)}</span>${now?`<span class="now">${SEASONS[season]}に見られる</span>`:""}<span class="chev"></span></summary>
+      return `<details class="item"><summary>${x.map_number?`<span class="num" title="散策マップの番号">${x.map_number}</span>`:""}<span class="nm">${esc(x.name)}</span>${now?`<span class="now">${(x.when||"").includes("一年中")?"一年中":SEASONS[season]+"に"}見られる</span>`:""}<span class="chev"></span></summary>
       <div class="item-body"><p>${esc(x.description)}</p>${x.when?`<div class="when"><b>見られる時期</b>　${esc(x.when)}</div>`:""}${x.note?`<div class="caution">${esc(x.note)}</div>`:""}${x.link?`<a class="more" href="${esc(x.link)}" target="_blank" rel="noopener">写真を見る（ビジターセンター 花図鑑）</a>`:""}
       <div class="src"><span class="st">${esc(x.status)}</span>出典：${(x.sources||[]).map(s=>s.url?`<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.name)}</a>`:esc(s.name)).join("、")}</div></div></details>`}).join("")+`</div></details>`}).join("");
 }
