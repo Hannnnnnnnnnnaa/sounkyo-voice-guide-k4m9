@@ -1,5 +1,5 @@
 {
- "exported_at": "2026-10-02",
+ "exported_at": "2026-10-04",
  "source": "Notion SAKB 台本DB（MVP採用 かつ SKM照合=整合済）と 読み上げ辞書",
  "scripts": [
   {
@@ -11,7 +11,8 @@
    "target_seconds": 30,
    "core": "ここから紅葉谷の散策道です。終点の紅葉の滝までは、片道およそ30分。そこでは、今は入れなくなった「小函」のような柱状節理と滝を、一度に見ることができます。この道を歩けるのは6月から11月上旬まで。足元に気をつけて、谷の奥へ進んでみましょう。",
    "kids": "ここから「紅葉谷」の道がはじまります。いちばん奥の「紅葉の滝」まで、歩いておよそ30分。えんぴつをたばねたような岩のかべと、滝が待っています。すべらないように、足もとをよく見て歩こう。",
-   "en": "This is the start of the Momijidani trail. It takes about 30 minutes, one way, to reach the waterfall at the end. There you can see columnar rock walls and a waterfall together, much like the Kobako gorge, which is now closed to visitors. The trail is open from June to early November. Watch your step as you head into the valley."
+   "en": "This is the start of the Momijidani trail. It takes about 30 minutes, one way, to reach the waterfall at the end. There you can see columnar rock walls and a waterfall together, much like the Kobako gorge, which is now closed to visitors. The trail is open from June to early November. Watch your step as you head into the valley.",
+   "category": "自然景観"
   },
   {
    "id": "momiji-falls",
@@ -22,7 +23,8 @@
    "target_seconds": 60,
    "core": "終点の紅葉の滝です。滝のまわりに立ち並ぶ、柱のような岩壁は柱状節理。層雲峡の柱状節理は、約3万年前の火砕流が自らの熱で固まり、冷えて縮むときに割れてできたものです。かつては石狩川沿いの小函でも、こうした景色を間近に見られました。しかし崩落や落石が続き、今は通行禁止です。ここは、その面影を自分の足でたどり着ける場所なのです。",
    "kids": "ここがいちばん奥の「紅葉の滝」です。まわりの岩、えんぴつをたばねたみたいに見えるかな？むかし、大きな噴火で熱い火山灰の流れがかたまり、冷えるときにちぢんで、こんな柱の形に割れたんだよ。この景色を見られる場所は、いまはあまり多くないんだ。",
-   "en": "You have reached the waterfall at the end of the trail. The column-shaped rock walls around it are columnar joints. In Sounkyo, these formed about 30,000 years ago, when a pyroclastic flow welded itself solid with its own heat and cracked into columns as it cooled. Visitors once saw views like this along the Ishikari River at Kobako, but after a rockfall disaster and repeated falling rocks, that route is now closed. This trail lets you walk into that lost scenery yourself."
+   "en": "You have reached the waterfall at the end of the trail. The column-shaped rock walls around it are columnar joints. In Sounkyo, these formed about 30,000 years ago, when a pyroclastic flow welded itself solid with its own heat and cracked into columns as it cooled. Visitors once saw views like this along the Ishikari River at Kobako, but after a rockfall disaster and repeated falling rocks, that route is now closed. This trail lets you walk into that lost scenery yourself.",
+   "category": "地質・地形"
   },
   {
    "id": "ginga-ryusei",
@@ -33,7 +35,8 @@
    "target_seconds": 60,
    "core": "不動岩という絶壁をはさんで、2本の滝が並んでいます。太い一本で力強く落ちるのが流星の滝、細い白糸のように幾筋にも分かれて落ちるのが銀河の滝。その対照的な姿から、男滝・女滝とも呼ばれ、ふたつとも日本の滝百選に選ばれています。落差は流星が約90メートル、銀河が約120メートル。滝を背に20分ほど斜面を登ると、双瀑台から2本を同時に眺められます。",
    "kids": "大きな岩をはさんで、滝が2本ならんでいるよ。太くてどーんと落ちるのが「流星の滝」、細い糸みたいに分かれて落ちるのが「銀河の滝」。どっちがおもしろい？ふたつとも、日本のすてきな滝100にえらばれているんだよ。",
-   "en": "Two waterfalls stand side by side, divided by a cliff called Fudo-iwa. Ryusei Falls drops in a single powerful stream, while Ginga Falls splits into many fine white threads. Because of this contrast, they are also called the 'male' and 'female' falls, and both are listed among Japan's Top 100 Waterfalls. Ryusei is about 90 meters high and Ginga about 120 meters. Climb the slope behind you for about 20 minutes to the Sobaku-dai viewpoint to see both at once."
+   "en": "Two waterfalls stand side by side, divided by a cliff called Fudo-iwa. Ryusei Falls drops in a single powerful stream, while Ginga Falls splits into many fine white threads. Because of this contrast, they are also called the 'male' and 'female' falls, and both are listed among Japan's Top 100 Waterfalls. Ryusei is about 90 meters high and Ginga about 120 meters. Climb the slope behind you for about 20 minutes to the Sobaku-dai viewpoint to see both at once.",
+   "category": "自然景観"
   },
   {
    "id": "obako",
@@ -44,7 +47,8 @@
    "target_seconds": 60,
    "core": "約3万年前、お鉢平カルデラができた噴火で火砕流が谷を埋め、自らの余熱で焼き固まって溶結凝灰岩になった。冷えて縮むときに縦に割れたのが、大函の柱状節理。その後、石狩川がこの岩を下へ掘り込み、峡谷ができた。",
    "kids": "むかし、大きな噴火で、熱い火山灰や軽石の流れが谷をうめつくしました。それが自分の熱でかたまり、冷えるときにちぢんで、えんぴつをたばねたような柱になりました。アイヌの人たちは、箱のようなこのがけを「スウォオプ・ニセイ」と呼んでいたといわれています。",
-   "en": "These columns are not lava. About 30,000 years ago, the eruption that created the Ohachidaira caldera sent a pyroclastic flow into this valley. It welded itself solid with its own heat, then cracked into columns as it cooled. The Ishikari River later cut down through the rock, carving the gorge. The Ainu are said to have called this box-like cliff 'Suwop-nisey'."
+   "en": "These columns are not lava. About 30,000 years ago, the eruption that created the Ohachidaira caldera sent a pyroclastic flow into this valley. It welded itself solid with its own heat, then cracked into columns as it cooled. The Ishikari River later cut down through the rock, carving the gorge. The Ainu are said to have called this box-like cliff 'Suwop-nisey'.",
+   "category": "地質・地形"
   },
   {
    "id": "naming-1921",
@@ -55,7 +59,8 @@
    "target_seconds": 60,
    "core": "1921年（大正10年）8月、文人・大町桂月がこの峡谷を「層雲峡」と名づけた。それまでは「霊山碧水峡」と呼ばれていた。名前の着想は、アイヌ語の「ソウンペッ（滝のある川）」と双雲別川にあるとされる。",
    "kids": "およそ100年前、大町桂月という文章を書く人が、ここに「層雲峡」という名前をつけました。その前は「霊山碧水峡」という名前でした。アイヌ語の「ソウンペッ（滝のある川）」がヒントになったといわれています。",
-   "en": "The name 'Sounkyo' was given in August 1921 by the writer Omachi Keigetsu. Before that, the gorge was known as 'Reizan Hekisui-kyo'. The name is said to have been inspired by the Ainu word 'Soun-pet', meaning 'a river with waterfalls', and by the name of a nearby river."
+   "en": "The name 'Sounkyo' was given in August 1921 by the writer Omachi Keigetsu. Before that, the gorge was known as 'Reizan Hekisui-kyo'. The name is said to have been inspired by the Ainu word 'Soun-pet', meaning 'a river with waterfalls', and by the name of a nearby river.",
+   "category": "歴史・人物"
   }
  ],
  "dictionary": [
@@ -109,5 +114,75 @@
    "reading": "ぶんじん",
    "status": "確認済"
   }
- ]
+ ],
+ "places": {
+  "3d0fd841a42c812083ddc3ffb0c4b2bd": {
+   "name": "紅葉谷",
+   "area": "層雲峡渓谷",
+   "lat": 43.726251,
+   "lng": 142.953898,
+   "coord_note": "観光協会の地図のピン（入口付近と思われる・現地で実測予定）",
+   "layers": [
+    "L1 場所紹介",
+    "L4 岩石分布",
+    "L5 植生",
+    "L6 水系"
+   ],
+   "season": "6月〜11月上旬",
+   "access": "温泉街の東側から、紅葉の滝まで片道約30分"
+  },
+  "3edfd841a42c812098ebf738e7df8d7a": {
+   "name": "紅葉の滝（紅葉谷の終点）",
+   "area": "層雲峡温泉街",
+   "lat": null,
+   "lng": null,
+   "coord_note": "位置未登録（現地で実測予定）",
+   "layers": [
+    "L1 場所紹介",
+    "L4 岩石分布",
+    "L6 水系"
+   ],
+   "season": "6月〜11月上旬",
+   "access": "紅葉谷の散策道の終点"
+  },
+  "3d0fd841a42c819eab89eb0ebb6ba18b": {
+   "name": "銀河の滝・流星の滝",
+   "area": "層雲峡渓谷",
+   "lat": 43.718512,
+   "lng": 142.974637,
+   "coord_note": "観光協会の地図のピン（現地で実測予定）",
+   "layers": [
+    "L1 場所紹介",
+    "L2 気象",
+    "L4 岩石分布",
+    "L6 水系"
+   ],
+   "season": "通年",
+   "access": "駐車場から間近に見られる。双瀑台へは斜面を約20分"
+  },
+  "3d0fd841a42c812ca17ad8a184d866ce": {
+   "name": "大函",
+   "area": "層雲峡渓谷",
+   "lat": 43.701749,
+   "lng": 143.016894,
+   "coord_note": "観光協会の地図のピン（現地で実測予定）",
+   "layers": [
+    "L1 場所紹介",
+    "L3 地質構造",
+    "L4 岩石分布"
+   ],
+   "season": "冬季は未確認",
+   "access": "温泉街から北見方面へ約6km、新大函トンネルを過ぎてすぐ左"
+  },
+  "3edfd841a42c81bf9b01c7ee01634e36": {
+   "name": "層雲峡温泉街",
+   "area": "層雲峡温泉街",
+   "lat": null,
+   "lng": null,
+   "coord_note": "位置未登録（範囲の定義が未定）",
+   "layers": [],
+   "season": "通年",
+   "access": ""
+  }
+ }
 }

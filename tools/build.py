@@ -4,8 +4,12 @@ Source of truth is Notion:
   - 台本DB（旧ナレッジ・コンテキストDB）: rows with MVP採用 = checked and SKM照合 = 整合済
   - 読み上げ辞書: 表記 -> よみ (+ アクセント型), registered in the engine's user dictionary (screen text is unchanged)
 
+  - SKM 場所DB: 場所名・エリア・緯度・経度・地図レイヤー (linked from each script's 場所（SKM）)
+Photos are not in Notion: put your own photos at photos/<point id>/{spring,summer,autumn,winter}.jpg
+
 Usage
   python3 tools/build.py                    # read tools/notion_export.json (written by Claude from Notion)
+  python3 tools/build.py --meta-only        # update text, places and photos in guide.json; keep the audio as is
   NOTION_TOKEN=secret_xxx python3 tools/build.py --notion   # read Notion directly with an integration token
 
 Engines (both free, run offline once downloaded)
@@ -51,13 +55,21 @@ def notion_query(db, token):
         cursor = d["next_cursor"]
 
 
-def notion_page_title(pid, token):
+def notion_page(pid, token):
     req = urllib.request.Request(f"https://api.notion.com/v1/pages/{pid}",
         headers={"Authorization": f"Bearer {token}", "Notion-Version": "2022-06-28"})
-    p = json.load(urllib.request.urlopen(req))
-    for v in p["properties"].values():
-        if v["type"] == "title": return "".join(t["plain_text"] for t in v["title"])
-    return ""
+    return json.load(urllib.request.urlopen(req))["properties"]
+
+
+def place_from_notion(pid, token):
+    p = notion_page(pid, token)
+    memo = text(p.get("検証メモ"))
+    coord = [l for l in memo.splitlines() if "座標" in l]
+    return dict(name=text(p["場所名"]), area=((p.get("エリア") or {}).get("select") or {}).get("name", ""),
+                lat=(p.get("緯度") or {}).get("number"), lng=(p.get("経度") or {}).get("number"),
+                coord_note=coord[-1] if coord else ("" if (p.get("緯度") or {}).get("number") else "位置未登録"),
+                layers=[o["name"] for o in (p.get("地図レイヤー") or {}).get("multi_select", [])],
+                season="", access=text(p.get("アクセス・注意")).splitlines()[0] if text(p.get("アクセス・注意")) else "")
 
 
 def text(prop):
@@ -72,22 +84,24 @@ def slug(title, n):
 
 
 def from_notion(token):
-    scripts = []
+    scripts, places = [], {}
     for i, r in enumerate(notion_query(SCRIPT_DB, token), 1):
         p = r["properties"]
         if not p["MVP採用"]["checkbox"]: continue
         if (p["SKM照合"]["select"] or {}).get("name") != "整合済": continue
-        places = p["場所（SKM）"]["relation"]
+        rel = p["場所（SKM）"]["relation"]
+        pid = rel[0]["id"].replace("-", "") if rel else ""
+        if pid and pid not in places: places[pid] = place_from_notion(pid, token)
         scripts.append(dict(id=f"s{p['ID']['unique_id']['number']}", notion_page=r["id"].replace("-", ""),
-            topic=text(p["トピック名"]), place=notion_page_title(places[0]["id"], token) if places else "",
-            place_page=places[0]["id"].replace("-", "") if places else "",
+            topic=text(p["トピック名"]), place=places[pid]["name"] if pid else "", place_page=pid,
+            category=((p.get("カテゴリー") or {}).get("select") or {}).get("name", ""),
             target_seconds=p["推奨音声尺(秒)"]["number"] or 60,
             core=text(p["【翻訳】コア"]), kids=text(p["【翻訳】子供派"]), en=text(p["【翻訳】海外"])))
     dic = [dict(surface=text(r["properties"]["表記"]), reading=text(r["properties"]["よみ"]),
                 accent=(r["properties"].get("アクセント型") or {}).get("number") or 0,
                 status=(r["properties"]["確認状況"]["select"] or {}).get("name", ""))
            for r in notion_query(DICT_DB, token)]
-    return {"scripts": scripts, "dictionary": [d for d in dic if d["surface"] and d["reading"]]}
+    return {"scripts": scripts, "places": places, "dictionary": [d for d in dic if d["surface"] and d["reading"]]}
 
 
 # ---------- Text ----------
@@ -114,6 +128,40 @@ def to_mp3(x, sr, path):
                     "-af", "loudnorm=I=-16:TP=-1.5:LRA=11", "-ar", "44100", "-b:a", "96k", path],
                    input=pcm, check=True)
     return round(len(x) / sr, 1)
+
+
+SEASONS = ("spring", "summer", "autumn", "winter")
+
+
+def point_meta(s, data):
+    """Text, place and photos for one point (everything except audio)."""
+    pl = (data.get("places") or {}).get(s.get("place_page", ""), {})
+    photos = {}
+    for season in SEASONS:
+        for ext in ("webp", "jpg", "jpeg", "png"):
+            rel = f"photos/{s['id']}/{season}.{ext}"
+            if os.path.exists(os.path.join(ROOT, rel)):
+                photos[season] = rel
+                break
+    return ({k: s.get(k, "") for k in ("id", "topic", "place", "notion_page", "target_seconds", "core", "kids", "en", "category")}
+            | {"location": {k: pl.get(k) for k in ("area", "lat", "lng", "coord_note", "layers", "season", "access")},
+               "photos": photos})
+
+
+def write_guide(data, points):
+    guide = {"built_from": data.get("source", "Notion"), "exported_at": data.get("exported_at", ""),
+             "voices": {"ja": {k: {"label": v["label"], "credit": v["credit"]} for k, v in JA_VOICES.items()},
+                        "en": {k: {"label": v["label"], "credit": v["credit"]} for k, v in EN_VOICES.items()}},
+             "points": points}
+    json.dump(guide, open(os.path.join(ROOT, "guide.json"), "w"), ensure_ascii=False, indent=1)
+
+
+def meta_only(data):
+    old = {p["id"]: p.get("audio", {}) for p in json.load(open(os.path.join(ROOT, "guide.json")))["points"]}
+    points = [point_meta(s, data) | {"audio": old.get(s["id"], {})} for s in data["scripts"]]
+    missing = [p["id"] for p in points if not p["audio"]]
+    if missing: print("音声がまだ無い台本（音声ありで作り直すこと）:", missing)
+    write_guide(data, points)
 
 
 def build(data):
@@ -144,19 +192,16 @@ def build(data):
                 chunks += [x.astype(np.float32), silence(0.45, sr)]
             name = f"audio/{s['id']}-en-{vid}.mp3"
             audio[f"en:{vid}"] = {"src": name, "seconds": to_mp3(np.concatenate(chunks[:-1]), sr, os.path.join(ROOT, name))}
-        points.append({k: s[k] for k in ("id", "topic", "place", "notion_page", "target_seconds", "core", "kids", "en")} | {"audio": audio})
+        points.append(point_meta(s, data) | {"audio": audio})
         print("built", s["id"], {k: a["seconds"] for k, a in audio.items()})
-    guide = {"built_from": data.get("source", "Notion"), "exported_at": data.get("exported_at", ""),
-             "voices": {"ja": {k: {"label": v["label"], "credit": v["credit"]} for k, v in JA_VOICES.items()},
-                        "en": {k: {"label": v["label"], "credit": v["credit"]} for k, v in EN_VOICES.items()}},
-             "points": points}
-    json.dump(guide, open(os.path.join(ROOT, "guide.json"), "w"), ensure_ascii=False, indent=1)
+    write_guide(data, points)
 
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--notion", action="store_true", help="read Notion directly (needs NOTION_TOKEN)")
     ap.add_argument("--readings", action="store_true", help="only print how each sentence will be read")
+    ap.add_argument("--meta-only", action="store_true", help="refresh text, places and photos; keep existing audio")
     a = ap.parse_args()
     data = from_notion(os.environ["NOTION_TOKEN"]) if a.notion else json.load(open(os.path.join(ROOT, "tools/notion_export.json")))
     if a.readings:
@@ -167,5 +212,7 @@ if __name__ == "__main__":
             for mode in JA_MODES:
                 for sent in sentences(s[mode]):
                     print(f"[{s['id']}/{mode}] {vv.reading(sent)}")
+    elif a.meta_only:
+        meta_only(data)
     else:
         build(data)
