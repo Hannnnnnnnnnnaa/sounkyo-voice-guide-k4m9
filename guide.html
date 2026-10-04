@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
-<title>層雲峡 場所ガイド 試作</title>
+<title>層雲峡 場所ガイド</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Shippori+Mincho:wght@600;800&display=swap">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
@@ -37,9 +37,13 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--season);outline-off
 /* top bar */
 .bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:500;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(8px);
   display:flex;align-items:center;justify-content:space-between;gap:12px;padding-block:10px;margin-inline:-16px;padding-inline:16px;border-bottom:1px solid var(--line)}
-.brand{font-family:var(--display);font-weight:800;font-size:1rem;letter-spacing:.04em}
-.bar nav{display:flex;align-items:center;gap:6px;font-size:.82rem;color:var(--muted);font-variant-numeric:tabular-nums}
-.iconbtn{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:5px 12px;font-size:.8rem;cursor:pointer;text-decoration:none}
+.brand{font-family:var(--display);font-weight:800;font-size:1rem;letter-spacing:.04em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.bar nav{flex:none;display:flex;align-items:center;gap:6px;white-space:nowrap;font-size:.82rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.lang{display:flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;background:var(--surface)}
+.lang button{white-space:nowrap;border:0;background:transparent;padding:4px 10px;font-size:.78rem;cursor:pointer;color:var(--muted)}
+.lang button[aria-pressed="true"]{background:var(--ink);color:var(--bg);font-weight:700}
+@media (max-width:360px){#count{display:none}}
+.iconbtn{white-space:nowrap;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:5px 12px;font-size:.8rem;cursor:pointer;text-decoration:none}
 
 /* hero photo */
 .hero{display:flex;flex-direction:column;gap:10px;margin-top:-12px}
@@ -63,6 +67,7 @@ h1{font-family:var(--display);font-weight:800;font-size:2.1rem;line-height:1.2;m
 
 /* player */
 .player{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:14px}
+.modes[hidden]{display:none}
 .modes{display:flex;border:1px solid var(--line);border-radius:10px;overflow:hidden}
 .modes button{flex:1;border:0;background:transparent;font-size:.85rem;padding:8px 2px;cursor:pointer;color:var(--muted)}
 .modes button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
@@ -154,15 +159,16 @@ h2{font-family:var(--display);font-weight:800;font-size:1.25rem;margin:0}
 <body data-season="autumn">
 <div class="page">
   <header class="bar">
-    <span class="brand">層雲峡 場所ガイド</span>
-    <nav><span id="count">– / –</span><a class="iconbtn" href="#map-section" id="toMap">マップ</a></nav>
+    <span class="brand" data-t="brand">層雲峡 場所ガイド</span>
+    <nav><span id="count">– / –</span>
+      <div class="lang" role="group" aria-label="言語 / Language" id="langs"><button data-l="ja" lang="ja">日本語</button><button data-l="en" lang="en" aria-label="English">EN</button></div>
+      <a class="iconbtn" href="#map-section" id="toMap" data-t="map">マップ</a></nav>
   </header>
 
-  <section class="hero" aria-label="写真">
+  <section class="hero" id="hero">
     <div class="photo" id="photo"></div>
-    <div class="seasons" role="group" aria-label="季節" id="seasons">
-      <button data-s="spring" id="s-spring">春</button><button data-s="summer" id="s-summer">夏</button>
-      <button data-s="autumn" id="s-autumn">秋</button><button data-s="winter" id="s-winter">冬</button>
+    <div class="seasons" role="group" id="seasons">
+      <button data-s="spring"></button><button data-s="summer"></button><button data-s="autumn"></button><button data-s="winter"></button>
     </div>
   </section>
 
@@ -172,135 +178,205 @@ h2{font-family:var(--display);font-weight:800;font-size:1.25rem;margin:0}
     <p class="topic" id="topic"></p>
   </section>
 
-  <section class="player" aria-label="音声ガイド">
-    <div class="modes" role="group" aria-label="解説の種類" id="modes">
-      <button data-m="core" id="m-core">日本語</button><button data-m="kids" id="m-kids">子ども向け</button><button data-m="en" id="m-en">English</button>
+  <section class="player" id="player">
+    <div class="modes" role="group" id="modes">
+      <button data-m="core"></button><button data-m="kids"></button>
     </div>
     <div class="play-row">
-      <button class="play" id="play" aria-label="音声ガイドを再生"><svg viewBox="0 0 24 24" id="playIcon"><path d="M8 5v14l11-7z"/></svg></button>
+      <button class="play" id="play"><svg viewBox="0 0 24 24" id="playIcon"><path d="M8 5v14l11-7z"/></svg></button>
       <div class="track">
-        <strong id="trackTitle">音声ガイド</strong>
-        <div class="bar-wrap" id="seek" role="slider" aria-label="再生位置" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" tabindex="0"><div class="bar-fill" id="fill"></div></div>
+        <strong id="trackTitle"></strong>
+        <div class="bar-wrap" id="seek" role="slider" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" tabindex="0"><div class="bar-fill" id="fill"></div></div>
         <div class="time"><span id="cur">0:00</span><span id="dur">0:00</span></div>
       </div>
     </div>
     <div class="voices" id="voices"></div>
   </section>
 
-  <section class="text" aria-label="解説">
+  <section class="text" id="textSection">
     <p id="body"></p>
     <dl class="facts" id="facts"></dl>
-    <div class="draft">解説は層雲峡ナレッジマップで裏取りした事実だけで書いた下書きです。館長の確認前です。</div>
+    <div class="draft" data-t="draft"></div>
   </section>
 
-  <section aria-label="ここで見られるもの" id="see-section">
-    <div class="see-h"><h2>ここで見られるもの</h2><span id="seeCount"></span></div>
+  <section id="see-section">
+    <div class="see-h"><h2 data-t="seeH"></h2><span id="seeCount"></span></div>
     <div class="groups" id="groups"></div>
   </section>
 
-  <section aria-label="他の場所">
-    <div class="section-h"><h2>他の場所はこちら</h2><span id="stripHint">横にスライド</span></div>
+  <section id="others">
+    <div class="section-h"><h2 data-t="othersH"></h2><span data-t="swipe"></span></div>
     <div class="strip" id="strip"></div>
     <div class="dots" id="dots" aria-hidden="true"></div>
   </section>
 
-  <section id="map-section" aria-label="マップ">
-    <div class="section-h"><h2>マップで見る</h2><span>地形や岩の分布を重ねられます</span></div>
+  <section id="map-section">
+    <div class="section-h"><h2 data-t="mapH"></h2><span data-t="mapSub"></span></div>
     <div class="map-tools">
-      <div class="chips" role="group" aria-label="地図の種類" id="bases">
-        <button data-b="pale" id="b-pale" aria-pressed="true">地図</button>
-        <button data-b="photo" id="b-photo" aria-pressed="false">航空写真</button>
-        <button data-b="relief" id="b-relief" aria-pressed="false">地形の陰影</button>
-        <button data-b="geo" id="b-geo" aria-pressed="false">地質図（岩の種類）</button>
+      <div class="chips" role="group" id="bases">
+        <button data-b="pale" aria-pressed="true"></button>
+        <button data-b="photo" aria-pressed="false"></button>
+        <button data-b="relief" aria-pressed="false"></button>
+        <button data-b="geo" aria-pressed="false"></button>
       </div>
-      <div class="chips" role="group" aria-label="表示する場所" id="cats"></div>
+      <div class="chips" role="group" id="cats"></div>
     </div>
     <div id="map"></div>
     <div class="legend" id="legend"></div>
     <div class="unplaced" id="unplaced"></div>
   </section>
 
-  <nav class="pager" id="pager" aria-label="前後の場所"></nav>
+  <nav class="pager" id="pager"></nav>
 
   <footer class="foot">
     <span id="credit"></span>
-    <span>見どころの情報：<a href="https://sounkyovc.net/" target="_blank" rel="noopener">層雲峡ビジターセンター</a>、<a href="https://sounkyo.net/" target="_blank" rel="noopener">層雲峡観光協会</a>ほか（各項目に出典）</span>
-    <span>地図：<a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank" rel="noopener">国土地理院（地理院タイル）</a>／地質図：<a href="https://gbank.gsj.jp/seamless/" target="_blank" rel="noopener">産総研地質調査総合センター 20万分の1日本シームレス地質図V2</a>／地図表示：Leaflet</span>
-    <span>位置で自動再生する現地テストは <a href="./">音声テストのページ</a> へ。</span>
+    <span data-t="footInfo"></span>
+    <span data-t="footMap"></span>
+    <span data-t="footTest"></span>
   </footer>
 </div>
 <audio id="audio" preload="metadata" playsinline></audio>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script>
-const SEASONS={spring:"春",summer:"夏",autumn:"秋",winter:"冬"};
-const LAYER_NAMES={"L1 場所紹介":"場所","L2 気象":"気象","L3 地質構造":"地質","L4 岩石分布":"岩石","L5 植生":"植物","L6 水系":"水・滝","L7 文化・歴史":"歴史"};
+/* Everything on the page follows one language: text, audio, map labels and the things-to-see list.
+   Data text comes from guide.json (Japanese fields, and the same field with _en for English). */
+const T={
+ ja:{brand:"層雲峡 場所ガイド",map:"マップ",loading:"読み込み中",photo:"写真",seasonsLabel:"季節",seasons:{spring:"春",summer:"夏",autumn:"秋",winter:"冬"},
+  photoSoon:s=>`${s}の写真を準備中`,photoAlt:(p,s)=>`${p}の${s}`,
+  player:"音声ガイド",modesLabel:"解説の種類",modes:{core:"おとな向け",kids:"子ども向け"},track:{core:"音声ガイド",kids:"音声ガイド（子ども向け）",en:"音声ガイド"},
+  play:"音声ガイドを再生",pause:"一時停止",seek:"再生位置",voice:"声",text:"解説",
+  facts:{season:"行ける時期",access:"行き方"},
+  draft:"解説は層雲峡ナレッジマップで裏取りした事実だけで書いた下書きです。館長の確認前です。",
+  seeH:"ここで見られるもの",seeCount:n=>`${n}件 ・ 開くと説明が出ます`,seeEmpty:"この場所の見どころは、まだ登録されていません。",
+  mapNo:"散策マップの番号",nowSeason:s=>`${s}に見られる`,allYear:"一年中見られる",when:"見られる時期",flowerLink:"写真を見る（ビジターセンター 花図鑑）",src:"出典：",sep:"、",
+  othersH:"他の場所はこちら",swipe:"横にスライド",audioLen:t=>` ・ 音声 ${t}`,
+  mapH:"マップで見る",mapSub:"地形や岩の分布を重ねられます",bases:{pale:"地図",photo:"航空写真",relief:"地形の陰影",geo:"地質図（岩の種類）"},basesLabel:"地図の種類",catsLabel:"表示する場所",allPlaces:"すべての場所",
+  legendPins:"●の位置は観光協会の地図などによる仮の位置です。現地で実測して置き換えます。",
+  legendGeo:`地質図の色の意味は <a href="https://gbank.gsj.jp/seamless/legend.html" target="_blank" rel="noopener">凡例（産総研）</a> で確認できます。地質図は縮尺20万分の1なので、細かい位置は合いません。`,
+  unplaced:l=>`地図にまだ載っていない場所：${l}（現地で位置を測ってから載せます）`,noMap:"地図を読み込めませんでした。電波のよい場所で再読み込みしてください。",
+  prev:"← 前の場所",next:"次の場所 →",pagerLabel:"前後の場所",
+  credit:(ja,en,d)=>`音声：${ja}（日本語）／${en}（英語）。台本の書き出し：${d}`,
+  footInfo:`見どころの情報：<a href="https://sounkyovc.net/" target="_blank" rel="noopener">層雲峡ビジターセンター</a>、<a href="https://sounkyo.net/" target="_blank" rel="noopener">層雲峡観光協会</a>ほか（各項目に出典）`,
+  footMap:`地図：<a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank" rel="noopener">国土地理院（地理院タイル）</a>／地質図：<a href="https://gbank.gsj.jp/seamless/" target="_blank" rel="noopener">産総研地質調査総合センター 20万分の1日本シームレス地質図V2</a>／地図表示：Leaflet`,
+  footTest:`位置で自動再生する現地テストは <a href="./">音声テストのページ</a> へ。`,
+  failTitle:"読み込めませんでした",failBody:"電波のよい場所でページを再読み込みしてください。"},
+ en:{brand:"Sounkyo Guide",map:"Map",loading:"Loading",photo:"Photos",seasonsLabel:"Season",seasons:{spring:"Spring",summer:"Summer",autumn:"Autumn",winter:"Winter"},
+  photoSoon:s=>`${s} photo coming soon`,photoAlt:(p,s)=>`${p} in ${s.toLowerCase()}`,
+  player:"Audio guide",modesLabel:"Version",modes:{},track:{en:"Audio guide"},
+  play:"Play the audio guide",pause:"Pause",seek:"Playback position",voice:"Voice",text:"Description",
+  facts:{season:"When to go",access:"Getting there"},
+  draft:"This is a draft written only from facts checked in the Sounkyo Knowledge Map. It has not yet been reviewed by the visitor center director. The English is a translation of the Japanese text.",
+  seeH:"Things to see here",seeCount:n=>`${n} items · tap to open`,seeEmpty:"Nothing has been added for this place yet.",
+  mapNo:"Number on the trail map",nowSeason:s=>`In season (${s.toLowerCase()})`,allYear:"Seen all year",when:"When",flowerLink:"See photos (Visitor Center flower guide, in Japanese)",src:"Sources: ",sep:", ",
+  othersH:"Other places",swipe:"Swipe sideways",audioLen:t=>` · audio ${t}`,
+  mapH:"Map",mapSub:"Overlay the terrain and rock types",bases:{pale:"Map",photo:"Aerial photo",relief:"Shaded relief",geo:"Geology (rock types)"},basesLabel:"Map type",catsLabel:"Places to show",allPlaces:"All places",
+  legendPins:"● Pins are provisional, taken from the tourism association's map and similar sources. They will be replaced with positions measured on site.",
+  legendGeo:`See the <a href="https://gbank.gsj.jp/seamless/legend.html" target="_blank" rel="noopener">legend (AIST, in Japanese)</a> for what the geology colors mean. The geology map is at 1:200,000, so fine details won't line up.`,
+  unplaced:l=>`Not on the map yet: ${l} (we will add them after measuring on site)`,noMap:"The map couldn't load. Please reload where you have a good signal.",
+  prev:"← Previous",next:"Next →",pagerLabel:"Previous and next places",
+  credit:(ja,en,d)=>`Voices: ${ja} (Japanese) / ${en} (English). Script export: ${d}`,
+  footInfo:`Information on things to see: <a href="https://sounkyovc.net/" target="_blank" rel="noopener">Sounkyo Visitor Center</a>, <a href="https://sounkyo.net/" target="_blank" rel="noopener">Sounkyo Tourism Association</a> and others (sources listed on each item; in Japanese)`,
+  footMap:`Map: <a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank" rel="noopener">GSI Japan (GSI tiles)</a> / Geology: <a href="https://gbank.gsj.jp/seamless/" target="_blank" rel="noopener">AIST Geological Survey of Japan, Seamless Digital Geological Map of Japan 1:200,000 V2</a> / Map display: Leaflet`,
+  footTest:`For the field test that plays audio by location, see the <a href="./">audio test page</a> (Japanese).`,
+  failTitle:"Couldn't load",failBody:"Please reload the page where you have a good signal."}
+};
+/* Fixed labels that come from Notion select options */
+const EN_LABELS={"地形・岩":"Landforms & rocks","水・滝":"Water & waterfalls","植物":"Plants","動物":"Animals","季節の現象":"Seasonal phenomena","名前・歴史":"Names & history",
+  "自然景観":"Scenery","地質・地形":"Geology & landforms","歴史・人物":"History & people","アイヌ文化・語源":"Ainu culture & place names","動植物":"Plants & animals",
+  "層雲峡渓谷":"Sounkyo Gorge","層雲峡温泉街":"Sounkyo Onsen",
+  "出典あり":"Sourced","2資料で一致":"Matches 2 sources","現地で確認済":"Checked on site"};
+const SEASON_MONTHS={spring:[3,4,5],summer:[6,7,8],autumn:[9,10,11],winter:[12,1,2]};
 const $=id=>document.getElementById(id), audio=$("audio");
 const store={get(k,d){try{const v=localStorage.getItem("sounkyo-guide:"+k);return v==null?d:JSON.parse(v)}catch(e){return d}},
              set(k,v){try{localStorage.setItem("sounkyo-guide:"+k,JSON.stringify(v))}catch(e){}}};
-const m=new Date().getMonth()+1;
-let season=m>=3&&m<=5?"spring":m<=8&&m>=6?"summer":m>=9&&m<=11?"autumn":"winter";
-let mode=store.get("mode","core"), voice=store.get("voice",{ja:"himari",en:"heart"}), cat="all";
+const mo=new Date().getMonth()+1;
+let season=mo>=3&&mo<=5?"spring":mo<=8&&mo>=6?"summer":mo>=9&&mo<=11?"autumn":"winter";
+const qLang=new URLSearchParams(location.search).get("lang");
+let lang=qLang==="en"||qLang==="ja"?qLang:store.get("lang",(navigator.language||"ja").toLowerCase().startsWith("ja")?"ja":"en");
+let jaMode=store.get("jaMode",store.get("mode","core")==="kids"?"kids":"core");
+let voice=store.get("voice",{ja:"himari",en:"heart"}), cat="all";
 let guide, cur, map, markers={}, baseLayer, geoLayer, stripTimer, touched=false;
-const lang=()=>mode==="en"?"en":"ja";
+const t=()=>T[lang];
+const tx=(o,k)=>lang==="en"?(o&&o[k+"_en"])||(o&&o[k])||"":(o&&o[k])||"";   // text field in the current language
+const lab=v=>lang==="en"?(EN_LABELS[v]||v):v;                                  // select-option label
+const placeName=p=>lang==="en"?(p.place_en||p.place):p.place;
+const audioKey=()=>lang==="en"?`en:${voice.en}`:`${jaMode}:${voice.ja}`;
 const fmt=s=>isFinite(s)?Math.floor(s/60)+":"+String(Math.floor(s%60)).padStart(2,"0"):"0:00";
 const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const press=(root,attr,val)=>root.querySelectorAll("button").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset[attr]===val)));
 
-function photoHTML(p,s,big){
-  const src=p.photos&&p.photos[s];
-  if(src) return `<img src="${esc(src)}" alt="${esc(p.place)}の${SEASONS[s]}" loading="${big?"eager":"lazy"}">`;
-  return `<div class="ph"><b>${SEASONS[s]}</b>${big?`<span>${SEASONS[s]}の写真を準備中</span>`:""}</div>`;
+function renderChrome(){
+  const L=t(); document.documentElement.lang=lang; press($("langs"),"l",lang);
+  document.querySelectorAll("[data-t]").forEach(el=>{el.innerHTML=L[el.dataset.t]});
+  $("hero").setAttribute("aria-label",L.photo); $("seasons").setAttribute("aria-label",L.seasonsLabel);
+  $("seasons").querySelectorAll("button").forEach(b=>b.textContent=L.seasons[b.dataset.s]);
+  $("player").setAttribute("aria-label",L.player); $("modes").setAttribute("aria-label",L.modesLabel);
+  $("modes").hidden=lang==="en"; $("modes").querySelectorAll("button").forEach(b=>b.textContent=T.ja.modes[b.dataset.m]);
+  $("seek").setAttribute("aria-label",L.seek); $("textSection").setAttribute("aria-label",L.text);
+  $("see-section").setAttribute("aria-label",L.seeH); $("others").setAttribute("aria-label",L.othersH);
+  $("map-section").setAttribute("aria-label",L.mapH); $("pager").setAttribute("aria-label",L.pagerLabel);
+  $("bases").setAttribute("aria-label",L.basesLabel); $("cats").setAttribute("aria-label",L.catsLabel);
+  $("bases").querySelectorAll("button").forEach(b=>b.textContent=L.bases[b.dataset.b]);
+  if(guide){const ja=Object.values(guide.voices.ja).map(v=>v.credit),en=[...new Set(Object.values(guide.voices.en).map(v=>v.credit))];
+    $("credit").textContent=L.credit(ja.join(lang==="en"?", ":"、"),en.join(", "),guide.exported_at)}
+  const u=new URL(location.href); u.searchParams.set("lang",lang); history.replaceState(null,"",u);
 }
 
+function photoHTML(p,s,big){
+  const src=p.photos&&p.photos[s], S=t().seasons[s];
+  if(src) return `<img src="${esc(src)}" alt="${esc(t().photoAlt(placeName(p),S))}" loading="${big?"eager":"lazy"}">`;
+  return `<div class="ph"><b>${S}</b>${big?`<span>${t().photoSoon(S)}</span>`:""}</div>`;
+}
 function renderPhoto(){
   document.body.dataset.season=season; press($("seasons"),"s",season);
   $("photo").innerHTML=photoHTML(cur,season,true);
   renderStrip(); renderSee();
 }
 
-function track(){return cur.audio[`${mode}:${voice[lang()]}`]}
+function track(){return cur.audio[audioKey()]}
 function renderPlayer(){
-  press($("modes"),"m",mode);
-  const t=track(); audio.pause(); audio.src=t?t.src:""; setIcon(false);
-  $("fill").style.width="0"; $("cur").textContent="0:00"; $("dur").textContent=t?fmt(t.seconds):"0:00";
-  $("trackTitle").textContent=mode==="en"?"Audio guide":mode==="kids"?"音声ガイド（子ども向け）":"音声ガイド";
-  const vs=guide.voices[lang()];
-  $("voices").innerHTML=`<span>声</span>`+Object.entries(vs).map(([id,v])=>`<button data-v="${id}" aria-pressed="${voice[lang()]===id}">${esc(v.label)}</button>`).join("");
-  $("body").textContent=cur[mode]; $("body").lang=lang();
+  press($("modes"),"m",jaMode);
+  const tr=track(); audio.pause(); audio.src=tr?tr.src:""; setIcon(false);
+  $("fill").style.width="0"; $("cur").textContent="0:00"; $("dur").textContent=tr?fmt(tr.seconds):"0:00";
+  $("trackTitle").textContent=lang==="en"?t().track.en:t().track[jaMode];
+  const vs=guide.voices[lang];
+  $("voices").innerHTML=`<span>${t().voice}</span>`+Object.entries(vs).map(([id,v])=>`<button data-v="${id}" aria-pressed="${voice[lang]===id}">${esc(v.label)}</button>`).join("");
+  $("body").textContent=lang==="en"?cur.en:cur[jaMode];
 }
 function setIcon(playing){$("playIcon").innerHTML=playing?'<path d="M7 5h4v14H7zM13 5h4v14h-4z"/>':'<path d="M8 5v14l11-7z"/>';
-  $("play").setAttribute("aria-label",playing?"一時停止":"音声ガイドを再生")}
+  $("play").setAttribute("aria-label",playing?t().pause:t().play)}
 
 function renderText(){
-  const L=cur.location||{};
-  $("eyebrow").textContent=[L.area,cur.category].filter(Boolean).join(" ／ ");
-  $("title").textContent=cur.place; $("topic").textContent=cur.topic;
-  document.title=cur.place+"｜層雲峡 場所ガイド";
-  const rows=[["行ける時期",L.season],["行き方",L.access]].filter(r=>r[1]);
+  const Lc=cur.location||{};
+  $("eyebrow").textContent=[lab(Lc.area),lab(cur.category)].filter(Boolean).join(lang==="en"?" / ":" ／ ");
+  $("title").textContent=placeName(cur); $("topic").textContent=tx(cur,"topic");
+  document.title=placeName(cur)+(lang==="en"?" | Sounkyo Guide":"｜層雲峡 場所ガイド");
+  const rows=[[t().facts.season,tx(Lc,"season")],[t().facts.access,tx(Lc,"access")]].filter(r=>r[1]);
   $("facts").innerHTML=rows.map(([k,v])=>`<dt>${k}</dt><dd>${esc(v)}</dd>`).join("");
 }
 
-
-const SEASON_MONTHS={spring:[3,4,5],summer:[6,7,8],autumn:[9,10,11],winter:[12,1,2]};
-function inSeason(when,s){if(!when)return false;if(when.includes(SEASONS[s])||when.includes("一年中"))return true;
+/* In-season check always reads the Japanese "見られる時期", which is the checked original */
+function inSeason(when,s){if(!when)return false;if(when.includes(T.ja.seasons[s])||when.includes("一年中"))return true;
   return (when.match(/(\d+)月/g)||[]).map(x=>parseInt(x)).some(m=>SEASON_MONTHS[s].includes(m))}
 function renderSee(){
-  const hl=cur.highlights||[], g=$("groups");
-  $("seeCount").textContent=hl.length?`${hl.length}件 ・ 開くと説明が出ます`:"";
-  if(!hl.length){g.innerHTML=`<p class="see-empty">この場所の見どころは、まだ登録されていません。</p>`;return}
+  const hl=cur.highlights||[], g=$("groups"), L=t();
+  $("seeCount").textContent=hl.length?L.seeCount(hl.length):"";
+  if(!hl.length){g.innerHTML=`<p class="see-empty">${L.seeEmpty}</p>`;return}
   const cats=[...new Set(hl.map(x=>x.category))];
   g.innerHTML=cats.map((c,i)=>{const list=hl.filter(x=>x.category===c);
-    return `<details class="group"${i===0?" open":""}><summary><span class="chev"></span>${esc(c)}<span class="n">${list.length}</span></summary><div class="items">`+
-    list.map(x=>{const now=inSeason(x.when,season);
-      return `<details class="item"><summary>${x.map_number?`<span class="num" title="散策マップの番号">${x.map_number}</span>`:""}<span class="nm">${esc(x.name)}</span>${now?`<span class="now">${(x.when||"").includes("一年中")?"一年中":SEASONS[season]+"に"}見られる</span>`:""}<span class="chev"></span></summary>
-      <div class="item-body"><p>${esc(x.description)}</p>${x.when?`<div class="when"><b>見られる時期</b>　${esc(x.when)}</div>`:""}${x.note?`<div class="caution">${esc(x.note)}</div>`:""}${x.link?`<a class="more" href="${esc(x.link)}" target="_blank" rel="noopener">写真を見る（ビジターセンター 花図鑑）</a>`:""}
-      <div class="src"><span class="st">${esc(x.status)}</span>出典：${(x.sources||[]).map(s=>s.url?`<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.name)}</a>`:esc(s.name)).join("、")}</div></div></details>`}).join("")+`</div></details>`}).join("");
+    return `<details class="group"${i===0?" open":""}><summary><span class="chev"></span>${esc(lab(c))}<span class="n">${list.length}</span></summary><div class="items">`+
+    list.map(x=>{const now=inSeason(x.when,season), when=tx(x,"when"), note=tx(x,"note");
+      const badge=now?`<span class="now">${(x.when||"").includes("一年中")?L.allYear:L.nowSeason(L.seasons[season])}</span>`:"";
+      const srcs=(x.sources||[]).map(s=>{const n=tx(s,"name");return s.url?`<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(n)}</a>`:esc(n)}).join(L.sep);
+      return `<details class="item"><summary>${x.map_number?`<span class="num" title="${L.mapNo}">${x.map_number}</span>`:""}<span class="nm">${esc(tx(x,"name"))}</span>${badge}<span class="chev"></span></summary>
+      <div class="item-body"><p>${esc(tx(x,"description"))}</p>${when?`<div class="when"><b>${L.when}</b>　${esc(when)}</div>`:""}${note?`<div class="caution">${esc(note)}</div>`:""}${x.link?`<a class="more" href="${esc(x.link)}" target="_blank" rel="noopener">${L.flowerLink}</a>`:""}
+      <div class="src"><span class="st">${esc(lab(x.status))}</span><span>${L.src}${srcs}</span></div></div></details>`}).join("")+`</div></details>`}).join("");
 }
 
 function renderStrip(){
   const others=guide.points.filter(p=>p.id!==cur.id);
-  $("strip").innerHTML=others.map(p=>{const t=p.audio[`core:${voice.ja}`];
-    return `<a class="card" href="#${p.id}"><div class="thumb">${photoHTML(p,season,false)}</div><div class="body"><strong>${esc(p.place)}</strong><small>${esc(p.category)}${t?" ・ 音声 "+fmt(t.seconds):""}</small></div></a>`}).join("");
+  $("strip").innerHTML=others.map(p=>{const tr=p.audio[audioKey()];
+    return `<a class="card" href="#${p.id}"><div class="thumb">${photoHTML(p,season,false)}</div><div class="body"><strong>${esc(placeName(p))}</strong><small>${esc(lab(p.category))}${tr?t().audioLen(fmt(tr.seconds)):""}</small></div></a>`}).join("");
   $("dots").innerHTML=others.map((_,i)=>`<i class="${i?"":"on"}"></i>`).join("");
   $("strip").scrollLeft=0;
 }
@@ -317,59 +393,65 @@ function startStrip(){clearInterval(stripTimer);if(matchMedia("(prefers-reduced-
   stripTimer=setInterval(()=>{if(!touched&&!document.hidden)stripStep()},4500)}
 
 function initMap(){
-  if(!window.L){$("legend").textContent="地図を読み込めませんでした。電波のよい場所で再読み込みしてください。";return}
+  if(!window.L){$("legend").textContent=t().noMap;return}
   map=L.map("map",{scrollWheelZoom:false,zoomControl:true,attributionControl:true}).setView([43.715,142.98],12);
   map.attributionControl.setPrefix(false);
-  const gsi="<a href='https://maps.gsi.go.jp/development/ichiran.html' target='_blank'>地理院タイル</a>";
+  const gsi="<a href='https://maps.gsi.go.jp/development/ichiran.html' target='_blank'>地理院タイル / GSI</a>";
   const bases={
     pale:L.tileLayer("https://cyberjapandata.gsi.go.jp/xyz/pale/{z}/{x}/{y}.png",{maxZoom:18,attribution:gsi}),
     photo:L.tileLayer("https://cyberjapandata.gsi.go.jp/xyz/seamlessphoto/{z}/{x}/{y}.jpg",{maxZoom:18,attribution:gsi}),
     relief:L.tileLayer("https://cyberjapandata.gsi.go.jp/xyz/hillshademap/{z}/{x}/{y}.png",{maxZoom:16,attribution:gsi}),
   };
   geoLayer=L.tileLayer("https://gbank.gsj.jp/seamless/v2/api/1.2/tiles/{z}/{y}/{x}.png",{maxZoom:13,maxNativeZoom:13,opacity:.7,
-    attribution:"<a href='https://gbank.gsj.jp/seamless/' target='_blank'>産総研 シームレス地質図V2</a>"});
+    attribution:"<a href='https://gbank.gsj.jp/seamless/' target='_blank'>産総研 シームレス地質図V2 / AIST</a>"});
   baseLayer=bases.pale.addTo(map);
   $("bases").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;
-    if(b.dataset.b==="geo"){const on=map.hasLayer(geoLayer);on?map.removeLayer(geoLayer):geoLayer.addTo(map);b.setAttribute("aria-pressed",String(!on));
-      $("legend").innerHTML=on?legendBase():legendBase()+`<span>地質図の色の意味は <a href="https://gbank.gsj.jp/seamless/legend.html" target="_blank" rel="noopener">凡例（産総研）</a> で確認できます。地質図は縮尺20万分の1なので、細かい位置は合いません。</span>`;return}
+    if(b.dataset.b==="geo"){const on=map.hasLayer(geoLayer);on?map.removeLayer(geoLayer):geoLayer.addTo(map);b.setAttribute("aria-pressed",String(!on));renderLegend();return}
     map.removeLayer(baseLayer);baseLayer=bases[b.dataset.b].addTo(map);if(map.hasLayer(geoLayer))geoLayer.bringToFront();
     $("bases").querySelectorAll("button:not([data-b=geo])").forEach(x=>x.setAttribute("aria-pressed",String(x===b)))});
-  const cats=["all",...new Set(guide.points.map(p=>p.category).filter(Boolean))];
-  $("cats").innerHTML=cats.map(c=>`<button data-c="${esc(c)}" aria-pressed="${c===cat}">${c==="all"?"すべての場所":esc(c)}</button>`).join("");
   $("cats").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;cat=b.dataset.c;press($("cats"),"c",cat);drawMarkers()});
 }
-function legendBase(){return `<span>●の位置は観光協会の地図などによる仮の位置です。現地で実測して置き換えます。</span>`}
+function renderCats(){
+  const cats=["all",...new Set(guide.points.map(p=>p.category).filter(Boolean))];
+  $("cats").innerHTML=cats.map(c=>`<button data-c="${esc(c)}" aria-pressed="${c===cat}">${c==="all"?t().allPlaces:esc(lab(c))}</button>`).join("");
+}
+function renderLegend(){$("legend").innerHTML=`<span>${t().legendPins}</span>`+(map&&map.hasLayer(geoLayer)?`<span>${t().legendGeo}</span>`:"")}
 function drawMarkers(){
   if(!map)return;Object.values(markers).forEach(mk=>mk.remove());markers={};
   const shown=guide.points.filter(p=>cat==="all"||p.category===cat), placed=[], missing=[];
   shown.forEach(p=>{const L0=p.location||{};
     if(L0.lat==null||L0.lng==null){missing.push(p);return}
     const here=p.id===cur.id;
-    const mk=L.marker([L0.lat,L0.lng],{icon:L.divIcon({className:"",html:`<div class="pin${here?" here":""}"></div>`,iconSize:here?[26,26]:[18,18]}),zIndexOffset:here?1000:0,title:p.place})
-      .addTo(map).bindTooltip(p.place,{direction:"top",offset:[0,-10],permanent:here});
+    const mk=L.marker([L0.lat,L0.lng],{icon:L.divIcon({className:"",html:`<div class="pin${here?" here":""}"></div>`,iconSize:here?[26,26]:[18,18]}),zIndexOffset:here?1000:0,title:placeName(p)})
+      .addTo(map).bindTooltip(esc(placeName(p)),{direction:"top",offset:[0,-10],permanent:here});
     mk.on("click",()=>{location.hash=p.id});markers[p.id]=mk;placed.push([L0.lat,L0.lng])});
   if(placed.length>1)map.fitBounds(placed,{padding:[40,40],maxZoom:14});else if(placed.length===1)map.setView(placed[0],14);
-  $("legend").innerHTML=legendBase()+(map.hasLayer(geoLayer)?`<span>地質図の色の意味は <a href="https://gbank.gsj.jp/seamless/legend.html" target="_blank" rel="noopener">凡例（産総研）</a> で確認できます。</span>`:"");
-  $("unplaced").textContent=missing.length?`地図にまだ載っていない場所：${missing.map(p=>p.place).join("、")}（現地で位置を測ってから載せます）`:"";
+  renderLegend();
+  $("unplaced").textContent=missing.length?t().unplaced(missing.map(placeName).join(t().sep)):"";
 }
 
 function renderPager(){
   const i=guide.points.findIndex(p=>p.id===cur.id), n=guide.points.length;
   $("count").textContent=`${i+1} / ${n}`;
   const prev=guide.points[(i-1+n)%n], next=guide.points[(i+1)%n];
-  $("pager").innerHTML=`<a href="#${prev.id}"><small>← 前の場所</small><strong>${esc(prev.place)}</strong></a><a class="next" href="#${next.id}"><small>次の場所 →</small><strong>${esc(next.place)}</strong></a>`;
+  $("pager").innerHTML=`<a href="#${prev.id}"><small>${t().prev}</small><strong>${esc(placeName(prev))}</strong></a><a class="next" href="#${next.id}"><small>${t().next}</small><strong>${esc(placeName(next))}</strong></a>`;
 }
 
-function show(id){
+function show(id,keepScroll){
   cur=guide.points.find(p=>p.id===id)||guide.points[0];
   touched=false; renderText(); renderPhoto(); renderPlayer(); renderPager(); drawMarkers();
-  if("mediaSession" in navigator)navigator.mediaSession.metadata=new MediaMetadata({title:cur.place,artist:"層雲峡 場所ガイド"});
-  window.scrollTo({top:0});
+  if("mediaSession" in navigator)navigator.mediaSession.metadata=new MediaMetadata({title:placeName(cur),artist:t().brand});
+  if(!keepScroll)window.scrollTo({top:0});
+}
+function setLang(l){
+  if(l===lang)return; lang=l; store.set("lang",lang);
+  renderChrome(); if(guide){renderCats(); show(cur.id,true)}
 }
 
+$("langs").addEventListener("click",e=>{const b=e.target.closest("button");if(b)setLang(b.dataset.l)});
 $("seasons").addEventListener("click",e=>{const b=e.target.closest("button");if(b){season=b.dataset.s;renderPhoto()}});
-$("modes").addEventListener("click",e=>{const b=e.target.closest("button");if(b){mode=b.dataset.m;store.set("mode",mode);renderPlayer()}});
-$("voices").addEventListener("click",e=>{const b=e.target.closest("button");if(b){voice[lang()]=b.dataset.v;store.set("voice",voice);renderPlayer();renderStrip()}});
+$("modes").addEventListener("click",e=>{const b=e.target.closest("button");if(b){jaMode=b.dataset.m;store.set("jaMode",jaMode);renderPlayer();renderStrip()}});
+$("voices").addEventListener("click",e=>{const b=e.target.closest("button");if(b){voice[lang]=b.dataset.v;store.set("voice",voice);renderPlayer();renderStrip()}});
 $("play").addEventListener("click",()=>{if(!audio.src)return;if(audio.paused){audio.play().catch(()=>setIcon(false))}else audio.pause()});
 audio.addEventListener("play",()=>setIcon(true)); audio.addEventListener("pause",()=>setIcon(false));
 audio.addEventListener("ended",()=>{setIcon(false);$("fill").style.width="100%"});
@@ -381,12 +463,10 @@ $("seek").addEventListener("keydown",e=>{if(!audio.duration)return;if(e.key==="A
 $("toMap").addEventListener("click",e=>{e.preventDefault();$("map-section").scrollIntoView({behavior:"smooth"})});
 window.addEventListener("hashchange",()=>{const id=location.hash.slice(1);if(guide&&guide.points.some(p=>p.id===id))show(id)});
 
+store.set("lang",lang); renderChrome(); $("title").textContent=t().loading;
 fetch("guide.json",{cache:"no-store"}).then(r=>r.json()).then(g=>{
-  guide=g;
-  const ja=Object.values(g.voices.ja).map(v=>v.credit),en=[...new Set(Object.values(g.voices.en).map(v=>v.credit))];
-  $("credit").textContent=`音声：${ja.join("、")}（日本語）／${en.join("、")}（英語）。台本の書き出し：${g.exported_at}`;
-  initMap(); show(location.hash.slice(1)); startStrip();
-}).catch(()=>{$("title").textContent="読み込めませんでした";$("topic").textContent="電波のよい場所でページを再読み込みしてください。"});
+  guide=g; renderChrome(); initMap(); renderCats(); show(location.hash.slice(1)); startStrip();
+}).catch(()=>{$("title").textContent=t().failTitle;$("topic").textContent=t().failBody});
 </script>
 </body>
 </html>

@@ -18,11 +18,11 @@
   },
   "en": {
    "heart": {
-    "label": "Heart（女性）",
+    "label": "Heart (female)",
     "credit": "Kokoro TTS"
    },
    "michael": {
-    "label": "Michael（男性）",
+    "label": "Michael (male)",
     "credit": "Kokoro TTS"
    }
   }
@@ -31,6 +31,7 @@
   {
    "id": "momijidani-entrance",
    "topic": "紅葉谷の入口：紅葉の滝まで片道およそ30分",
+   "topic_en": "Momijidani trail entrance: about 30 minutes one way to Momiji Falls",
    "place": "紅葉谷",
    "notion_page": "3edfd841a42c81d1afa5ce136ff4d9f9",
    "target_seconds": 30,
@@ -38,6 +39,7 @@
    "kids": "ここから「紅葉谷」の道がはじまります。いちばん奥の「紅葉の滝」まで、歩いておよそ30分。えんぴつをたばねたような岩のかべと、滝が待っています。この森にはクマもすんでいるよ。すずを鳴らして、足もとをよく見て歩こう。",
    "en": "This is the start of the Momijidani trail. The waterfall at the end is about 700 meters away, a 30-minute walk one way. There you can see columnar rock walls and a waterfall together, much like the Kobako gorge, which is now closed to visitors. Brown bears live in this forest, so carry a bell and watch your step as you head into the valley.",
    "category": "自然景観",
+   "place_en": "Momijidani",
    "location": {
     "area": "層雲峡渓谷",
     "lat": 43.726251,
@@ -50,7 +52,9 @@
      "L6 水系"
     ],
     "season": "6月〜11月上旬（観光協会）。冬はスノーシューで歩ける（ビジターセンター。ガイド同行や観察会への参加がおすすめ）",
-    "access": "温泉街から入口まで徒歩約15分。入口から紅葉滝まで片道約700m・約30分"
+    "access": "温泉街から入口まで徒歩約15分。入口から紅葉滝まで片道約700m・約30分",
+    "season_en": "June to early November (tourism association). In winter you can walk it on snowshoes (visitor center; going with a guide or joining a nature walk is recommended)",
+    "access_en": "About 15 minutes on foot from the hot spring town to the entrance. From the entrance to Momiji Falls: about 700 m, about 30 minutes one way"
    },
    "photos": {},
    "highlights": [
@@ -63,18 +67,25 @@
      "status": "2資料で一致",
      "note": null,
      "link": null,
+     "name_en": "Columnar joints",
+     "description_en": "Cracks that formed as welded tuff cooled and shrank, leaving the rock lined up like columns. In cross-section the columns are hexagons and other polygons. In Momijidani you can see these rock walls right in front of you.",
+     "when_en": null,
+     "note_en": null,
      "sources": [
       {
        "name": "紅葉谷散策ガイド（層雲峡ビジターセンター）",
-       "url": "https://sounkyovc.net/wp-content/uploads/2023/08/momiji_valley_guide.pdf"
+       "url": "https://sounkyovc.net/wp-content/uploads/2023/08/momiji_valley_guide.pdf",
+       "name_en": "Momijidani trail guide (Sounkyo Visitor Center; in Japanese)"
       },
       {
        "name": "層雲峡情報（層雲峡ビジターセンター）",
-       "url": "https://sounkyovc.net/info"
+       "url": "https://sounkyovc.net/info",
+       "name_en": "Sounkyo information (Sounkyo Visitor Center; in Japanese)"
       },
       {
        "name": "地質で語る百名山「大雪山」（産総研）",
-       "url": "https://www.gsj.jp/Muse/100mt/daisetsuzan/index.html"
+       "url": "https://www.gsj.jp/Muse/100mt/daisetsuzan/index.html",
+       "name_en": "Geology of Japan's 100 famous mountains: Daisetsuzan (AIST, in Japanese)"
       }
      ]
     },
@@ -87,14 +98,20 @@
      "status": "出典あり",
      "note": null,
      "link": null,
+     "name_en": "The 九十九沢 stream and its “phantom” falls",
+     "description_en": "A stream that flows down from about 1,800 m on the east slope of Mt. Kurodake. Its underground water has been chosen as one of Hokkaido's famous waters, and it is also used as Sounkyo's everyday water supply. The falls (九十九滝) are a “phantom waterfall” that appears only when the water rises and groundwater pours down the cliff.",
+     "when_en": "The falls appear only in the snowmelt season (usually around early May) or after heavy rain",
+     "note_en": null,
      "sources": [
       {
        "name": "紅葉谷散策ガイド（層雲峡ビジターセンター）",
-       "url": "https://sounkyovc.net/wp-content/uploads/2023/08/momiji_valley_guide.pdf"
+       "url": "https://sounkyovc.net/wp-content/uploads/2023/08/momiji_valley_guide.pdf",
+       "name_en": "Momijidani trail guide (Sounkyo Visitor Center; in Japanese)"
       },
       {
        "name": "紅葉谷散策マップ（層雲峡ビジターセンター）",
-       "url": "https://sounkyovc.net/wp-content/uploads/2023/08/momiji_valley_map.pdf"
+       "url": "https://sounkyovc.net/wp-content/uploads/2023/08/momiji_valley_map.pdf",
+       "name_en": "Momijidani trail map (Sounkyo Visitor Center; in Japanese)"
       }
      ]
     },
@@ -107,14 +124,20 @@
      "status": "出典あり",
      "note": null,
      "link": null,
+     "name_en": "Hot spring sources",
+     "description_en": "Sounkyo has more than 30 places where hot spring water comes out of the ground, at 46–93°C; the water is a simple spring. More than 20 of them are packed into an area of about 200 m × 100 m around the Momijidani parking lot — the densest cluster in Sounkyo.",
+     "when_en": null,
+     "note_en": null,
      "sources": [
       {
        "name": "紅葉谷散策ガイド（層雲峡ビジターセンター）",
-       "url": "https://sounkyovc.net/wp-content/uploads/2023/08/momiji_valley_guide.pdf"
+       "url": "https://sounkyovc.net/wp-content/uploads/2023/08/momiji_valley_guide.pdf",
+       "name_en": "Momijidani trail guide (Sounkyo Visitor Center; in Japanese)"
       },
       {
        "name": "紅葉谷散策マップ（層雲峡ビジターセンター）",
-       "url": "https://sounkyovc.net/wp-content/uploads/2023/08/momiji_valley_map.pdf"
+       "url": "https://sounkyovc.net/wp-content/uploads/2023/08/momiji_valley_map.pdf",
+       "name_en": "Momijidani trail map (Sounkyo Visitor Center; in Japanese)"
       }
      ]
     },
@@ -127,14 +150,20 @@
      "status": "出典あり",
      "note": null,
      "link": null,
+     "name_en": "Akaishi River (赤石川)",
+     "description_en": "Its Ainu name is Shumahurepet (シュマフーレペッ: stone, red, river). About 10 km long, it flows out from the floor of the old crater of Ohachidaira. Upstream, hydrogen sulfide from fumaroles makes it strongly acidic, with recorded pH values of 3.1–3.6.",
+     "when_en": null,
+     "note_en": null,
      "sources": [
       {
        "name": "紅葉谷散策ガイド（層雲峡ビジターセンター）",
-       "url": "https://sounkyovc.net/wp-content/uploads/2023/08/momiji_valley_guide.pdf"
+       "url": "https://sounkyovc.net/wp-content/uploads/2023/08/momiji_valley_guide.pdf",
+       "name_en": "Momijidani trail guide (Sounkyo Visitor Center; in Japanese)"
       },
       {
        "name": "紅葉谷散策マップ（層雲峡ビジターセンター）",
-       "url": "https://sounkyovc.net/wp-content/uploads/2023/08/momiji_valley_map.pdf"
+       "url": "https://sounkyovc.net/wp-content/uploads/2023/08/momiji_valley_map.pdf",
+       "name_en": "Momijidani trail map (Sounkyo Visitor Center; in Japanese)"
       }
      ]
     },
@@ -147,18 +176,25 @@
      "status": "2資料で一致",
      "note": null,
      "link": null,
+     "name_en": "Momiji Falls",
+     "description_en": "A two-tiered waterfall about 10 m high at the end of the trail. It is the farthest-downstream waterfall on the Akaishi River, which flows from the old crater of Ohachidaira. The tourism association writes its name as 紅葉の滝.",
+     "when_en": null,
+     "note_en": null,
      "sources": [
       {
        "name": "紅葉谷散策ガイド（層雲峡ビジターセンター）",
-       "url": "https://sounkyovc.net/wp-content/uploads/2023/08/momiji_valley_guide.pdf"
+       "url": "https://sounkyovc.net/wp-content/uploads/2023/08/momiji_valley_guide.pdf",
+       "name_en": "Momijidani trail guide (Sounkyo Visitor Center; in Japanese)"
       },
       {
        "name": "層雲峡情報（層雲峡ビジターセンター）",
-       "url": "https://sounkyovc.net/info"
+       "url": "https://sounkyovc.net/info",
+       "name_en": "Sounkyo information (Sounkyo Visitor Center; in Japanese)"
       },
       {
        "name": "紅葉谷の散策道（層雲峡観光協会）",
-       "url": "https://sounkyo.net/view/detail.html?content=8"
+       "url": "https://sounkyo.net/view/detail.html?content=8",
+       "name_en": "Momijidani trail (Sounkyo Tourism Association; in Japanese)"
       }
      ]
     },
@@ -171,18 +207,25 @@
      "status": "2資料で一致",
      "note": null,
      "link": null,
+     "name_en": "Autumn leaves",
+     "description_en": "The area around the trail entrance is the hot spring town's best-known spot for autumn color. Full-moon maple and Japanese rowan turn red to orange, while painted maple, katsura and Erman's birch turn yellow.",
+     "when_en": "Usually early to mid-October",
+     "note_en": null,
      "sources": [
       {
        "name": "紅葉谷散策ガイド（層雲峡ビジターセンター）",
-       "url": "https://sounkyovc.net/wp-content/uploads/2023/08/momiji_valley_guide.pdf"
+       "url": "https://sounkyovc.net/wp-content/uploads/2023/08/momiji_valley_guide.pdf",
+       "name_en": "Momijidani trail guide (Sounkyo Visitor Center; in Japanese)"
       },
       {
        "name": "層雲峡情報（層雲峡ビジターセンター）",
-       "url": "https://sounkyovc.net/info"
+       "url": "https://sounkyovc.net/info",
+       "name_en": "Sounkyo information (Sounkyo Visitor Center; in Japanese)"
       },
       {
        "name": "紅葉谷の散策道（層雲峡観光協会）",
-       "url": "https://sounkyo.net/view/detail.html?content=8"
+       "url": "https://sounkyo.net/view/detail.html?content=8",
+       "name_en": "Momijidani trail (Sounkyo Tourism Association; in Japanese)"
       }
      ]
     },
@@ -195,14 +238,20 @@
      "status": "出典あり",
      "note": null,
      "link": null,
+     "name_en": "Big monarch birch",
+     "description_en": "A member of the birch family that gives the finest timber of them all. Its wood is so much better than that of other birches that it is called makaba, “the true birch”.",
+     "when_en": null,
+     "note_en": null,
      "sources": [
       {
        "name": "紅葉谷散策ガイド（層雲峡ビジターセンター）",
-       "url": "https://sounkyovc.net/wp-content/uploads/2023/08/momiji_valley_guide.pdf"
+       "url": "https://sounkyovc.net/wp-content/uploads/2023/08/momiji_valley_guide.pdf",
+       "name_en": "Momijidani trail guide (Sounkyo Visitor Center; in Japanese)"
       },
       {
        "name": "紅葉谷散策マップ（層雲峡ビジターセンター）",
-       "url": "https://sounkyovc.net/wp-content/uploads/2023/08/momiji_valley_map.pdf"
+       "url": "https://sounkyovc.net/wp-content/uploads/2023/08/momiji_valley_map.pdf",
+       "name_en": "Momijidani trail map (Sounkyo Visitor Center; in Japanese)"
       }
      ]
     },
@@ -215,14 +264,20 @@
      "status": "出典あり",
      "note": null,
      "link": null,
+     "name_en": "Katsura tree",
+     "description_en": "Said to grow bigger than any other tree in Hokkaido, reaching 20–30 m tall and 1–2 m across. When its leaves turn yellow in autumn, they give off a sweet smell.",
+     "when_en": "Yellow leaves in autumn",
+     "note_en": null,
      "sources": [
       {
        "name": "紅葉谷散策ガイド（層雲峡ビジターセンター）",
-       "url": "https://sounkyovc.net/wp-content/uploads/2023/08/momiji_valley_guide.pdf"
+       "url": "https://sounkyovc.net/wp-content/uploads/2023/08/momiji_valley_guide.pdf",
+       "name_en": "Momijidani trail guide (Sounkyo Visitor Center; in Japanese)"
       },
       {
        "name": "紅葉谷散策マップ（層雲峡ビジターセンター）",
-       "url": "https://sounkyovc.net/wp-content/uploads/2023/08/momiji_valley_map.pdf"
+       "url": "https://sounkyovc.net/wp-content/uploads/2023/08/momiji_valley_map.pdf",
+       "name_en": "Momijidani trail map (Sounkyo Visitor Center; in Japanese)"
       }
      ]
     },
@@ -235,14 +290,20 @@
      "status": "出典あり",
      "note": null,
      "link": null,
+     "name_en": "Nurse logs",
+     "description_en": "Seeds land on fallen trees and stumps, sprout, and grow into the next generation of trees. It is one of the ways a forest renews itself.",
+     "when_en": null,
+     "note_en": null,
      "sources": [
       {
        "name": "紅葉谷散策ガイド（層雲峡ビジターセンター）",
-       "url": "https://sounkyovc.net/wp-content/uploads/2023/08/momiji_valley_guide.pdf"
+       "url": "https://sounkyovc.net/wp-content/uploads/2023/08/momiji_valley_guide.pdf",
+       "name_en": "Momijidani trail guide (Sounkyo Visitor Center; in Japanese)"
       },
       {
        "name": "紅葉谷散策マップ（層雲峡ビジターセンター）",
-       "url": "https://sounkyovc.net/wp-content/uploads/2023/08/momiji_valley_map.pdf"
+       "url": "https://sounkyovc.net/wp-content/uploads/2023/08/momiji_valley_map.pdf",
+       "name_en": "Momijidani trail map (Sounkyo Visitor Center; in Japanese)"
       }
      ]
     },
@@ -255,14 +316,20 @@
      "status": "出典あり",
      "note": null,
      "link": null,
+     "name_en": "Kolomikta vine",
+     "description_en": "A woody vine that grows by climbing other trees and rocks. Around flowering time, its leaves turn pink.",
+     "when_en": "The leaves change color at flowering time",
+     "note_en": null,
      "sources": [
       {
        "name": "紅葉谷散策ガイド（層雲峡ビジターセンター）",
-       "url": "https://sounkyovc.net/wp-content/uploads/2023/08/momiji_valley_guide.pdf"
+       "url": "https://sounkyovc.net/wp-content/uploads/2023/08/momiji_valley_guide.pdf",
+       "name_en": "Momijidani trail guide (Sounkyo Visitor Center; in Japanese)"
       },
       {
        "name": "紅葉谷散策マップ（層雲峡ビジターセンター）",
-       "url": "https://sounkyovc.net/wp-content/uploads/2023/08/momiji_valley_map.pdf"
+       "url": "https://sounkyovc.net/wp-content/uploads/2023/08/momiji_valley_map.pdf",
+       "name_en": "Momijidani trail map (Sounkyo Visitor Center; in Japanese)"
       }
      ]
     },
@@ -275,14 +342,20 @@
      "status": "出典あり",
      "note": "植物は採らずに、見るだけにしましょう。",
      "link": "https://sounkyovc.net/db/hanazukan",
+     "name_en": "Flowers of Momijidani",
+     "description_en": "More than 150 plant species can be seen around Momijidani. Around mid-May, Anemone debilis and Anemone flaccida bloom first; in late June come Aruncus and Trautvetteria, and from July on, Lilium medeoloides, Ezo monkshood and others follow. Photos of bunchberry, Rhododendron albrechtii, Weigela middendorffiana and more are in the visitor center's flower guide (in Japanese).",
+     "when_en": "From around mid-May through summer",
+     "note_en": "Please only look at plants — don't pick them.",
      "sources": [
       {
        "name": "紅葉谷散策ガイド（層雲峡ビジターセンター）",
-       "url": "https://sounkyovc.net/wp-content/uploads/2023/08/momiji_valley_guide.pdf"
+       "url": "https://sounkyovc.net/wp-content/uploads/2023/08/momiji_valley_guide.pdf",
+       "name_en": "Momijidani trail guide (Sounkyo Visitor Center; in Japanese)"
       },
       {
        "name": "花図鑑（層雲峡ビジターセンター）",
-       "url": "https://sounkyovc.net/db/hanazukan"
+       "url": "https://sounkyovc.net/db/hanazukan",
+       "name_en": "Flower guide (Sounkyo Visitor Center; in Japanese)"
       }
      ]
     },
@@ -295,14 +368,20 @@
      "status": "出典あり",
      "note": null,
      "link": null,
+     "name_en": "Madara-suzu cricket",
+     "description_en": "A tiny cricket, 6–7 mm long. In the lowlands it is a summer insect, but at hot spring areas warmed by geothermal heat it is known to sing even in winter, and in Momijidani it can be seen all year.",
+     "when_en": "All year in Momijidani",
+     "note_en": null,
      "sources": [
       {
        "name": "紅葉谷散策ガイド（層雲峡ビジターセンター）",
-       "url": "https://sounkyovc.net/wp-content/uploads/2023/08/momiji_valley_guide.pdf"
+       "url": "https://sounkyovc.net/wp-content/uploads/2023/08/momiji_valley_guide.pdf",
+       "name_en": "Momijidani trail guide (Sounkyo Visitor Center; in Japanese)"
       },
       {
        "name": "紅葉谷散策マップ（層雲峡ビジターセンター）",
-       "url": "https://sounkyovc.net/wp-content/uploads/2023/08/momiji_valley_map.pdf"
+       "url": "https://sounkyovc.net/wp-content/uploads/2023/08/momiji_valley_map.pdf",
+       "name_en": "Momijidani trail map (Sounkyo Visitor Center; in Japanese)"
       }
      ]
     },
@@ -315,14 +394,20 @@
      "status": "出典あり",
      "note": "生きものは捕まえずに、見るだけにしましょう。",
      "link": null,
+     "name_en": "Japanese crayfish stream",
+     "description_en": "A crayfish found only in Japan, living only in Hokkaido and parts of the Tohoku region. It is small, 4–8 cm long, and dark brown. In the Edo period, the stones that form inside its body were prized as medicine.",
+     "when_en": null,
+     "note_en": "Please only look at living things — don't catch them.",
      "sources": [
       {
        "name": "紅葉谷散策ガイド（層雲峡ビジターセンター）",
-       "url": "https://sounkyovc.net/wp-content/uploads/2023/08/momiji_valley_guide.pdf"
+       "url": "https://sounkyovc.net/wp-content/uploads/2023/08/momiji_valley_guide.pdf",
+       "name_en": "Momijidani trail guide (Sounkyo Visitor Center; in Japanese)"
       },
       {
        "name": "紅葉谷散策マップ（層雲峡ビジターセンター）",
-       "url": "https://sounkyovc.net/wp-content/uploads/2023/08/momiji_valley_map.pdf"
+       "url": "https://sounkyovc.net/wp-content/uploads/2023/08/momiji_valley_map.pdf",
+       "name_en": "Momijidani trail map (Sounkyo Visitor Center; in Japanese)"
       }
      ]
     },
@@ -335,14 +420,20 @@
      "status": "出典あり",
      "note": "紅葉谷はヒグマのすむ場所です。鈴など音の鳴るものを持って歩きましょう。",
      "link": null,
+     "name_en": "Bear tree",
+     "description_en": "A tree that still carries a brown bear's claw marks. A kokuwa (hardy kiwi) vine used to wind around this tree, and the marks are said to be from a bear that climbed up when the fruit was ripe.",
+     "when_en": null,
+     "note_en": "Momijidani is brown bear habitat. Carry a bell or something else that makes noise as you walk.",
      "sources": [
       {
        "name": "紅葉谷散策ガイド（層雲峡ビジターセンター）",
-       "url": "https://sounkyovc.net/wp-content/uploads/2023/08/momiji_valley_guide.pdf"
+       "url": "https://sounkyovc.net/wp-content/uploads/2023/08/momiji_valley_guide.pdf",
+       "name_en": "Momijidani trail guide (Sounkyo Visitor Center; in Japanese)"
       },
       {
        "name": "層雲峡情報（層雲峡ビジターセンター）",
-       "url": "https://sounkyovc.net/info"
+       "url": "https://sounkyovc.net/info",
+       "name_en": "Sounkyo information (Sounkyo Visitor Center; in Japanese)"
       }
      ]
     },
@@ -355,14 +446,20 @@
      "status": "出典あり",
      "note": null,
      "link": null,
+     "name_en": "Black woodpecker feeding tree",
+     "description_en": "A tree marked where a black woodpecker pecked for food. With its black body and red on the back of its head, the black woodpecker is Japan's largest woodpecker and a national natural monument. In Ainu it is called Chiptachikam Kamuy (チプタチカム・カムイ).",
+     "when_en": null,
+     "note_en": null,
      "sources": [
       {
        "name": "紅葉谷散策ガイド（層雲峡ビジターセンター）",
-       "url": "https://sounkyovc.net/wp-content/uploads/2023/08/momiji_valley_guide.pdf"
+       "url": "https://sounkyovc.net/wp-content/uploads/2023/08/momiji_valley_guide.pdf",
+       "name_en": "Momijidani trail guide (Sounkyo Visitor Center; in Japanese)"
       },
       {
        "name": "層雲峡情報（層雲峡ビジターセンター）",
-       "url": "https://sounkyovc.net/info"
+       "url": "https://sounkyovc.net/info",
+       "name_en": "Sounkyo information (Sounkyo Visitor Center; in Japanese)"
       }
      ]
     },
@@ -375,14 +472,20 @@
      "status": "出典あり",
      "note": null,
      "link": null,
+     "name_en": "Ezo flying squirrel",
+     "description_en": "Lives in Hokkaido's forests, from the lowlands up to the subalpine zone. It glides from tree to tree by spreading the membrane between its front and back legs.",
+     "when_en": "Active mainly at night",
+     "note_en": null,
      "sources": [
       {
        "name": "紅葉谷散策ガイド（層雲峡ビジターセンター）",
-       "url": "https://sounkyovc.net/wp-content/uploads/2023/08/momiji_valley_guide.pdf"
+       "url": "https://sounkyovc.net/wp-content/uploads/2023/08/momiji_valley_guide.pdf",
+       "name_en": "Momijidani trail guide (Sounkyo Visitor Center; in Japanese)"
       },
       {
        "name": "紅葉谷散策マップ（層雲峡ビジターセンター）",
-       "url": "https://sounkyovc.net/wp-content/uploads/2023/08/momiji_valley_map.pdf"
+       "url": "https://sounkyovc.net/wp-content/uploads/2023/08/momiji_valley_map.pdf",
+       "name_en": "Momijidani trail map (Sounkyo Visitor Center; in Japanese)"
       }
      ]
     },
@@ -395,10 +498,15 @@
      "status": "出典あり",
      "note": "野生動物に近づいたり、餌をあげたりしないでください。",
      "link": null,
+     "name_en": "Ezo red fox and Ezo sika deer",
+     "description_en": "On the trail you may sometimes meet an Ezo red fox, or a sika deer mother with her fawn (from the visitor center's record photos).",
+     "when_en": null,
+     "note_en": "Please don't approach or feed wild animals.",
      "sources": [
       {
        "name": "層雲峡情報（層雲峡ビジターセンター）",
-       "url": "https://sounkyovc.net/info"
+       "url": "https://sounkyovc.net/info",
+       "name_en": "Sounkyo information (Sounkyo Visitor Center; in Japanese)"
       }
      ]
     },
@@ -411,14 +519,20 @@
      "status": "出典あり",
      "note": null,
      "link": null,
+     "name_en": "Frost-cracked tree",
+     "description_en": "A tree split lengthwise when the water inside its trunk froze and expanded in midwinter. This happens especially often to Sakhalin fir.",
+     "when_en": "The cracks can be seen all year (they form in midwinter)",
+     "note_en": null,
      "sources": [
       {
        "name": "紅葉谷散策ガイド（層雲峡ビジターセンター）",
-       "url": "https://sounkyovc.net/wp-content/uploads/2023/08/momiji_valley_guide.pdf"
+       "url": "https://sounkyovc.net/wp-content/uploads/2023/08/momiji_valley_guide.pdf",
+       "name_en": "Momijidani trail guide (Sounkyo Visitor Center; in Japanese)"
       },
       {
        "name": "紅葉谷散策マップ（層雲峡ビジターセンター）",
-       "url": "https://sounkyovc.net/wp-content/uploads/2023/08/momiji_valley_map.pdf"
+       "url": "https://sounkyovc.net/wp-content/uploads/2023/08/momiji_valley_map.pdf",
+       "name_en": "Momijidani trail map (Sounkyo Visitor Center; in Japanese)"
       }
      ]
     },
@@ -431,10 +545,15 @@
      "status": "出典あり",
      "note": null,
      "link": null,
+     "name_en": "Frost flowers",
+     "description_en": "Frost crystals that grow into flower-like shapes, recorded in Momijidani in winter.",
+     "when_en": "Winter",
+     "note_en": null,
      "sources": [
       {
        "name": "層雲峡情報（層雲峡ビジターセンター）",
-       "url": "https://sounkyovc.net/info"
+       "url": "https://sounkyovc.net/info",
+       "name_en": "Sounkyo information (Sounkyo Visitor Center; in Japanese)"
       }
      ]
     },
@@ -447,10 +566,15 @@
      "status": "出典あり",
      "note": null,
      "link": null,
+     "name_en": "Spray icicles",
+     "description_en": "Ice shapes that form in winter when spray from the water freezes. The visitor center has recorded them in Momijidani in winter.",
+     "when_en": "Winter",
+     "note_en": null,
      "sources": [
       {
        "name": "層雲峡情報（層雲峡ビジターセンター）",
-       "url": "https://sounkyovc.net/info"
+       "url": "https://sounkyovc.net/info",
+       "name_en": "Sounkyo information (Sounkyo Visitor Center; in Japanese)"
       }
      ]
     },
@@ -463,10 +587,15 @@
      "status": "出典あり",
      "note": "悪天候や路面の凍結、雪崩の危険があるときは入らないでください。",
      "link": null,
+     "name_en": "Snowshoe walks in winter",
+     "description_en": "In winter the whole trail is covered in snow, so you walk on snowshoes. The route gets hard to follow, so walking with a guide or joining a nature walk event is recommended.",
+     "when_en": "Winter",
+     "note_en": "Do not go in when the weather is bad, the path is icy, or there is a risk of avalanches.",
      "sources": [
       {
        "name": "層雲峡情報（層雲峡ビジターセンター）",
-       "url": "https://sounkyovc.net/info"
+       "url": "https://sounkyovc.net/info",
+       "name_en": "Sounkyo information (Sounkyo Visitor Center; in Japanese)"
       }
      ]
     },
@@ -479,14 +608,20 @@
      "status": "出典あり",
      "note": null,
      "link": null,
+     "name_en": "Tengu's Millstone Rock (天狗の引き臼岩)",
+     "description_en": "A rock named after words in a song by Noguchi Ujo, the children's-song poet who visited Sounkyo in 1927.",
+     "when_en": null,
+     "note_en": null,
      "sources": [
       {
        "name": "紅葉谷散策ガイド（層雲峡ビジターセンター）",
-       "url": "https://sounkyovc.net/wp-content/uploads/2023/08/momiji_valley_guide.pdf"
+       "url": "https://sounkyovc.net/wp-content/uploads/2023/08/momiji_valley_guide.pdf",
+       "name_en": "Momijidani trail guide (Sounkyo Visitor Center; in Japanese)"
       },
       {
        "name": "紅葉谷散策マップ（層雲峡ビジターセンター）",
-       "url": "https://sounkyovc.net/wp-content/uploads/2023/08/momiji_valley_map.pdf"
+       "url": "https://sounkyovc.net/wp-content/uploads/2023/08/momiji_valley_map.pdf",
+       "name_en": "Momijidani trail map (Sounkyo Visitor Center; in Japanese)"
       }
      ]
     },
@@ -499,14 +634,20 @@
      "status": "出典あり",
      "note": null,
      "link": null,
+     "name_en": "Onko Rock",
+     "description_en": "Named for the Japanese yew (called onko in Hokkaido) that grows draped over this large rock beside the trail. In Ainu the yew is called rarumani (ラルマニ). About a 10-minute walk from the Akaishi River junction.",
+     "when_en": null,
+     "note_en": null,
      "sources": [
       {
        "name": "紅葉谷散策ガイド（層雲峡ビジターセンター）",
-       "url": "https://sounkyovc.net/wp-content/uploads/2023/08/momiji_valley_guide.pdf"
+       "url": "https://sounkyovc.net/wp-content/uploads/2023/08/momiji_valley_guide.pdf",
+       "name_en": "Momijidani trail guide (Sounkyo Visitor Center; in Japanese)"
       },
       {
        "name": "紅葉谷散策マップ（層雲峡ビジターセンター）",
-       "url": "https://sounkyovc.net/wp-content/uploads/2023/08/momiji_valley_map.pdf"
+       "url": "https://sounkyovc.net/wp-content/uploads/2023/08/momiji_valley_map.pdf",
+       "name_en": "Momijidani trail map (Sounkyo Visitor Center; in Japanese)"
       }
      ]
     }
@@ -549,6 +690,7 @@
   {
    "id": "momiji-falls",
    "topic": "紅葉の滝：閉ざされた小函の面影を、ここで",
+   "topic_en": "Momiji Falls: a glimpse of the closed Kobako gorge",
    "place": "紅葉の滝（紅葉谷の終点）",
    "notion_page": "3edfd841a42c8150ad0edb8200e3caf6",
    "target_seconds": 60,
@@ -556,6 +698,7 @@
    "kids": "ここがいちばん奥の「紅葉の滝」です。まわりの岩、えんぴつをたばねたみたいに見えるかな？むかし、大きな噴火で熱い火山灰の流れがかたまり、冷えるときにちぢんで、こんな柱の形に割れたんだよ。この景色を見られる場所は、いまはあまり多くないんだ。",
    "en": "You have reached the waterfall at the end of the trail. The column-shaped rock walls around it are columnar joints. In Sounkyo, these formed about 30,000 years ago, when a pyroclastic flow welded itself solid with its own heat and cracked into columns as it cooled. Visitors once saw views like this along the Ishikari River at Kobako, but after a rockfall disaster and repeated falling rocks, that route is now closed. This trail lets you walk into that lost scenery yourself.",
    "category": "地質・地形",
+   "place_en": "Momiji Falls",
    "location": {
     "area": "層雲峡温泉街",
     "lat": null,
@@ -567,7 +710,9 @@
      "L6 水系"
     ],
     "season": "6月〜11月上旬。冬はスノーシューで行ける",
-    "access": "紅葉谷の散策道の終点。入口から片道約700m・約30分"
+    "access": "紅葉谷の散策道の終点。入口から片道約700m・約30分",
+    "season_en": "June to early November. Reachable on snowshoes in winter",
+    "access_en": "At the end of the Momijidani trail. About 700 m, about 30 minutes one way from the entrance"
    },
    "photos": {},
    "highlights": [
@@ -580,18 +725,25 @@
      "status": "2資料で一致",
      "note": null,
      "link": null,
+     "name_en": "Columnar joints",
+     "description_en": "Cracks that formed as welded tuff cooled and shrank, leaving the rock lined up like columns. In cross-section the columns are hexagons and other polygons. In Momijidani you can see these rock walls right in front of you.",
+     "when_en": null,
+     "note_en": null,
      "sources": [
       {
        "name": "紅葉谷散策ガイド（層雲峡ビジターセンター）",
-       "url": "https://sounkyovc.net/wp-content/uploads/2023/08/momiji_valley_guide.pdf"
+       "url": "https://sounkyovc.net/wp-content/uploads/2023/08/momiji_valley_guide.pdf",
+       "name_en": "Momijidani trail guide (Sounkyo Visitor Center; in Japanese)"
       },
       {
        "name": "層雲峡情報（層雲峡ビジターセンター）",
-       "url": "https://sounkyovc.net/info"
+       "url": "https://sounkyovc.net/info",
+       "name_en": "Sounkyo information (Sounkyo Visitor Center; in Japanese)"
       },
       {
        "name": "地質で語る百名山「大雪山」（産総研）",
-       "url": "https://www.gsj.jp/Muse/100mt/daisetsuzan/index.html"
+       "url": "https://www.gsj.jp/Muse/100mt/daisetsuzan/index.html",
+       "name_en": "Geology of Japan's 100 famous mountains: Daisetsuzan (AIST, in Japanese)"
       }
      ]
     },
@@ -604,18 +756,25 @@
      "status": "2資料で一致",
      "note": null,
      "link": null,
+     "name_en": "Momiji Falls",
+     "description_en": "A two-tiered waterfall about 10 m high at the end of the trail. It is the farthest-downstream waterfall on the Akaishi River, which flows from the old crater of Ohachidaira. The tourism association writes its name as 紅葉の滝.",
+     "when_en": null,
+     "note_en": null,
      "sources": [
       {
        "name": "紅葉谷散策ガイド（層雲峡ビジターセンター）",
-       "url": "https://sounkyovc.net/wp-content/uploads/2023/08/momiji_valley_guide.pdf"
+       "url": "https://sounkyovc.net/wp-content/uploads/2023/08/momiji_valley_guide.pdf",
+       "name_en": "Momijidani trail guide (Sounkyo Visitor Center; in Japanese)"
       },
       {
        "name": "層雲峡情報（層雲峡ビジターセンター）",
-       "url": "https://sounkyovc.net/info"
+       "url": "https://sounkyovc.net/info",
+       "name_en": "Sounkyo information (Sounkyo Visitor Center; in Japanese)"
       },
       {
        "name": "紅葉谷の散策道（層雲峡観光協会）",
-       "url": "https://sounkyo.net/view/detail.html?content=8"
+       "url": "https://sounkyo.net/view/detail.html?content=8",
+       "name_en": "Momijidani trail (Sounkyo Tourism Association; in Japanese)"
       }
      ]
     }
@@ -658,6 +817,7 @@
   {
    "id": "ginga-ryusei",
    "topic": "銀河の滝・流星の滝：不動岩をはさむ、対照的な二つの滝",
+   "topic_en": "Ginga Falls & Ryusei Falls: two contrasting waterfalls on either side of Fudo-iwa",
    "place": "銀河の滝・流星の滝",
    "notion_page": "397fd841a42c8166995bcff957d71330",
    "target_seconds": 60,
@@ -665,6 +825,7 @@
    "kids": "大きな岩をはさんで、滝が2本ならんでいるよ。太くてどーんと落ちるのが「流星の滝」、細い糸みたいに分かれて落ちるのが「銀河の滝」。どっちがおもしろい？ふたつとも、日本のすてきな滝100にえらばれているんだよ。",
    "en": "Two waterfalls stand side by side, divided by a cliff called Fudo-iwa. Ryusei Falls drops in a single powerful stream, while Ginga Falls splits into many fine white threads. Because of this contrast, they are also called the 'male' and 'female' falls, and both are listed among Japan's Top 100 Waterfalls. Ryusei is about 90 meters high and Ginga about 120 meters. Climb the slope behind you for about 20 minutes to the Sobaku-dai viewpoint to see both at once.",
    "category": "自然景観",
+   "place_en": "Ginga Falls & Ryusei Falls",
    "location": {
     "area": "層雲峡渓谷",
     "lat": 43.718512,
@@ -677,7 +838,9 @@
      "L6 水系"
     ],
     "season": "通年",
-    "access": "駐車場から間近に見られる。双瀑台へは斜面を約20分"
+    "access": "駐車場から間近に見られる。双瀑台へは斜面を約20分",
+    "season_en": "All year",
+    "access_en": "You can see them up close from the parking lot. About 20 minutes up the slope to Sobakudai Observatory"
    },
    "photos": {},
    "highlights": [
@@ -690,14 +853,20 @@
      "status": "2資料で一致",
      "note": "狭い場所があるので足元に注意。野生動物との出会い頭を避けるため、鈴など音の鳴るものを持ちましょう。",
      "link": null,
+     "name_en": "Sobakudai Observatory",
+     "description_en": "A viewpoint where you can see Ginga Falls and Ryusei Falls at the same time. From the Taki Mintara building, climb the steep stairs, passing the first viewpoint and a spot with a bench. The visitor center gives the walk as about 25 minutes; the tourism association says about 20.",
+     "when_en": null,
+     "note_en": "Some sections are narrow, so watch your step. Carry a bell or something else that makes noise, so you don't surprise wild animals.",
      "sources": [
       {
        "name": "層雲峡散策名所 双瀑台（層雲峡ビジターセンター）",
-       "url": "https://sounkyovc.net/wp-content/uploads/2023/08/soubakudai.pdf"
+       "url": "https://sounkyovc.net/wp-content/uploads/2023/08/soubakudai.pdf",
+       "name_en": "Sounkyo walks: Sobakudai (Sounkyo Visitor Center; in Japanese)"
       },
       {
        "name": "銀河・流星の滝（層雲峡観光協会）",
-       "url": "https://sounkyo.net/view/detail.html?content=7"
+       "url": "https://sounkyo.net/view/detail.html?content=7",
+       "name_en": "Ginga & Ryusei Falls (Sounkyo Tourism Association; in Japanese)"
       }
      ]
     },
@@ -710,10 +879,15 @@
      "status": "出典あり",
      "note": null,
      "link": null,
+     "name_en": "Fudo-iwa Rock",
+     "description_en": "A sheer cliff rising between Ginga Falls and Ryusei Falls. The two waterfalls pour down on either side of it.",
+     "when_en": null,
+     "note_en": null,
      "sources": [
       {
        "name": "銀河・流星の滝（層雲峡観光協会）",
-       "url": "https://sounkyo.net/view/detail.html?content=7"
+       "url": "https://sounkyo.net/view/detail.html?content=7",
+       "name_en": "Ginga & Ryusei Falls (Sounkyo Tourism Association; in Japanese)"
       }
      ]
     }
@@ -756,6 +930,7 @@
   {
    "id": "obako",
    "topic": "大函の柱状節理と渓谷形成",
+   "topic_en": "Obako's columnar joints and how the gorge formed",
    "place": "大函",
    "notion_page": "397fd841a42c81e7bdb4e203be72b1a7",
    "target_seconds": 60,
@@ -763,6 +938,7 @@
    "kids": "むかし、大きな噴火で、熱い火山灰や軽石の流れが谷をうめつくしました。それが自分の熱でかたまり、冷えるときにちぢんで、えんぴつをたばねたような柱になりました。アイヌの人たちは、箱のようなこのがけを「スウォオプ・ニセイ」と呼んでいたといわれています。",
    "en": "These columns are not lava. About 30,000 years ago, the eruption that created the Ohachidaira caldera sent a pyroclastic flow into this valley. It welded itself solid with its own heat, then cracked into columns as it cooled. The Ishikari River later cut down through the rock, carving the gorge. The Ainu are said to have called this box-like cliff 'Suwop-nisey'.",
    "category": "地質・地形",
+   "place_en": "Obako",
    "location": {
     "area": "層雲峡渓谷",
     "lat": 43.701749,
@@ -774,7 +950,9 @@
      "L4 岩石分布"
     ],
     "season": "冬季は未確認",
-    "access": "温泉街から北見方面へ約6km、新大函トンネルを過ぎてすぐ左"
+    "access": "温泉街から北見方面へ約6km、新大函トンネルを過ぎてすぐ左",
+    "season_en": "Winter access not yet confirmed",
+    "access_en": "About 6 km from the hot spring town toward Kitami; on the left just past the new Obako tunnel"
    },
    "photos": {},
    "highlights": [
@@ -787,14 +965,20 @@
      "status": "2資料で一致",
      "note": null,
      "link": null,
+     "name_en": "Columnar joints formed by a pyroclastic flow",
+     "description_en": "Columns formed when a pyroclastic flow from a large eruption about 30,000 years ago welded itself solid with its own heat, then cracked as it cooled and shrank. They formed differently from the columns at Tojinbo or Genbudo, which came from cooling magma or lava.",
+     "when_en": null,
+     "note_en": null,
      "sources": [
       {
        "name": "地質で語る百名山「大雪山」（産総研）",
-       "url": "https://www.gsj.jp/Muse/100mt/daisetsuzan/index.html"
+       "url": "https://www.gsj.jp/Muse/100mt/daisetsuzan/index.html",
+       "name_en": "Geology of Japan's 100 famous mountains: Daisetsuzan (AIST, in Japanese)"
       },
       {
        "name": "層雲峡の核心部 Part1（環境省北海道地方環境事務所）",
-       "url": "https://hokkaido.env.go.jp/blog/2020/07/part-1.html"
+       "url": "https://hokkaido.env.go.jp/blog/2020/07/part-1.html",
+       "name_en": "The heart of Sounkyo, Part 1 (Ministry of the Environment, Hokkaido Regional Office; in Japanese)"
       }
      ]
     },
@@ -807,10 +991,15 @@
      "status": "出典あり",
      "note": null,
      "link": null,
+     "name_en": "A gorge carved by the Ishikari River",
+     "description_en": "A gorge formed as the Ishikari River cut deeper and deeper into the columnar-jointed rock. At Obako, the river flows between sheer rock walls on both banks.",
+     "when_en": null,
+     "note_en": null,
      "sources": [
       {
        "name": "層雲峡の核心部 Part1（環境省北海道地方環境事務所）",
-       "url": "https://hokkaido.env.go.jp/blog/2020/07/part-1.html"
+       "url": "https://hokkaido.env.go.jp/blog/2020/07/part-1.html",
+       "name_en": "The heart of Sounkyo, Part 1 (Ministry of the Environment, Hokkaido Regional Office; in Japanese)"
       }
      ]
     }
@@ -853,6 +1042,7 @@
   {
    "id": "naming-1921",
    "topic": "1921年、「層雲峡」という名前が生まれた",
+   "topic_en": "1921: the year the name “Sounkyo” was born",
    "place": "層雲峡温泉街",
    "notion_page": "3edfd841a42c811e9f65f9d398148ee5",
    "target_seconds": 60,
@@ -860,6 +1050,7 @@
    "kids": "およそ100年前、大町桂月という文章を書く人が、ここに「層雲峡」という名前をつけました。その前は「霊山碧水峡」という名前でした。アイヌ語の「ソウンペッ（滝のある川）」がヒントになったといわれています。",
    "en": "The name 'Sounkyo' was given in August 1921 by the writer Omachi Keigetsu. Before that, the gorge was known as 'Reizan Hekisui-kyo'. The name is said to have been inspired by the Ainu word 'Soun-pet', meaning 'a river with waterfalls', and by the name of a nearby river.",
    "category": "歴史・人物",
+   "place_en": "Sounkyo Onsen (hot spring town)",
    "location": {
     "area": "層雲峡温泉街",
     "lat": null,
@@ -867,7 +1058,9 @@
     "coord_note": "位置未登録（範囲の定義が未定）",
     "layers": [],
     "season": "通年",
-    "access": ""
+    "access": "",
+    "season_en": "All year",
+    "access_en": ""
    },
    "photos": {},
    "highlights": [],

@@ -1,0 +1,57 @@
+{
+ "_note": "English text written into Notion (英語 columns). Translated from the verified Japanese only; nothing added. Proper-name readings that are not confirmed keep the kanji.",
+ "highlights": {
+  "3effd841a42c81219f69e3a513b2d557": {"name": "Columnar joints formed by a pyroclastic flow", "description": "Columns formed when a pyroclastic flow from a large eruption about 30,000 years ago welded itself solid with its own heat, then cracked as it cooled and shrank. They formed differently from the columns at Tojinbo or Genbudo, which came from cooling magma or lava."},
+  "3effd841a42c8195abc8e9e53b3e86f3": {"name": "A gorge carved by the Ishikari River", "description": "A gorge formed as the Ishikari River cut deeper and deeper into the columnar-jointed rock. At Obako, the river flows between sheer rock walls on both banks."},
+  "3effd841a42c81da898bc4b8a16b5583": {"name": "Sobakudai Observatory", "description": "A viewpoint where you can see Ginga Falls and Ryusei Falls at the same time. From the Taki Mintara building, climb the steep stairs, passing the first viewpoint and a spot with a bench. The visitor center gives the walk as about 25 minutes; the tourism association says about 20.", "note": "Some sections are narrow, so watch your step. Carry a bell or something else that makes noise, so you don't surprise wild animals."},
+  "3effd841a42c81379574c362d7e60830": {"name": "Fudo-iwa Rock", "description": "A sheer cliff rising between Ginga Falls and Ryusei Falls. The two waterfalls pour down on either side of it."},
+  "3effd841a42c814c9ba9f8b4d04f9300": {"name": "The 九十九沢 stream and its “phantom” falls", "description": "A stream that flows down from about 1,800 m on the east slope of Mt. Kurodake. Its underground water has been chosen as one of Hokkaido's famous waters, and it is also used as Sounkyo's everyday water supply. The falls (九十九滝) are a “phantom waterfall” that appears only when the water rises and groundwater pours down the cliff.", "when": "The falls appear only in the snowmelt season (usually around early May) or after heavy rain"},
+  "3effd841a42c814bb8fce23e07ab09fa": {"name": "Madara-suzu cricket", "description": "A tiny cricket, 6–7 mm long. In the lowlands it is a summer insect, but at hot spring areas warmed by geothermal heat it is known to sing even in winter, and in Momijidani it can be seen all year.", "when": "All year in Momijidani"},
+  "3effd841a42c819e9ef9efda8fedb65e": {"name": "Autumn leaves", "description": "The area around the trail entrance is the hot spring town's best-known spot for autumn color. Full-moon maple and Japanese rowan turn red to orange, while painted maple, katsura and Erman's birch turn yellow.", "when": "Usually early to mid-October"},
+  "3effd841a42c81ff8d3ad753639c97ad": {"name": "Big monarch birch", "description": "A member of the birch family that gives the finest timber of them all. Its wood is so much better than that of other birches that it is called makaba, “the true birch”."},
+  "3effd841a42c819495b2dc5e9d0c8759": {"name": "Tengu's Millstone Rock (天狗の引き臼岩)", "description": "A rock named after words in a song by Noguchi Ujo, the children's-song poet who visited Sounkyo in 1927."},
+  "3effd841a42c814c927ae2caaa931935": {"name": "Japanese crayfish stream", "description": "A crayfish found only in Japan, living only in Hokkaido and parts of the Tohoku region. It is small, 4–8 cm long, and dark brown. In the Edo period, the stones that form inside its body were prized as medicine.", "note": "Please only look at living things — don't catch them."},
+  "3effd841a42c81a7a809dc5173a8bdc9": {"name": "Frost-cracked tree", "description": "A tree split lengthwise when the water inside its trunk froze and expanded in midwinter. This happens especially often to Sakhalin fir.", "when": "The cracks can be seen all year (they form in midwinter)"},
+  "3effd841a42c81269d98f21b1178f4fb": {"name": "Hot spring sources", "description": "Sounkyo has more than 30 places where hot spring water comes out of the ground, at 46–93°C; the water is a simple spring. More than 20 of them are packed into an area of about 200 m × 100 m around the Momijidani parking lot — the densest cluster in Sounkyo."},
+  "3effd841a42c810d8785c4c19ff7abbb": {"name": "Bear tree", "description": "A tree that still carries a brown bear's claw marks. A kokuwa (hardy kiwi) vine used to wind around this tree, and the marks are said to be from a bear that climbed up when the fruit was ripe.", "note": "Momijidani is brown bear habitat. Carry a bell or something else that makes noise as you walk."},
+  "3effd841a42c816a9c8feb30d1562c5b": {"name": "Katsura tree", "description": "Said to grow bigger than any other tree in Hokkaido, reaching 20–30 m tall and 1–2 m across. When its leaves turn yellow in autumn, they give off a sweet smell.", "when": "Yellow leaves in autumn"},
+  "3effd841a42c81d49fdae51e15bac079": {"name": "Akaishi River (赤石川)", "description": "Its Ainu name is Shumahurepet (シュマフーレペッ: stone, red, river). About 10 km long, it flows out from the floor of the old crater of Ohachidaira. Upstream, hydrogen sulfide from fumaroles makes it strongly acidic, with recorded pH values of 3.1–3.6."},
+  "3effd841a42c81c3beace9f61151a228": {"name": "Black woodpecker feeding tree", "description": "A tree marked where a black woodpecker pecked for food. With its black body and red on the back of its head, the black woodpecker is Japan's largest woodpecker and a national natural monument. In Ainu it is called Chiptachikam Kamuy (チプタチカム・カムイ)."},
+  "3effd841a42c815eba00db0f43c1525c": {"name": "Ezo flying squirrel", "description": "Lives in Hokkaido's forests, from the lowlands up to the subalpine zone. It glides from tree to tree by spreading the membrane between its front and back legs.", "when": "Active mainly at night"},
+  "3effd841a42c81448ff5fcbf0c391a93": {"name": "Nurse logs", "description": "Seeds land on fallen trees and stumps, sprout, and grow into the next generation of trees. It is one of the ways a forest renews itself."},
+  "3effd841a42c81068d7bd69e0ecaa519": {"name": "Onko Rock", "description": "Named for the Japanese yew (called onko in Hokkaido) that grows draped over this large rock beside the trail. In Ainu the yew is called rarumani (ラルマニ). About a 10-minute walk from the Akaishi River junction."},
+  "3effd841a42c8192a62ec025b94d13a6": {"name": "Kolomikta vine", "description": "A woody vine that grows by climbing other trees and rocks. Around flowering time, its leaves turn pink.", "when": "The leaves change color at flowering time"},
+  "3effd841a42c8140934ad3efef601814": {"name": "Columnar joints", "description": "Cracks that formed as welded tuff cooled and shrank, leaving the rock lined up like columns. In cross-section the columns are hexagons and other polygons. In Momijidani you can see these rock walls right in front of you."},
+  "3effd841a42c81a1a8fec4d6401174d0": {"name": "Momiji Falls", "description": "A two-tiered waterfall about 10 m high at the end of the trail. It is the farthest-downstream waterfall on the Akaishi River, which flows from the old crater of Ohachidaira. The tourism association writes its name as 紅葉の滝."},
+  "3effd841a42c812ca9f1f0a020478f08": {"name": "Flowers of Momijidani", "description": "More than 150 plant species can be seen around Momijidani. Around mid-May, Anemone debilis and Anemone flaccida bloom first; in late June come Aruncus and Trautvetteria, and from July on, Lilium medeoloides, Ezo monkshood and others follow. Photos of bunchberry, Rhododendron albrechtii, Weigela middendorffiana and more are in the visitor center's flower guide (in Japanese).", "when": "From around mid-May through summer", "note": "Please only look at plants — don't pick them."},
+  "3effd841a42c8133a08cfecefc6cf951": {"name": "Ezo red fox and Ezo sika deer", "description": "On the trail you may sometimes meet an Ezo red fox, or a sika deer mother with her fawn (from the visitor center's record photos).", "note": "Please don't approach or feed wild animals."},
+  "3effd841a42c8184bc2afb811e5a0545": {"name": "Frost flowers", "description": "Frost crystals that grow into flower-like shapes, recorded in Momijidani in winter.", "when": "Winter"},
+  "3effd841a42c81b384a4c335d42d5401": {"name": "Spray icicles", "description": "Ice shapes that form in winter when spray from the water freezes. The visitor center has recorded them in Momijidani in winter.", "when": "Winter"},
+  "3effd841a42c8128a173d7009ee23813": {"name": "Snowshoe walks in winter", "description": "In winter the whole trail is covered in snow, so you walk on snowshoes. The route gets hard to follow, so walking with a guide or joining a nature walk event is recommended.", "when": "Winter", "note": "Do not go in when the weather is bad, the path is icy, or there is a risk of avalanches."}
+ },
+ "places": {
+  "3d0fd841a42c812083ddc3ffb0c4b2bd": {"name": "Momijidani", "season": "June to early November (tourism association). In winter you can walk it on snowshoes (visitor center; going with a guide or joining a nature walk is recommended)", "access": "About 15 minutes on foot from the hot spring town to the entrance. From the entrance to Momiji Falls: about 700 m, about 30 minutes one way"},
+  "3edfd841a42c812098ebf738e7df8d7a": {"name": "Momiji Falls", "season": "June to early November. Reachable on snowshoes in winter", "access": "At the end of the Momijidani trail. About 700 m, about 30 minutes one way from the entrance"},
+  "3d0fd841a42c819eab89eb0ebb6ba18b": {"name": "Ginga Falls & Ryusei Falls", "season": "All year", "access": "You can see them up close from the parking lot. About 20 minutes up the slope to Sobakudai Observatory"},
+  "3d0fd841a42c812ca17ad8a184d866ce": {"name": "Obako", "season": "Winter access not yet confirmed", "access": "About 6 km from the hot spring town toward Kitami; on the left just past the new Obako tunnel"},
+  "3edfd841a42c81bf9b01c7ee01634e36": {"name": "Sounkyo Onsen (hot spring town)", "season": "All year", "access": ""}
+ },
+ "topics": {
+  "momijidani-entrance": "Momijidani trail entrance: about 30 minutes one way to Momiji Falls",
+  "momiji-falls": "Momiji Falls: a glimpse of the closed Kobako gorge",
+  "ginga-ryusei": "Ginga Falls & Ryusei Falls: two contrasting waterfalls on either side of Fudo-iwa",
+  "obako": "Obako's columnar joints and how the gorge formed",
+  "naming-1921": "1921: the year the name “Sounkyo” was born"
+ },
+ "sources": {
+  "3d0fd841a42c8151a5acfa169339533f": "Geology of Japan's 100 famous mountains: Daisetsuzan (AIST, in Japanese)",
+  "3d0fd841a42c813ba5aae8ac76ba82e8": "The heart of Sounkyo, Part 1 (Ministry of the Environment, Hokkaido Regional Office; in Japanese)",
+  "3edfd841a42c813c98ffe9d875fd2aab": "Ginga & Ryusei Falls (Sounkyo Tourism Association; in Japanese)",
+  "3edfd841a42c81cc851ec779f65e4cd3": "Momijidani trail (Sounkyo Tourism Association; in Japanese)",
+  "3effd841a42c8102bb82ee5e0090468a": "Flower guide (Sounkyo Visitor Center; in Japanese)",
+  "3effd841a42c81128632e0271f394217": "Sounkyo walks: Sobakudai (Sounkyo Visitor Center; in Japanese)",
+  "3effd841a42c811497fbe20aa2d5195e": "Momijidani trail map (Sounkyo Visitor Center; in Japanese)",
+  "3effd841a42c81d9b0f6c65f849bf8bc": "Sounkyo information (Sounkyo Visitor Center; in Japanese)",
+  "3effd841a42c81ee98d2d6578dca5e03": "Momijidani trail guide (Sounkyo Visitor Center; in Japanese)"
+ }
+}

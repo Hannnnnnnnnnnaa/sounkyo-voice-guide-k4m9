@@ -36,8 +36,8 @@ JA_VOICES = {
     "suzume": {"label": "雀松朱司",   "credit": "VOICEVOX:雀松朱司",   "style": 52, "model": "12"},
 }
 EN_VOICES = {
-    "heart":   {"label": "Heart（女性）",   "credit": "Kokoro TTS", "voice": "af_heart"},
-    "michael": {"label": "Michael（男性）", "credit": "Kokoro TTS", "voice": "am_michael"},
+    "heart":   {"label": "Heart (female)",   "credit": "Kokoro TTS", "voice": "af_heart"},
+    "michael": {"label": "Michael (male)", "credit": "Kokoro TTS", "voice": "am_michael"},
 }
 # Delivery per mode: speed, pitch, intonation, pause between sentences (s)
 JA_MODES = {"core": dict(speed=1.0, pitch=0.0, inton=1.15, gap=0.5),
@@ -73,7 +73,10 @@ def place_from_notion(pid, token):
                 lat=(p.get("緯度") or {}).get("number"), lng=(p.get("経度") or {}).get("number"),
                 coord_note=coord[-1] if coord else ("" if (p.get("緯度") or {}).get("number") else "位置未登録"),
                 layers=[o["name"] for o in (p.get("地図レイヤー") or {}).get("multi_select", [])],
-                season="", access=text(p.get("アクセス・注意")).splitlines()[0] if text(p.get("アクセス・注意")) else "")
+                season=text(p.get("行ける時期")),
+                access=text(p.get("行き方")) or (text(p.get("アクセス・注意")).splitlines() or [""])[0],
+                name_en=text(p.get("名前（英語）")), season_en=text(p.get("行ける時期（英語）")),
+                access_en=text(p.get("行き方（英語）")))
 
 
 def text(prop):
@@ -97,7 +100,8 @@ def from_notion(token):
         pid = rel[0]["id"].replace("-", "") if rel else ""
         if pid and pid not in places: places[pid] = place_from_notion(pid, token)
         scripts.append(dict(id=f"s{p['ID']['unique_id']['number']}", notion_page=r["id"].replace("-", ""),
-            topic=text(p["トピック名"]), place=places[pid]["name"] if pid else "", place_page=pid,
+            topic=text(p["トピック名"]), topic_en=text(p.get("トピック名（英語）")),
+            place=places[pid]["name"] if pid else "", place_page=pid,
             category=((p.get("カテゴリー") or {}).get("select") or {}).get("name", ""),
             target_seconds=p["推奨音声尺(秒)"]["number"] or 60,
             core=text(p["【翻訳】コア"]), kids=text(p["【翻訳】子供派"]), en=text(p["【翻訳】海外"])))
@@ -113,11 +117,14 @@ def from_notion(token):
         p = r["properties"]
         h = dict(name=text(p["名前"]), places=rel(p["場所"]), category=sel(p["分類"]), description=text(p["説明"]),
                  when=text(p["見られる時期"]) or None, map_number=num(p["地図の番号"]), order=num(p["表示順"]),
-                 sources=rel(p["出典"]), status=sel(p["検証状況"]), note=text(p["注意"]) or None, link=(p["参考リンク"] or {}).get("url"))
+                 sources=rel(p["出典"]), status=sel(p["検証状況"]), note=text(p["注意"]) or None, link=(p["参考リンク"] or {}).get("url"),
+                 name_en=text(p.get("名前（英語）")) or None, description_en=text(p.get("説明（英語）")) or None,
+                 when_en=text(p.get("見られる時期（英語）")) or None, note_en=text(p.get("注意（英語）")) or None)
         for sid in h["sources"]:
             if sid not in sources:
                 sp = notion_page(sid, token)
-                sources[sid] = dict(name=text(sp["資料名"]), url=(sp.get("URL") or {}).get("url"))
+                sources[sid] = dict(name=text(sp["資料名"]), name_en=text(sp.get("名前（英語）")) or None,
+                                    url=(sp.get("URL") or {}).get("url"))
         highlights.append(h)
     return {"scripts": scripts, "places": places, "highlights": highlights, "sources": sources,
             "dictionary": [d for d in dic if d["surface"] and d["reading"]]}
@@ -166,10 +173,13 @@ def point_meta(s, data):
     hl = [h for h in (data.get("highlights") or [])
           if s.get("place_page") in h["places"] and h.get("status") not in (None, "未検証") and h.get("category")]
     hl.sort(key=lambda h: (CATEGORY_ORDER.index(h["category"]) if h["category"] in CATEGORY_ORDER else 99, h.get("order") or 999))
-    hl = [{k: h.get(k) for k in ("name", "category", "description", "when", "map_number", "status", "note", "link")}
+    hl = [{k: h.get(k) for k in ("name", "category", "description", "when", "map_number", "status", "note", "link",
+                                 "name_en", "description_en", "when_en", "note_en")}
           | {"sources": [srcs[x] for x in h["sources"] if x in srcs]} for h in hl]
-    return ({k: s.get(k, "") for k in ("id", "topic", "place", "notion_page", "target_seconds", "core", "kids", "en", "category")}
-            | {"location": {k: pl.get(k) for k in ("area", "lat", "lng", "coord_note", "layers", "season", "access")},
+    return ({k: s.get(k, "") for k in ("id", "topic", "topic_en", "place", "notion_page", "target_seconds", "core", "kids", "en", "category")}
+            | {"place_en": pl.get("name_en") or "",
+               "location": {k: pl.get(k) for k in ("area", "lat", "lng", "coord_note", "layers", "season", "access",
+                                                   "season_en", "access_en")},
                "photos": photos, "highlights": hl})
 
 
