@@ -9,9 +9,9 @@
    "place": "紅葉谷",
    "place_page": "3d0fd841a42c812083ddc3ffb0c4b2bd",
    "target_seconds": 30,
-   "core": "ここから紅葉谷の散策道です。終点の紅葉の滝までは、片道およそ30分。そこでは、今は入れなくなった「小函」のような柱状節理と滝を、一度に見ることができます。この道を歩けるのは6月から11月上旬まで。足元に気をつけて、谷の奥へ進んでみましょう。",
-   "kids": "ここから「紅葉谷」の道がはじまります。いちばん奥の「紅葉の滝」まで、歩いておよそ30分。えんぴつをたばねたような岩のかべと、滝が待っています。すべらないように、足もとをよく見て歩こう。",
-   "en": "This is the start of the Momijidani trail. It takes about 30 minutes, one way, to reach the waterfall at the end. There you can see columnar rock walls and a waterfall together, much like the Kobako gorge, which is now closed to visitors. The trail is open from June to early November. Watch your step as you head into the valley.",
+   "core": "ここから紅葉谷の散策道です。終点の紅葉の滝までは、片道およそ700メートル、歩いて30分ほど。そこでは、今は入れなくなった「小函」のような柱状節理と滝を、一度に見ることができます。この森はヒグマのすむ場所でもあります。鈴を鳴らし、足元に気をつけて、谷の奥へ進んでみましょう。",
+   "kids": "ここから「紅葉谷」の道がはじまります。いちばん奥の「紅葉の滝」まで、歩いておよそ30分。えんぴつをたばねたような岩のかべと、滝が待っています。この森にはクマもすんでいるよ。すずを鳴らして、足もとをよく見て歩こう。",
+   "en": "This is the start of the Momijidani trail. The waterfall at the end is about 700 meters away, a 30-minute walk one way. There you can see columnar rock walls and a waterfall together, much like the Kobako gorge, which is now closed to visitors. Brown bears live in this forest, so carry a bell and watch your step as you head into the valley.",
    "category": "自然景観"
   },
   {
@@ -128,8 +128,8 @@
     "L5 植生",
     "L6 水系"
    ],
-   "season": "6月〜11月上旬",
-   "access": "温泉街の東側から、紅葉の滝まで片道約30分"
+   "season": "6月〜11月上旬（観光協会）。冬はスノーシューで歩ける（ビジターセンター。ガイド同行や観察会への参加がおすすめ）",
+   "access": "温泉街から入口まで徒歩約15分。入口から紅葉滝まで片道約700m・約30分"
   },
   "3edfd841a42c812098ebf738e7df8d7a": {
    "name": "紅葉の滝（紅葉谷の終点）",
@@ -142,8 +142,8 @@
     "L4 岩石分布",
     "L6 水系"
    ],
-   "season": "6月〜11月上旬",
-   "access": "紅葉谷の散策道の終点"
+   "season": "6月〜11月上旬。冬はスノーシューで行ける",
+   "access": "紅葉谷の散策道の終点。入口から片道約700m・約30分"
   },
   "3d0fd841a42c819eab89eb0ebb6ba18b": {
    "name": "銀河の滝・流星の滝",
@@ -184,5 +184,530 @@
    "season": "通年",
    "access": ""
   }
- }
+ },
+ "sources": {
+  "3d0fd841a42c8151a5acfa169339533f": {
+   "name": "地質で語る百名山「大雪山」（産総研）",
+   "url": "https://www.gsj.jp/Muse/100mt/daisetsuzan/index.html"
+  },
+  "3d0fd841a42c813ba5aae8ac76ba82e8": {
+   "name": "層雲峡の核心部 Part1（環境省北海道地方環境事務所）",
+   "url": "https://hokkaido.env.go.jp/blog/2020/07/part-1.html"
+  },
+  "3edfd841a42c813c98ffe9d875fd2aab": {
+   "name": "銀河・流星の滝（層雲峡観光協会）",
+   "url": "https://sounkyo.net/view/detail.html?content=7"
+  },
+  "3edfd841a42c81cc851ec779f65e4cd3": {
+   "name": "紅葉谷の散策道（層雲峡観光協会）",
+   "url": "https://sounkyo.net/view/detail.html?content=8"
+  },
+  "3effd841a42c8102bb82ee5e0090468a": {
+   "name": "花図鑑（層雲峡ビジターセンター）",
+   "url": "https://sounkyovc.net/db/hanazukan"
+  },
+  "3effd841a42c81128632e0271f394217": {
+   "name": "層雲峡散策名所 双瀑台（層雲峡ビジターセンター）",
+   "url": "https://sounkyovc.net/wp-content/uploads/2023/08/soubakudai.pdf"
+  },
+  "3effd841a42c811497fbe20aa2d5195e": {
+   "name": "紅葉谷散策マップ（層雲峡ビジターセンター）",
+   "url": "https://sounkyovc.net/wp-content/uploads/2023/08/momiji_valley_map.pdf"
+  },
+  "3effd841a42c81d9b0f6c65f849bf8bc": {
+   "name": "層雲峡情報（層雲峡ビジターセンター）",
+   "url": "https://sounkyovc.net/info"
+  },
+  "3effd841a42c81ee98d2d6578dca5e03": {
+   "name": "紅葉谷散策ガイド（層雲峡ビジターセンター）",
+   "url": "https://sounkyovc.net/wp-content/uploads/2023/08/momiji_valley_guide.pdf"
+  }
+ },
+ "highlights": [
+  {
+   "name": "火砕流でできた柱状節理",
+   "places": [
+    "3d0fd841a42c812ca17ad8a184d866ce"
+   ],
+   "category": "地形・岩",
+   "description": "約3万年前の大きな噴火で流れ下った火砕流が、自分の熱で焼き固まり、冷えて縮むときに割れてできた柱。マグマや溶岩が冷えてできた東尋坊や玄武洞の柱とは、でき方が違う。",
+   "when": null,
+   "map_number": null,
+   "order": 1,
+   "sources": [
+    "3d0fd841a42c8151a5acfa169339533f",
+    "3d0fd841a42c813ba5aae8ac76ba82e8"
+   ],
+   "status": "2資料で一致",
+   "note": null,
+   "link": null
+  },
+  {
+   "name": "石狩川が刻んだ峡谷",
+   "places": [
+    "3d0fd841a42c812ca17ad8a184d866ce"
+   ],
+   "category": "水・滝",
+   "description": "柱状節理の岩を、石狩川が下へ下へと掘り込んでできた峡谷。大函では、両岸に切り立つ岩壁のあいだを川が流れる。",
+   "when": null,
+   "map_number": null,
+   "order": 2,
+   "sources": [
+    "3d0fd841a42c813ba5aae8ac76ba82e8"
+   ],
+   "status": "出典あり",
+   "note": null,
+   "link": null
+  },
+  {
+   "name": "双瀑台",
+   "places": [
+    "3d0fd841a42c819eab89eb0ebb6ba18b"
+   ],
+   "category": "地形・岩",
+   "description": "銀河の滝と流星の滝を一度に見渡せる展望台。滝ミンタラの建物から急な階段を登り、第一展望台、ベンチのある地点を通って着く。所要時間はビジターセンターでは約25分、観光協会では約20分とされている。",
+   "when": null,
+   "map_number": null,
+   "order": 1,
+   "sources": [
+    "3effd841a42c81128632e0271f394217",
+    "3edfd841a42c813c98ffe9d875fd2aab"
+   ],
+   "status": "2資料で一致",
+   "note": "狭い場所があるので足元に注意。野生動物との出会い頭を避けるため、鈴など音の鳴るものを持ちましょう。",
+   "link": null
+  },
+  {
+   "name": "不動岩",
+   "places": [
+    "3d0fd841a42c819eab89eb0ebb6ba18b"
+   ],
+   "category": "地形・岩",
+   "description": "銀河の滝と流星の滝のあいだにそびえる絶壁。2本の滝は、この岩の左右を流れ落ちている。",
+   "when": null,
+   "map_number": null,
+   "order": 2,
+   "sources": [
+    "3edfd841a42c813c98ffe9d875fd2aab"
+   ],
+   "status": "出典あり",
+   "note": null,
+   "link": null
+  },
+  {
+   "name": "九十九沢と九十九滝",
+   "places": [
+    "3d0fd841a42c812083ddc3ffb0c4b2bd"
+   ],
+   "category": "水・滝",
+   "description": "黒岳の東斜面、標高1800m付近から流れてくる沢。地下を流れる水は北海道の名水に選ばれ、層雲峡の生活の水にも使われている。九十九滝は、水が増えたときだけ断崖から地下水が流れ落ちて現れる「幻の滝」。",
+   "when": "九十九滝は雪解けの時期（例年5月上旬ごろ）や大雨のあとだけ",
+   "map_number": 1,
+   "order": 1,
+   "sources": [
+    "3effd841a42c81ee98d2d6578dca5e03",
+    "3effd841a42c811497fbe20aa2d5195e"
+   ],
+   "status": "出典あり",
+   "note": null,
+   "link": null
+  },
+  {
+   "name": "マダラスズ",
+   "places": [
+    "3d0fd841a42c812083ddc3ffb0c4b2bd"
+   ],
+   "category": "動物",
+   "description": "体長6〜7mmの小さなコオロギ。平地では夏の虫だが、地熱のある温泉地では冬にも鳴くことで知られ、紅葉谷では一年中観察できる。",
+   "when": "紅葉谷では一年中",
+   "map_number": 2,
+   "order": 2,
+   "sources": [
+    "3effd841a42c81ee98d2d6578dca5e03",
+    "3effd841a42c811497fbe20aa2d5195e"
+   ],
+   "status": "出典あり",
+   "note": null,
+   "link": null
+  },
+  {
+   "name": "紅葉",
+   "places": [
+    "3d0fd841a42c812083ddc3ffb0c4b2bd"
+   ],
+   "category": "植物",
+   "description": "入口のまわりは温泉街の紅葉の名所。ハウチワカエデやナナカマドは赤〜橙に、イタヤカエデやカツラ、ダケカンバは黄色に色づく。",
+   "when": "例年10月上旬〜中旬",
+   "map_number": 3,
+   "order": 3,
+   "sources": [
+    "3effd841a42c81ee98d2d6578dca5e03",
+    "3effd841a42c81d9b0f6c65f849bf8bc",
+    "3edfd841a42c81cc851ec779f65e4cd3"
+   ],
+   "status": "2資料で一致",
+   "note": null,
+   "link": null
+  },
+  {
+   "name": "ウダイカンバの大木",
+   "places": [
+    "3d0fd841a42c812083ddc3ffb0c4b2bd"
+   ],
+   "category": "植物",
+   "description": "カバノキの仲間で、いちばん質のよい木材がとれる木。ほかのカバノキと比べものにならないほど良いことから「真樺（まかば）」と呼ばれる。",
+   "when": null,
+   "map_number": 4,
+   "order": 4,
+   "sources": [
+    "3effd841a42c81ee98d2d6578dca5e03",
+    "3effd841a42c811497fbe20aa2d5195e"
+   ],
+   "status": "出典あり",
+   "note": null,
+   "link": null
+  },
+  {
+   "name": "天狗の引き臼岩",
+   "places": [
+    "3d0fd841a42c812083ddc3ffb0c4b2bd"
+   ],
+   "category": "名前・歴史",
+   "description": "昭和2年に層雲峡を訪れた童謡詩人・野口雨情の歌の言葉から名づけられた岩。",
+   "when": null,
+   "map_number": 5,
+   "order": 5,
+   "sources": [
+    "3effd841a42c81ee98d2d6578dca5e03",
+    "3effd841a42c811497fbe20aa2d5195e"
+   ],
+   "status": "出典あり",
+   "note": null,
+   "link": null
+  },
+  {
+   "name": "ニホンザリガニの沢",
+   "places": [
+    "3d0fd841a42c812083ddc3ffb0c4b2bd"
+   ],
+   "category": "動物",
+   "description": "北海道と東北の一部にだけすむ、日本固有のザリガニ。体長4〜8cmと小さく、色は暗い褐色。江戸時代には、体の中にできる石が薬として大切にされた。",
+   "when": null,
+   "map_number": 6,
+   "order": 6,
+   "sources": [
+    "3effd841a42c81ee98d2d6578dca5e03",
+    "3effd841a42c811497fbe20aa2d5195e"
+   ],
+   "status": "出典あり",
+   "note": "生きものは捕まえずに、見るだけにしましょう。",
+   "link": null
+  },
+  {
+   "name": "凍裂木",
+   "places": [
+    "3d0fd841a42c812083ddc3ffb0c4b2bd"
+   ],
+   "category": "季節の現象",
+   "description": "真冬に幹の中の水分が凍ってふくらみ、縦に裂け目が入った木。トドマツに特に多い。",
+   "when": "裂け目は一年中見られる（できるのは真冬）",
+   "map_number": 7,
+   "order": 7,
+   "sources": [
+    "3effd841a42c81ee98d2d6578dca5e03",
+    "3effd841a42c811497fbe20aa2d5195e"
+   ],
+   "status": "出典あり",
+   "note": null,
+   "link": null
+  },
+  {
+   "name": "温泉の湧出口",
+   "places": [
+    "3d0fd841a42c812083ddc3ffb0c4b2bd"
+   ],
+   "category": "水・滝",
+   "description": "層雲峡には温泉の湧き出し口が30以上あり、泉温は46〜93度、泉質は単純泉。紅葉谷駐車場のまわり、約200m×100mの範囲に20以上が集まっていて、層雲峡でいちばん密集している。",
+   "when": null,
+   "map_number": 8,
+   "order": 8,
+   "sources": [
+    "3effd841a42c81ee98d2d6578dca5e03",
+    "3effd841a42c811497fbe20aa2d5195e"
+   ],
+   "status": "出典あり",
+   "note": null,
+   "link": null
+  },
+  {
+   "name": "クマの木",
+   "places": [
+    "3d0fd841a42c812083ddc3ffb0c4b2bd"
+   ],
+   "category": "動物",
+   "description": "ヒグマの爪あとが残る木。以前この木にはコクワのつるが絡んでいて、実がなるころにクマがよじ登った跡だとされている。",
+   "when": null,
+   "map_number": 9,
+   "order": 9,
+   "sources": [
+    "3effd841a42c81ee98d2d6578dca5e03",
+    "3effd841a42c81d9b0f6c65f849bf8bc"
+   ],
+   "status": "出典あり",
+   "note": "紅葉谷はヒグマのすむ場所です。鈴など音の鳴るものを持って歩きましょう。",
+   "link": null
+  },
+  {
+   "name": "カツラの木",
+   "places": [
+    "3d0fd841a42c812083ddc3ffb0c4b2bd"
+   ],
+   "category": "植物",
+   "description": "高さ20〜30m、太さ1〜2mにもなり、北海道でいちばん大きくなる木といわれる。秋に黄色く色づくと、よい香りがする。",
+   "when": "黄葉は秋",
+   "map_number": 10,
+   "order": 10,
+   "sources": [
+    "3effd841a42c81ee98d2d6578dca5e03",
+    "3effd841a42c811497fbe20aa2d5195e"
+   ],
+   "status": "出典あり",
+   "note": null,
+   "link": null
+  },
+  {
+   "name": "赤石川",
+   "places": [
+    "3d0fd841a42c812083ddc3ffb0c4b2bd"
+   ],
+   "category": "水・滝",
+   "description": "アイヌ語の名前はシュマフーレペッ（石・赤い・川）。お鉢平の旧噴火口の底から流れ出る、長さ約10kmの川。上流では噴気孔から出る硫化水素のために強い酸性になり、pH3.1〜3.6が記録されている。",
+   "when": null,
+   "map_number": 11,
+   "order": 11,
+   "sources": [
+    "3effd841a42c81ee98d2d6578dca5e03",
+    "3effd841a42c811497fbe20aa2d5195e"
+   ],
+   "status": "出典あり",
+   "note": null,
+   "link": null
+  },
+  {
+   "name": "クマゲラの採餌木",
+   "places": [
+    "3d0fd841a42c812083ddc3ffb0c4b2bd"
+   ],
+   "category": "動物",
+   "description": "クマゲラが餌を探してつついた跡が残る木。クマゲラは体が黒く頭の後ろが赤い、日本最大のキツツキで、国の天然記念物。アイヌ語では「チプタチカム・カムイ」と呼ばれる。",
+   "when": null,
+   "map_number": 12,
+   "order": 12,
+   "sources": [
+    "3effd841a42c81ee98d2d6578dca5e03",
+    "3effd841a42c81d9b0f6c65f849bf8bc"
+   ],
+   "status": "出典あり",
+   "note": null,
+   "link": null
+  },
+  {
+   "name": "エゾモモンガ",
+   "places": [
+    "3d0fd841a42c812083ddc3ffb0c4b2bd"
+   ],
+   "category": "動物",
+   "description": "北海道の低地から亜高山帯の森にすむ。前足と後ろ足のあいだの膜を広げて、木から木へと滑空する。",
+   "when": "主に夜に活動する",
+   "map_number": 13,
+   "order": 13,
+   "sources": [
+    "3effd841a42c81ee98d2d6578dca5e03",
+    "3effd841a42c811497fbe20aa2d5195e"
+   ],
+   "status": "出典あり",
+   "note": null,
+   "link": null
+  },
+  {
+   "name": "倒木更新",
+   "places": [
+    "3d0fd841a42c812083ddc3ffb0c4b2bd"
+   ],
+   "category": "植物",
+   "description": "倒れた木や切り株の上に種が落ちて芽を出し、次の世代の木が育っていくこと。森の世代交代のかたちのひとつ。",
+   "when": null,
+   "map_number": 14,
+   "order": 14,
+   "sources": [
+    "3effd841a42c81ee98d2d6578dca5e03",
+    "3effd841a42c811497fbe20aa2d5195e"
+   ],
+   "status": "出典あり",
+   "note": null,
+   "link": null
+  },
+  {
+   "name": "オンコ岩",
+   "places": [
+    "3d0fd841a42c812083ddc3ffb0c4b2bd"
+   ],
+   "category": "名前・歴史",
+   "description": "散策路沿いの大きな岩に、イチイ（北海道ではオンコ）が覆いかぶさるように生えていることからついた名前。イチイはアイヌ語でラルマニ。赤石川分岐から歩いて約10分。",
+   "when": null,
+   "map_number": 15,
+   "order": 15,
+   "sources": [
+    "3effd841a42c81ee98d2d6578dca5e03",
+    "3effd841a42c811497fbe20aa2d5195e"
+   ],
+   "status": "出典あり",
+   "note": null,
+   "link": null
+  },
+  {
+   "name": "ミヤママタタビ",
+   "places": [
+    "3d0fd841a42c812083ddc3ffb0c4b2bd"
+   ],
+   "category": "植物",
+   "description": "ほかの木や岩に絡みついて伸びる、つる性の木。花の時期になると葉がピンク色に変わる。",
+   "when": "葉の色が変わるのは花の時期",
+   "map_number": 16,
+   "order": 16,
+   "sources": [
+    "3effd841a42c81ee98d2d6578dca5e03",
+    "3effd841a42c811497fbe20aa2d5195e"
+   ],
+   "status": "出典あり",
+   "note": null,
+   "link": null
+  },
+  {
+   "name": "柱状節理",
+   "places": [
+    "3d0fd841a42c812083ddc3ffb0c4b2bd",
+    "3edfd841a42c812098ebf738e7df8d7a"
+   ],
+   "category": "地形・岩",
+   "description": "溶結凝灰岩が冷えて縮むときにできた割れ目で、岩が柱のように並ぶ。柱の断面は六角形などの多角形。紅葉谷では、この岩壁を目の前で見られる。",
+   "when": null,
+   "map_number": 17,
+   "order": 17,
+   "sources": [
+    "3effd841a42c81ee98d2d6578dca5e03",
+    "3effd841a42c81d9b0f6c65f849bf8bc",
+    "3d0fd841a42c8151a5acfa169339533f"
+   ],
+   "status": "2資料で一致",
+   "note": null,
+   "link": null
+  },
+  {
+   "name": "紅葉滝",
+   "places": [
+    "3d0fd841a42c812083ddc3ffb0c4b2bd",
+    "3edfd841a42c812098ebf738e7df8d7a"
+   ],
+   "category": "水・滝",
+   "description": "散策路の終点にある、落差約10mの2段の滝（段瀑）。お鉢平の旧噴火口から流れてくる赤石川の、いちばん下流にある滝。観光協会では「紅葉の滝」と書かれている。",
+   "when": null,
+   "map_number": 18,
+   "order": 18,
+   "sources": [
+    "3effd841a42c81ee98d2d6578dca5e03",
+    "3effd841a42c81d9b0f6c65f849bf8bc",
+    "3edfd841a42c81cc851ec779f65e4cd3"
+   ],
+   "status": "2資料で一致",
+   "note": null,
+   "link": null
+  },
+  {
+   "name": "紅葉谷で咲く花",
+   "places": [
+    "3d0fd841a42c812083ddc3ffb0c4b2bd"
+   ],
+   "category": "植物",
+   "description": "紅葉谷のまわりでは150種以上の植物が見られる。5月中旬ごろ、ヒメイチゲやニリンソウから咲き始め、6月下旬にはヤマブキショウマやモミジカラマツ、7月以降はクルマユリやエゾトリカブトなどが続く。ゴゼンタチバナ、ムラサキヤシオ、ウコンウツギなどは、ビジターセンターの花図鑑で写真を見られる。",
+   "when": "5月中旬ごろ〜夏",
+   "map_number": null,
+   "order": 19,
+   "sources": [
+    "3effd841a42c81ee98d2d6578dca5e03",
+    "3effd841a42c8102bb82ee5e0090468a"
+   ],
+   "status": "出典あり",
+   "note": "植物は採らずに、見るだけにしましょう。",
+   "link": "https://sounkyovc.net/db/hanazukan"
+  },
+  {
+   "name": "キタキツネ・エゾシカ",
+   "places": [
+    "3d0fd841a42c812083ddc3ffb0c4b2bd"
+   ],
+   "category": "動物",
+   "description": "散策路では、ときどきキタキツネや、エゾシカの親子に出会うことがある（ビジターセンターの記録写真より）。",
+   "when": null,
+   "map_number": null,
+   "order": 20,
+   "sources": [
+    "3effd841a42c81d9b0f6c65f849bf8bc"
+   ],
+   "status": "出典あり",
+   "note": "野生動物に近づいたり、餌をあげたりしないでください。",
+   "link": null
+  },
+  {
+   "name": "霜の華（フロストフラワー）",
+   "places": [
+    "3d0fd841a42c812083ddc3ffb0c4b2bd"
+   ],
+   "category": "季節の現象",
+   "description": "冬の紅葉谷で記録されている、霜の結晶が花のような形に育ったもの。",
+   "when": "冬",
+   "map_number": null,
+   "order": 21,
+   "sources": [
+    "3effd841a42c81d9b0f6c65f849bf8bc"
+   ],
+   "status": "出典あり",
+   "note": null,
+   "link": null
+  },
+  {
+   "name": "飛沫氷柱",
+   "places": [
+    "3d0fd841a42c812083ddc3ffb0c4b2bd"
+   ],
+   "category": "季節の現象",
+   "description": "冬に、水のしぶきが凍ってできる氷の造形。ビジターセンターが冬の紅葉谷で記録している。",
+   "when": "冬",
+   "map_number": null,
+   "order": 22,
+   "sources": [
+    "3effd841a42c81d9b0f6c65f849bf8bc"
+   ],
+   "status": "出典あり",
+   "note": null,
+   "link": null
+  },
+  {
+   "name": "冬のスノーシュー散策",
+   "places": [
+    "3d0fd841a42c812083ddc3ffb0c4b2bd"
+   ],
+   "category": "季節の現象",
+   "description": "冬は散策路がすべて雪に覆われるので、スノーシューを履いて歩く。道がわかりにくくなるため、ガイドと一緒に歩くか、観察会に参加するのがすすめられている。",
+   "when": "冬",
+   "map_number": null,
+   "order": 23,
+   "sources": [
+    "3effd841a42c81d9b0f6c65f849bf8bc"
+   ],
+   "status": "出典あり",
+   "note": "悪天候や路面の凍結、雪崩の危険があるときは入らないでください。",
+   "link": null
+  }
+ ]
 }

@@ -5,11 +5,13 @@ Source of truth is Notion:
   - 読み上げ辞書: 表記 -> よみ (+ アクセント型), registered in the engine's user dictionary (screen text is unchanged)
 
   - SKM 場所DB: 場所名・エリア・緯度・経度・地図レイヤー (linked from each script's 場所（SKM）)
+  - SKM 見どころDB: 「ここで見られるもの」の項目 (検証状況が未検証のものは出さない) and their 出典 from 文献・ソースDB
 Photos are not in Notion: put your own photos at photos/<point id>/{spring,summer,autumn,winter}.jpg
 
 Usage
   python3 tools/build.py                    # read tools/notion_export.json (written by Claude from Notion)
-  python3 tools/build.py --meta-only        # update text, places and photos in guide.json; keep the audio as is
+  python3 tools/build.py --meta-only        # update text, places, highlights and photos in guide.json; keep the audio as is
+  python3 tools/build.py --only ID [ID...]  # remake audio only for these points, keep the rest
   NOTION_TOKEN=secret_xxx python3 tools/build.py --notion   # read Notion directly with an integration token
 
 Engines (both free, run offline once downloaded)
@@ -24,6 +26,8 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TTS_DIR = os.environ.get("TTS_DIR", os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "tts"))
 SCRIPT_DB = "394fd841a42c801e93aefb86a376294b"
 DICT_DB = "3155e6665c0244568a2edecd26eb962d"
+HIGHLIGHT_DB = "abe932fc06ea4106b6d93f8ccbda5d81"   # SKM 見どころDB（場所ページ用）
+CATEGORY_ORDER = ["地形・岩", "水・滝", "植物", "動物", "季節の現象", "名前・歴史"]
 
 # Voices offered in the player. style ids are VOICEVOX style ids.
 JA_VOICES = {
@@ -101,7 +105,22 @@ def from_notion(token):
                 accent=(r["properties"].get("アクセント型") or {}).get("number") or 0,
                 status=(r["properties"]["確認状況"]["select"] or {}).get("name", ""))
            for r in notion_query(DICT_DB, token)]
-    return {"scripts": scripts, "places": places, "dictionary": [d for d in dic if d["surface"] and d["reading"]]}
+    num = lambda prop: (prop or {}).get("number")
+    sel = lambda prop: ((prop or {}).get("select") or {}).get("name")
+    rel = lambda prop: [x["id"].replace("-", "") for x in (prop or {}).get("relation", [])]
+    highlights, sources = [], {}
+    for r in notion_query(HIGHLIGHT_DB, token):
+        p = r["properties"]
+        h = dict(name=text(p["名前"]), places=rel(p["場所"]), category=sel(p["分類"]), description=text(p["説明"]),
+                 when=text(p["見られる時期"]) or None, map_number=num(p["地図の番号"]), order=num(p["表示順"]),
+                 sources=rel(p["出典"]), status=sel(p["検証状況"]), note=text(p["注意"]) or None, link=(p["参考リンク"] or {}).get("url"))
+        for sid in h["sources"]:
+            if sid not in sources:
+                sp = notion_page(sid, token)
+                sources[sid] = dict(name=text(sp["資料名"]), url=(sp.get("URL") or {}).get("url"))
+        highlights.append(h)
+    return {"scripts": scripts, "places": places, "highlights": highlights, "sources": sources,
+            "dictionary": [d for d in dic if d["surface"] and d["reading"]]}
 
 
 # ---------- Text ----------
@@ -143,9 +162,15 @@ def point_meta(s, data):
             if os.path.exists(os.path.join(ROOT, rel)):
                 photos[season] = rel
                 break
+    srcs = data.get("sources") or {}
+    hl = [h for h in (data.get("highlights") or [])
+          if s.get("place_page") in h["places"] and h.get("status") not in (None, "未検証") and h.get("category")]
+    hl.sort(key=lambda h: (CATEGORY_ORDER.index(h["category"]) if h["category"] in CATEGORY_ORDER else 99, h.get("order") or 999))
+    hl = [{k: h.get(k) for k in ("name", "category", "description", "when", "map_number", "status", "note", "link")}
+          | {"sources": [srcs[x] for x in h["sources"] if x in srcs]} for h in hl]
     return ({k: s.get(k, "") for k in ("id", "topic", "place", "notion_page", "target_seconds", "core", "kids", "en", "category")}
             | {"location": {k: pl.get(k) for k in ("area", "lat", "lng", "coord_note", "layers", "season", "access")},
-               "photos": photos})
+               "photos": photos, "highlights": hl})
 
 
 def write_guide(data, points):
@@ -164,7 +189,7 @@ def meta_only(data):
     write_guide(data, points)
 
 
-def build(data):
+def build(data, only=None):
     sys.path.insert(0, TTS_DIR)
     import vv
     from kokoro_onnx import Kokoro
@@ -173,7 +198,13 @@ def build(data):
     vv.set_dictionary(data["dictionary"])
     os.makedirs(os.path.join(ROOT, "audio"), exist_ok=True)
     points = []
+    old = {}
+    if only and os.path.exists(os.path.join(ROOT, "guide.json")):
+        old = {p["id"]: p.get("audio", {}) for p in json.load(open(os.path.join(ROOT, "guide.json")))["points"]}
     for s in data["scripts"]:
+        if only and s["id"] not in only and old.get(s["id"]):
+            points.append(point_meta(s, data) | {"audio": old[s["id"]]})
+            continue
         audio = {}
         for mode, m in JA_MODES.items():
             spoken = s[mode]
@@ -201,7 +232,8 @@ if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--notion", action="store_true", help="read Notion directly (needs NOTION_TOKEN)")
     ap.add_argument("--readings", action="store_true", help="only print how each sentence will be read")
-    ap.add_argument("--meta-only", action="store_true", help="refresh text, places and photos; keep existing audio")
+    ap.add_argument("--meta-only", action="store_true", help="refresh text, places, highlights and photos; keep existing audio")
+    ap.add_argument("--only", nargs="+", help="remake audio only for these point ids")
     a = ap.parse_args()
     data = from_notion(os.environ["NOTION_TOKEN"]) if a.notion else json.load(open(os.path.join(ROOT, "tools/notion_export.json")))
     if a.readings:
@@ -215,4 +247,4 @@ if __name__ == "__main__":
     elif a.meta_only:
         meta_only(data)
     else:
-        build(data)
+        build(data, only=set(a.only) if a.only else None)

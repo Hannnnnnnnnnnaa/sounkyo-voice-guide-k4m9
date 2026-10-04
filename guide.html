@@ -84,6 +84,36 @@ h1{font-family:var(--display);font-weight:800;font-size:2.1rem;line-height:1.2;m
 .facts dt{color:var(--muted)} .facts dd{margin:0;min-width:0}
 .draft{margin-top:14px;font-size:.78rem;color:var(--muted);border-left:3px solid var(--line);padding-left:10px}
 
+
+/* things to see: category toggles > item toggles */
+.see-h{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:10px}
+.see-h span{font-size:.78rem;color:var(--muted)}
+.groups{display:flex;flex-direction:column;border-top:1px solid var(--line)}
+.group{border-bottom:1px solid var(--line)}
+.group>summary,.item>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:10px}
+.group>summary::-webkit-details-marker,.item>summary::-webkit-details-marker{display:none}
+.group>summary{padding:13px 2px;font-weight:700;font-size:1rem}
+.group>summary .n{margin-left:auto;font-size:.78rem;color:var(--muted);font-weight:400;font-variant-numeric:tabular-nums}
+.chev{flex:none;width:9px;height:9px;border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);transform:rotate(-45deg);transition:transform .15s}
+details[open]>summary .chev{transform:rotate(45deg)}
+.group>summary:focus-visible,.item>summary:focus-visible{outline:2px solid var(--season);outline-offset:2px;border-radius:6px}
+.items{display:flex;flex-direction:column;gap:8px;padding:0 0 14px}
+.item{background:var(--surface);border:1px solid var(--line);border-radius:12px}
+.item>summary{padding:11px 12px;min-width:0}
+.item>summary .nm{font-weight:700;min-width:0}
+.item>summary .num{flex:none;width:22px;height:22px;border-radius:50%;border:1.5px solid var(--muted);color:var(--muted);font-size:.72rem;display:grid;place-items:center;font-variant-numeric:tabular-nums}
+.item>summary .now{flex:none;font-size:.7rem;font-weight:700;color:var(--on-season);background:var(--season);border-radius:999px;padding:1px 8px}
+.item>summary .chev{margin-left:auto}
+.item-body{padding:0 12px 12px;display:flex;flex-direction:column;gap:8px;font-size:.92rem;line-height:1.85}
+.item-body p{margin:0}
+.item-body .when{font-size:.84rem;color:var(--muted)}
+.item-body .when b{color:var(--ink);font-weight:700}
+.item-body .caution{font-size:.84rem;border-left:3px solid var(--season);padding-left:10px}
+.item-body .src{font-size:.75rem;color:var(--muted);display:flex;flex-wrap:wrap;gap:4px 10px}
+.item-body .src .st{border:1px solid var(--line);border-radius:999px;padding:0 8px}
+.item-body .more{font-size:.84rem;color:var(--season);font-weight:700}
+.see-empty{font-size:.88rem;color:var(--muted);margin:0}
+
 /* other places */
 .section-h{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:10px}
 h2{font-family:var(--display);font-weight:800;font-size:1.25rem;margin:0}
@@ -163,6 +193,11 @@ h2{font-family:var(--display);font-weight:800;font-size:1.25rem;margin:0}
     <div class="draft">解説は層雲峡ナレッジマップで裏取りした事実だけで書いた下書きです。館長の確認前です。</div>
   </section>
 
+  <section aria-label="ここで見られるもの" id="see-section">
+    <div class="see-h"><h2>ここで見られるもの</h2><span id="seeCount"></span></div>
+    <div class="groups" id="groups"></div>
+  </section>
+
   <section aria-label="他の場所">
     <div class="section-h"><h2>他の場所はこちら</h2><span id="stripHint">横にスライド</span></div>
     <div class="strip" id="strip"></div>
@@ -189,6 +224,7 @@ h2{font-family:var(--display);font-weight:800;font-size:1.25rem;margin:0}
 
   <footer class="foot">
     <span id="credit"></span>
+    <span>見どころの情報：<a href="https://sounkyovc.net/" target="_blank" rel="noopener">層雲峡ビジターセンター</a>、<a href="https://sounkyo.net/" target="_blank" rel="noopener">層雲峡観光協会</a>ほか（各項目に出典）</span>
     <span>地図：<a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank" rel="noopener">国土地理院（地理院タイル）</a>／地質図：<a href="https://gbank.gsj.jp/seamless/" target="_blank" rel="noopener">産総研地質調査総合センター 20万分の1日本シームレス地質図V2</a>／地図表示：Leaflet</span>
     <span>位置で自動再生する現地テストは <a href="./">音声テストのページ</a> へ。</span>
   </footer>
@@ -219,7 +255,7 @@ function photoHTML(p,s,big){
 function renderPhoto(){
   document.body.dataset.season=season; press($("seasons"),"s",season);
   $("photo").innerHTML=photoHTML(cur,season,true);
-  renderStrip();
+  renderStrip(); renderSee();
 }
 
 function track(){return cur.audio[`${mode}:${voice[lang()]}`]}
@@ -240,8 +276,25 @@ function renderText(){
   $("eyebrow").textContent=[L.area,cur.category].filter(Boolean).join(" ／ ");
   $("title").textContent=cur.place; $("topic").textContent=cur.topic;
   document.title=cur.place+"｜層雲峡 場所ガイド";
-  const rows=[["行ける時期",L.season],["行き方",L.access],["見られるもの",(L.layers||[]).map(l=>LAYER_NAMES[l]).filter(Boolean).join("・")]].filter(r=>r[1]);
+  const rows=[["行ける時期",L.season],["行き方",L.access]].filter(r=>r[1]);
   $("facts").innerHTML=rows.map(([k,v])=>`<dt>${k}</dt><dd>${esc(v)}</dd>`).join("");
+}
+
+
+const SEASON_MONTHS={spring:[3,4,5],summer:[6,7,8],autumn:[9,10,11],winter:[12,1,2]};
+function inSeason(when,s){if(!when)return false;if(when.includes(SEASONS[s])||when.includes("一年中"))return true;
+  return (when.match(/(\d+)月/g)||[]).map(x=>parseInt(x)).some(m=>SEASON_MONTHS[s].includes(m))}
+function renderSee(){
+  const hl=cur.highlights||[], g=$("groups");
+  $("seeCount").textContent=hl.length?`${hl.length}件 ・ 開くと説明が出ます`:"";
+  if(!hl.length){g.innerHTML=`<p class="see-empty">この場所の見どころは、まだ登録されていません。</p>`;return}
+  const cats=[...new Set(hl.map(x=>x.category))];
+  g.innerHTML=cats.map((c,i)=>{const list=hl.filter(x=>x.category===c);
+    return `<details class="group"${i===0?" open":""}><summary><span class="chev"></span>${esc(c)}<span class="n">${list.length}</span></summary><div class="items">`+
+    list.map(x=>{const now=inSeason(x.when,season);
+      return `<details class="item"><summary>${x.map_number?`<span class="num" title="散策マップの番号">${x.map_number}</span>`:""}<span class="nm">${esc(x.name)}</span>${now?`<span class="now">${SEASONS[season]}に見られる</span>`:""}<span class="chev"></span></summary>
+      <div class="item-body"><p>${esc(x.description)}</p>${x.when?`<div class="when"><b>見られる時期</b>　${esc(x.when)}</div>`:""}${x.note?`<div class="caution">${esc(x.note)}</div>`:""}${x.link?`<a class="more" href="${esc(x.link)}" target="_blank" rel="noopener">写真を見る（ビジターセンター 花図鑑）</a>`:""}
+      <div class="src"><span class="st">${esc(x.status)}</span>出典：${(x.sources||[]).map(s=>s.url?`<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.name)}</a>`:esc(s.name)).join("、")}</div></div></details>`}).join("")+`</div></details>`}).join("");
 }
 
 function renderStrip(){
