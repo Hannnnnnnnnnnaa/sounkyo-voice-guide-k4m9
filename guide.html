@@ -119,6 +119,27 @@ details[open]>summary .chev{transform:rotate(45deg)}
 .item-body .more{font-size:.84rem;color:var(--season);font-weight:700}
 .see-empty{font-size:.88rem;color:var(--muted);margin:0}
 
+/* survey: answered by tapping on the page, sent to a Google Form */
+.survey{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:12px;transition:box-shadow .3s}
+.survey[hidden]{display:none}
+.survey.nudge{box-shadow:0 0 0 3px var(--season)}
+.sv-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px}
+.sv-head h2{font-size:1.1rem}
+.sv-head span{font-size:.75rem;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+.sv-note{margin:0;font-size:.75rem;color:var(--muted)}
+.sv-q{margin:0;font-weight:700;font-size:1rem;line-height:1.5}
+.sv-faces{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.sv-faces button{border:1px solid var(--line);background:var(--bg);border-radius:12px;padding:8px 2px 6px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:.68rem;color:var(--muted)}
+.sv-faces button b{font-size:1.7rem;line-height:1;font-weight:400}
+.sv-opts{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.sv-opts button{border:1px solid var(--line);background:var(--bg);border-radius:10px;padding:10px 8px;font-size:.88rem;cursor:pointer;text-align:center;line-height:1.35}
+.sv-faces button[aria-pressed="true"],.sv-opts button[aria-pressed="true"]{border-color:var(--season);background:color-mix(in srgb,var(--season) 14%,var(--bg));color:var(--ink);font-weight:700}
+.sv-text{width:100%;min-height:72px;border:1px solid var(--line);border-radius:10px;padding:10px;font:inherit;font-size:.92rem;background:var(--bg);color:var(--ink);resize:vertical}
+.sv-nav{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.sv-nav .skip{border:0;background:none;color:var(--muted);font-size:.8rem;cursor:pointer;padding:6px 0;text-decoration:underline}
+.sv-nav .go{border:0;background:var(--season);color:var(--on-season);border-radius:999px;padding:9px 18px;font-weight:700;font-size:.9rem;cursor:pointer}
+.sv-done{margin:0;font-size:.92rem}
+
 /* other places */
 .section-h{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:10px}
 h2{font-family:var(--display);font-weight:800;font-size:1.25rem;margin:0}
@@ -199,6 +220,12 @@ h2{font-family:var(--display);font-weight:800;font-size:1.25rem;margin:0}
     <div class="draft" data-t="draft"></div>
   </section>
 
+  <section class="survey" id="survey" aria-labelledby="svH">
+    <div class="sv-head"><h2 id="svH" data-t="svH"></h2><span id="svStep"></span></div>
+    <p class="sv-note" id="svNote"></p>
+    <div id="svBody"></div>
+  </section>
+
   <section id="see-section">
     <div class="see-h"><h2 data-t="seeH"></h2><span id="seeCount"></span></div>
     <div class="groups" id="groups"></div>
@@ -259,7 +286,9 @@ const T={
   footInfo:`見どころの情報：<a href="https://sounkyovc.net/" target="_blank" rel="noopener">層雲峡ビジターセンター</a>、<a href="https://sounkyo.net/" target="_blank" rel="noopener">層雲峡観光協会</a>ほか（各項目に出典）`,
   footMap:`地図：<a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank" rel="noopener">国土地理院（地理院タイル）</a>／地質図：<a href="https://gbank.gsj.jp/seamless/" target="_blank" rel="noopener">産総研地質調査総合センター 20万分の1日本シームレス地質図V2</a>／地図表示：Leaflet`,
   footTest:`位置で自動再生する現地テストは <a href="./">音声テストのページ</a> へ。`,
-  failTitle:"読み込めませんでした",failBody:"電波のよい場所でページを再読み込みしてください。"},
+  failTitle:"読み込めませんでした",failBody:"電波のよい場所でページを再読み込みしてください。",
+  svH:"30秒アンケート",svNote:"タップするだけ・匿名です。ガイドをよくするために使います。",svSkip:"とばす",svNext:"次へ",svSend:"送る",
+  svDone:"ありがとうございました！いただいた声でガイドを直していきます。"},
  en:{brand:"Sounkyo Guide",map:"Map",loading:"Loading",photo:"Photos",seasonsLabel:"Season",seasons:{spring:"Spring",summer:"Summer",autumn:"Autumn",winter:"Winter"},
   photoSoon:s=>`${s} photo coming soon`,photoAlt:(p,s)=>`${p} in ${s.toLowerCase()}`,
   player:"Audio guide",modesLabel:"Version",modes:{},track:{en:"Audio guide"},
@@ -278,7 +307,9 @@ const T={
   footInfo:`Information on things to see: <a href="https://sounkyovc.net/" target="_blank" rel="noopener">Sounkyo Visitor Center</a>, <a href="https://sounkyo.net/" target="_blank" rel="noopener">Sounkyo Tourism Association</a> and others (sources listed on each item; in Japanese)`,
   footMap:`Map: <a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank" rel="noopener">GSI Japan (GSI tiles)</a> / Geology: <a href="https://gbank.gsj.jp/seamless/" target="_blank" rel="noopener">AIST Geological Survey of Japan, Seamless Digital Geological Map of Japan 1:200,000 V2</a> / Map display: Leaflet`,
   footTest:`For the field test that plays audio by location, see the <a href="./">audio test page</a> (Japanese).`,
-  failTitle:"Couldn't load",failBody:"Please reload the page where you have a good signal."}
+  failTitle:"Couldn't load",failBody:"Please reload the page where you have a good signal.",
+  svH:"30-second survey",svNote:"Just tap. Anonymous. Your answers help us improve this guide.",svSkip:"Skip",svNext:"Next",svSend:"Send",
+  svDone:"Thank you! We'll use your answers to improve the guide."}
 };
 /* Fixed labels that come from Notion select options */
 const EN_LABELS={"地形・岩":"Landforms & rocks","水・滝":"Water & waterfalls","植物":"Plants","動物":"Animals","季節の現象":"Seasonal phenomena","名前・歴史":"Names & history",
@@ -405,11 +436,12 @@ function initMap(){
   geoLayer=L.tileLayer("https://gbank.gsj.jp/seamless/v2/api/1.2/tiles/{z}/{y}/{x}.png",{maxZoom:13,maxNativeZoom:13,opacity:.7,
     attribution:"<a href='https://gbank.gsj.jp/seamless/' target='_blank'>産総研 シームレス地質図V2 / AIST</a>"});
   baseLayer=bases.pale.addTo(map);
+  ["pointerdown","wheel"].forEach(ev=>map.getContainer().addEventListener(ev,()=>{met.mapUsed=true},{passive:true}));
   $("bases").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;
     if(b.dataset.b==="geo"){const on=map.hasLayer(geoLayer);on?map.removeLayer(geoLayer):geoLayer.addTo(map);b.setAttribute("aria-pressed",String(!on));renderLegend();return}
     map.removeLayer(baseLayer);baseLayer=bases[b.dataset.b].addTo(map);if(map.hasLayer(geoLayer))geoLayer.bringToFront();
     $("bases").querySelectorAll("button:not([data-b=geo])").forEach(x=>x.setAttribute("aria-pressed",String(x===b)))});
-  $("cats").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;cat=b.dataset.c;press($("cats"),"c",cat);drawMarkers()});
+  $("cats").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;met.mapUsed=true;cat=b.dataset.c;press($("cats"),"c",cat);drawMarkers()});
 }
 function renderCats(){
   const cats=["all",...new Set(guide.points.map(p=>p.category).filter(Boolean))];
@@ -439,7 +471,7 @@ function renderPager(){
 
 function show(id,keepScroll){
   cur=guide.points.find(p=>p.id===id)||guide.points[0];
-  touched=false; renderText(); renderPhoto(); renderPlayer(); renderPager(); drawMarkers();
+  touched=false; renderText(); renderPhoto(); renderPlayer(); renderPager(); drawMarkers(); renderSurvey();
   if("mediaSession" in navigator)navigator.mediaSession.metadata=new MediaMetadata({title:placeName(cur),artist:t().brand});
   if(!keepScroll)window.scrollTo({top:0});
 }
@@ -448,15 +480,94 @@ function setLang(l){
   renderChrome(); if(guide){renderCats(); show(cur.id,true)}
 }
 
+/* ---------- Survey ----------
+   Answers are tapped on this page and posted straight to a Google Form (formResponse), so nobody has to open a link.
+   Every form question is a short-answer field; the page sends the Japanese value so the sheet stays in one language.
+   Fill in SURVEY.form and SURVEY.entries (entry IDs of the form's questions) to switch it on. Until then answers only go to the console. */
+const SURVEY={form:"", entries:{
+  "回答ID":"","場所":"","言語":"","音声":"","見たもの":"","満足度":"","どこから":"","国・地域":"","誰と":"","聞きたい話":"","キャラ":"","払える金額":"","ひとこと":""}};
+const SV_Q=[
+  {k:"満足度",type:"face",ja:"この音声ガイド、どうでしたか？",en:"How was this audio guide?",
+   opts:[["5","😆","最高","Loved it"],["4","🙂","よい","Good"],["3","😐","ふつう","OK"],["2","🙁","いまいち","Not great"],["1","😣","よくない","Poor"]]},
+  {k:"どこから",type:"one",ja:"どこから来ましたか？",en:"Where are you visiting from?",
+   opts:[["北海道内","北海道内","Hokkaido"],["道外","北海道の外（国内）","Elsewhere in Japan"],["海外","海外","Outside Japan"]]},
+  {k:"国・地域",type:"one",show:a=>a["どこから"]==="海外",ja:"どちらの国・地域からですか？",en:"Which country or region?",
+   opts:[["台湾","台湾","Taiwan"],["中国","中国","China"],["香港","香港","Hong Kong"],["韓国","韓国","Korea"],["タイ","タイ","Thailand"],["シンガポール","シンガポール","Singapore"],["マレーシア","マレーシア","Malaysia"],["アメリカ","アメリカ","USA"],["オーストラリア","オーストラリア","Australia"],["その他","その他","Other"]]},
+  {k:"誰と",type:"one",ja:"だれと来ましたか？",en:"Who are you with?",
+   opts:[["ひとり","ひとり","On my own"],["家族","家族","Family"],["友人・恋人","友人・恋人","Friends / partner"],["ツアー・団体","ツアー・団体","Tour / group"]]},
+  {k:"聞きたい話",type:"multi",ja:"もっと聞きたい話は？（いくつでも）",en:"What would you like to hear more about? (choose any)",
+   opts:[["岩・地形","岩・地形","Rocks & landforms"],["植物","植物","Plants"],["動物","動物","Animals"],["名前の由来・歴史","名前の由来・歴史","Place names & history"],["アイヌ文化","アイヌ文化","Ainu culture"],["地元の小ネタ・怪談","地元の小ネタ・怪談","Local stories & ghost tales"]]},
+  {k:"キャラ",type:"one",ja:"案内役のキャラクターがいるなら？",en:"If a character guided you, what kind?",
+   opts:[["かわいい系","かわいい系","Cute"],["ちょっと変でおもしろい系","ちょっと変で\nおもしろい系","Quirky & funny"],["いらない","いらない","No character"]]},
+  {k:"払える金額",type:"one",ja:"全部の場所を聞けるガイドが有料なら、いくらまで払えますか？",en:"If a guide covering every spot cost money, how much would you pay?",
+   opts:[["無料なら使う","無料なら使う","Only if free"],["100円","100円","¥100"],["300円","300円","¥300"],["500円以上","500円以上","¥500 or more"]]},
+  {k:"ひとこと",type:"text",ja:"ひとこと（なくても大丈夫です）",en:"Anything else? (optional)"}
+];
+let sv=store.get("survey",null), svJustDone=false;
+if(!sv||!sv.id) sv={id:Date.now().toString(36)+Math.random().toString(36).slice(2,7),step:0,a:{},done:false,sentAt:0};
+const met={listen:{},opened:new Set(),mapUsed:false};
+const svQs=()=>SV_Q.filter(q=>!q.show||q.show(sv.a));
+function svSave(){store.set("survey",sv)}
+function svPayload(){
+  const lp=cur?Math.round((met.listen[cur.id]||0)*100):0;
+  const auto={"回答ID":sv.id,"場所":cur?cur.id:"","言語":lang==="en"?"英語":"日本語・"+(jaMode==="kids"?"子ども向け":"おとな向け"),
+    "音声":lp>=95?"最後まで":lp>0?lp+"%":"聞いていない",
+    "見たもの":[met.opened.size?`見どころ${met.opened.size}件を開いた`:"",met.mapUsed?"地図を操作":""].filter(Boolean).join("、")||"なし"};
+  const ans={}; Object.entries(sv.a).forEach(([k,v])=>ans[k]=Array.isArray(v)?v.join("、"):v);
+  return {...auto,...ans};
+}
+function svSend(){
+  const data=svPayload(), body=new URLSearchParams();
+  Object.entries(data).forEach(([k,v])=>{const id=SURVEY.entries[k];if(id&&v!=="")body.append(id,v)});
+  sv.sentAt=Date.now(); svSave();
+  if(!SURVEY.form){console.log("[survey] (form not set)",data);return}
+  const url=SURVEY.form.replace(/\/viewform.*$/,"/formResponse");
+  if(!(navigator.sendBeacon&&navigator.sendBeacon(url,body)))fetch(url,{method:"POST",mode:"no-cors",body}).catch(()=>{});
+}
+function renderSurvey(){
+  const box=$("svBody"), L=t(), qs=svQs();
+  $("survey").hidden=sv.done&&!svJustDone;
+  $("svNote").textContent=sv.done?"":L.svNote;
+  if(sv.done){$("svStep").textContent="";box.innerHTML=`<p class="sv-done">${L.svDone}</p>`;return}
+  if(sv.step>=qs.length)sv.step=qs.length-1;
+  const q=qs[sv.step], val=sv.a[q.k], lab=o=>lang==="en"?o[o.length-1]:o[o.length-2];
+  $("svStep").textContent=`${sv.step+1} / ${qs.length}`;
+  let h=`<p class="sv-q">${esc(q[lang])}</p>`;
+  if(q.type==="face")h+=`<div class="sv-faces" role="group" aria-label="${esc(q[lang])}">`+q.opts.map(o=>`<button data-v="${o[0]}" aria-pressed="${val===o[0]}"><b aria-hidden="true">${o[1]}</b>${esc(lab(o))}</button>`).join("")+`</div>`;
+  if(q.type==="one"||q.type==="multi")h+=`<div class="sv-opts" role="group" aria-label="${esc(q[lang])}">`+q.opts.map(o=>{const on=q.type==="multi"?(val||[]).includes(o[0]):val===o[0];
+    return `<button data-v="${esc(o[0])}" aria-pressed="${on}">${esc(lab(o)).replace(/\n/g,"<br>")}</button>`}).join("")+`</div>`;
+  if(q.type==="text")h+=`<textarea class="sv-text" id="svText" aria-label="${esc(q[lang])}">${esc(val||"")}</textarea>`;
+  const last=sv.step===qs.length-1, needGo=q.type==="multi"||q.type==="text";
+  h+=`<div class="sv-nav"><button class="skip" data-act="skip">${L.svSkip}</button>${needGo?`<button class="go" data-act="next">${last?L.svSend:L.svNext}</button>`:""}</div>`;
+  box.innerHTML=h;
+}
+function svAdvance(){
+  const qs=svQs();
+  if(sv.step>=qs.length-1){sv.done=true;svJustDone=true;svSend()}else sv.step++;
+  svSave(); renderSurvey();
+}
+$("svBody").addEventListener("click",e=>{
+  const b=e.target.closest("button"); if(!b)return; const q=svQs()[sv.step];
+  if(b.dataset.act==="skip"){if(q.type==="text")sv.a[q.k]=$("svText").value.trim();svAdvance();return}
+  if(b.dataset.act==="next"){if(q.type==="text"){const v=$("svText").value.trim();if(v)sv.a[q.k]=v}svAdvance();return}
+  if(q.type==="multi"){const cur=new Set(sv.a[q.k]||[]);cur.has(b.dataset.v)?cur.delete(b.dataset.v):cur.add(b.dataset.v);sv.a[q.k]=[...cur];svSave();renderSurvey();return}
+  sv.a[q.k]=b.dataset.v; svSave(); renderSurvey(); setTimeout(svAdvance,220);   // single choice: tap = answer and move on
+});
+$("svBody").addEventListener("input",e=>{if(e.target.id==="svText"){sv.a["ひとこと"]=e.target.value;svSave()}});
+/* If someone leaves halfway, send what they answered so far (same 回答ID; keep the last row per ID when counting) */
+document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden"&&!sv.done&&Object.keys(sv.a).length)svSend()});
+$("groups").addEventListener("toggle",e=>{if(e.target.classList&&e.target.classList.contains("item")&&e.target.open)met.opened.add(e.target.querySelector(".nm").textContent)},true);
+
 $("langs").addEventListener("click",e=>{const b=e.target.closest("button");if(b)setLang(b.dataset.l)});
 $("seasons").addEventListener("click",e=>{const b=e.target.closest("button");if(b){season=b.dataset.s;renderPhoto()}});
 $("modes").addEventListener("click",e=>{const b=e.target.closest("button");if(b){jaMode=b.dataset.m;store.set("jaMode",jaMode);renderPlayer();renderStrip()}});
 $("voices").addEventListener("click",e=>{const b=e.target.closest("button");if(b){voice[lang]=b.dataset.v;store.set("voice",voice);renderPlayer();renderStrip()}});
 $("play").addEventListener("click",()=>{if(!audio.src)return;if(audio.paused){audio.play().catch(()=>setIcon(false))}else audio.pause()});
 audio.addEventListener("play",()=>setIcon(true)); audio.addEventListener("pause",()=>setIcon(false));
-audio.addEventListener("ended",()=>{setIcon(false);$("fill").style.width="100%"});
+audio.addEventListener("ended",()=>{setIcon(false);$("fill").style.width="100%";if(cur)met.listen[cur.id]=1;
+  if(!sv.done){const s=$("survey");s.classList.add("nudge");setTimeout(()=>s.classList.remove("nudge"),2400)}});
 audio.addEventListener("loadedmetadata",()=>{$("dur").textContent=fmt(audio.duration)});
-audio.addEventListener("timeupdate",()=>{const r=audio.duration?audio.currentTime/audio.duration:0;
+audio.addEventListener("timeupdate",()=>{const r=audio.duration?audio.currentTime/audio.duration:0;if(cur)met.listen[cur.id]=Math.max(met.listen[cur.id]||0,r);
   $("fill").style.width=(r*100)+"%";$("cur").textContent=fmt(audio.currentTime);$("seek").setAttribute("aria-valuenow",String(Math.round(r*100)))});
 $("seek").addEventListener("click",e=>{if(!audio.duration)return;const r=e.currentTarget.getBoundingClientRect();audio.currentTime=(e.clientX-r.left)/r.width*audio.duration});
 $("seek").addEventListener("keydown",e=>{if(!audio.duration)return;if(e.key==="ArrowRight")audio.currentTime+=5;if(e.key==="ArrowLeft")audio.currentTime-=5});
