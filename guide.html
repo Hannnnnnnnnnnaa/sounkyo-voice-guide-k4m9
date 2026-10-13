@@ -484,8 +484,10 @@ function setLang(l){
    Answers are tapped on this page and posted straight to a Google Form (formResponse), so nobody has to open a link.
    Every form question is a short-answer field; the page sends the Japanese value so the sheet stays in one language.
    Fill in SURVEY.form and SURVEY.entries (entry IDs of the form's questions) to switch it on. Until then answers only go to the console. */
-const SURVEY={form:"", entries:{
-  "回答ID":"","場所":"","言語":"","音声":"","見たもの":"","満足度":"","どこから":"","国・地域":"","誰と":"","聞きたい話":"","キャラ":"","払える金額":"","ひとこと":""}};
+const SURVEY={form:"https://docs.google.com/forms/d/e/1FAIpQLScVKSFtcSzJZOycSWl2JZFLdFYOZgSUonApkaAcxwUVFZmaVg/viewform", entries:{
+  "回答ID":"entry.1741191429","場所":"entry.1386446759","言語":"entry.1904372328","音声":"entry.1717385986","見たもの":"entry.243085511",
+  "満足度":"entry.621911558","どこから":"entry.1373056271","国・地域":"entry.874213765","誰と":"entry.143043900",
+  "聞きたい話":"entry.262425486","キャラ":"entry.1656007330","払える金額":"entry.1879801806","ひとこと":"entry.2048451290"}};
 const SV_Q=[
   {k:"満足度",type:"face",ja:"この音声ガイド、どうでしたか？",en:"How was this audio guide?",
    opts:[["5","😆","最高","Loved it"],["4","🙂","よい","Good"],["3","😐","ふつう","OK"],["2","🙁","いまいち","Not great"],["1","😣","よくない","Poor"]]},
