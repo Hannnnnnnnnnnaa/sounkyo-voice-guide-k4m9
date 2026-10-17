@@ -72,7 +72,7 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline
   <header>
     <div class="eyebrow">層雲峡 アンビエント・ガイド ／ 試作</div>
     <h1>層雲峡 音声ガイド 試作</h1>
-    <p class="lede">スマホを持って歩くと、地点に近づいたときに台本の音声が流れます。はじめて使う場所では、現地で「ここを地点に登録」を押してください。</p>
+    <p class="lede">スマホを持って歩くと、地点に近づいたときに台本の音声が流れます。位置を実測済みの場所は、登録しなくても近づくと流れます。まだ測っていない場所では、現地で「ここを地点に登録」を押してください（押すと記録に座標が残ります）。</p>
   </header>
 
   <div class="status" aria-live="polite">
@@ -140,14 +140,18 @@ function renderVoices(){
   $("credit").textContent=`音声：${ja.join("、")}（日本語）／ ${en.join("、")}（英語）。台本の書き出し：${guide.exported_at}`;
 }
 
+/* Position used for auto-play: the position measured on site (Notion, via guide.json) wins; this phone's own registration is used only where nothing is measured yet */
+function spot(p){const L=p.location||{},own=saved[p.id]||{};
+  if(L.measured&&L.lat!=null)return {lat:L.lat,lng:L.lng,radius:own.radius,src:"measured"};
+  return own.lat?{...own,src:"phone"}:{radius:own.radius,src:"none"}}
 function render(){
   if(!guide)return;const route=$("route");route.innerHTML="";
   guide.points.forEach((p,i)=>{
-    const s=saved[p.id]||{},radius=s.radius||40;let d=null,state="out";
+    const s=spot(p),radius=s.radius||40;let d=null,state="out";
     if(last&&s.lat){d=dist(last,s);if(d<=radius)state="in"}
     if(nowPlaying===p.id)state="playing";
     const t=track(p);
-    const where=s.lat?`登録済み（±${Math.round(s.acc)}m）`:"未登録";
+    const where=s.src==="measured"?"実測位置（Notion）":s.src==="phone"?`この端末で登録（±${Math.round(s.acc)}m）`:"未登録";
     const tag=nowPlaying===p.id?"再生中":played.has(p.id)?"再生済み":state==="in"?"範囲内":"範囲外";
     const el=document.createElement("article");el.className="point";el.dataset.state=state;
     el.innerHTML=`<div><h2>${p.place}</h2><div class="meta"><span>地点${i+1}</span><span>${t?t.seconds+"秒":""}</span><span>${where}</span><span>${d==null?"距離 —":"あと "+Math.round(d)+" m"}</span><span>${tag}</span></div></div>
@@ -155,7 +159,7 @@ function render(){
       <div class="row">
         <button class="ghost" data-act="here" data-id="${p.id}">ここを地点に登録</button>
         <button class="ghost" data-act="play" data-id="${p.id}">${nowPlaying===p.id?"止める":"いま再生"}</button>
-        ${s.lat?`<button class="ghost" data-act="clear" data-id="${p.id}">登録を消す</button>`:""}
+        ${(saved[p.id]||{}).lat?`<button class="ghost" data-act="clear" data-id="${p.id}">端末の登録を消す</button>`:""}
         <label for="r-${p.id}">半径</label><input id="r-${p.id}" type="number" inputmode="numeric" min="10" max="200" step="5" value="${radius}" data-id="${p.id}"><label for="r-${p.id}">m</label>
       </div>`;
     route.appendChild(el)});
@@ -173,7 +177,7 @@ player.addEventListener("ended",()=>{if(nowPlaying){const p=guide.points.find(x=
 function onPos(pos){
   last={lat:pos.coords.latitude,lng:pos.coords.longitude,acc:pos.coords.accuracy};
   chip("geoChip","geoText",last.acc<=30?"ok":"warn",`位置：±${Math.round(last.acc)}m`);
-  if(running&&!nowPlaying){for(const p of guide.points){const s=saved[p.id];if(!s||!s.lat||played.has(p.id))continue;
+  if(running&&!nowPlaying){for(const p of guide.points){const s=spot(p);if(!s.lat||played.has(p.id))continue;
     const d=dist(last,s);if(d<=(s.radius||40)){played.add(p.id);play(p,`自動 距離${Math.round(d)}m`);break}}}
   render();
 }

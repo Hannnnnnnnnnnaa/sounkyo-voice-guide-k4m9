@@ -71,6 +71,7 @@ def place_from_notion(pid, token):
     coord = [l for l in memo.splitlines() if "座標" in l]
     return dict(name=text(p["場所名"]), area=((p.get("エリア") or {}).get("select") or {}).get("name", ""),
                 lat=(p.get("緯度") or {}).get("number"), lng=(p.get("経度") or {}).get("number"),
+                measured=((p.get("現地確認") or {}).get("select") or {}).get("name") == "実測済",
                 coord_note=coord[-1] if coord else ("" if (p.get("緯度") or {}).get("number") else "位置未登録"),
                 layers=[o["name"] for o in (p.get("地図レイヤー") or {}).get("multi_select", [])],
                 season=text(p.get("行ける時期")),
@@ -119,7 +120,8 @@ def from_notion(token):
                  when=text(p["見られる時期"]) or None, map_number=num(p["地図の番号"]), order=num(p["表示順"]),
                  sources=rel(p["出典"]), status=sel(p["検証状況"]), note=text(p["注意"]) or None, link=(p["参考リンク"] or {}).get("url"),
                  name_en=text(p.get("名前（英語）")) or None, description_en=text(p.get("説明（英語）")) or None,
-                 when_en=text(p.get("見られる時期（英語）")) or None, note_en=text(p.get("注意（英語）")) or None)
+                 when_en=text(p.get("見られる時期（英語）")) or None, note_en=text(p.get("注意（英語）")) or None,
+                 lat=num(p.get("緯度")), lng=num(p.get("経度")))
         for sid in h["sources"]:
             if sid not in sources:
                 sp = notion_page(sid, token)
@@ -174,11 +176,11 @@ def point_meta(s, data):
           if s.get("place_page") in h["places"] and h.get("status") not in (None, "未検証") and h.get("category")]
     hl.sort(key=lambda h: (CATEGORY_ORDER.index(h["category"]) if h["category"] in CATEGORY_ORDER else 99, h.get("order") or 999))
     hl = [{k: h.get(k) for k in ("name", "category", "description", "when", "map_number", "status", "note", "link",
-                                 "name_en", "description_en", "when_en", "note_en")}
+                                 "name_en", "description_en", "when_en", "note_en", "lat", "lng")}
           | {"sources": [srcs[x] for x in h["sources"] if x in srcs]} for h in hl]
     return ({k: s.get(k, "") for k in ("id", "topic", "topic_en", "place", "notion_page", "target_seconds", "core", "kids", "en", "category")}
             | {"place_en": pl.get("name_en") or "",
-               "location": {k: pl.get(k) for k in ("area", "lat", "lng", "coord_note", "layers", "season", "access",
+               "location": {k: pl.get(k) for k in ("area", "lat", "lng", "measured", "coord_note", "layers", "season", "access",
                                                    "season_en", "access_en")},
                "photos": photos, "highlights": hl})
 

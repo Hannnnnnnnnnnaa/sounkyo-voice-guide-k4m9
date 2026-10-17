@@ -13,7 +13,7 @@
 :root{
   --bg:#f2f1ec; --surface:#fbfbf8; --sunk:#e7e6df; --ink:#20251f; --muted:#5f665c; --line:#d6d5cb;
   --spring:#7d4f93; --summer:#3c6b45; --autumn:#b0442b; --winter:#3f6f8c;
-  --season:var(--autumn); --on-season:#fff;
+  --season:var(--autumn); --on-season:#fff; --me:#1f6fe5;
   --display:"Shippori Mincho","Hiragino Mincho ProN","Yu Mincho",serif;
   --body:"Zen Kaku Gothic New","Hiragino Sans","Noto Sans JP",system-ui,sans-serif;
   color-scheme:light;
@@ -165,6 +165,10 @@ h2{font-family:var(--display);font-weight:800;font-size:1.25rem;margin:0}
 .leaflet-container{font-family:var(--body);background:var(--sunk)}
 .pin{width:18px;height:18px;border-radius:50%;background:var(--surface);border:4px solid var(--muted);box-shadow:0 1px 4px rgba(0,0,0,.35)}
 .pin.here{width:26px;height:26px;border-color:var(--season);background:var(--season)}
+.vp{width:24px;height:24px;border-radius:50%;background:var(--surface);border:2px solid var(--season);color:var(--ink);font:700 11px/20px var(--body);text-align:center;box-shadow:0 1px 3px rgba(0,0,0,.3)}
+.vp.on{background:var(--season);color:var(--on-season)}
+.me{width:16px;height:16px;border-radius:50%;background:var(--me);border:3px solid #fff;box-shadow:0 0 0 1px rgba(0,0,0,.35)}
+.item-body .tomap{align-self:flex-start;border:1px solid var(--season);background:transparent;color:var(--season);border-radius:999px;padding:3px 12px;font-size:.8rem;font-weight:700;cursor:pointer}
 .legend{font-size:.78rem;color:var(--muted);margin-top:8px;display:flex;flex-direction:column;gap:4px}
 .unplaced{font-size:.82rem;color:var(--muted);margin-top:6px}
 
@@ -247,6 +251,7 @@ h2{font-family:var(--display);font-weight:800;font-size:1.25rem;margin:0}
         <button data-b="geo" aria-pressed="false"></button>
       </div>
       <div class="chips" role="group" id="cats"></div>
+      <div class="chips"><button id="locate" aria-pressed="false"></button></div>
     </div>
     <div id="map"></div>
     <div class="legend" id="legend"></div>
@@ -278,7 +283,9 @@ const T={
   mapNo:"散策マップの番号",nowSeason:s=>`${s}に見られる`,allYear:"一年中見られる",when:"見られる時期",flowerLink:"写真を見る（ビジターセンター 花図鑑）",src:"出典：",sep:"、",
   othersH:"他の場所はこちら",swipe:"横にスライド",audioLen:t=>` ・ 音声 ${t}`,
   mapH:"マップで見る",mapSub:"地形や岩の分布を重ねられます",bases:{pale:"地図",photo:"航空写真",relief:"地形の陰影",geo:"地質図（岩の種類）"},basesLabel:"地図の種類",catsLabel:"表示する場所",allPlaces:"すべての場所",
-  legendPins:"●の位置は観光協会の地図などによる仮の位置です。現地で実測して置き換えます。",
+  legendPins:l=>l.length?`●は場所の位置です。${l.join("、")}は地図サービス上の位置で、現地ではまだ測っていません。`:"●は場所の位置です（現地で測った位置）。",
+  legendVp:"番号の丸は散策路の見どころです（現地で測った位置。番号はビジターセンターの散策マップと同じ）。",
+  locate:"現在地を表示",locateOn:"現在地を表示中",locateErr:"現在地を取得できませんでした。位置情報の利用を許可してください。",toMap:"地図で見る",
   legendGeo:`地質図の色の意味は <a href="https://gbank.gsj.jp/seamless/legend.html" target="_blank" rel="noopener">凡例（産総研）</a> で確認できます。地質図は縮尺20万分の1なので、細かい位置は合いません。`,
   unplaced:l=>`地図にまだ載っていない場所：${l}（現地で位置を測ってから載せます）`,noMap:"地図を読み込めませんでした。電波のよい場所で再読み込みしてください。",
   prev:"← 前の場所",next:"次の場所 →",pagerLabel:"前後の場所",
@@ -299,7 +306,9 @@ const T={
   mapNo:"Number on the trail map",nowSeason:s=>`In season (${s.toLowerCase()})`,allYear:"Seen all year",when:"When",flowerLink:"See photos (Visitor Center flower guide, in Japanese)",src:"Sources: ",sep:", ",
   othersH:"Other places",swipe:"Swipe sideways",audioLen:t=>` · audio ${t}`,
   mapH:"Map",mapSub:"Overlay the terrain and rock types",bases:{pale:"Map",photo:"Aerial photo",relief:"Shaded relief",geo:"Geology (rock types)"},basesLabel:"Map type",catsLabel:"Places to show",allPlaces:"All places",
-  legendPins:"● Pins are provisional, taken from the tourism association's map and similar sources. They will be replaced with positions measured on site.",
+  legendPins:l=>l.length?`● marks each place. ${l.join(", ")}: position taken from an online map, not yet measured on site.`:"● marks each place (positions measured on site).",
+  legendVp:"Numbered circles are things to see along the trail (measured on site; numbers match the visitor center's trail map).",
+  locate:"Show my location",locateOn:"Showing my location",locateErr:"Couldn't get your location. Please allow location access.",toMap:"Show on map",
   legendGeo:`See the <a href="https://gbank.gsj.jp/seamless/legend.html" target="_blank" rel="noopener">legend (AIST, in Japanese)</a> for what the geology colors mean. The geology map is at 1:200,000, so fine details won't line up.`,
   unplaced:l=>`Not on the map yet: ${l} (we will add them after measuring on site)`,noMap:"The map couldn't load. Please reload where you have a good signal.",
   prev:"← Previous",next:"Next →",pagerLabel:"Previous and next places",
@@ -326,7 +335,7 @@ const qLang=new URLSearchParams(location.search).get("lang");
 let lang=qLang==="en"||qLang==="ja"?qLang:store.get("lang",(navigator.language||"ja").toLowerCase().startsWith("ja")?"ja":"en");
 let jaMode=store.get("jaMode",store.get("mode","core")==="kids"?"kids":"core");
 let voice=store.get("voice",{ja:"himari",en:"heart"}), cat="all";
-let guide, cur, map, markers={}, baseLayer, geoLayer, stripTimer, touched=false;
+let guide, cur, map, markers={}, vpMarkers={}, meMarker, meCircle, meWatch=null, meFirst=true, baseLayer, geoLayer, stripTimer, touched=false;
 const t=()=>T[lang];
 const tx=(o,k)=>lang==="en"?(o&&o[k+"_en"])||(o&&o[k])||"":(o&&o[k])||"";   // text field in the current language
 const lab=v=>lang==="en"?(EN_LABELS[v]||v):v;                                  // select-option label
@@ -348,6 +357,7 @@ function renderChrome(){
   $("map-section").setAttribute("aria-label",L.mapH); $("pager").setAttribute("aria-label",L.pagerLabel);
   $("bases").setAttribute("aria-label",L.basesLabel); $("cats").setAttribute("aria-label",L.catsLabel);
   $("bases").querySelectorAll("button").forEach(b=>b.textContent=L.bases[b.dataset.b]);
+  $("locate").textContent=meWatch!=null?L.locateOn:L.locate;
   if(guide){const ja=Object.values(guide.voices.ja).map(v=>v.credit),en=[...new Set(Object.values(guide.voices.en).map(v=>v.credit))];
     $("credit").textContent=L.credit(ja.join(lang==="en"?", ":"、"),en.join(", "),guide.exported_at)}
   const u=new URL(location.href); u.searchParams.set("lang",lang); history.replaceState(null,"",u);
@@ -399,8 +409,8 @@ function renderSee(){
     list.map(x=>{const now=inSeason(x.when,season), when=tx(x,"when"), note=tx(x,"note");
       const badge=now?`<span class="now">${(x.when||"").includes("一年中")?L.allYear:L.nowSeason(L.seasons[season])}</span>`:"";
       const srcs=(x.sources||[]).map(s=>{const n=tx(s,"name");return s.url?`<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(n)}</a>`:esc(n)}).join(L.sep);
-      return `<details class="item"><summary>${x.map_number?`<span class="num" title="${L.mapNo}">${x.map_number}</span>`:""}<span class="nm">${esc(tx(x,"name"))}</span>${badge}<span class="chev"></span></summary>
-      <div class="item-body"><p>${esc(tx(x,"description"))}</p>${when?`<div class="when"><b>${L.when}</b>　${esc(when)}</div>`:""}${note?`<div class="caution">${esc(note)}</div>`:""}${x.link?`<a class="more" href="${esc(x.link)}" target="_blank" rel="noopener">${L.flowerLink}</a>`:""}
+      return `<details class="item" data-i="${hl.indexOf(x)}"><summary>${x.map_number?`<span class="num" title="${L.mapNo}">${x.map_number}</span>`:""}<span class="nm">${esc(tx(x,"name"))}</span>${badge}<span class="chev"></span></summary>
+      <div class="item-body"><p>${esc(tx(x,"description"))}</p>${when?`<div class="when"><b>${L.when}</b>　${esc(when)}</div>`:""}${note?`<div class="caution">${esc(note)}</div>`:""}${x.link?`<a class="more" href="${esc(x.link)}" target="_blank" rel="noopener">${L.flowerLink}</a>`:""}${x.lat!=null?`<button class="tomap" data-act="tomap" data-i="${hl.indexOf(x)}">${L.toMap}</button>`:""}
       <div class="src"><span class="st">${esc(lab(x.status))}</span><span>${L.src}${srcs}</span></div></div></details>`}).join("")+`</div></details>`}).join("");
 }
 
@@ -447,7 +457,10 @@ function renderCats(){
   const cats=["all",...new Set(guide.points.map(p=>p.category).filter(Boolean))];
   $("cats").innerHTML=cats.map(c=>`<button data-c="${esc(c)}" aria-pressed="${c===cat}">${c==="all"?t().allPlaces:esc(lab(c))}</button>`).join("");
 }
-function renderLegend(){$("legend").innerHTML=`<span>${t().legendPins}</span>`+(map&&map.hasLayer(geoLayer)?`<span>${t().legendGeo}</span>`:"")}
+function renderLegend(){
+  const unmeasured=guide.points.filter(p=>p.location&&p.location.lat!=null&&!p.location.measured).map(placeName);
+  $("legend").innerHTML=`<span>${t().legendPins(unmeasured)}</span>`+(Object.keys(vpMarkers).length?`<span>${t().legendVp}</span>`:"")+(map&&map.hasLayer(geoLayer)?`<span>${t().legendGeo}</span>`:"");
+}
 function drawMarkers(){
   if(!map)return;Object.values(markers).forEach(mk=>mk.remove());markers={};
   const shown=guide.points.filter(p=>cat==="all"||p.category===cat), placed=[], missing=[];
@@ -457,10 +470,45 @@ function drawMarkers(){
     const mk=L.marker([L0.lat,L0.lng],{icon:L.divIcon({className:"",html:`<div class="pin${here?" here":""}"></div>`,iconSize:here?[26,26]:[18,18]}),zIndexOffset:here?1000:0,title:placeName(p)})
       .addTo(map).bindTooltip(esc(placeName(p)),{direction:"top",offset:[0,-10],permanent:here});
     mk.on("click",()=>{location.hash=p.id});markers[p.id]=mk;placed.push([L0.lat,L0.lng])});
-  if(placed.length>1)map.fitBounds(placed,{padding:[40,40],maxZoom:14});else if(placed.length===1)map.setView(placed[0],14);
+  /* things to see on this place's own trail, as numbered circles */
+  Object.values(vpMarkers).forEach(mk=>mk.remove());vpMarkers={};
+  const here=cur.location||{}, near=[];
+  (cur.highlights||[]).forEach((x,i)=>{if(x.lat==null)return;
+    const label=x.map_number||"•";
+    vpMarkers[i]=L.marker([x.lat,x.lng],{icon:L.divIcon({className:"",html:`<div class="vp">${label}</div>`,iconSize:[24,24]}),title:tx(x,"name"),zIndexOffset:500})
+      .addTo(map).bindTooltip(esc(tx(x,"name")),{direction:"top",offset:[0,-12]});
+    vpMarkers[i].on("click",()=>openItem(i));near.push([x.lat,x.lng])});
+  if(near.length&&here.lat!=null)map.fitBounds([...near,[here.lat,here.lng]],{padding:[30,30],maxZoom:17});
+  else if(placed.length>1)map.fitBounds(placed,{padding:[40,40],maxZoom:14});else if(placed.length===1)map.setView(placed[0],14);
   renderLegend();
   $("unplaced").textContent=missing.length?t().unplaced(missing.map(placeName).join(t().sep)):"";
 }
+
+function openItem(i){
+  const it=[...document.querySelectorAll("#groups details.item")].find(d=>d.dataset.i===String(i)); if(!it)return;
+  it.closest("details.group").open=true; it.open=true; it.scrollIntoView({behavior:"smooth",block:"center"});
+}
+function showOnMap(i){
+  const mk=vpMarkers[i]; if(!mk)return;
+  $("map-section").scrollIntoView({behavior:"smooth"}); map.setView(mk.getLatLng(),17); mk.openTooltip();
+  Object.values(vpMarkers).forEach(m=>m.getElement()&&m.getElement().firstChild.classList.remove("on"));
+  mk.getElement()&&mk.getElement().firstChild.classList.add("on");
+}
+function toggleLocate(){
+  const b=$("locate");
+  if(meWatch!=null){navigator.geolocation.clearWatch(meWatch);meWatch=null;meMarker&&meMarker.remove();meCircle&&meCircle.remove();meMarker=meCircle=null;
+    b.setAttribute("aria-pressed","false");b.textContent=t().locate;return}
+  if(!navigator.geolocation||!map){$("unplaced").textContent=t().locateErr;return}
+  b.setAttribute("aria-pressed","true");b.textContent=t().locateOn;meFirst=true;
+  meWatch=navigator.geolocation.watchPosition(pos=>{
+    const ll=[pos.coords.latitude,pos.coords.longitude];
+    if(!meMarker){meMarker=L.marker(ll,{icon:L.divIcon({className:"",html:'<div class="me"></div>',iconSize:[16,16]}),zIndexOffset:2000,interactive:false}).addTo(map);
+      meCircle=L.circle(ll,{radius:pos.coords.accuracy,color:"#1f6fe5",weight:1,fillOpacity:.08,interactive:false}).addTo(map)}
+    else{meMarker.setLatLng(ll);meCircle.setLatLng(ll).setRadius(pos.coords.accuracy)}
+    if(meFirst){map.setView(ll,Math.max(map.getZoom(),16));meFirst=false}
+  },()=>{$("unplaced").textContent=t().locateErr;toggleLocate()},{enableHighAccuracy:true,maximumAge:5000,timeout:20000});
+}
+$("locate").addEventListener("click",toggleLocate);
 
 function renderPager(){
   const i=guide.points.findIndex(p=>p.id===cur.id), n=guide.points.length;
@@ -558,6 +606,7 @@ $("svBody").addEventListener("click",e=>{
 $("svBody").addEventListener("input",e=>{if(e.target.id==="svText"){sv.a["ひとこと"]=e.target.value;svSave()}});
 /* If someone leaves halfway, send what they answered so far (same 回答ID; keep the last row per ID when counting) */
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden"&&!sv.done&&Object.keys(sv.a).length)svSend()});
+$("groups").addEventListener("click",e=>{const b=e.target.closest("button[data-act=tomap]");if(b)showOnMap(+b.dataset.i)});
 $("groups").addEventListener("toggle",e=>{if(e.target.classList&&e.target.classList.contains("item")&&e.target.open)met.opened.add(e.target.querySelector(".nm").textContent)},true);
 
 $("langs").addEventListener("click",e=>{const b=e.target.closest("button");if(b)setLang(b.dataset.l)});
