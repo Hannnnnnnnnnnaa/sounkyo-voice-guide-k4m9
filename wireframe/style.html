@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>層雲峡ガイド デザインの方向</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Murecho:wght@400;500;700;800&family=Archivo:wdth,wght@75..100,500..800&display=swap">
+<style>
+/* Direction: mist white, indigo night, rowan red.
+   Ainu = the craft (stitch lines, layered cloth shapes) + a reserved pattern band drawn by a supervised Ainu creator.
+   Nordic = calm space, functional sans, bold flat color blocks.
+   Outdoor = contour lines, trail-sign tiles, elevation numbers.
+   Not worn: no paper texture, no sepia, crisp saturated color. */
+:root{
+  --mist:#F2F5F4;   /* 霧 */
+  --indigo:#1D2943; /* 藍 */
+  --spruce:#2E4A3F; /* 森 */
+  --glacier:#A7C0CF;/* 雪渓 */
+  --rowan:#B5242E;  /* ナナカマド */
+  --lichen:#D4DDB0; /* 地衣 */
+  --ink:#1D2943; --muted:#5A6577; --line:#D3DBDD; --paper:#FFFFFF;
+  --jp:"Murecho","Hiragino Sans","Noto Sans JP",system-ui,sans-serif;
+  --num:"Archivo","Murecho",system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--mist);color:var(--ink);font-family:var(--jp);font-size:15px;line-height:1.7}
+.wrap{max-width:1180px;margin:0 auto;padding:40px 24px 80px;display:grid;grid-template-columns:minmax(0,1fr) 390px;gap:48px;align-items:start}
+@media (max-width:980px){.wrap{grid-template-columns:1fr}}
+h1{font-size:40px;line-height:1.2;font-weight:800;margin:0 0 10px;letter-spacing:.02em}
+.lead{font-size:16px;color:var(--muted);margin:0 0 36px;max-width:36em}
+h2{font-size:20px;font-weight:800;margin:40px 0 14px}
+p{margin:0 0 10px;max-width:40em}
+
+/* palette */
+.swatches{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.sw{border-radius:6px;overflow:hidden;background:var(--paper);border:1px solid var(--line)}
+.sw .c{height:84px}
+.sw .t{padding:8px 10px;font-size:13px;line-height:1.5}
+.sw .t b{display:block;font-size:15px}
+.sw .t span{color:var(--muted);font-family:var(--num);font-size:12px}
+
+/* type */
+.type{background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:20px;display:grid;gap:10px}
+.t-display{font-size:34px;font-weight:800;line-height:1.25}
+.t-head{font-size:20px;font-weight:700}
+.t-body{font-size:15px;line-height:1.8;max-width:30em}
+.t-num{font-family:var(--num);font-weight:700;font-stretch:80%;font-size:44px;line-height:1;letter-spacing:-.01em}
+.t-num small{font-size:16px;font-weight:600;margin-left:4px;font-stretch:100%}
+.t-cap{font-size:13px;color:var(--muted)}
+
+/* motifs */
+.motifs{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.m{background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:14px;min-height:150px;display:flex;flex-direction:column;gap:8px}
+.m b{font-size:15px}
+.m span{font-size:13px;color:var(--muted);line-height:1.6}
+.stitch{position:relative;border-radius:10px;background:var(--indigo);color:var(--mist);padding:16px}
+.stitch::after{content:"";position:absolute;inset:6px;border:1.5px dashed rgba(242,245,244,.7);border-radius:6px;pointer-events:none}
+.band{height:46px;border-radius:4px;border:2px dashed var(--indigo);display:flex;align-items:center;justify-content:center;color:var(--indigo);font-weight:700;font-size:13px}
+.pictos{display:flex;gap:10px;flex-wrap:wrap}
+.pictos svg{width:44px;height:44px}
+
+/* phone mock */
+.phone{width:390px;border-radius:34px;background:var(--paper);overflow:hidden;box-shadow:0 0 0 2px var(--indigo);position:sticky;top:24px}
+.hero{position:relative;height:330px;background:linear-gradient(180deg,#6F8FA3 0%,var(--glacier) 45%,var(--mist) 100%);overflow:hidden}
+.hero svg.contours{position:absolute;inset:0;width:100%;height:100%}
+.hero .brand{position:absolute;left:20px;top:22px;color:var(--paper);font-weight:800;font-size:15px;letter-spacing:.06em}
+.hero .lang{position:absolute;right:16px;top:18px;background:rgba(255,255,255,.9);border-radius:6px;padding:3px 10px;font-size:12px;font-weight:700}
+.hero h3{position:absolute;left:20px;bottom:96px;margin:0;color:var(--indigo);font-size:30px;font-weight:800;line-height:1.25}
+.hero .elev{position:absolute;left:20px;bottom:74px;font-family:var(--num);font-size:13px;font-weight:600;color:var(--indigo)}
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:0 14px;margin-top:-58px;position:relative}
+.tile{background:var(--indigo);color:var(--mist);border-radius:8px;padding:10px 12px;display:flex;flex-direction:column;gap:2px}
+.tile .k{font-size:12px;opacity:.8}
+.tile .v{font-size:17px;font-weight:700}
+.tile .s{font-size:11px;opacity:.7}
+.tile.alert{background:var(--rowan)}
+.sec{padding:22px 16px 6px}
+.sec h4{margin:0 0 10px;font-size:20px;font-weight:800}
+.row{display:flex;gap:10px;overflow:hidden}
+.place{flex:0 0 150px;border-radius:8px;overflow:hidden;background:var(--paper);border:1px solid var(--line)}
+.place .img{height:96px;background:linear-gradient(160deg,var(--spruce),#567565)}
+.place .img.b{background:linear-gradient(160deg,#3B5873,var(--glacier))}
+.place .img.c{background:linear-gradient(160deg,#5E3A33,var(--rowan))}
+.place .t{padding:8px 10px;font-size:12px;color:var(--muted);line-height:1.5}
+.place .t b{display:block;color:var(--ink);font-size:15px}
+.q{flex:0 0 170px;position:relative;background:var(--lichen);border-radius:14px 14px 14px 3px;padding:12px;font-weight:700;font-size:15px;line-height:1.45}
+.q small{display:block;margin-top:6px;font-weight:500;font-size:12px;color:var(--spruce)}
+.momo{display:flex;gap:10px;align-items:center;margin-bottom:10px}
+.momo i{width:46px;height:46px;border-radius:50%;background:var(--glacier);position:relative;flex:none}
+.momo i::after{content:"";position:absolute;inset:4px;border:1.5px dashed var(--indigo);border-radius:50%}
+.momo span{font-size:13px;color:var(--muted)}
+.shops{background:var(--spruce);color:var(--mist);margin-top:18px;padding:22px 16px 18px}
+.shops h4{color:var(--mist);margin:0 0 10px;font-size:20px;font-weight:800}
+.shops .sub{font-size:13px;opacity:.8;margin:-6px 0 12px}
+.shop{flex:0 0 150px;background:var(--mist);color:var(--ink);border-radius:8px;overflow:hidden}
+.shop .img{height:78px;background:#C9D2CE}
+.shop .t{padding:7px 10px;font-size:12px}
+.shop .t b{display:block;font-size:14px}
+.btn{display:inline-block;background:var(--rowan);color:var(--paper);font-weight:700;border-radius:6px;padding:11px 18px;font-size:15px}
+.note{font-size:13px;color:var(--muted);margin-top:8px}
+.dont{background:var(--paper);border-left:4px solid var(--rowan);padding:12px 14px;border-radius:0 6px 6px 0}
+.dont li{margin-bottom:4px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<main>
+  <h1>霧の白、藍の夜、ナナカマドの赤。</h1>
+  <p class="lead">層雲峡ガイドのデザインの方向（たたき台）。アイヌの手仕事の「縫い」と「布の重ね」、北欧の静けさと実用、山道の標識の力強さを合わせます。歴史の深さは、くすんだ色ではなく、深く澄んだ色で出します。</p>
+
+  <h2>色</h2>
+  <div class="swatches">
+    <div class="sw"><div class="c" style="background:var(--mist)"></div><div class="t"><b>霧</b>背景。冷たく澄んだ白<br><span>#F2F5F4</span></div></div>
+    <div class="sw"><div class="c" style="background:var(--indigo)"></div><div class="t"><b>藍</b>文字と大事な面。藍染めの衣と北欧の冬の夜<br><span>#1D2943</span></div></div>
+    <div class="sw"><div class="c" style="background:var(--spruce)"></div><div class="t"><b>森</b>お店・いきもののパート<br><span>#2E4A3F</span></div></div>
+    <div class="sw"><div class="c" style="background:var(--glacier)"></div><div class="t"><b>雪渓</b>空と霧のグラデーション<br><span>#A7C0CF</span></div></div>
+    <div class="sw"><div class="c" style="background:var(--rowan)"></div><div class="t"><b>ナナカマド</b>押すボタンと注意だけに使う。層雲峡の紅葉の赤で、北欧でも昔から大切にされてきた木<br><span>#B5242E</span></div></div>
+    <div class="sw"><div class="c" style="background:var(--lichen)"></div><div class="t"><b>地衣</b>「ふと、気になった？」の問いカード<br><span>#D4DDB0</span></div></div>
+  </div>
+  <p class="note">ナナカマドの赤は、紅葉谷の見どころ（紅葉）に出てくる木の色です。使う場所を「押すところ」と「注意」に絞ると、強い色でも落ち着いて見えます。</p>
+
+  <h2>文字</h2>
+  <div class="type">
+    <div class="t-display">ふと、気になった？</div>
+    <div class="t-head">寄ってから帰ろっか。</div>
+    <div class="t-body">柱状節理は、溶結凝灰岩が冷えて縮むときにできた割れ目です。紅葉谷では、この岩壁を目の前で見られます。</div>
+    <div class="t-num">1,984<small>m 黒岳の山頂</small></div>
+    <div class="t-cap">日本語はMurecho（山道の案内板のような、角のしっかりしたゴシック）。数字と英語はArchivoの細身の形で、標高や距離を標識のように大きく見せます。</div>
+  </div>
+
+  <h2>模様と形</h2>
+  <div class="motifs">
+    <div class="m"><b>縫い目の線</b><div class="stitch">大事なカードの内側に、刺繍の縫い目のような点線を一周。</div><span>特定の文様ではなく「縫う」という手仕事だけを借ります。モモンガの枠にも使います。</span></div>
+    <div class="m"><b>等高線</b><svg viewBox="0 0 300 90" style="width:100%;height:90px"><g fill="none" stroke="#1D2943" stroke-opacity=".35" stroke-width="1.2"><path d="M0 70 C60 40 110 80 170 50 S260 20 300 40"/><path d="M0 80 C60 52 120 90 180 62 S260 34 300 54"/><path d="M0 60 C70 28 110 66 160 38 S250 8 300 26"/><path d="M40 90 C90 70 150 96 210 76 S280 60 300 66"/></g></svg><span>トップの空と地図の背景に薄く。登山の地図の気配を出します。</span></div>
+    <div class="m"><b>山道の標識</b><div class="pictos">
+      <svg viewBox="0 0 44 44"><rect width="44" height="44" rx="6" fill="#1D2943"/><path d="M8 32 L19 14 L25 23 L29 18 L36 32Z" fill="#F2F5F4"/></svg>
+      <svg viewBox="0 0 44 44"><rect width="44" height="44" rx="6" fill="#1D2943"/><path d="M15 10 V34 M22 10 V34 M29 10 V34" stroke="#A7C0CF" stroke-width="3" stroke-linecap="round"/></svg>
+      <svg viewBox="0 0 44 44"><rect width="44" height="44" rx="6" fill="#1D2943"/><path d="M6 14 L38 22" stroke="#F2F5F4" stroke-width="2"/><rect x="17" y="20" width="12" height="11" rx="2" fill="#F2F5F4"/></svg>
+      <svg viewBox="0 0 44 44"><rect width="44" height="44" rx="6" fill="#B5242E"/><circle cx="22" cy="26" r="7" fill="#F2F5F4"/><circle cx="13" cy="17" r="3" fill="#F2F5F4"/><circle cx="19" cy="12" r="3" fill="#F2F5F4"/><circle cx="25" cy="12" r="3" fill="#F2F5F4"/><circle cx="31" cy="17" r="3" fill="#F2F5F4"/></svg>
+      <svg viewBox="0 0 44 44"><rect width="44" height="44" rx="6" fill="#2E4A3F"/><path d="M22 9 C32 16 32 28 22 35 C12 28 12 16 22 9Z M22 12 V34" fill="#D4DDB0" stroke="#2E4A3F" stroke-width="1.5"/></svg>
+    </div><span>山・滝・ロープウェイ・クマ注意・植物。四角い色面に白い形だけ。天気や運行状況のタイルにも使います。</span></div>
+    <div class="m"><b>アイヌ文様の帯（あとで入る場所）</b><div class="band">監修を受けた作り手の文様が入る</div><span>文様には意味があるので、私が似せて描くことはしません。刺繍の師匠など、アイヌの作り手に描いてもらうか許可をもらった文様だけを、この帯と入口の画面に使います。</span></div>
+  </div>
+
+  <h2>さびれて見せないために</h2>
+  <div class="dont"><ul style="margin:0;padding-left:18px">
+    <li>紙や木目の古びた質感、セピア色、くすんだ茶色は使わない</li>
+    <li>余白をたっぷり取る。1画面に言いたいことは1つ</li>
+    <li>写真は明るく澄んだものを選ぶ（霧の写真も、白く光っているもの）</li>
+    <li>歴史や文化の話は、深い藍と縫い目の線で「丁寧さ」として見せる</li>
+  </ul></div>
+</main>
+
+<aside>
+  <div class="phone">
+    <div class="hero">
+      <svg class="contours" viewBox="0 0 390 330" preserveAspectRatio="none"><g fill="none" stroke="#FFFFFF" stroke-opacity=".45" stroke-width="1.2"><path d="M-10 250 C70 200 130 260 210 215 S330 160 400 190"/><path d="M-10 270 C80 225 140 285 220 240 S330 190 400 215"/><path d="M-10 228 C60 175 120 230 200 190 S320 130 400 160"/><path d="M-10 206 C70 150 130 200 205 165 S320 100 400 128"/><path d="M-10 292 C90 250 150 305 230 266 S340 222 400 240"/></g></svg>
+      <div class="brand">（サービス名）</div><div class="lang">日本語</div>
+      <h3>今日の層雲峡</h3><div class="elev">10月22日（木）</div>
+    </div>
+    <div class="tiles">
+      <div class="tile"><span class="k">天気</span><span class="v">12℃ 風よわめ</span><span class="s">気象庁 9:00発表</span></div>
+      <div class="tile"><span class="k">黒岳ロープウェイ</span><span class="v">運行中</span><span class="s">運営会社 8:30更新</span></div>
+      <div class="tile"><span class="k">通れない道</span><span class="v">1か所</span><span class="s">環境省・町の発表</span></div>
+      <div class="tile alert"><span class="k">クマ情報</span><span class="v">出没あり</span><span class="s">上川町 昨日更新</span></div>
+    </div>
+    <div class="sec"><h4>行ってみたい場所</h4>
+      <div class="row"><div class="place"><div class="img c"></div><div class="t"><b>紅葉谷</b>片道30分の散策路</div></div><div class="place"><div class="img b"></div><div class="t"><b>銀河・流星の滝</b>駐車場からすぐ</div></div><div class="place"><div class="img"></div><div class="t"><b>大函</b>柱状節理の崖</div></div></div></div>
+    <div class="sec"><div class="momo"><i></i><span>モモンガ（仮）</span></div><h4>ふと、気になった？</h4>
+      <div class="row"><div class="q">なぜ崖が反り立ってるの？<small>地形・30秒で聞ける</small></div><div class="q">クマっているの？<small>安全・30秒で聞ける</small></div></div></div>
+    <div class="shops"><h4>寄ってから帰ろっか。</h4><div class="sub">上川・層雲峡のすてきなお店</div>
+      <div class="row"><div class="shop"><div class="img"></div><div class="t"><b>お店の名前</b>営業中</div></div><div class="shop"><div class="img"></div><div class="t"><b>お店の名前</b>17時まで</div></div><div class="shop"><div class="img"></div><div class="t"><b>お店の名前</b></div></div></div></div>
+    <div class="sec" style="padding-bottom:22px"><span class="btn">音声ガイドを聞く</span></div>
+  </div>
+  <p class="note">数字・お店・天気は見本の仮の文字です。写真の部分は色の面で代わりにしています。</p>
+</aside>
+</div>
+</body>
+</html>
