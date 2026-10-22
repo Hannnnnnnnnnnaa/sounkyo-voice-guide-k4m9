@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>層雲峡ガイド ワイヤーフレーム</title>
+<style>
+/* Low-fidelity wireframe: gray boxes only. Yellow notes explain intent. Each .screen becomes one Figma frame. */
+:root{--ink:#222;--mid:#777;--line:#bbb;--box:#e6e6e6;--box2:#d4d4d4;--bg:#f4f4f4;--note:#fff3b0;--accent:#555}
+*{box-sizing:border-box}
+body{margin:0;padding:32px;background:#fafafa;color:var(--ink);font-family:"Hiragino Sans","Noto Sans JP",system-ui,sans-serif;font-size:13px;line-height:1.5}
+h1{font-size:20px;margin:0 0 4px}
+.lead{margin:0 0 24px;color:var(--mid);max-width:900px}
+.board{display:flex;flex-wrap:wrap;gap:40px;align-items:flex-start}
+.col{display:flex;flex-direction:column;gap:10px;width:390px}
+.col>h2{font-size:15px;margin:0}
+.screen{position:relative;width:390px;height:844px;background:#fff;border:2px solid var(--ink);border-radius:28px;overflow:hidden;display:flex;flex-direction:column}
+.status{height:28px;flex:none;font-size:11px;color:var(--mid);display:flex;align-items:center;justify-content:space-between;padding:0 22px}
+.body{flex:1;padding:8px 16px 0;display:flex;flex-direction:column;gap:10px;overflow:hidden}
+.tabs{height:64px;flex:none;border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(5,1fr);font-size:10px;color:var(--mid);text-align:center;padding-top:8px}
+.tabs div::before{content:"";display:block;width:22px;height:22px;margin:0 auto 3px;border-radius:6px;background:var(--box2)}
+.tabs .on{color:var(--ink);font-weight:700}
+.tabs .on::before{background:var(--accent)}
+.box{background:var(--box);border-radius:10px;display:flex;align-items:center;justify-content:center;color:var(--mid);font-size:12px;text-align:center;padding:8px}
+.row{display:flex;gap:8px}
+.chip{border:1px solid var(--line);border-radius:999px;padding:5px 11px;font-size:12px;white-space:nowrap}
+.chip.on{background:var(--accent);color:#fff;border-color:var(--accent)}
+.btn{background:var(--accent);color:#fff;border-radius:999px;text-align:center;padding:12px;font-weight:700}
+.btn.ghost{background:#fff;color:var(--ink);border:1px solid var(--ink)}
+.h{font-size:18px;font-weight:800}
+.sub{font-size:12px;color:var(--mid)}
+.card{border:1px solid var(--line);border-radius:12px;padding:10px;display:flex;flex-direction:column;gap:6px}
+.line{height:8px;border-radius:4px;background:var(--box2)}
+.w70{width:70%}.w50{width:50%}.w90{width:90%}
+.chara{display:flex;gap:8px;align-items:flex-start}
+.chara .face{flex:none;width:52px;height:52px;border-radius:50%;background:var(--box2);display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--mid)}
+.chara .bubble{border:1px solid var(--ink);border-radius:12px;padding:8px 10px;font-size:12px}
+.stat{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.stat .card{gap:3px}
+.stat b{font-size:13px}
+.src{font-size:10px;color:var(--mid)}
+.hs{display:flex;gap:8px;overflow:hidden}
+.hs .card{flex:0 0 150px}
+.note{background:var(--note);border-radius:8px;padding:8px 10px;font-size:12px;line-height:1.55}
+.note b{display:block;margin-bottom:2px}
+.stars{letter-spacing:2px}
+.phrase{border:1px solid var(--line);border-radius:12px;padding:10px}
+.phrase .jp{font-size:20px;font-weight:800}
+.lang{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.lang div{border:1px solid var(--line);border-radius:10px;padding:10px;text-align:center}
+.lang .on{border:2px solid var(--ink);font-weight:700}
+.seek{height:6px;border-radius:3px;background:var(--box2)}
+.play{width:52px;height:52px;border-radius:50%;background:var(--accent);flex:none}
+</style>
+</head>
+<body>
+<h1>層雲峡ガイド ワイヤーフレーム（11月MVP用・たたき台）</h1>
+<p class="lead">灰色の箱は配置だけを示しています。色・写真・キャラの絵は入っていません。黄色のメモは、その画面で決めたいことです。下の5つのタブ（ホーム・場所・お店・地図・会話）で行き来します。</p>
+
+<div class="board">
+
+<!-- 1 entry -->
+<div class="col"><h2>1. 入口（QR・NFCを読んだ直後）</h2>
+<section class="screen" id="s1">
+  <div class="status"><span>9:41</span><span>層雲峡ガイド</span></div>
+  <div class="body">
+    <div class="box" style="height:300px">季節の演出（秋なら紅葉が舞う、冬なら雪）<br>3秒ほどの短いアニメーション</div>
+    <div class="h">層雲峡へ、ようこそ。</div>
+    <div class="sub">美しいだけじゃない。おもしろい話がいっぱいの場所です。</div>
+    <div class="chara"><div class="face">キャラ</div><div class="bubble">はじめまして！3つだけ質問させてね。あなたに合う楽しみ方を出すよ。</div></div>
+    <div class="lang"><div class="on">日本語</div><div>English</div><div>中文</div><div>हिन्दी</div><div>Español</div><div>Français</div></div>
+    <div class="btn">はじめる</div>
+    <div class="sub" style="text-align:center">スキップして見る</div>
+  </div>
+</section>
+<div class="note"><b>決めたいこと</b>演出の長さ（長いと離脱する）／言語は端末の言語を最初から選んでおく／スキップを必ず置く</div>
+</div>
+
+<!-- 2 questions -->
+<div class="col"><h2>2. 3つの質問</h2>
+<section class="screen" id="s2">
+  <div class="status"><span>9:41</span><span>1 / 3</span></div>
+  <div class="body">
+    <div class="line" style="width:33%;height:6px;background:var(--accent)"></div>
+    <div class="chara"><div class="face">キャラ</div><div class="bubble">どこから来たの？</div></div>
+    <div class="row" style="flex-wrap:wrap"><span class="chip">北海道内</span><span class="chip on">道外</span><span class="chip">海外</span></div>
+    <div class="chara"><div class="face">キャラ</div><div class="bubble">どんなことが好き？（いくつでも）</div></div>
+    <div class="row" style="flex-wrap:wrap"><span class="chip on">山</span><span class="chip">景色・滝</span><span class="chip on">生きもの</span><span class="chip">歴史・アイヌ文化</span><span class="chip">ごはん</span><span class="chip">温泉</span></div>
+    <div class="chara"><div class="face">キャラ</div><div class="bubble">今日はどのくらいいられる？</div></div>
+    <div class="row" style="flex-wrap:wrap"><span class="chip">1時間</span><span class="chip on">半日</span><span class="chip">1日以上</span></div>
+    <div style="flex:1"></div>
+    <div class="btn">おすすめを見る</div>
+    <div class="sub" style="text-align:center;margin-bottom:12px">答えずに見る</div>
+  </div>
+</section>
+<div class="note"><b>決めたいこと</b>答えで変わるのは「ホームのおすすめの順番」と「キャラのひとこと」。答えはアンケートにも使う（同じ人に二度聞かない）</div>
+</div>
+
+<!-- 3 home -->
+<div class="col"><h2>3. ホーム「今日の層雲峡」</h2>
+<section class="screen" id="s3">
+  <div class="status"><span>9:41</span><span>10月22日（木）</span></div>
+  <div class="body">
+    <div class="h">今日の層雲峡</div>
+    <div class="stat">
+      <div class="card"><b>天気 12℃・風弱め</b><span class="src">気象庁 9:00発表</span></div>
+      <div class="card"><b>ロープウェイ 運行中</b><span class="src">運営会社 8:30更新</span></div>
+      <div class="card"><b>閉鎖中の道 1か所</b><span class="src">環境省・町の発表</span></div>
+      <div class="card"><b>クマ情報 あり</b><span class="src">上川町 昨日更新</span></div>
+    </div>
+    <div class="chara"><div class="face">キャラ</div><div class="bubble">生きものが好きなら、今日は紅葉谷がおすすめ！帰りに上川のパン屋さんも寄ってみて。</div></div>
+    <div class="sub"><b style="color:var(--ink)">あなたへのおすすめ</b></div>
+    <div class="hs">
+      <div class="card"><div class="box" style="height:80px">写真</div><b>紅葉谷</b><span class="src">音声 0:27・徒歩30分</span></div>
+      <div class="card"><div class="box" style="height:80px">写真</div><b>銀河・流星の滝</b><span class="src">音声 0:34</span></div>
+      <div class="card"><div class="box" style="height:80px">写真</div><b>大函</b></div>
+    </div>
+    <div class="sub"><b style="color:var(--ink)">上川で寄り道</b></div>
+    <div class="card"><div class="row"><div class="box" style="width:64px;height:48px">写真</div><div style="flex:1"><b>お店の名前</b><div class="src">★4.5「地元のパンがおいしい」・営業中</div></div></div></div>
+  </div>
+  <div class="tabs"><div class="on">ホーム</div><div>場所</div><div>お店</div><div>地図</div><div>会話</div></div>
+</section>
+<div class="note"><b>決めたいこと</b>状況の4枚は「公式の発表を、更新時刻つきでそのまま」出し、押すと元のページへ。自分の判断で言い換えない</div>
+</div>
+
+<!-- 4 place -->
+<div class="col"><h2>4. 場所ページ（音声ガイド＋口コミ）</h2>
+<section class="screen" id="s4">
+  <div class="status"><span>9:41</span><span>← 戻る</span></div>
+  <div class="body">
+    <div class="box" style="height:170px">季節の写真（春夏秋冬を切り替え）</div>
+    <div class="h">紅葉谷</div>
+    <div class="card"><div class="row" style="align-items:center"><div class="play"></div><div style="flex:1;display:flex;flex-direction:column;gap:6px"><b>音声ガイド 0:27</b><div class="seek"></div><div class="row"><span class="chip on">おとな</span><span class="chip">子ども</span><span class="chip">キャラ版</span></div></div></div></div>
+    <div class="line w90"></div><div class="line w70"></div>
+    <div class="row"><span class="chip">ここで見られるもの 23</span><span class="chip">地図</span></div>
+    <div class="card"><div class="row" style="justify-content:space-between"><b>みんなの口コミ</b><span class="stars">★★★★☆ 12件</span></div>
+      <div class="row"><div class="box" style="width:48px;height:48px">写真</div><div style="flex:1"><div class="line w90"></div><div class="line w50" style="margin-top:6px"></div></div></div>
+      <div class="btn ghost">口コミを書く</div></div>
+    <div class="sub"><b style="color:var(--ink)">近くのお店</b>　徒歩15分の温泉街に3軒</div>
+  </div>
+  <div class="tabs"><div>ホーム</div><div class="on">場所</div><div>お店</div><div>地図</div><div>会話</div></div>
+</section>
+<div class="note"><b>決めたいこと</b>口コミは「確認済みの解説」と見た目を分ける（枠と見出しを別にする）。音声は今あるおとな・子どもに「キャラ版」を足す</div>
+</div>
+
+<!-- 5 review form -->
+<div class="col"><h2>5. 口コミを書く</h2>
+<section class="screen" id="s5">
+  <div class="status"><span>9:41</span><span>× 閉じる</span></div>
+  <div class="body">
+    <div class="h">紅葉谷の口コミ</div>
+    <div class="sub">登録なし・ニックネームでOK</div>
+    <div class="stars" style="font-size:30px">★★★★☆</div>
+    <div class="box" style="height:140px;justify-content:flex-start;align-items:flex-start">ひとこと（例：滝の音が気持ちよかった）</div>
+    <div class="box" style="height:90px">写真を追加（1枚まで）</div>
+    <div class="row" style="flex-wrap:wrap"><span class="chip">ひとり</span><span class="chip on">家族</span><span class="chip">友だち</span><span class="chip">ツアー</span></div>
+    <div class="box" style="height:44px;justify-content:flex-start">ニックネーム（なくてもOK）</div>
+    <div style="flex:1"></div>
+    <div class="btn">投稿する</div>
+    <div class="sub" style="text-align:center;margin-bottom:12px">確認してから表示されます（1〜2日）</div>
+  </div>
+</section>
+<div class="note"><b>決めたいこと</b>MVPは「確認してから表示」（はなが承認）で荒らしを防ぐ。写真は容量の都合で1枚まで</div>
+</div>
+
+<!-- 6 shops via reviews -->
+<div class="col"><h2>6. お店（口コミから探す）</h2>
+<section class="screen" id="s6">
+  <div class="status"><span>9:41</span><span>上川・層雲峡</span></div>
+  <div class="body">
+    <div class="h">口コミから探す</div>
+    <div class="row" style="flex-wrap:wrap"><span class="chip on">すべて</span><span class="chip">ごはん</span><span class="chip">カフェ</span><span class="chip">おみやげ</span><span class="chip">温泉</span><span class="chip">体験</span></div>
+    <div class="row"><span class="chip on">いま営業中</span><span class="chip">層雲峡</span><span class="chip">上川の町</span></div>
+    <div class="card"><div class="row"><div class="box" style="width:80px;height:64px">写真</div><div style="flex:1"><b>お店の名前</b><div class="src">★4.6（8件）・ごはん・営業中</div><div class="src">「ジンギスカンが絶品。また来たい」</div></div></div></div>
+    <div class="card"><div class="row"><div class="box" style="width:80px;height:64px">写真</div><div style="flex:1"><b>お店の名前</b><div class="src">★4.2（5件）・カフェ・17時まで</div><div class="src">「窓から山が見える」</div></div></div></div>
+    <div class="card"><div class="row"><div class="box" style="width:80px;height:64px">写真</div><div style="flex:1"><b>お店の名前</b><div class="src">★4.8（3件）・おみやげ・定休日</div><div class="src">「手ぬぐいがかわいい」</div></div></div></div>
+  </div>
+  <div class="tabs"><div>ホーム</div><div>場所</div><div class="on">お店</div><div>地図</div><div>会話</div></div>
+</section>
+<div class="note"><b>決めたいこと</b>並び順は「口コミの新しさ」か「評価」か。営業時間はお店から聞いた情報を出し、更新日を書く</div>
+</div>
+
+<!-- 7 shop page -->
+<div class="col"><h2>7. お店のページ</h2>
+<section class="screen" id="s7">
+  <div class="status"><span>9:41</span><span>← 戻る</span></div>
+  <div class="body">
+    <div class="box" style="height:180px">お店の写真</div>
+    <div class="h">お店の名前</div>
+    <div class="sub">ごはん・上川町</div>
+    <div class="card"><b>お店のおすすめ</b><div class="line w90"></div><div class="line w50"></div></div>
+    <div class="card"><b>営業時間</b><div class="src">11:00〜15:00・水曜休み（お店に確認：10月20日）</div></div>
+    <div class="row"><div class="btn ghost" style="flex:1">地図で見る</div><div class="btn ghost" style="flex:1">電話する</div></div>
+    <div class="card"><div class="row" style="justify-content:space-between"><b>みんなの口コミ</b><span class="stars">★★★★★ 8件</span></div><div class="line w90"></div><div class="line w70"></div><div class="btn ghost">口コミを書く</div></div>
+  </div>
+  <div class="tabs"><div>ホーム</div><div>場所</div><div class="on">お店</div><div>地図</div><div>会話</div></div>
+</section>
+<div class="note"><b>決めたいこと</b>MVPは10軒から。載せる許可と、おすすめ1つ・営業時間・写真をお店からもらう</div>
+</div>
+
+<!-- 8 phrasebook -->
+<div class="col"><h2>8. 指さし会話</h2>
+<section class="screen" id="s8">
+  <div class="status"><span>9:41</span><span>English ⇄ 日本語</span></div>
+  <div class="body">
+    <div class="h">Point to talk</div>
+    <div class="sub">Show this screen to staff in Kamikawa.</div>
+    <div class="row" style="flex-wrap:wrap"><span class="chip on">At a shop</span><span class="chip">Directions</span><span class="chip">Hot spring</span><span class="chip">Help</span></div>
+    <div class="phrase"><div class="jp">これをください。</div><div class="src">I'd like this, please.</div></div>
+    <div class="phrase"><div class="jp">おすすめはどれですか？</div><div class="src">What do you recommend?</div></div>
+    <div class="phrase"><div class="jp">カードは使えますか？</div><div class="src">Can I pay by card?</div></div>
+    <div class="phrase"><div class="jp">バス停はどこですか？</div><div class="src">Where is the bus stop?</div></div>
+  </div>
+  <div class="tabs"><div>Home</div><div>Places</div><div>Shops</div><div>Map</div><div class="on">Talk</div></div>
+</section>
+<div class="note"><b>決めたいこと</b>日本語を大きく、相手の言語を小さく（見せる相手は日本の店員さん）。場面は4つから</div>
+</div>
+
+</div>
+</body>
+</html>
