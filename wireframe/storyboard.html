@@ -56,10 +56,25 @@ h2{font-size:15px;margin:28px 0 10px;border-left:4px solid var(--ink);padding-le
 .flow .step{border:1.5px solid var(--ink);border-radius:10px;padding:8px 10px;background:#fff;font-size:12px;max-width:220px}
 .flow .step.dim{border-style:dashed;color:var(--mid)}
 .flow .to{color:#999;font-size:18px}
+.qcard{flex:0 0 150px;border:1.5px solid var(--ink);border-radius:14px 14px 14px 4px;padding:8px;font-size:11px;font-weight:700;background:#fff;display:flex;flex-direction:column;gap:4px}
+.qcard small{font-weight:400;color:var(--mid);font-size:9.5px}
+.pcard{flex:0 0 130px;border:1px solid var(--line);border-radius:10px;overflow:hidden;font-size:10px;background:#fff}
+.pcard .img{height:70px;background:#e2e2e2}
+.pcard div.t{padding:5px 6px}
+.plants{display:flex;flex-wrap:wrap;gap:5px}
+.plants span{border:1px solid var(--line);border-radius:999px;padding:3px 8px;font-size:10px}
+.world{position:relative;height:430px;border-radius:12px;overflow:hidden;background:linear-gradient(#cfd6dc 0 22%,#dfe5df 22% 55%,#d6ddd2 55% 80%,#c8d4dc 80%)}
+.zone{position:absolute;left:8px;font-size:9.5px;color:#555;font-weight:700}
+.dot{position:absolute;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:9.5px}
+.dot i{width:26px;height:26px;border-radius:50%;background:#fff;border:2px solid var(--ink);display:block}
+.sheet{border:2px solid var(--ink);border-radius:16px 16px 0 0;padding:10px;display:flex;flex-direction:column;gap:7px;background:#fff}
+.sheet .row2{display:flex;gap:6px;font-size:11px}
+.sheet .row2 b{flex:none;width:92px;color:var(--mid);font-weight:700}
+.srcline{font-size:9.5px;color:var(--mid);border-top:1px dashed var(--line);padding-top:5px}
 </style>
 </head>
 <body>
-<h1>層雲峡ガイド 絵コンテ（たたき台 v2）</h1>
+<h1>層雲峡ガイド 絵コンテ（たたき台 v3）</h1>
 <p class="lead">2026年10月22日のすり合わせを反映：モモンガはぬるっとなめらかに動く／2回目からは霧が晴れる一瞬だけ／質問は「言語」と「何しに来た？」の2つ／場所に置いたNFCカードは、その場所のページを直接開く。</p>
 <p class="lead">灰色・しま模様は配置だけで、絵・写真・映像はまだ入っていません。各コマの右上は目安の秒数です。</p>
 
@@ -119,35 +134,79 @@ h2{font-size:15px;margin:28px 0 10px;border-left:4px solid var(--ink);padding-le
 </div>
 <p class="lead" style="margin-top:8px">その場所に立っている人には、オープニングより先に中身を届ける。音声ガイドの再生ボタンがすぐ押せる状態にする。</p>
 
-<h2>D. トップページ（下にスクロールしていく1枚）</h2>
+<h2>D. トップページ（下にスクロールしていく1枚）v3</h2>
 <div class="strip">
   <div class="long">
     <div class="hero"><div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#555;font-weight:700">7. 上空の渓谷（映像）</div>
       <div class="info"><div><b>天気 12℃・風弱め</b>気象庁 9:00</div><div><b>ロープウェイ 運行中</b>運営会社 8:30</div><div><b>閉鎖中の道 1か所</b>環境省・町</div><div><b>クマ情報 あり</b>上川町 昨日</div></div></div>
-    <div class="sec"><span class="lab">8</span><div style="display:flex;gap:6px;align-items:center"><div class="momo sm">モモンガ</div><div class="bub">景色が好きなら、今日は銀河・流星の滝！</div></div>
-      <div class="belt"><div class="c">紅葉谷</div><div class="c q">なぜ崖が反り立ってるの？</div><div class="c">銀河・流星の滝</div><div class="c q">クマっているの？</div></div>
-      <div class="belt"><div class="c q">地名ってアイヌ語なの？</div><div class="c">大函</div><div class="c q">日本一紅葉が早いって本当？</div><div class="c">温泉街</div></div>
-      <div class="belt-cap">← 回転寿司のようにゆっくり自動で流れる（触ると止まる）。場所＝写真カード、問い＝文字カード。押すと答え・音声・出典が開く</div></div>
-    <div class="sec"><span class="lab">9</span><div class="h">お腹減った？</div>
+
+    <div class="sec"><span class="lab">8-1 場所</span><div class="h">行ってみたい場所</div>
+      <div class="belt"><div class="pcard"><div class="img"></div><div class="t"><b>紅葉谷</b><br>片道30分の散策路・音声0:27</div></div><div class="pcard"><div class="img"></div><div class="t"><b>銀河・流星の滝</b><br>駐車場からすぐ</div></div><div class="pcard"><div class="img"></div><div class="t"><b>大函</b><br>柱状節理の崖</div></div></div>
+      <div class="belt-cap">← 写真つきの場所カードだけが、ゆっくり自動で流れる。押すと場所ページへ</div></div>
+
+    <div class="sec"><span class="lab">8-2 疑問</span><div style="display:flex;gap:6px;align-items:center"><div class="momo sm">モモンガ</div><div class="h">ふと、気になった？</div></div>
+      <div class="belt"><div class="qcard">なぜ崖が反り立ってるの？<small>地形・30秒</small></div><div class="qcard">クマっているの？<small>安全・30秒</small></div><div class="qcard">ここの地名ってアイヌ語なの？<small>名前・30秒</small></div></div>
+      <div class="belt"><div class="qcard">日本一紅葉が早いって本当？<small>季節・確認中</small></div><div class="qcard">温泉はどこから湧いてるの？<small>水・30秒</small></div></div>
+      <div class="belt-cap">← 吹き出し形の問いカード（写真なし）。場所カードと見た目をはっきり分ける。押すと短い答え＋音声＋出典</div></div>
+
+    <div class="sec"><span class="lab">8-3 動植物</span><div class="h">層雲峡のいきもの</div>
+      <div style="font-size:10px;color:var(--mid)">紅葉谷で見られる植物</div>
+      <div class="plants"><span>ウダイカンバ</span><span>カツラ</span><span>紅葉（カエデ類）</span><span>ミヤママタタビ</span><span>オンコ（イチイ）</span><span>紅葉谷で咲く花</span></div>
+      <div style="border:1.5px solid var(--ink);border-radius:12px;padding:10px;display:flex;justify-content:space-between;align-items:center;background:linear-gradient(90deg,#eef1ee,#fff)"><div><b style="font-size:12px">いきものの世界をのぞく</b><div style="font-size:10px;color:var(--mid)">川から山の上まで、タップして見る</div></div><span style="font-size:18px">→</span></div>
+      <div class="belt-cap">上の植物は今の試作と同じ「場所ごとの見どころ」。下のボタンでEの画面へ</div></div>
+
+    <div class="sec"><span class="lab">9 お店</span><div class="h">寄ってから帰ろっか。</div><div style="font-size:10px;color:var(--mid)">上川・層雲峡のすてきなお店</div>
       <div class="belt"><div class="c">お店A ★4.6</div><div class="c">お店B 営業中</div><div class="c">お店C</div></div>
-      <div class="belt-cap">← 横に流れる。押すとお店のページへ</div></div>
+      <div class="belt-cap">← 横に流れる。押すとお店のページへ（見出しは案。下のメモ参照）</div></div>
     <div class="sec"><span class="lab">10</span><div class="h">地図で見る</div>
       <div class="map"><span class="pin" style="left:40px;top:30px"></span><span class="pin" style="left:120px;top:70px"></span><span class="pin" style="left:200px;top:50px"></span><span class="pin" style="left:240px;top:110px;background:#999"></span><span class="pin" style="left:70px;top:110px;background:#999"></span>
         <span style="position:absolute;left:8px;bottom:6px;font-size:10px;color:#555">層雲峡 ←→ 上川の町　●場所 ●お店</span></div></div>
     <div class="sec"><span class="lab">11</span><div class="h">みんなの声</div>
-      <div><span class="bub">滝の音が最高だった！</span><span class="bub">クマ鈴あってよかった</span><span class="bub">ジンギスカン美味しい</span><span class="bub">紅葉ピークでした🍁</span><span class="bub">また冬に来たい</span></div>
+      <div><span class="bub">滝の音が最高だった！</span><span class="bub">クマ鈴あってよかった</span><span class="bub">また冬に来たい</span><span class="bub">紅葉ピークでした🍁</span></div>
       <div class="belt-cap">吹き出しがポンポンと出てくる。承認した口コミだけ</div></div>
     <div class="sec" style="border-bottom:0"><span class="lab">12</span><div class="h">くわしく知りたい</div>
-      <div class="acc"><span>ロープウェイについて</span><span>＋</span></div><div class="acc"><span>赤岳・銀泉台について</span><span>＋</span></div><div class="acc"><span>落とし物について</span><span>＋</span></div><div class="acc"><span>バス・アクセス</span><span>＋</span></div>
-      <div class="belt-cap">パンフレットで知るような情報。開くと中身と出典</div></div>
+      <div class="acc"><span>ロープウェイについて</span><span>＋</span></div><div class="acc"><span>赤岳・銀泉台について</span><span>＋</span></div><div class="acc"><span>落とし物について</span><span>＋</span></div><div class="acc"><span>バス・アクセス</span><span>＋</span></div></div>
   </div>
   <div style="display:flex;flex-direction:column;gap:10px;max-width:420px">
-    <div class="note"><b>8の問いカード</b>1枚ずつ「短い答え（30秒）＋音声＋出典」。答えの裏が取れたものだけ出す。「日本一紅葉が早い」は公的な資料で確かめてから</div>
-    <div class="note"><b>8の並び順</b>「何しに来た？」の答えで変える。例：景色・滝 → 銀河・流星の滝と柱状節理の問いが先頭</div>
-    <div class="note"><b>9のお店</b>MVPは10軒から。営業時間はお店から聞いた日付つき</div>
-    <div class="note"><b>11の口コミ</b>ここで書く場所も用意する（場所ページ・お店ページからも書ける）</div>
-    <div class="note"><b>12の詳しい情報</b>運営会社・町・ビジターセンターの公式の情報をもとに。落とし物の届け先などは、問い合わせ先をそのまま載せる</div>
+    <div class="note"><b>8-1と8-2を分けた理由</b>「場所」は写真つきの四角いカード、「疑問」は写真なしの吹き出しカード。形と見出しを変えて、ひと目で違いがわかるようにした</div>
+    <div class="note"><b>8-2の問い</b>答えの裏が取れたものだけ出す。「日本一紅葉が早い」は公的な資料で確かめてから</div>
+    <div class="note"><b>8-3の植物</b>今の試作の「ここで見られるもの」をそのまま使う（紅葉谷の植物6件）</div>
+    <div class="note"><b>9の見出し案</b>①寄ってから帰ろっか。（はなの答え「上川寄ってから帰ろっか！」から）②上川で、ひと休み。③ちょっと寄り道していきませんか。④この町の、おいしいもの。⑤旅の途中に、立ち寄りたいお店。</div>
   </div>
+</div>
+
+<h2>E. いきものの世界（2.5Dで奥行きのある1枚絵）</h2>
+<div class="strip">
+  <div class="scene" style="width:300px"><div class="cap">E-1. 世界をのぞく <span>指で上下・左右に動かす</span></div>
+    <div class="phone" style="width:300px;height:560px"><div style="padding:10px;font-weight:800;font-size:14px">いきものの世界</div>
+      <div class="world" style="margin:0 10px">
+        <span class="zone" style="top:6px">山の上（高山）</span><span class="zone" style="top:100px">山の森</span><span class="zone" style="top:240px">谷の森</span><span class="zone" style="top:350px">川・水辺</span>
+        <div class="dot" style="left:150px;top:30px"><i></i>ナキウサギ</div>
+        <div class="dot" style="left:60px;top:120px"><i></i>ダケカンバ</div>
+        <div class="dot" style="left:200px;top:140px"><i></i>ヒグマ</div>
+        <div class="dot" style="left:40px;top:255px"><i></i>エゾシカ</div>
+        <div class="dot" style="left:120px;top:200px"><i></i>フクロウ</div>
+        <div class="dot" style="left:200px;top:250px"><i></i>エゾリス</div>
+        <div class="dot" style="left:150px;top:290px"><i></i>イタヤカエデ</div>
+        <div class="dot" style="left:40px;top:365px"><i></i>水芭蕉</div>
+        <div class="dot" style="left:150px;top:370px"><i></i>ニセイチャロマップ川</div>
+      </div>
+      <div style="padding:8px 12px;font-size:10px;color:var(--mid)">奥の景色ほどゆっくり動いて奥行きが出る。丸をタップすると詳しく</div></div>
+    <div class="note">本当の3Dではなく、景色を何枚かの層に分けた「2.5D」。スマホでも軽く動き、11月に間に合う。高さで変わる自然（川→森→山の上）がそのまま伝わる配置。どこに何を置くかは、ビジターセンターの資料で確かめてから</div></div>
+
+  <div class="scene" style="width:300px"><div class="cap">E-2. タップすると詳しく <span>下から出てくる</span></div>
+    <div class="phone" style="width:300px;height:560px;background:#eef1ee">
+      <div style="position:absolute;left:0;right:0;bottom:0" class="sheet">
+        <div style="display:flex;gap:8px;align-items:center"><div style="width:56px;height:56px;border-radius:10px;background:#ddd"></div><div><div class="h">エゾリス</div><div style="font-size:10px;color:var(--mid)">動物・谷の森</div></div></div>
+        <div class="row2"><b>アイヌ語の名前</b><span>（あれば）表記と、その意味</span></div>
+        <div class="row2"><b>どんな生きもの</b><span>短い説明（2〜3文）</span></div>
+        <div class="row2"><b>アイヌの人々との関わり</b><span>どう使われ、どう考えられてきたか（公開済みで許可のある文献の範囲）</span></div>
+        <div class="row2"><b>まわりの生きものとの関係</b><span>食べる・食べられる、すみかを分け合う など</span></div>
+        <div class="row2"><b>見られる季節・場所</b><span>紅葉谷・春〜秋 など</span></div>
+        <div style="border:1px solid var(--ink);border-radius:10px;padding:7px;font-size:11px;display:flex;justify-content:space-between"><span>もっと知りたい人へ</span><span>＋</span></div>
+        <div class="srcline">出典：層雲峡ビジターセンター ほか（各項目に）</div>
+      </div></div>
+    <div class="note">「もっと知りたい人へ」を開くと、深い解説・関連する本や資料・ビジターセンターの観察会の案内。アイヌ語とアイヌの人々との関わりは、監修を通してから公開</div></div>
 </div>
 </body>
 </html>
