@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>層雲峡ガイド 絵コンテ</title>
+<style>
+/* Storyboard: small phone frames in order, with timing and notes. Gray = layout only. */
+:root{--ink:#222;--mid:#777;--line:#bbb;--box:#e6e6e6;--box2:#d0d0d0;--fog:#dfe3e6;--note:#fff3b0;--accent:#555}
+*{box-sizing:border-box}
+body{margin:0;padding:28px;background:#fafafa;color:var(--ink);font-family:"Hiragino Sans","Noto Sans JP",system-ui,sans-serif;font-size:12px;line-height:1.5}
+h1{font-size:20px;margin:0 0 4px}
+h2{font-size:15px;margin:28px 0 10px;border-left:4px solid var(--ink);padding-left:8px}
+.lead{margin:0 0 6px;color:var(--mid);max-width:1100px}
+.strip{display:flex;flex-wrap:wrap;gap:14px;align-items:flex-start}
+.scene{width:250px;display:flex;flex-direction:column;gap:6px}
+.scene .cap{display:flex;justify-content:space-between;align-items:baseline;font-weight:700;font-size:13px}
+.scene .cap span{font-weight:400;color:var(--mid);font-size:11px}
+.phone{position:relative;width:250px;height:500px;border:2px solid var(--ink);border-radius:22px;overflow:hidden;background:#fff}
+.fog{background:radial-gradient(ellipse at 50% 45%,#f3f5f6 0%,var(--fog) 55%,#c9ced2 100%)}
+.center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;text-align:center}
+.title{font-size:20px;font-weight:800;letter-spacing:.06em}
+.kana{font-size:12px;letter-spacing:.3em;color:#555}
+.wave{font-size:10px;color:var(--mid)}
+.momo{width:58px;height:58px;border-radius:50%;background:#9a9a9a;color:#fff;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700}
+.momo.sm{width:40px;height:40px;font-size:9px}
+.path{position:absolute;border:2px dashed #999;border-radius:50%}
+.langs{display:grid;grid-template-columns:1fr 1fr;gap:6px;width:200px}
+.langs div{border:1px solid var(--ink);border-radius:8px;padding:6px;background:#fff;font-size:11px}
+.stars{font-size:20px;letter-spacing:6px}
+.chips{display:flex;flex-wrap:wrap;gap:5px;justify-content:center;width:210px}
+.chip{border:1px solid var(--ink);border-radius:999px;padding:4px 9px;background:#fff;font-size:11px}
+.chip.on{background:var(--accent);color:#fff;border-color:var(--accent)}
+.skip{position:absolute;top:12px;right:12px;font-size:10px;color:var(--mid);border:1px solid var(--line);border-radius:999px;padding:2px 8px;background:#fff}
+.aerial{position:absolute;inset:0;background:repeating-linear-gradient(135deg,#d8d8d8 0 14px,#e8e8e8 14px 28px);display:flex;align-items:center;justify-content:center;color:#555;font-weight:700;text-align:center;padding:20px}
+.note{background:var(--note);border-radius:8px;padding:7px 9px;font-size:11px;line-height:1.55}
+.arrow{align-self:center;font-size:20px;color:#999;margin-top:220px}
+/* tall top page */
+.long{width:300px;border:2px solid var(--ink);border-radius:22px;overflow:hidden;background:#fff}
+.sec{border-bottom:1px dashed var(--line);padding:10px;display:flex;flex-direction:column;gap:6px}
+.sec .lab{font-size:10px;color:#fff;background:var(--ink);border-radius:4px;padding:1px 6px;align-self:flex-start}
+.hero{height:230px;position:relative;background:repeating-linear-gradient(135deg,#d8d8d8 0 14px,#e8e8e8 14px 28px)}
+.hero .info{position:absolute;left:8px;right:8px;bottom:8px;display:grid;grid-template-columns:1fr 1fr;gap:5px}
+.hero .info div{background:rgba(255,255,255,.92);border-radius:8px;padding:5px 7px;font-size:10px}
+.hero .info b{display:block;font-size:11px}
+.belt{display:flex;gap:6px;overflow:hidden}
+.belt .c{flex:0 0 108px;height:96px;border:1px solid var(--line);border-radius:10px;padding:6px;font-size:10px;display:flex;flex-direction:column;justify-content:flex-end;background:linear-gradient(#e6e6e6 0 55%,#fff 55%)}
+.belt .q{background:#fff;border:1.5px solid var(--ink);justify-content:center;font-weight:700;font-size:11px}
+.belt-cap{font-size:10px;color:var(--mid)}
+.map{height:150px;background:#e4e8e4;border-radius:10px;position:relative}
+.pin{position:absolute;width:12px;height:12px;border-radius:50%;background:#555;border:2px solid #fff}
+.bub{display:inline-block;border:1px solid var(--ink);border-radius:14px;padding:5px 9px;font-size:10px;background:#fff;margin:2px}
+.acc{border:1px solid var(--line);border-radius:8px;padding:7px;font-size:11px;display:flex;justify-content:space-between}
+.h{font-size:15px;font-weight:800}
+.flow{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.flow .step{border:1.5px solid var(--ink);border-radius:10px;padding:8px 10px;background:#fff;font-size:12px;max-width:220px}
+.flow .step.dim{border-style:dashed;color:var(--mid)}
+.flow .to{color:#999;font-size:18px}
+</style>
+</head>
+<body>
+<h1>層雲峡ガイド 絵コンテ（たたき台 v2）</h1>
+<p class="lead">2026年10月22日のすり合わせを反映：モモンガはぬるっとなめらかに動く／2回目からは霧が晴れる一瞬だけ／質問は「言語」と「何しに来た？」の2つ／場所に置いたNFCカードは、その場所のページを直接開く。</p>
+<p class="lead">灰色・しま模様は配置だけで、絵・写真・映像はまだ入っていません。各コマの右上は目安の秒数です。</p>
+
+<h2>A. はじめて開いたとき（ホテル・受付・お店などのカード → トップへ）</h2>
+<div class="strip">
+  <div class="scene"><div class="cap">1. カードにかざす <span>—</span></div>
+    <div class="phone"><div class="center"><div style="width:150px;height:95px;border:2px solid var(--ink);border-radius:10px;display:flex;align-items:center;justify-content:center">NFCカード／QR</div><div class="wave">スマホをかざす → ページが開く</div></div></div>
+    <div class="note">アプリのインストールはなし。開いた瞬間から霧の画面</div></div>
+
+  <div class="scene"><div class="cap">2. 霧の中の文字 <span>約2秒</span></div>
+    <div class="phone fog"><span class="skip">スキップ</span><div class="center"><div class="kana">カムイミンタラ</div><div class="title">（サービス名）</div><div class="kana">層 雲 峡</div><div class="wave">〜 ゆらゆら揺れる 〜</div></div></div>
+    <div class="note">文字が霧に溶けるように揺れる。霧は画面上の演出で作る（写真は不要）。「カムイミンタラ」の表記は公式で一番使われているものを仮に使い、館長に確認</div></div>
+
+  <div class="scene"><div class="cap">3. モモンガ登場 <span>約1.5秒</span></div>
+    <div class="phone fog"><span class="skip">スキップ</span>
+      <div class="path" style="width:160px;height:160px;left:45px;top:150px"></div>
+      <div class="momo sm" style="position:absolute;left:24px;top:120px;opacity:.35">モモンガ</div>
+      <div class="center"><div class="momo">モモンガ</div><div class="wave" style="margin-top:70px">画面の外から滑空 → くるんと1回転 → 中央で止まる</div></div></div>
+    <div class="note">ぬるっとなめらかに。体・しっぽ・目を別々に動かせる絵が必要（素材②）</div></div>
+
+  <div class="scene"><div class="cap">4. 言語ボタン ★1つ目 <span>選ぶまで</span></div>
+    <div class="phone fog"><span class="skip">スキップ</span><div class="center"><div class="stars">★ ☆</div><div class="momo sm">モモンガ</div><div class="wave">ボタンの上に乗って、下を見ている</div>
+      <div class="langs"><div>日本語</div><div>English</div><div>中文</div><div>हिन्दी</div><div>Español</div><div>Français</div></div></div></div>
+    <div class="note">ボタンが1つずつフェードイン。端末の言語を最初から少し光らせておく。選ぶと★1つ目が光る</div></div>
+
+  <div class="scene"><div class="cap">5. 何しに来た？ ★2つ目 <span>選ぶまで</span></div>
+    <div class="phone fog"><span class="skip">スキップ</span><div class="center"><div class="stars">★ ★</div><div class="title" style="font-size:16px">何しに来た？</div>
+      <div class="chips"><span class="chip">山に登る</span><span class="chip on">景色・滝を見る</span><span class="chip">生きもの・自然</span><span class="chip">温泉でのんびり</span><span class="chip">ごはん・おみやげ</span><span class="chip">なんとなく</span></div>
+      <div class="wave">霧の中を前に進むように、質問がフェードで入れ替わる</div></div></div>
+    <div class="note">質問が2つになったので、星も2つ（3つにするなら、1つ目を「層雲峡に来た」で最初から光らせる案も）。答えでトップのおすすめの順番と、モモンガのひとことが変わる</div></div>
+
+  <div class="scene"><div class="cap">6. 霧が晴れる <span>約3秒</span></div>
+    <div class="phone"><div class="aerial">上空から渓谷を見下ろす映像<br>春→夏→秋→冬と移ろう<br>（動物・天気も一瞬ずつ）</div></div>
+    <div class="note">霧がブワッと左右に流れて晴れる。いちばん大事な場面。映像の素材が必要（素材①）</div></div>
+
+  <div class="scene"><div class="cap">7. トップへ着地 <span>約0.5秒</span></div>
+    <div class="phone"><div class="aerial" style="bottom:auto;height:230px">渓谷の映像が<br>上の枠に縮んで収まる</div>
+      <div style="position:absolute;top:240px;left:10px;right:10px;display:grid;grid-template-columns:1fr 1fr;gap:6px">
+        <div class="acc">天気 12℃</div><div class="acc">ロープウェイ 運行中</div><div class="acc">閉鎖中の道</div><div class="acc">クマ情報</div></div>
+      <div class="center" style="top:auto;bottom:20px;height:auto"><div class="wave">↓ 下にスクロール</div></div></div>
+    <div class="note">基本情報は公式の発表を、更新時刻つきでそのまま。押すと元のページへ</div></div>
+</div>
+
+<h2>B. 2回目から（同じスマホでまた開いたとき）</h2>
+<div class="flow">
+  <div class="step">カードにかざす</div><div class="to">→</div>
+  <div class="step">霧が晴れる一瞬だけ（約1秒）</div><div class="to">→</div>
+  <div class="step">トップ（7）。言語と「何しに来た？」は前回の答えを使う</div>
+</div>
+
+<h2>C. 場所に置いたNFCカード（例：紅葉谷の入口）</h2>
+<div class="flow">
+  <div class="step">紅葉谷のカードにかざす</div><div class="to">→</div>
+  <div class="step">霧が晴れる一瞬だけ（初回でも）</div><div class="to">→</div>
+  <div class="step">紅葉谷のページ（今の試作の画面）。言語は端末の言語で自動、右上で切り替え</div><div class="to">→</div>
+  <div class="step dim">「何しに来た？」はページ下の小さな帯で聞く（答えなくても使える）</div>
+</div>
+<p class="lead" style="margin-top:8px">その場所に立っている人には、オープニングより先に中身を届ける。音声ガイドの再生ボタンがすぐ押せる状態にする。</p>
+
+<h2>D. トップページ（下にスクロールしていく1枚）</h2>
+<div class="strip">
+  <div class="long">
+    <div class="hero"><div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#555;font-weight:700">7. 上空の渓谷（映像）</div>
+      <div class="info"><div><b>天気 12℃・風弱め</b>気象庁 9:00</div><div><b>ロープウェイ 運行中</b>運営会社 8:30</div><div><b>閉鎖中の道 1か所</b>環境省・町</div><div><b>クマ情報 あり</b>上川町 昨日</div></div></div>
+    <div class="sec"><span class="lab">8</span><div style="display:flex;gap:6px;align-items:center"><div class="momo sm">モモンガ</div><div class="bub">景色が好きなら、今日は銀河・流星の滝！</div></div>
+      <div class="belt"><div class="c">紅葉谷</div><div class="c q">なぜ崖が反り立ってるの？</div><div class="c">銀河・流星の滝</div><div class="c q">クマっているの？</div></div>
+      <div class="belt"><div class="c q">地名ってアイヌ語なの？</div><div class="c">大函</div><div class="c q">日本一紅葉が早いって本当？</div><div class="c">温泉街</div></div>
+      <div class="belt-cap">← 回転寿司のようにゆっくり自動で流れる（触ると止まる）。場所＝写真カード、問い＝文字カード。押すと答え・音声・出典が開く</div></div>
+    <div class="sec"><span class="lab">9</span><div class="h">お腹減った？</div>
+      <div class="belt"><div class="c">お店A ★4.6</div><div class="c">お店B 営業中</div><div class="c">お店C</div></div>
+      <div class="belt-cap">← 横に流れる。押すとお店のページへ</div></div>
+    <div class="sec"><span class="lab">10</span><div class="h">地図で見る</div>
+      <div class="map"><span class="pin" style="left:40px;top:30px"></span><span class="pin" style="left:120px;top:70px"></span><span class="pin" style="left:200px;top:50px"></span><span class="pin" style="left:240px;top:110px;background:#999"></span><span class="pin" style="left:70px;top:110px;background:#999"></span>
+        <span style="position:absolute;left:8px;bottom:6px;font-size:10px;color:#555">層雲峡 ←→ 上川の町　●場所 ●お店</span></div></div>
+    <div class="sec"><span class="lab">11</span><div class="h">みんなの声</div>
+      <div><span class="bub">滝の音が最高だった！</span><span class="bub">クマ鈴あってよかった</span><span class="bub">ジンギスカン美味しい</span><span class="bub">紅葉ピークでした🍁</span><span class="bub">また冬に来たい</span></div>
+      <div class="belt-cap">吹き出しがポンポンと出てくる。承認した口コミだけ</div></div>
+    <div class="sec" style="border-bottom:0"><span class="lab">12</span><div class="h">くわしく知りたい</div>
+      <div class="acc"><span>ロープウェイについて</span><span>＋</span></div><div class="acc"><span>赤岳・銀泉台について</span><span>＋</span></div><div class="acc"><span>落とし物について</span><span>＋</span></div><div class="acc"><span>バス・アクセス</span><span>＋</span></div>
+      <div class="belt-cap">パンフレットで知るような情報。開くと中身と出典</div></div>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:10px;max-width:420px">
+    <div class="note"><b>8の問いカード</b>1枚ずつ「短い答え（30秒）＋音声＋出典」。答えの裏が取れたものだけ出す。「日本一紅葉が早い」は公的な資料で確かめてから</div>
+    <div class="note"><b>8の並び順</b>「何しに来た？」の答えで変える。例：景色・滝 → 銀河・流星の滝と柱状節理の問いが先頭</div>
+    <div class="note"><b>9のお店</b>MVPは10軒から。営業時間はお店から聞いた日付つき</div>
+    <div class="note"><b>11の口コミ</b>ここで書く場所も用意する（場所ページ・お店ページからも書ける）</div>
+    <div class="note"><b>12の詳しい情報</b>運営会社・町・ビジターセンターの公式の情報をもとに。落とし物の届け先などは、問い合わせ先をそのまま載せる</div>
+  </div>
+</div>
+</body>
+</html>
