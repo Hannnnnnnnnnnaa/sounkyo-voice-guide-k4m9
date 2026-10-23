@@ -3,177 +3,203 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>層雲峡ガイド デザインの方向</title>
+<title>層雲峡ガイド スタイルタイル</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Murecho:wght@400;500;700;800&family=Archivo:wdth,wght@75..100,500..800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kaisei+Decol:wght@400;500;700&family=Zen+Antique+Soft&family=Zen+Old+Mincho:wght@400;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Zen+Maru+Gothic:wght@400;500;700&display=swap">
 <style>
-/* Direction: mist white, indigo night, rowan red.
-   Ainu = the craft (stitch lines, layered cloth shapes) + a reserved pattern band drawn by a supervised Ainu creator.
-   Nordic = calm space, functional sans, bold flat color blocks.
-   Outdoor = contour lines, trail-sign tiles, elevation numbers.
-   Not worn: no paper texture, no sepia, crisp saturated color. */
+/* Style tile: every color is named after something that exists in Sounkyo's nature. */
 :root{
-  --mist:#F2F5F4;   /* 霧 */
-  --indigo:#1D2943; /* 藍 */
-  --spruce:#2E4A3F; /* 森 */
-  --glacier:#A7C0CF;/* 雪渓 */
-  --rowan:#B5242E;  /* ナナカマド */
-  --lichen:#D4DDB0; /* 地衣 */
-  --ink:#1D2943; --muted:#5A6577; --line:#D3DBDD; --paper:#FFFFFF;
-  --jp:"Murecho","Hiragino Sans","Noto Sans JP",system-ui,sans-serif;
-  --num:"Archivo","Murecho",system-ui,sans-serif;
+  --snow:#F5F4EF;      /* 雪・霧の白 */
+  --mist:#E3E6E2;      /* 朝霧 */
+  --tuff:#77736C;      /* 柱状節理の溶結凝灰岩 */
+  --night:#1E2B3C;     /* 渓谷の夜空 */
+  --spruce:#2E4A3C;    /* エゾマツ・トドマツの深緑 */
+  --river:#3D7C84;     /* 石狩川の渓流 */
+  --moss:#7E8A4E;      /* 岩の苔 */
+  --birch:#D7A33A;     /* ダケカンバの黄葉 */
+  --rowan:#B5452C;     /* ナナカマドの紅葉と実 */
+  --matatabi:#D995A6;  /* ミヤママタタビの葉（花の時期） */
+  --ice:#CFE3EA;       /* 霧氷・氷瀑の青白 */
+  --momonga:#A39A8C;   /* エゾモモンガの毛 */
+  --display:"Kaisei Decol","Zen Antique Soft",serif;
+  --display2:"Zen Antique Soft","Kaisei Decol",serif;
+  --body:"Zen Kaku Gothic New",system-ui,sans-serif;
 }
 *{box-sizing:border-box}
-body{margin:0;background:var(--mist);color:var(--ink);font-family:var(--jp);font-size:15px;line-height:1.7}
-.wrap{max-width:1180px;margin:0 auto;padding:40px 24px 80px;display:grid;grid-template-columns:minmax(0,1fr) 390px;gap:48px;align-items:start}
-@media (max-width:980px){.wrap{grid-template-columns:1fr}}
-h1{font-size:40px;line-height:1.2;font-weight:800;margin:0 0 10px;letter-spacing:.02em}
-.lead{font-size:16px;color:var(--muted);margin:0 0 36px;max-width:36em}
-h2{font-size:20px;font-weight:800;margin:40px 0 14px}
-p{margin:0 0 10px;max-width:40em}
-
+body{margin:0;padding:36px;background:var(--snow);color:var(--night);font-family:var(--body);font-size:14px;line-height:1.7}
+h1{font-family:var(--display);font-weight:700;font-size:30px;margin:0;letter-spacing:.04em}
+h2{font-family:var(--display);font-weight:700;font-size:19px;margin:0 0 12px;display:flex;align-items:center;gap:10px}
+h2::before{content:"";width:22px;height:2px;background:var(--rowan)}
+.lead{max-width:980px;margin:6px 0 28px;color:var(--tuff)}
+.grid{display:grid;grid-template-columns:1fr 410px;gap:36px;align-items:start}
+.block{background:#fff;border:1px solid var(--mist);border-radius:18px;padding:22px;margin-bottom:22px}
+/* keywords */
+.kw{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.kw div{border-radius:14px;padding:14px;background:var(--snow)}
+.kw b{font-family:var(--display);font-size:16px;display:block;margin-bottom:4px}
+.kw p{margin:0;font-size:12.5px;color:#3b4652}
 /* palette */
-.swatches{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.sw{border-radius:6px;overflow:hidden;background:var(--paper);border:1px solid var(--line)}
-.sw .c{height:84px}
-.sw .t{padding:8px 10px;font-size:13px;line-height:1.5}
-.sw .t b{display:block;font-size:15px}
-.sw .t span{color:var(--muted);font-family:var(--num);font-size:12px}
-
+.pal{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
+.sw{display:flex;flex-direction:column;gap:6px;font-size:11.5px}
+.sw i{display:block;height:74px;border-radius:12px;border:1px solid rgba(0,0,0,.06)}
+.sw b{font-size:12.5px}
+.sw span{color:var(--tuff)}
+.role{margin-top:14px;display:grid;grid-template-columns:repeat(4,1fr);gap:10px;font-size:12px}
+.role div{border:1px solid var(--mist);border-radius:12px;padding:10px}
+.season{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:12px}
+.season div{border-radius:12px;padding:10px;color:#fff;font-size:12px}
+.season b{display:block;font-family:var(--display);font-size:15px}
 /* type */
-.type{background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:20px;display:grid;gap:10px}
-.t-display{font-size:34px;font-weight:800;line-height:1.25}
-.t-head{font-size:20px;font-weight:700}
-.t-body{font-size:15px;line-height:1.8;max-width:30em}
-.t-num{font-family:var(--num);font-weight:700;font-stretch:80%;font-size:44px;line-height:1;letter-spacing:-.01em}
-.t-num small{font-size:16px;font-weight:600;margin-left:4px;font-stretch:100%}
-.t-cap{font-size:13px;color:var(--muted)}
-
+.type{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.type .s{border:1px solid var(--mist);border-radius:14px;padding:14px}
+.type .s small{display:block;color:var(--tuff);font-size:11px;margin-bottom:6px}
+.big{font-size:30px;line-height:1.3}
 /* motifs */
-.motifs{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-.m{background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:14px;min-height:150px;display:flex;flex-direction:column;gap:8px}
-.m b{font-size:15px}
-.m span{font-size:13px;color:var(--muted);line-height:1.6}
-.stitch{position:relative;border-radius:10px;background:var(--indigo);color:var(--mist);padding:16px}
-.stitch::after{content:"";position:absolute;inset:6px;border:1.5px dashed rgba(242,245,244,.7);border-radius:6px;pointer-events:none}
-.band{height:46px;border-radius:4px;border:2px dashed var(--indigo);display:flex;align-items:center;justify-content:center;color:var(--indigo);font-weight:700;font-size:13px}
-.pictos{display:flex;gap:10px;flex-wrap:wrap}
-.pictos svg{width:44px;height:44px}
-
-/* phone mock */
-.phone{width:390px;border-radius:34px;background:var(--paper);overflow:hidden;box-shadow:0 0 0 2px var(--indigo);position:sticky;top:24px}
-.hero{position:relative;height:330px;background:linear-gradient(180deg,#6F8FA3 0%,var(--glacier) 45%,var(--mist) 100%);overflow:hidden}
-.hero svg.contours{position:absolute;inset:0;width:100%;height:100%}
-.hero .brand{position:absolute;left:20px;top:22px;color:var(--paper);font-weight:800;font-size:15px;letter-spacing:.06em}
-.hero .lang{position:absolute;right:16px;top:18px;background:rgba(255,255,255,.9);border-radius:6px;padding:3px 10px;font-size:12px;font-weight:700}
-.hero h3{position:absolute;left:20px;bottom:96px;margin:0;color:var(--indigo);font-size:30px;font-weight:800;line-height:1.25}
-.hero .elev{position:absolute;left:20px;bottom:74px;font-family:var(--num);font-size:13px;font-weight:600;color:var(--indigo)}
-.tiles{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:0 14px;margin-top:-58px;position:relative}
-.tile{background:var(--indigo);color:var(--mist);border-radius:8px;padding:10px 12px;display:flex;flex-direction:column;gap:2px}
-.tile .k{font-size:12px;opacity:.8}
-.tile .v{font-size:17px;font-weight:700}
-.tile .s{font-size:11px;opacity:.7}
-.tile.alert{background:var(--rowan)}
-.sec{padding:22px 16px 6px}
-.sec h4{margin:0 0 10px;font-size:20px;font-weight:800}
-.row{display:flex;gap:10px;overflow:hidden}
-.place{flex:0 0 150px;border-radius:8px;overflow:hidden;background:var(--paper);border:1px solid var(--line)}
-.place .img{height:96px;background:linear-gradient(160deg,var(--spruce),#567565)}
-.place .img.b{background:linear-gradient(160deg,#3B5873,var(--glacier))}
-.place .img.c{background:linear-gradient(160deg,#5E3A33,var(--rowan))}
-.place .t{padding:8px 10px;font-size:12px;color:var(--muted);line-height:1.5}
-.place .t b{display:block;color:var(--ink);font-size:15px}
-.q{flex:0 0 170px;position:relative;background:var(--lichen);border-radius:14px 14px 14px 3px;padding:12px;font-weight:700;font-size:15px;line-height:1.45}
-.q small{display:block;margin-top:6px;font-weight:500;font-size:12px;color:var(--spruce)}
-.momo{display:flex;gap:10px;align-items:center;margin-bottom:10px}
-.momo i{width:46px;height:46px;border-radius:50%;background:var(--glacier);position:relative;flex:none}
-.momo i::after{content:"";position:absolute;inset:4px;border:1.5px dashed var(--indigo);border-radius:50%}
-.momo span{font-size:13px;color:var(--muted)}
-.shops{background:var(--spruce);color:var(--mist);margin-top:18px;padding:22px 16px 18px}
-.shops h4{color:var(--mist);margin:0 0 10px;font-size:20px;font-weight:800}
-.shops .sub{font-size:13px;opacity:.8;margin:-6px 0 12px}
-.shop{flex:0 0 150px;background:var(--mist);color:var(--ink);border-radius:8px;overflow:hidden}
-.shop .img{height:78px;background:#C9D2CE}
-.shop .t{padding:7px 10px;font-size:12px}
-.shop .t b{display:block;font-size:14px}
-.btn{display:inline-block;background:var(--rowan);color:var(--paper);font-weight:700;border-radius:6px;padding:11px 18px;font-size:15px}
-.note{font-size:13px;color:var(--muted);margin-top:8px}
-.dont{background:var(--paper);border-left:4px solid var(--rowan);padding:12px 14px;border-radius:0 6px 6px 0}
-.dont li{margin-bottom:4px}
+.mot{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.mot div{border:1px solid var(--mist);border-radius:14px;padding:10px;font-size:12px;display:flex;flex-direction:column;gap:6px}
+.mot svg{width:100%;height:110px;display:block;background:var(--snow);border-radius:10px}
+/* parts */
+.parts{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.btn{font-family:var(--body);font-weight:700;border:0;border-radius:999px;padding:12px 22px;background:var(--spruce);color:var(--snow);font-size:14px}
+.btn.line{background:transparent;color:var(--spruce);border:1.5px solid var(--spruce)}
+.chip{border:1px solid var(--tuff);border-radius:999px;padding:5px 13px;font-size:12.5px}
+.chip.on{background:var(--birch);border-color:var(--birch);color:var(--night);font-weight:700}
+.badge{display:inline-flex;align-items:center;gap:6px;border-radius:8px;padding:5px 10px;font-size:12px;font-weight:700;background:var(--ice);color:var(--night)}
+.badge.warn{background:#F3DED6;color:var(--rowan)}
+.dont{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;font-size:12.5px}
+.dont div{border-left:3px solid var(--rowan);padding:6px 10px;background:var(--snow);border-radius:0 10px 10px 0}
+/* phone sample */
+.phone{width:390px;border-radius:34px;overflow:hidden;background:var(--snow);box-shadow:0 0 0 2px var(--night)}
+.hero{height:300px;position:relative;background:linear-gradient(180deg,#9DB7BC 0%,#C7D3CC 38%,#7E8A4E 70%,#2E4A3C 100%);overflow:hidden}
+.hero svg{position:absolute;inset:0;width:100%;height:100%}
+.hero .ttl{position:absolute;left:20px;top:22px;color:var(--snow)}
+.hero .ttl b{font-family:var(--display);font-size:26px;letter-spacing:.08em;display:block;text-shadow:0 1px 8px rgba(30,43,60,.35)}
+.hero .ttl span{font-family:var(--display2);font-size:12px;letter-spacing:.3em}
+.info{position:absolute;left:14px;right:14px;bottom:14px;display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.info div{background:rgba(245,244,239,.94);border-radius:12px;padding:8px 10px;font-size:11px;color:var(--tuff)}
+.info b{display:block;color:var(--night);font-size:13px}
+.sec{padding:18px 16px 6px}
+.sec h3{font-family:var(--display);font-size:20px;margin:0 0 10px;font-weight:700;display:flex;align-items:center;gap:8px}
+.belt{display:flex;gap:10px;overflow:hidden}
+.pcard{flex:0 0 160px;border-radius:16px;overflow:hidden;background:#fff;border:1px solid var(--mist)}
+.pcard .img{height:96px}
+.pcard .t{padding:8px 10px;font-size:11.5px;color:var(--tuff)}
+.pcard .t b{display:block;font-family:var(--display);font-size:15px;color:var(--night)}
+.qcard{flex:0 0 170px;background:#fff;border:1.5px solid var(--spruce);border-radius:18px 18px 18px 4px;padding:12px;font-family:var(--display);font-weight:700;font-size:15px;line-height:1.45}
+.qcard small{display:block;font-family:var(--body);font-weight:400;font-size:11px;color:var(--tuff);margin-top:6px}
+.momo{width:40px;height:40px;border-radius:50%;background:var(--momonga);color:var(--snow);display:flex;align-items:center;justify-content:center;font-size:9px;flex:none}
+.frame{margin:16px;border:1.5px solid var(--spruce);border-radius:16px;padding:12px;position:relative}
+.frame::before,.frame::after{content:"";position:absolute;left:10px;right:10px;height:0;border-top:1px solid var(--spruce)}
+.frame::before{top:5px}.frame::after{bottom:5px}
 </style>
 </head>
 <body>
-<div class="wrap">
-<main>
-  <h1>霧の白、藍の夜、ナナカマドの赤。</h1>
-  <p class="lead">層雲峡ガイドのデザインの方向（たたき台）。アイヌの手仕事の「縫い」と「布の重ね」、北欧の静けさと実用、山道の標識の力強さを合わせます。歴史の深さは、くすんだ色ではなく、深く澄んだ色で出します。</p>
+<h1>層雲峡ガイド　スタイルタイル</h1>
+<p class="lead">アイヌ文化の気配 × 北欧の明るさ × アウトドアの頼もしさ。深い歴史は「古びた」ではなく「澄んだ、凛とした」で見せる。色は、層雲峡の自然の中にある色だけ。いまの色は見本で、写真が届いたら実物から拾い直します。</p>
 
-  <h2>色</h2>
-  <div class="swatches">
-    <div class="sw"><div class="c" style="background:var(--mist)"></div><div class="t"><b>霧</b>背景。冷たく澄んだ白<br><span>#F2F5F4</span></div></div>
-    <div class="sw"><div class="c" style="background:var(--indigo)"></div><div class="t"><b>藍</b>文字と大事な面。藍染めの衣と北欧の冬の夜<br><span>#1D2943</span></div></div>
-    <div class="sw"><div class="c" style="background:var(--spruce)"></div><div class="t"><b>森</b>お店・いきもののパート<br><span>#2E4A3F</span></div></div>
-    <div class="sw"><div class="c" style="background:var(--glacier)"></div><div class="t"><b>雪渓</b>空と霧のグラデーション<br><span>#A7C0CF</span></div></div>
-    <div class="sw"><div class="c" style="background:var(--rowan)"></div><div class="t"><b>ナナカマド</b>押すボタンと注意だけに使う。層雲峡の紅葉の赤で、北欧でも昔から大切にされてきた木<br><span>#B5242E</span></div></div>
-    <div class="sw"><div class="c" style="background:var(--lichen)"></div><div class="t"><b>地衣</b>「ふと、気になった？」の問いカード<br><span>#D4DDB0</span></div></div>
+<div class="grid">
+<div>
+
+<div class="block"><h2>4つのキーワード</h2>
+  <div class="kw">
+    <div><b>澄んでいる</b><p>霧が晴れた朝の空気。白い余白をたっぷり取り、セピアやくすんだ茶色は使わない</p></div>
+    <div><b>北欧のやさしさ</b><p>平らな形、丸い角、少ない色数。山や木はシンプルな形のイラストで</p></div>
+    <div><b>山の道具の頼もしさ</b><p>情報は大きく、はっきり。状況のバッジ、等高線、登山道の標識のような部品</p></div>
+    <div><b>土地への敬意</b><p>アイヌの文様は飾りとして借りない。使うところは、はなさんと刺繍の師匠に確認して決める</p></div>
   </div>
-  <p class="note">ナナカマドの赤は、紅葉谷の見どころ（紅葉）に出てくる木の色です。使う場所を「押すところ」と「注意」に絞ると、強い色でも落ち着いて見えます。</p>
+</div>
 
-  <h2>文字</h2>
+<div class="block"><h2>色（層雲峡の自然にある色だけ）</h2>
+  <div class="pal">
+    <div class="sw"><i style="background:var(--snow)"></i><b>雪・霧の白</b><span>#F5F4EF・背景</span></div>
+    <div class="sw"><i style="background:var(--mist)"></i><b>朝霧</b><span>#E3E6E2・面、区切り</span></div>
+    <div class="sw"><i style="background:var(--tuff)"></i><b>柱状節理の岩</b><span>#77736C・補足の文字</span></div>
+    <div class="sw"><i style="background:var(--night)"></i><b>渓谷の夜空</b><span>#1E2B3C・文字</span></div>
+    <div class="sw"><i style="background:var(--spruce)"></i><b>エゾマツの深緑</b><span>#2E4A3C・ボタン、枠</span></div>
+    <div class="sw"><i style="background:var(--river)"></i><b>石狩川の渓流</b><span>#3D7C84・リンク、地図</span></div>
+    <div class="sw"><i style="background:var(--moss)"></i><b>岩の苔</b><span>#7E8A4E・植物</span></div>
+    <div class="sw"><i style="background:var(--birch)"></i><b>ダケカンバの黄葉</b><span>#D7A33A・選択中、星</span></div>
+    <div class="sw"><i style="background:var(--rowan)"></i><b>ナナカマドの紅</b><span>#B5452C・注意、見出しの線</span></div>
+    <div class="sw"><i style="background:var(--matatabi)"></i><b>ミヤママタタビの葉</b><span>#D995A6・春のさし色</span></div>
+    <div class="sw"><i style="background:var(--ice)"></i><b>霧氷・氷瀑の青白</b><span>#CFE3EA・情報のバッジ</span></div>
+    <div class="sw"><i style="background:var(--momonga)"></i><b>エゾモモンガの毛</b><span>#A39A8C・キャラ</span></div>
+  </div>
+  <div class="season">
+    <div style="background:var(--matatabi);color:var(--night)"><b>春</b>ミヤママタタビの葉の桃色</div>
+    <div style="background:var(--river)"><b>夏</b>渓流の青緑と苔の緑</div>
+    <div style="background:var(--rowan)"><b>秋</b>ナナカマドの紅とダケカンバの黄</div>
+    <div style="background:var(--night)"><b>冬</b>夜空の紺と霧氷の青白</div>
+  </div>
+  <div class="role">
+    <div><b>使う割合</b><br>白・霧 70％／深緑・紺 20％／季節のさし色 10％</div>
+    <div><b>季節で変わるもの</b><br>見出しの線、選択中の色、オープニングの光の色</div>
+    <div><b>変わらないもの</b><br>文字の紺、ボタンの深緑、注意の紅</div>
+    <div><b>見やすさ</b><br>外の明るい場所でも読めるよう、文字は紺×白で十分な濃さを保つ</div>
+  </div>
+</div>
+
+<div class="block"><h2>フォント（明朝っぽいけど、親しみやすい）</h2>
   <div class="type">
-    <div class="t-display">ふと、気になった？</div>
-    <div class="t-head">寄ってから帰ろっか。</div>
-    <div class="t-body">柱状節理は、溶結凝灰岩が冷えて縮むときにできた割れ目です。紅葉谷では、この岩壁を目の前で見られます。</div>
-    <div class="t-num">1,984<small>m 黒岳の山頂</small></div>
-    <div class="t-cap">日本語はMurecho（山道の案内板のような、角のしっかりしたゴシック）。数字と英語はArchivoの細身の形で、標高や距離を標識のように大きく見せます。</div>
+    <div class="s"><small>見出し・候補1（おすすめ）：Kaisei Decol（解星デコール）</small><div class="big" style="font-family:'Kaisei Decol';font-weight:700">ふと、気になった？</div><div style="font-family:'Kaisei Decol'">筆の入りが丸く、明朝なのにやわらかい</div></div>
+    <div class="s"><small>見出し・候補2：Zen Antique Soft</small><div class="big" style="font-family:'Zen Antique Soft'">ふと、気になった？</div><div style="font-family:'Zen Antique Soft'">角が丸い。昔の本のような温かさ</div></div>
+    <div class="s"><small>見出し・候補3：Zen Old Mincho</small><div class="big" style="font-family:'Zen Old Mincho';font-weight:700">ふと、気になった？</div><div style="font-family:'Zen Old Mincho'">いちばん端正。少しかしこまる</div></div>
+    <div class="s"><small>本文：Zen Kaku Gothic New（屋外でも読みやすい）</small><div style="font-size:15px">終点の紅葉の滝までは、片道およそ700メートル、歩いて30分ほど。鈴を鳴らし、足元に気をつけて進みましょう。</div><div style="font-size:12px;color:var(--tuff);margin-top:6px">見出しは明朝、本文と数字はゴシックで読みやすさを守る</div></div>
   </div>
+  <p style="font-size:12px;color:var(--tuff);margin:12px 0 0">6言語に対応するため、中国語（繁体字）・ヒンディー語は同じ雰囲気の別フォントを組み合わせます。どれも無料で商用利用できるGoogle Fontsです。</p>
+</div>
 
-  <h2>模様と形</h2>
-  <div class="motifs">
-    <div class="m"><b>縫い目の線</b><div class="stitch">大事なカードの内側に、刺繍の縫い目のような点線を一周。</div><span>特定の文様ではなく「縫う」という手仕事だけを借ります。モモンガの枠にも使います。</span></div>
-    <div class="m"><b>等高線</b><svg viewBox="0 0 300 90" style="width:100%;height:90px"><g fill="none" stroke="#1D2943" stroke-opacity=".35" stroke-width="1.2"><path d="M0 70 C60 40 110 80 170 50 S260 20 300 40"/><path d="M0 80 C60 52 120 90 180 62 S260 34 300 54"/><path d="M0 60 C70 28 110 66 160 38 S250 8 300 26"/><path d="M40 90 C90 70 150 96 210 76 S280 60 300 66"/></g></svg><span>トップの空と地図の背景に薄く。登山の地図の気配を出します。</span></div>
-    <div class="m"><b>山道の標識</b><div class="pictos">
-      <svg viewBox="0 0 44 44"><rect width="44" height="44" rx="6" fill="#1D2943"/><path d="M8 32 L19 14 L25 23 L29 18 L36 32Z" fill="#F2F5F4"/></svg>
-      <svg viewBox="0 0 44 44"><rect width="44" height="44" rx="6" fill="#1D2943"/><path d="M15 10 V34 M22 10 V34 M29 10 V34" stroke="#A7C0CF" stroke-width="3" stroke-linecap="round"/></svg>
-      <svg viewBox="0 0 44 44"><rect width="44" height="44" rx="6" fill="#1D2943"/><path d="M6 14 L38 22" stroke="#F2F5F4" stroke-width="2"/><rect x="17" y="20" width="12" height="11" rx="2" fill="#F2F5F4"/></svg>
-      <svg viewBox="0 0 44 44"><rect width="44" height="44" rx="6" fill="#B5242E"/><circle cx="22" cy="26" r="7" fill="#F2F5F4"/><circle cx="13" cy="17" r="3" fill="#F2F5F4"/><circle cx="19" cy="12" r="3" fill="#F2F5F4"/><circle cx="25" cy="12" r="3" fill="#F2F5F4"/><circle cx="31" cy="17" r="3" fill="#F2F5F4"/></svg>
-      <svg viewBox="0 0 44 44"><rect width="44" height="44" rx="6" fill="#2E4A3F"/><path d="M22 9 C32 16 32 28 22 35 C12 28 12 16 22 9Z M22 12 V34" fill="#D4DDB0" stroke="#2E4A3F" stroke-width="1.5"/></svg>
-    </div><span>山・滝・ロープウェイ・クマ注意・植物。四角い色面に白い形だけ。天気や運行状況のタイルにも使います。</span></div>
-    <div class="m"><b>アイヌ文様の帯（あとで入る場所）</b><div class="band">監修を受けた作り手の文様が入る</div><span>文様には意味があるので、私が似せて描くことはしません。刺繍の師匠など、アイヌの作り手に描いてもらうか許可をもらった文様だけを、この帯と入口の画面に使います。</span></div>
+<div class="block"><h2>モチーフ</h2>
+  <div class="mot">
+    <div><svg viewBox="0 0 200 110"><g fill="none" stroke="#2E4A3C" stroke-width="1.2" opacity=".55"><path d="M20 30l12-7 12 7v14l-12 7-12-7z"/><path d="M44 30l12-7 12 7v14l-12 7-12-7z"/><path d="M68 30l12-7 12 7v14l-12 7-12-7z"/><path d="M32 51l12-7 12 7v14l-12 7-12-7z"/><path d="M56 51l12-7 12 7v14l-12 7-12-7z"/><path d="M80 51l12-7 12 7v14l-12 7-12-7z"/><path d="M20 72l12-7 12 7v14l-12 7-12-7z"/><path d="M44 72l12-7 12 7v14l-12 7-12-7z"/><path d="M68 72l12-7 12 7v14l-12 7-12-7z"/></g><g stroke="#77736C" stroke-width="5" stroke-linecap="round"><path d="M130 20v76M146 14v82M162 24v72M178 18v78"/></g></svg><b>柱状節理の六角形と柱</b>背景の地紋、区切り線。層雲峡だけの形</div>
+    <div><svg viewBox="0 0 200 110"><g fill="none" stroke="#3D7C84" stroke-width="1.2"><path d="M10 90C50 70 70 95 110 78s60-10 80-30"/><path d="M10 74C52 56 74 80 112 63s58-12 78-30" opacity=".75"/><path d="M10 58C54 42 78 64 114 48s56-14 76-32" opacity=".55"/><path d="M10 42C56 28 82 48 116 33s54-16 74-34" opacity=".35"/></g></svg><b>等高線</b>地図、山の情報、くわしい情報の背景</div>
+    <div><svg viewBox="0 0 200 110"><path d="M0 100L40 52l22 22 30-44 36 46 20-18 52 42z" fill="#2E4A3C" opacity=".85"/><path d="M92 30l9 13h-18z" fill="#F5F4EF"/><path d="M150 62l-8 14h16zM158 70l-7 12h14z" fill="#7E8A4E"/><circle cx="160" cy="26" r="10" fill="#D7A33A"/></svg><b>北欧風の平らな風景</b>山・森・月。影やグラデーションは使わない</div>
+    <div><svg viewBox="0 0 200 110"><rect x="16" y="12" width="168" height="86" rx="12" fill="none" stroke="#2E4A3C" stroke-width="1.5"/><path d="M28 20h144M28 90h144" stroke="#2E4A3C"/><text x="100" y="58" text-anchor="middle" font-size="11" fill="#77736C" font-family="Zen Kaku Gothic New">文様を入れる場所</text><text x="100" y="74" text-anchor="middle" font-size="9.5" fill="#77736C" font-family="Zen Kaku Gothic New">（はなさん・刺繍の師匠と決める）</text></svg><b>アイヌ文化の要素は「枠」から</b>線の太さを重ねた枠だけ先に作り、中の文様は監修のうえで</div>
   </div>
+</div>
 
-  <h2>さびれて見せないために</h2>
-  <div class="dont"><ul style="margin:0;padding-left:18px">
-    <li>紙や木目の古びた質感、セピア色、くすんだ茶色は使わない</li>
-    <li>余白をたっぷり取る。1画面に言いたいことは1つ</li>
-    <li>写真は明るく澄んだものを選ぶ（霧の写真も、白く光っているもの）</li>
-    <li>歴史や文化の話は、深い藍と縫い目の線で「丁寧さ」として見せる</li>
-  </ul></div>
-</main>
+<div class="block"><h2>部品</h2>
+  <div class="parts">
+    <button class="btn">はじめる</button><button class="btn line">口コミを書く</button>
+    <span class="chip on">景色・滝を見る</span><span class="chip">山に登る</span><span class="chip">温泉でのんびり</span>
+    <span class="badge">ロープウェイ 運行中</span><span class="badge warn">クマ情報 あり</span>
+    <span style="font-size:22px;letter-spacing:6px;color:var(--birch)">★★</span>
+  </div>
+</div>
 
-<aside>
+<div class="block"><h2>やらないこと</h2>
+  <div class="dont">
+    <div>セピア、古紙、ひび割れなどの「古びた」質感</div>
+    <div>くすんだ茶色やグレーだけの暗い画面</div>
+    <div>筆文字や毛筆の多用（読みにくく、観光地っぽさが強く出る）</div>
+    <div>アイヌ文様を飾りとして写す・崩して使う</div>
+  </div>
+</div>
+
+</div>
+
+<div>
+  <h2>当てはめた見本（トップの上のほう）</h2>
   <div class="phone">
     <div class="hero">
-      <svg class="contours" viewBox="0 0 390 330" preserveAspectRatio="none"><g fill="none" stroke="#FFFFFF" stroke-opacity=".45" stroke-width="1.2"><path d="M-10 250 C70 200 130 260 210 215 S330 160 400 190"/><path d="M-10 270 C80 225 140 285 220 240 S330 190 400 215"/><path d="M-10 228 C60 175 120 230 200 190 S320 130 400 160"/><path d="M-10 206 C70 150 130 200 205 165 S320 100 400 128"/><path d="M-10 292 C90 250 150 305 230 266 S340 222 400 240"/></g></svg>
-      <div class="brand">（サービス名）</div><div class="lang">日本語</div>
-      <h3>今日の層雲峡</h3><div class="elev">10月22日（木）</div>
+      <svg viewBox="0 0 390 300" preserveAspectRatio="none"><path d="M0 210L70 120l40 40 60-90 70 90 40-36 110 86v90H0z" fill="#2E4A3C" opacity=".55"/><path d="M0 250l90-60 60 40 80-70 70 60 90-40v120H0z" fill="#2E4A3C" opacity=".8"/><g stroke="#77736C" stroke-width="6" stroke-linecap="round" opacity=".55"><path d="M40 300v-70M54 300v-80M68 300v-64"/><path d="M322 300v-76M336 300v-86M350 300v-70"/></g><circle cx="320" cy="60" r="16" fill="#D7A33A" opacity=".9"/></svg>
+      <div class="ttl"><span>カムイミンタラ</span><b>（サービス名）</b><span>層 雲 峡</span></div>
+      <div class="info"><div><b>天気 12℃・風弱め</b>気象庁 9:00</div><div><b>ロープウェイ 運行中</b>運営会社 8:30</div><div><b>閉鎖中の道 1か所</b>環境省・町</div><div><b style="color:var(--rowan)">クマ情報 あり</b>上川町 昨日</div></div>
     </div>
-    <div class="tiles">
-      <div class="tile"><span class="k">天気</span><span class="v">12℃ 風よわめ</span><span class="s">気象庁 9:00発表</span></div>
-      <div class="tile"><span class="k">黒岳ロープウェイ</span><span class="v">運行中</span><span class="s">運営会社 8:30更新</span></div>
-      <div class="tile"><span class="k">通れない道</span><span class="v">1か所</span><span class="s">環境省・町の発表</span></div>
-      <div class="tile alert"><span class="k">クマ情報</span><span class="v">出没あり</span><span class="s">上川町 昨日更新</span></div>
-    </div>
-    <div class="sec"><h4>行ってみたい場所</h4>
-      <div class="row"><div class="place"><div class="img c"></div><div class="t"><b>紅葉谷</b>片道30分の散策路</div></div><div class="place"><div class="img b"></div><div class="t"><b>銀河・流星の滝</b>駐車場からすぐ</div></div><div class="place"><div class="img"></div><div class="t"><b>大函</b>柱状節理の崖</div></div></div></div>
-    <div class="sec"><div class="momo"><i></i><span>モモンガ（仮）</span></div><h4>ふと、気になった？</h4>
-      <div class="row"><div class="q">なぜ崖が反り立ってるの？<small>地形・30秒で聞ける</small></div><div class="q">クマっているの？<small>安全・30秒で聞ける</small></div></div></div>
-    <div class="shops"><h4>寄ってから帰ろっか。</h4><div class="sub">上川・層雲峡のすてきなお店</div>
-      <div class="row"><div class="shop"><div class="img"></div><div class="t"><b>お店の名前</b>営業中</div></div><div class="shop"><div class="img"></div><div class="t"><b>お店の名前</b>17時まで</div></div><div class="shop"><div class="img"></div><div class="t"><b>お店の名前</b></div></div></div></div>
-    <div class="sec" style="padding-bottom:22px"><span class="btn">音声ガイドを聞く</span></div>
+    <div class="sec"><h3><span style="width:18px;height:2px;background:var(--rowan);display:inline-block"></span>行ってみたい場所</h3>
+      <div class="belt">
+        <div class="pcard"><div class="img" style="background:linear-gradient(135deg,#B5452C,#D7A33A)"></div><div class="t"><b>紅葉谷</b>片道30分・音声 0:27</div></div>
+        <div class="pcard"><div class="img" style="background:linear-gradient(135deg,#3D7C84,#CFE3EA)"></div><div class="t"><b>銀河・流星の滝</b>駐車場からすぐ</div></div>
+      </div></div>
+    <div class="sec"><h3><div class="momo">モモンガ</div>ふと、気になった？</h3>
+      <div class="belt">
+        <div class="qcard">なぜ崖が反り立ってるの？<small>地形・30秒</small></div>
+        <div class="qcard">クマっているの？<small>安全・30秒</small></div>
+      </div></div>
+    <div class="frame"><div style="font-family:var(--display);font-weight:700;font-size:17px">寄ってから帰ろっか。</div><div style="font-size:12px;color:var(--tuff)">上川・層雲峡のすてきなお店</div></div>
+    <div style="padding:0 16px 22px"><button class="btn" style="width:100%">いきものの世界をのぞく</button></div>
   </div>
-  <p class="note">数字・お店・天気は見本の仮の文字です。写真の部分は色の面で代わりにしています。</p>
-</aside>
+  <p style="font-size:12px;color:var(--tuff)">写真の部分は、今は季節の色のグラデーションで代わりにしています</p>
+</div>
 </div>
 </body>
 </html>
