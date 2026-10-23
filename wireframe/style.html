@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>層雲峡ガイド スタイルタイル</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kaisei+Decol:wght@400;500;700&family=Zen+Antique+Soft&family=Zen+Old+Mincho:wght@400;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Zen+Maru+Gothic:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Antique+Soft&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap">
 <style>
 /* Style tile: every color is named after something that exists in Sounkyo's nature. */
 :root{
@@ -21,14 +21,14 @@
   --matatabi:#D995A6;  /* ミヤママタタビの葉（花の時期） */
   --ice:#CFE3EA;       /* 霧氷・氷瀑の青白 */
   --momonga:#A39A8C;   /* エゾモモンガの毛 */
-  --display:"Kaisei Decol","Zen Antique Soft",serif;
-  --display2:"Zen Antique Soft","Kaisei Decol",serif;
+  --display:"Zen Antique Soft",serif;   /* 見出し（決定）。太さは1種類だけなので太字にしない */
+  --display2:"Zen Antique Soft",serif;
   --body:"Zen Kaku Gothic New",system-ui,sans-serif;
 }
 *{box-sizing:border-box}
 body{margin:0;padding:36px;background:var(--snow);color:var(--night);font-family:var(--body);font-size:14px;line-height:1.7}
-h1{font-family:var(--display);font-weight:700;font-size:30px;margin:0;letter-spacing:.04em}
-h2{font-family:var(--display);font-weight:700;font-size:19px;margin:0 0 12px;display:flex;align-items:center;gap:10px}
+h1{font-family:var(--display);font-weight:400;font-size:30px;margin:0;letter-spacing:.04em}
+h2{font-family:var(--display);font-weight:400;font-size:19px;margin:0 0 12px;display:flex;align-items:center;gap:10px}
 h2::before{content:"";width:22px;height:2px;background:var(--rowan)}
 .lead{max-width:980px;margin:6px 0 28px;color:var(--tuff)}
 .grid{display:grid;grid-template-columns:1fr 410px;gap:36px;align-items:start}
@@ -70,27 +70,44 @@ h2::before{content:"";width:22px;height:2px;background:var(--rowan)}
 .dont div{border-left:3px solid var(--rowan);padding:6px 10px;background:var(--snow);border-radius:0 10px 10px 0}
 /* phone sample */
 .phone{width:390px;border-radius:34px;overflow:hidden;background:var(--snow);box-shadow:0 0 0 2px var(--night)}
-.hero{height:300px;position:relative;background:linear-gradient(180deg,#9DB7BC 0%,#C7D3CC 38%,#7E8A4E 70%,#2E4A3C 100%);overflow:hidden}
-.hero svg{position:absolute;inset:0;width:100%;height:100%}
-.hero .ttl{position:absolute;left:20px;top:22px;color:var(--snow)}
-.hero .ttl b{font-family:var(--display);font-size:26px;letter-spacing:.08em;display:block;text-shadow:0 1px 8px rgba(30,43,60,.35)}
+.kw b,.season b,.pcard .t b{font-weight:400}
+/* hero: the four seasons of Sounkyo slowly cross-fade (photos replace the illustrations later) */
+.hero{height:340px;position:relative;overflow:hidden;background:var(--mist)}
+.scene{position:absolute;inset:0;opacity:0;transform:scale(1.07);transition:opacity 3.2s cubic-bezier(.45,0,.25,1),transform 12s cubic-bezier(.3,0,.2,1)}
+.scene.on{opacity:1;transform:scale(1)}
+.scene svg{position:absolute;inset:0;width:100%;height:100%}
+.scene .far{transition:transform 12s cubic-bezier(.3,0,.2,1);transform:translateX(-6px)}
+.scene.on .far{transform:translateX(6px)}
+.fog{position:absolute;left:-40%;width:180%;height:70px;top:150px;background:radial-gradient(closest-side,rgba(245,244,239,.42),rgba(245,244,239,0));animation:fog 46s linear infinite;pointer-events:none}
+.fog.b{top:205px;height:50px;animation-duration:64s;animation-direction:reverse;opacity:.7}
+@keyframes fog{from{transform:translateX(-12%)}50%{transform:translateX(12%)}to{transform:translateX(-12%)}}
+.pt{position:absolute;top:-14px;pointer-events:none;animation:fall linear infinite}
+@keyframes fall{0%{transform:translate(0,0) rotate(0)}50%{transform:translate(var(--sway),190px) rotate(160deg)}100%{transform:translate(0,380px) rotate(320deg)}}
+.hero .ttl{position:absolute;left:20px;top:22px;color:var(--night);transition:color 3s}
+.hero.dark .ttl{color:var(--snow)}
+.hero .ttl b{font-family:var(--display);font-weight:400;font-size:27px;letter-spacing:.08em;display:block}
 .hero .ttl span{font-family:var(--display2);font-size:12px;letter-spacing:.3em}
-.info{position:absolute;left:14px;right:14px;bottom:14px;display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.info div{background:rgba(245,244,239,.94);border-radius:12px;padding:8px 10px;font-size:11px;color:var(--tuff)}
+.sdots{position:absolute;right:14px;top:20px;display:flex;gap:4px}
+.sdots button{font-family:var(--display);font-size:12px;width:26px;height:26px;border-radius:50%;border:0;background:rgba(245,244,239,.55);color:var(--night);cursor:pointer;transition:background 1.5s,color 1.5s}
+.sdots button.on{background:var(--c);color:var(--snow)}
+@media (prefers-reduced-motion:reduce){.scene,.scene .far{transition:opacity .6s}.scene{transform:none}.fog,.pt{animation:none;display:none}}
+.info{position:relative;z-index:2;margin:-34px 14px 0;display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.info div{background:rgba(245,244,239,.96);box-shadow:0 2px 10px rgba(30,43,60,.10);border-radius:12px;padding:8px 10px;font-size:11px;color:var(--tuff)}
 .info b{display:block;color:var(--night);font-size:13px}
 .sec{padding:18px 16px 6px}
-.sec h3{font-family:var(--display);font-size:20px;margin:0 0 10px;font-weight:700;display:flex;align-items:center;gap:8px}
+.sec h3{font-family:var(--display);font-size:20px;margin:0 0 10px;font-weight:400;display:flex;align-items:center;gap:8px}
 .belt{display:flex;gap:10px;overflow:hidden}
 .pcard{flex:0 0 160px;border-radius:16px;overflow:hidden;background:#fff;border:1px solid var(--mist)}
 .pcard .img{height:96px}
 .pcard .t{padding:8px 10px;font-size:11.5px;color:var(--tuff)}
 .pcard .t b{display:block;font-family:var(--display);font-size:15px;color:var(--night)}
-.qcard{flex:0 0 170px;background:#fff;border:1.5px solid var(--spruce);border-radius:18px 18px 18px 4px;padding:12px;font-family:var(--display);font-weight:700;font-size:15px;line-height:1.45}
+.qcard{flex:0 0 170px;background:#fff;border:1.5px solid var(--spruce);border-radius:18px 18px 18px 4px;padding:12px;font-family:var(--display);font-weight:400;font-size:15px;line-height:1.45}
 .qcard small{display:block;font-family:var(--body);font-weight:400;font-size:11px;color:var(--tuff);margin-top:6px}
 .momo{width:40px;height:40px;border-radius:50%;background:var(--momonga);color:var(--snow);display:flex;align-items:center;justify-content:center;font-size:9px;flex:none}
 .frame{margin:16px;border:1.5px solid var(--spruce);border-radius:16px;padding:12px;position:relative}
 .frame::before,.frame::after{content:"";position:absolute;left:10px;right:10px;height:0;border-top:1px solid var(--spruce)}
 .frame::before{top:5px}.frame::after{bottom:5px}
+@media (max-width:860px){body{padding:16px}.grid>div,.block{min-width:0}.block{padding:16px}.grid{grid-template-columns:1fr}.kw,.role,.season,.dont,.mot{grid-template-columns:1fr 1fr}.pal{grid-template-columns:repeat(3,1fr)}.type{grid-template-columns:1fr}.phone{width:100%;max-width:390px}}
 </style>
 </head>
 <body>
@@ -138,14 +155,12 @@ h2::before{content:"";width:22px;height:2px;background:var(--rowan)}
   </div>
 </div>
 
-<div class="block"><h2>フォント（明朝っぽいけど、親しみやすい）</h2>
+<div class="block"><h2>フォント（決定：見出しは Zen Antique Soft）</h2>
   <div class="type">
-    <div class="s"><small>見出し・候補1（おすすめ）：Kaisei Decol（解星デコール）</small><div class="big" style="font-family:'Kaisei Decol';font-weight:700">ふと、気になった？</div><div style="font-family:'Kaisei Decol'">筆の入りが丸く、明朝なのにやわらかい</div></div>
-    <div class="s"><small>見出し・候補2：Zen Antique Soft</small><div class="big" style="font-family:'Zen Antique Soft'">ふと、気になった？</div><div style="font-family:'Zen Antique Soft'">角が丸い。昔の本のような温かさ</div></div>
-    <div class="s"><small>見出し・候補3：Zen Old Mincho</small><div class="big" style="font-family:'Zen Old Mincho';font-weight:700">ふと、気になった？</div><div style="font-family:'Zen Old Mincho'">いちばん端正。少しかしこまる</div></div>
-    <div class="s"><small>本文：Zen Kaku Gothic New（屋外でも読みやすい）</small><div style="font-size:15px">終点の紅葉の滝までは、片道およそ700メートル、歩いて30分ほど。鈴を鳴らし、足元に気をつけて進みましょう。</div><div style="font-size:12px;color:var(--tuff);margin-top:6px">見出しは明朝、本文と数字はゴシックで読みやすさを守る</div></div>
+    <div class="s"><small>見出し：Zen Antique Soft（太さは1種類。太字にせず、大きさと字間で強弱をつける）</small><div class="big" style="font-family:var(--display)">ふと、気になった？</div><div style="font-family:var(--display);font-size:20px;letter-spacing:.06em">寄ってから帰ろっか。</div><div style="font-family:var(--display);font-size:13px;letter-spacing:.3em;color:var(--tuff)">層 雲 峡 ・ カムイミンタラ</div></div>
+    <div class="s"><small>本文：Zen Kaku Gothic New（屋外でも読みやすい）</small><div style="font-size:15px">終点の紅葉の滝までは、片道およそ700メートル、歩いて30分ほど。鈴を鳴らし、足元に気をつけて進みましょう。</div><div style="font-size:12px;color:var(--tuff);margin-top:6px">見出しは明朝、本文と数字・運行状況はゴシックで読みやすさを守る</div></div>
   </div>
-  <p style="font-size:12px;color:var(--tuff);margin:12px 0 0">6言語に対応するため、中国語（繁体字）・ヒンディー語は同じ雰囲気の別フォントを組み合わせます。どれも無料で商用利用できるGoogle Fontsです。</p>
+  <p style="font-size:12px;color:var(--tuff);margin:12px 0 0">英語・スペイン語・フランス語は見出しに同じ雰囲気の明朝系の欧文、中国語（繁体字）・ヒンディー語は同じ雰囲気の別フォントを組み合わせます。どれも無料で商用利用できるGoogle Fontsです。</p>
 </div>
 
 <div class="block"><h2>モチーフ</h2>
@@ -180,11 +195,13 @@ h2::before{content:"";width:22px;height:2px;background:var(--rowan)}
 <div>
   <h2>当てはめた見本（トップの上のほう）</h2>
   <div class="phone">
-    <div class="hero">
-      <svg viewBox="0 0 390 300" preserveAspectRatio="none"><path d="M0 210L70 120l40 40 60-90 70 90 40-36 110 86v90H0z" fill="#2E4A3C" opacity=".55"/><path d="M0 250l90-60 60 40 80-70 70 60 90-40v120H0z" fill="#2E4A3C" opacity=".8"/><g stroke="#77736C" stroke-width="6" stroke-linecap="round" opacity=".55"><path d="M40 300v-70M54 300v-80M68 300v-64"/><path d="M322 300v-76M336 300v-86M350 300v-70"/></g><circle cx="320" cy="60" r="16" fill="#D7A33A" opacity=".9"/></svg>
+    <div class="hero" id="hero">
+      <div id="scenes"></div>
+      <div class="fog"></div><div class="fog b"></div>
+      <div class="sdots" id="sdots"></div>
       <div class="ttl"><span>カムイミンタラ</span><b>（サービス名）</b><span>層 雲 峡</span></div>
-      <div class="info"><div><b>天気 12℃・風弱め</b>気象庁 9:00</div><div><b>ロープウェイ 運行中</b>運営会社 8:30</div><div><b>閉鎖中の道 1か所</b>環境省・町</div><div><b style="color:var(--rowan)">クマ情報 あり</b>上川町 昨日</div></div>
     </div>
+      <div class="info"><div><b>天気 12℃・風弱め</b>気象庁 9:00</div><div><b>ロープウェイ 運行中</b>運営会社 8:30</div><div><b>閉鎖中の道 1か所</b>環境省・町</div><div><b style="color:var(--rowan)">クマ情報 あり</b>上川町 昨日</div></div>
     <div class="sec"><h3><span style="width:18px;height:2px;background:var(--rowan);display:inline-block"></span>行ってみたい場所</h3>
       <div class="belt">
         <div class="pcard"><div class="img" style="background:linear-gradient(135deg,#B5452C,#D7A33A)"></div><div class="t"><b>紅葉谷</b>片道30分・音声 0:27</div></div>
@@ -195,11 +212,79 @@ h2::before{content:"";width:22px;height:2px;background:var(--rowan)}
         <div class="qcard">なぜ崖が反り立ってるの？<small>地形・30秒</small></div>
         <div class="qcard">クマっているの？<small>安全・30秒</small></div>
       </div></div>
-    <div class="frame"><div style="font-family:var(--display);font-weight:700;font-size:17px">寄ってから帰ろっか。</div><div style="font-size:12px;color:var(--tuff)">上川・層雲峡のすてきなお店</div></div>
+    <div class="frame"><div style="font-family:var(--display);font-weight:400;font-size:17px">寄ってから帰ろっか。</div><div style="font-size:12px;color:var(--tuff)">上川・層雲峡のすてきなお店</div></div>
     <div style="padding:0 16px 22px"><button class="btn" style="width:100%">いきものの世界をのぞく</button></div>
   </div>
-  <p style="font-size:12px;color:var(--tuff)">写真の部分は、今は季節の色のグラデーションで代わりにしています</p>
+  <p style="font-size:12px;color:var(--tuff);line-height:1.6">一番上の背景は、層雲峡の春・夏・秋・冬がゆっくり移り変わります（1つの季節を約8秒、移り変わりに約3秒）。<br>・開いた日の季節から始まる（今日なら秋）<br>・季節の字を押すと、その季節で止まる<br>・霧はずっとゆっくり流れている<br>・動きを減らす設定の端末では、今の季節の1枚だけ<br>・写真の許可が出たら、イラストを各季節の写真に差し替える（仕組みは同じ）<br>・「行ってみたい場所」のカードの色は、写真が入るまでの代わり</p>
 </div>
 </div>
+<script>
+/* Four seasons of Sounkyo, drawn only with the palette colors. */
+const P={snow:'#F5F4EF',mist:'#E3E6E2',tuff:'#77736C',night:'#1E2B3C',spruce:'#2E4A3C',river:'#3D7C84',moss:'#7E8A4E',birch:'#D7A33A',rowan:'#B5452C',matatabi:'#D995A6',ice:'#CFE3EA'};
+const SEASONS=[
+ {k:'spring',n:'春',c:P.matatabi,dark:false,sky:[P.ice,P.snow],far:'#9AAFAE',cap:1,cliff:P.tuff,hill:P.moss,hill2:'#96A06A',crowns:[P.moss,'#9BA868',P.matatabi,P.snow],river:P.river,pt:{n:14,col:[P.matatabi,P.snow],shape:'petal'}},
+ {k:'summer',n:'夏',c:P.river,dark:false,sky:['#A9CBD2',P.mist],far:'#6F8D88',cap:.25,cliff:'#6C6962',hill:P.spruce,hill2:P.moss,crowns:[P.moss,'#5F7A4A',P.spruce],river:P.river,pt:{n:0}},
+ {k:'autumn',n:'秋',c:P.rowan,dark:false,sky:[P.ice,P.snow],far:P.tuff,cap:.45,cliff:P.tuff,hill:'#9C5A2E',hill2:P.birch,crowns:[P.rowan,P.birch,P.birch,P.rowan,P.moss],river:P.river,pt:{n:16,col:[P.rowan,P.birch],shape:'leaf'}},
+ {k:'winter',n:'冬',c:P.night,dark:true,sky:[P.night,'#3F5A6E'],far:P.ice,cap:1,cliff:'#5E5B55',hill:P.snow,hill2:P.ice,crowns:null,river:'#2B4256',pt:{n:26,col:[P.snow],shape:'snow'}}
+];
+function rnd(i){const x=Math.sin(i*99.13)*43758.5;return x-Math.floor(x)}
+function svg(S,idx){
+ let t='';
+ // trees on the forest hill: Nordic flat spruce + round-crowned broadleaf (birch, maple)
+ for(let i=0;i<22;i++){
+  const x=78+i*11+rnd(i+idx)*6, y=252+Math.sin(i*.7)*8+rnd(i*3)*6, h=20+rnd(i*7)*14;
+  if(i%3===0){ // spruce
+   t+=`<path d="M${x} ${y-h}l${h*.32} ${h}h${-h*.64}z" fill="${P.spruce}"/>`;
+   if(S.k==='winter') t+=`<path d="M${x} ${y-h}l${h*.14} ${h*.44}h${-h*.28}z" fill="${P.snow}"/>`;
+  } else if(S.crowns){
+   const c=S.crowns[i%S.crowns.length], r=6+rnd(i*5)*5;
+   t+=`<rect x="${x-.8}" y="${y-r}" width="1.6" height="${r+2}" fill="${S.k==='autumn'?P.snow:P.tuff}"/><circle cx="${x}" cy="${y-r-2}" r="${r}" fill="${c}"/>`;
+  } else { // winter: bare birch, white trunks
+   t+=`<path d="M${x} ${y}v-${h*.8}M${x} ${y-h*.5}l5 -7M${x} ${y-h*.35}l-4 -6" stroke="${P.snow}" stroke-width="1.6" stroke-linecap="round"/>`;
+  }
+ }
+ const cols=(x0,x1,top,col)=>{let o='';for(let x=x0;x<x1;x+=7)o+=`<path d="M${x} 340V${top+rnd(x)*20}" stroke="${col}" stroke-width="1" opacity=".3"/>`;return o};
+ const ice=S.k==='winter'?`<path d="M44 150c3 40-2 80 4 120M58 140c-2 50 3 90 0 130M340 132c2 46-3 92 3 138" stroke="${P.ice}" stroke-width="5" stroke-linecap="round" opacity=".9"/>`:'';
+ const stars=S.k==='winter'?[...Array(14)].map((_,i)=>`<circle cx="${20+rnd(i)*350}" cy="${10+rnd(i+40)*90}" r="${.7+rnd(i+9)}" fill="${P.snow}" opacity=".8"/>`).join('')+`<circle cx="300" cy="70" r="11" fill="${P.birch}" opacity=".85"/>`:'';
+ const sun=S.k==='summer'?`<circle cx="300" cy="72" r="14" fill="${P.snow}" opacity=".9"/>`:'';
+ const capO=S.cap;
+ return `<svg viewBox="0 0 390 340" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="g${idx}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${S.sky[0]}"/><stop offset="1" stop-color="${S.sky[1]}"/></linearGradient></defs>
+ <rect width="390" height="340" fill="url(#g${idx})"/>${stars}${sun}
+ <g class="far"><path d="M-10 196L50 160 92 170 150 112 182 134 214 98 250 126 292 116 340 146 400 136V300H-10z" fill="${S.far}"/>
+ <path d="M134 128L150 112 166 126 158 124 150 132 142 124zM198 114L214 98 232 114 222 111 214 120 206 111z" fill="${P.snow}" opacity="${capO}"/>
+ <path d="M278 124L292 116 306 124 298 123 292 128z" fill="${P.snow}" opacity="${capO*.8}"/></g>
+ <path d="M-10 340V258Q90 232 200 240T400 236V340z" fill="${S.hill2}"/>
+ <path d="M-10 340V270Q120 248 210 258T400 254V340z" fill="${S.hill}"/>
+ ${t}
+ <path d="M170 340Q190 300 197 292Q206 302 224 340z" fill="${S.river}"/>
+ <path d="M188 318q8-4 16 0M180 330q10-4 22 0" stroke="${S.k==='winter'?P.ice:P.snow}" stroke-width="1" fill="none" opacity=".6"/>
+ <path d="M-2 340V118L26 108 52 128 72 172 82 340z" fill="${S.cliff}"/>${cols(2,80,128,S.k==='winter'?P.ice:P.night)}
+ <path d="M392 340V100L364 94 338 122 320 170 312 340z" fill="${S.cliff}"/>${cols(314,392,112,S.k==='winter'?P.ice:P.night)}
+ ${S.k==='winter'?`<path d="M-2 120L26 110 52 130 40 132 26 120 10 126zM392 102L364 96 338 124 352 122 366 106 380 110z" fill="${P.snow}"/>`:''}
+ ${ice}</svg>`;
+}
+function particles(S){
+ let h='';
+ for(let i=0;i<S.pt.n;i++){
+  const col=S.pt.col[i%S.pt.col.length], left=rnd(i+3)*100, dur=9+rnd(i+11)*9, del=-rnd(i+17)*dur, sway=(rnd(i+23)*40-20)+'px';
+  const shape=S.pt.shape==='snow'?`width:${2+rnd(i)*3}px;height:${2+rnd(i)*3}px;border-radius:50%;background:${col};opacity:.85`
+   :S.pt.shape==='petal'?`width:6px;height:4px;border-radius:60% 40% 60% 40%;background:${col};opacity:.85`
+   :`width:7px;height:5px;border-radius:0 80% 0 80%;background:${col};opacity:.9`;
+  h+=`<i class="pt" style="left:${left}%;animation-duration:${dur}s;animation-delay:${del}s;--sway:${sway};${shape}"></i>`;
+ }
+ return h;
+}
+const scenes=document.getElementById('scenes'), dots=document.getElementById('sdots'), hero=document.getElementById('hero');
+SEASONS.forEach((S,i)=>{
+ const d=document.createElement('div');d.className='scene';d.innerHTML=svg(S,i)+particles(S);scenes.appendChild(d);
+ const b=document.createElement('button');b.textContent=S.n;b.style.setProperty('--c',S.c);b.onclick=()=>{held=true;show(i)};dots.appendChild(b);
+});
+const m=new Date().getMonth()+1;  // 5-6 spring, 7-8 summer, 9-10 autumn, 11-4 winter
+let cur=m>=5&&m<=6?0:m>=7&&m<=8?1:m>=9&&m<=10?2:3, held=false;
+function show(i){cur=i;[...scenes.children].forEach((e,j)=>e.classList.toggle('on',j===i));[...dots.children].forEach((e,j)=>e.classList.toggle('on',j===i));hero.classList.toggle('dark',SEASONS[i].dark)}
+show(cur);
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+if(!reduce) setInterval(()=>{if(!held)show((cur+1)%4)},11000);
+</script>
 </body>
 </html>
