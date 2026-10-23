@@ -121,6 +121,8 @@ details[open]>summary .chev{transform:rotate(45deg)}
 
 /* survey: answered by tapping on the page, sent to a Google Form */
 .survey{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:12px;transition:box-shadow .3s}
+#photo{position:relative}
+.pcred{position:absolute;right:8px;bottom:6px;font-size:10.5px;color:#fff;text-shadow:0 0 4px rgba(0,0,0,.65);pointer-events:none}
 .survey{display:none!important}  /* the survey now lives on the top page */
 .sv-link{display:block;text-decoration:none;border:1px solid var(--line);border-radius:16px;padding:14px 16px;background:var(--surface);color:var(--ink);font-size:.9rem}
 .sv-link b{display:block;font-size:1rem}
@@ -368,7 +370,7 @@ function renderChrome(){
 
 function photoHTML(p,s,big){
   const src=p.photos&&p.photos[s], S=t().seasons[s];
-  if(src) return `<img src="${esc(src)}" alt="${esc(t().photoAlt(placeName(p),S))}" loading="${big?"eager":"lazy"}">`;
+  if(src) return `<img src="${esc(src)}" alt="${esc(t().photoAlt(placeName(p),S))}" loading="${big?"eager":"lazy"}">${big?`<small class="pcred">${lang==="en"?"Photo: Sounkyo Visitor Center":"写真提供：層雲峡ビジターセンター"}</small>`:""}`;
   return `<div class="ph"><b>${S}</b>${big?`<span>${t().photoSoon(S)}</span>`:""}</div>`;
 }
 function renderPhoto(){
