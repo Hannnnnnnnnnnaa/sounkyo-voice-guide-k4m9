@@ -121,7 +121,9 @@ details[open]>summary .chev{transform:rotate(45deg)}
 
 /* survey: answered by tapping on the page, sent to a Google Form */
 .survey{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:12px;transition:box-shadow .3s}
-.survey[hidden]{display:none}
+.survey{display:none!important}  /* the survey now lives on the top page */
+.sv-link{display:block;text-decoration:none;border:1px solid var(--line);border-radius:16px;padding:14px 16px;background:var(--surface);color:var(--ink);font-size:.9rem}
+.sv-link b{display:block;font-size:1rem}
 .survey.nudge{box-shadow:0 0 0 3px var(--season)}
 .sv-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px}
 .sv-head h2{font-size:1.1rem}
@@ -224,6 +226,7 @@ h2{font-family:var(--display);font-weight:800;font-size:1.25rem;margin:0}
     <div class="draft" data-t="draft"></div>
   </section>
 
+  <a class="sv-link" href="top.html#survey"><b>30秒アンケートに答える ›</b>このガイド全体についてのアンケートは、トップページにあります</a>
   <section class="survey" id="survey" aria-labelledby="svH">
     <div class="sv-head"><h2 id="svH" data-t="svH"></h2><span id="svStep"></span></div>
     <p class="sv-note" id="svNote"></p>

@@ -93,13 +93,53 @@ section{padding:26px 16px 6px}
 .frame::before{top:5px}.frame::after{bottom:5px}
 .frame h2{margin-bottom:2px}
 
-/* ---------- map ---------- */
-#map{height:330px;border-radius:16px;border:1px solid var(--mist);z-index:1}
-.maptools{display:flex;gap:8px;margin-top:8px}
-.maptools button{flex:1;border:1px solid var(--spruce);background:#fff;border-radius:999px;padding:8px;font-size:12.5px;color:var(--spruce);cursor:pointer}
-.legend{font-size:11.5px;color:var(--tuff);margin-top:6px}
+/* ---------- places map with scenery bubbles ---------- */
+#map{height:460px;border-radius:18px;border:1px solid var(--mist);z-index:1;background:var(--mist)}
+.maptools{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:8px}
+.maptools button{border:1px solid var(--spruce);background:#fff;border-radius:999px;padding:8px 2px;font-size:12px;color:var(--spruce);cursor:pointer;white-space:nowrap}
+.maptools button.on{background:var(--spruce);color:var(--snow)}
+.legend{font-size:11.5px;color:var(--tuff);margin-top:6px;line-height:1.7}
 .legend i{display:inline-block;width:10px;height:10px;border-radius:50%;vertical-align:-1px;margin-right:4px}
-.leaflet-popup-content{font-family:var(--body);font-size:13px;line-height:1.6}
+.leaflet-div-icon.pinwrap{background:none;border:0}
+.pin{position:relative;width:0;height:0}
+.pin .dot{position:absolute;z-index:3;left:-9px;top:-9px;width:18px;height:18px;border-radius:50%;background:var(--spruce);border:3px solid var(--snow);box-shadow:0 1px 5px rgba(30,43,60,.35)}
+.pin.um .dot{background:#fff;border:2.5px dashed var(--rowan)}
+.pin .dot::after{content:"";position:absolute;inset:-9px;border-radius:50%;border:2px solid var(--accent);opacity:0}
+.pin.act .dot::after{animation:ring 2s ease-out infinite}
+@keyframes ring{0%{transform:scale(.5);opacity:.9}100%{transform:scale(1.6);opacity:0}}
+.bub{position:absolute;width:124px;border:0;font:inherit;background:var(--snow);border-radius:14px;padding:4px;box-shadow:0 5px 16px rgba(30,43,60,.28);transform:scale(0);opacity:0;transition:transform .8s cubic-bezier(.3,1.35,.4,1),opacity .5s;cursor:pointer;text-align:left;z-index:2}
+.pin.in .bub{transform:scale(1);opacity:1}
+.pin.act .bub{transform:scale(1.06);box-shadow:0 8px 24px rgba(30,43,60,.38);outline:2px solid var(--accent);outline-offset:1px}
+.lead{position:absolute;left:0;top:0;overflow:visible;pointer-events:none}
+.lead line{stroke-dasharray:200;stroke-dashoffset:200;transition:stroke-dashoffset .9s cubic-bezier(.3,0,.2,1)}
+.pin.in .lead line{stroke-dashoffset:0}
+.bub .ph{height:74px;border-radius:10px;overflow:hidden;position:relative;z-index:1}
+.bub .ph svg,.bub .ph img,.bigph svg,.bigph img{width:100%;height:100%;display:block;object-fit:cover}
+.bub b{display:block;font-family:var(--display);font-weight:400;font-size:13.5px;padding:4px 5px 0;line-height:1.35;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--night);position:relative;z-index:1}
+.bub small{display:block;font-size:10px;color:var(--tuff);padding:0 5px 2px;line-height:1.4;position:relative;z-index:1}
+.bigph{height:190px;border-radius:16px;overflow:hidden;margin:4px 0 10px}
+.facts{display:grid;gap:6px;font-size:13px;margin:8px 0}
+.facts div{background:#fff;border:1px solid var(--mist);border-radius:10px;padding:7px 10px}
+.facts b{display:block;font-size:11px;color:var(--tuff);font-weight:500}
+.leaflet-container{font-family:var(--body)}
+
+/* ---------- survey ---------- */
+.survey{background:#fff;border:1px solid var(--mist);border-radius:18px;padding:16px;display:flex;flex-direction:column;gap:12px}
+.sv-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px}
+.sv-head span{font-size:12px;color:var(--tuff);white-space:nowrap}
+.sv-note{margin:0;font-size:12px;color:var(--tuff)}
+.sv-q{margin:0;font-weight:700;font-size:15.5px;line-height:1.5}
+.sv-faces{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.sv-faces button{border:1px solid var(--mist);background:var(--snow);border-radius:12px;padding:8px 2px 6px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:11px;color:var(--tuff)}
+.sv-faces button b{font-size:27px;line-height:1;font-weight:400}
+.sv-opts{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.sv-opts button{border:1px solid var(--mist);background:var(--snow);border-radius:10px;padding:10px 8px;font-size:14px;cursor:pointer;line-height:1.35}
+.sv-faces button[aria-pressed="true"],.sv-opts button[aria-pressed="true"]{border-color:var(--accent);background:#fff;color:var(--night);font-weight:700;box-shadow:inset 0 0 0 1.5px var(--accent)}
+.sv-text{width:100%;min-height:76px;border:1px solid var(--tuff);border-radius:10px;padding:10px;font:inherit;font-size:15px;background:var(--snow);color:var(--night);resize:vertical}
+.sv-nav{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.sv-nav .skip{border:0;background:none;color:var(--tuff);font-size:13px;cursor:pointer;padding:6px 0;text-decoration:underline}
+.sv-nav .go{border:0;border-radius:999px;background:var(--spruce);color:var(--snow);font-weight:700;padding:10px 24px;font-size:14px;cursor:pointer}
+.sv-done{margin:0;text-align:center}
 
 /* ---------- voices ---------- */
 .empty{background:#fff;border:1px dashed var(--momonga);border-radius:16px;padding:16px;text-align:center;font-size:13px;color:var(--tuff)}
@@ -160,11 +200,13 @@ body.sheet #sheet{transform:none;visibility:visible;transition:transform .55s cu
   </div>
   <p class="asof" id="asof">運行状況などは、公式のページをそのまま開きます（このページでは書き換えません）</p>
 
-  <!-- 8-1 places -->
+  <!-- 8-1 places + 10 map (merged) -->
   <section id="places">
     <h2><span class="ln"></span>行ってみたい場所</h2>
-    <p class="sub">押すと、その場所のページ（音声ガイドつき）へ</p>
-    <div class="belt" id="placeBelt"></div>
+    <p class="sub">景色の吹き出しを押すと、その場所のくわしい話と音声ガイドへ</p>
+    <div id="map"></div>
+    <div class="maptools"><button id="mNear">全部の場所</button><button id="mWide">上川町まで</button><button id="mMe">現在地</button><button id="mPhoto">航空写真</button></div>
+    <div class="legend"><i style="background:var(--spruce)"></i>現地で確かめた位置　<i style="background:#fff;border:2px dashed var(--rowan)"></i>まだ現地で確かめていない位置<br>吹き出しの景色は仮の絵です。写真の許可が出たら差し替えます</div>
   </section>
 
   <!-- 8-2 questions -->
@@ -190,15 +232,6 @@ body.sheet #sheet{transform:none;visibility:visible;transition:transform .55s cu
     </div>
   </section>
 
-  <!-- 10 map -->
-  <section id="mapSec">
-    <h2><span class="ln"></span>マップ</h2>
-    <p class="sub">点を押すと場所の名前、もう一度押すとその場所のページへ</p>
-    <div id="map"></div>
-    <div class="maptools"><button id="mNear">層雲峡を見る</button><button id="mWide">上川町まで</button><button id="mMe">現在地</button></div>
-    <div class="legend"><i style="background:var(--spruce)"></i>現地で確かめた位置　<i style="background:#fff;border:2px dashed var(--rowan)"></i>まだ現地で確かめていない位置</div>
-  </section>
-
   <!-- 11 voices -->
   <section id="voices">
     <h2><span class="ln"></span>みんなの声</h2>
@@ -213,6 +246,15 @@ body.sheet #sheet{transform:none;visibility:visible;transition:transform .55s cu
       <p class="fine">名前や連絡先は書かないでください。届いた声は、確認してからここに載せます。</p>
       <button class="btn" type="submit">送る</button>
     </form>
+  </section>
+
+  <!-- survey -->
+  <section id="survey">
+    <div class="survey">
+      <div class="sv-head"><h2><span class="ln"></span>30秒アンケート</h2><span id="svStep"></span></div>
+      <p class="sv-note" id="svNote">タップするだけ・匿名です。このガイドをよくするために使います。</p>
+      <div id="svBody"></div>
+    </div>
   </section>
 
   <!-- 12 more -->
@@ -312,6 +354,7 @@ function show(i){
  cur=i;[...scenes.children].forEach((e,j)=>e.classList.toggle('on',j===i));[...dots.children].forEach((e,j)=>e.classList.toggle('on',j===i));
  const S=SEASONS[i];hero.classList.toggle('dark',S.dark);document.documentElement.style.setProperty('--accent',S.accent);
  $('credit').textContent=S.photo?`${S.photo.place}　${S.photo.credit}`:'';
+ if(window.mapReady)refreshBubbles();
 }
 show(cur);
 if(!reduce)setInterval(()=>{if(!held&&!document.hidden)show((cur+1)%4)},11000);
@@ -336,22 +379,12 @@ const QUESTIONS=[
 ];
 const PLACE_COLORS={'自然景観':[P.river,P.ice],'地質・地形':[P.tuff,P.birch],'歴史・人物':[P.spruce,P.moss]};
 let G=null;
-fetch('guide.json',{cache:'no-store'}).then(r=>r.json()).then(g=>{G=g;renderPlaces();renderQuestions();renderLife();initMap();renderVoicePlaces();
+fetch('guide.json',{cache:'no-store'}).then(r=>r.json()).then(g=>{G=g;renderQuestions();renderLife();initMap();renderVoicePlaces();renderSurvey();
  $('voiceCredit').textContent=Object.values(g.voices.ja).map(v=>v.credit).join('、');
 });
 const pt=id=>G.points.find(p=>p.id===id);
 const ptAudio=p=>{const a=p.audio||{};return a['core:himari']||a['core:sora']||Object.values(a)[0]};
 
-function renderPlaces(){
- const seen=new Set();let h='';
- G.points.forEach(p=>{
-  if(seen.has(p.place))return;seen.add(p.place);
-  const [c1,c2]=PLACE_COLORS[p.category]||[P.spruce,P.moss];const au=ptAudio(p);
-  const acc=(p.location.access||'').split('。')[0];
-  h+=`<a class="pcard" href="guide.html#${esc(p.id)}"><div class="img" style="background:linear-gradient(135deg,${c1},${c2})"><i>写真は準備中</i></div><div class="t"><b>${esc(p.place.replace(/（.*）/,''))}</b>${esc(acc||p.category)}${au?`<br>音声 ${Math.round(au.seconds)}秒`:''}</div></a>`;
- });
- $('placeBelt').innerHTML=h;autoScroll($('placeBelt'));
-}
 function autoScroll(el){
  if(reduce)return;el.style.scrollSnapType='none';let pause=performance.now()+2500,last=performance.now(),x=0;
  const stop=()=>{pause=performance.now()+5000};['pointerdown','wheel','touchstart'].forEach(e=>el.addEventListener(e,stop,{passive:true}));
@@ -366,7 +399,8 @@ function renderQuestions(){
   const ok=q.point?pt(q.point):hlFind(...q.hl);if(!ok)return'';
   const au=q.point&&ptAudio(ok);
   return `<button class="qcard" data-i="${i}">${esc(q.q)}<small>${esc(q.tag)}${au?`・音声 ${Math.round(au.seconds)}秒`:''}</small></button>`}).join('');
- $('qBelt').onclick=e=>{const b=e.target.closest('.qcard');if(b)openQ(QUESTIONS[b.dataset.i])};
+ $('qBelt').onclick=e=>{const b=e.target.closest('.qcard');if(b){met.q.add(b.dataset.i);openQ(QUESTIONS[b.dataset.i])}};
+ autoScroll($('qBelt'));
 }
 function srcHTML(list){return list&&list.length?`<div class="src">出典${list.map(s=>`<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.name)}</a>`).join('')}</div>`:''}
 function relSrc(p){const m=new Map();(p.highlights||[]).forEach(h=>(h.sources||[]).forEach(x=>m.set(x.url,x)));
@@ -386,34 +420,135 @@ function renderLife(){
  const p=pt('momijidani-entrance');if(!p)return;
  const list=(p.highlights||[]).filter(h=>h.category==='植物'||h.category==='動物');
  $('lifeChips').innerHTML=list.map((h,i)=>`<button class="chip ${h.category==='植物'?'p':'a'}" data-n="${esc(h.name)}">${esc(h.name)}</button>`).join('');
- $('lifeChips').onclick=e=>{const b=e.target.closest('.chip');if(!b)return;const h=hlFind('momijidani-entrance',b.dataset.n);
+ $('lifeChips').onclick=e=>{const b=e.target.closest('.chip');if(!b)return;met.life.add(b.dataset.n);const h=hlFind('momijidani-entrance',b.dataset.n);
   openSheet(`<div class="k">${esc(h.category)}・紅葉谷</div><h3>${esc(h.name)}</h3><p>${esc(h.description)}</p>${h.when?`<span class="when">${esc(h.when)}</span>`:''}${h.note?`<p class="note">${esc(h.note)}</p>`:''}
    <a class="btn line" style="display:block;text-align:center;text-decoration:none" href="guide.html#momijidani-entrance">紅葉谷のページで、地図と一緒に見る</a>${srcHTML(h.sources)}`)};
 }
-function openSheet(html){$('sheetBody').innerHTML=html;document.body.classList.add('sheet')}
+function openSheet(html){$('sheetBody').innerHTML=html;document.body.classList.add('sheet');$('sheetBody').querySelectorAll('audio').forEach(a=>a.addEventListener('play',()=>met.audio.add(a.src),{once:true}))}
 function closeSheet(){document.body.classList.remove('sheet');$('sheetBody').querySelectorAll('audio').forEach(a=>a.pause())}
 $('sheetBg').onclick=closeSheet;document.querySelector('#sheet .close').onclick=closeSheet;
 addEventListener('keydown',e=>{if(e.key==='Escape')closeSheet()});
 
-/* ---------- map ---------- */
-let map,me;
+/* ---------- places map: pins with scenery bubbles ---------- */
+/* PHOTOS: when permission is given, add {src, credit} per place id and the bubble shows the photo instead of the drawing. */
+const PHOTOS={};
+/* where each bubble sits, as the offset (px) of its top-left corner from the pin; laid out so the bubbles never overlap at the first view */
+const BUBBLE_POS={'momijidani-entrance':[-98,-136],'ginga-ryusei':[-8,-152],'momiji-falls':[-108,34],'obako':[-138,-50]},BW=124,BH=118;
+const SHORT={'ginga-ryusei':'銀河・流星の滝'};
+const cleanName=p=>p.place.replace(/（.*）/,'');
+function foliage(S){return S.k==='autumn'?[P.rowan,P.birch,'#C7782F']:S.k==='summer'?[P.moss,'#5F7A4A',P.spruce]:S.k==='spring'?[P.moss,'#9BA868',P.matatabi]:[P.snow,P.ice,P.snow]}
+function thumb(id,S){
+ const f=foliage(S),w=S.k==='winter',sky=`<defs><linearGradient id="t${id}${S.k}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${S.sky[0]}"/><stop offset="1" stop-color="${S.sky[1]}"/></linearGradient></defs><rect width="120" height="74" fill="url(#t${id}${S.k})"/>`;
+ const col=(x,y0,y1,c)=>{let o='';for(let i=x;i<y0;i+=4)o+=`<path d="M${i} 74V${y1+rnd(i)*8}" stroke="${c}" stroke-width=".8" opacity=".35"/>`;return o};
+ const crowns=(n,y,spread)=>{let o='';for(let i=0;i<n;i++){const x=spread[0]+rnd(i+3)*(spread[1]-spread[0]),yy=y+rnd(i+7)*10,r=4+rnd(i+9)*4;o+=`<circle cx="${x}" cy="${yy}" r="${r}" fill="${f[i%f.length]}"/>`;if(i%4===0)o+=`<path d="M${x+6} ${yy-12}l4 12h-8z" fill="${w?P.ice:P.spruce}"/>`}return o};
+ const fall=w?P.ice:P.snow;
+ let g='';
+ if(id==='momijidani-entrance'){ // forest valley between columnar walls, trail into the woods
+  g=`<path d="M0 74V14L18 10 30 30 36 74z" fill="${P.tuff}"/>${col(2,32,14,P.night)}<path d="M120 74V8L102 12 90 34 84 74z" fill="${P.tuff}"/>${col(86,120,10,P.night)}
+  <path d="M30 74Q40 40 60 38T92 74z" fill="${w?P.snow:f[2]}" opacity=".9"/>${crowns(16,40,[22,98])}<path d="M52 74Q58 60 62 52" stroke="${P.snow}" stroke-width="2" stroke-dasharray="3 3" fill="none"/>`;
+ }else if(id==='momiji-falls'){ // two-step falls in a columnar amphitheatre
+  g=`<path d="M10 74V12Q60 2 110 12V74z" fill="${P.tuff}"/>${col(12,108,8,P.night)}
+  <rect x="54" y="14" width="10" height="22" rx="2" fill="${fall}"/><rect x="50" y="36" width="18" height="4" rx="2" fill="${P.tuff}"/><rect x="51" y="40" width="16" height="22" rx="2" fill="${fall}"/>
+  <ellipse cx="59" cy="66" rx="22" ry="5" fill="${w?P.ice:P.river}"/>${crowns(6,52,[6,34])}${crowns(6,52,[86,114])}`;
+ }else if(id==='ginga-ryusei'){ // a cliff in the middle with a thin, many-stranded fall and a single thick fall
+  g=`<path d="M0 74V20L14 16 22 74z" fill="${P.tuff}"/><path d="M120 74V18L106 14 98 74z" fill="${P.tuff}"/>
+  <path d="M42 74L46 12Q60 2 74 12L78 74z" fill="#6C6962"/>${col(46,76,10,P.night)}
+  <g stroke="${fall}" stroke-linecap="round"><path d="M30 10V70M33 12V70M36 10V70" stroke-width="1.3"/><path d="M88 8V70" stroke-width="7"/></g>
+  ${crowns(7,58,[2,40])}${crowns(5,58,[96,118])}`;
+ }else if(id==='obako'){ // sheer columnar walls on both banks, the river cutting through
+  g=`<path d="M0 74V0H44L50 74z" fill="${P.tuff}"/>${col(2,48,0,P.night)}<path d="M120 74V0H74L68 74z" fill="#6C6962"/>${col(70,120,0,P.night)}
+  <path d="M50 74L54 40H64L68 74z" fill="${w?P.ice:P.river}"/><path d="M44 0H74L64 40H54z" fill="url(#t${id}${S.k})"/>${w?`<path d="M0 0H44V4H0zM74 0H120V4H74z" fill="${P.snow}"/>`:''}`;
+ }else g=crowns(14,44,[0,120]);
+ return `<svg viewBox="0 0 120 74" preserveAspectRatio="xMidYMid slice" aria-hidden="true">${sky}${g}</svg>`;
+}
+const scene=(id)=>PHOTOS[id]?`<img src="${esc(PHOTOS[id].src)}" alt="">`:thumb(id,SEASONS[cur]);
+let map,me,pins=[],base,photo,tourT,tourHold=0,tourI=0;
 function initMap(){
  if(!window.L){$('map').innerHTML='<p class="sub" style="padding:14px">地図を読み込めませんでした</p>';return}
- map=L.map('map',{scrollWheelZoom:false,zoomControl:true});
- L.tileLayer('https://cyberjapandata.gsi.go.jp/xyz/pale/{z}/{x}/{y}.png',{maxZoom:18,attribution:'<a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank">国土地理院</a>'}).addTo(map);
- const pts=[];const seen=new Set();
+ map=L.map('map',{scrollWheelZoom:false,zoomControl:true,attributionControl:true});
+ base=L.tileLayer('https://cyberjapandata.gsi.go.jp/xyz/pale/{z}/{x}/{y}.png',{maxZoom:18,attribution:'<a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank">国土地理院</a>'}).addTo(map);
+ photo=L.tileLayer('https://cyberjapandata.gsi.go.jp/xyz/seamlessphoto/{z}/{x}/{y}.jpg',{maxZoom:18,attribution:'<a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank">国土地理院</a>'});
+ const seen=new Set(),ll=[];
  G.points.forEach(p=>{const L0=p.location;if(!L0.lat||seen.has(p.place))return;seen.add(p.place);
-  const m=L.circleMarker([L0.lat,L0.lng],L0.measured?{radius:9,color:P.snow,weight:2,fillColor:P.spruce,fillOpacity:1}:{radius:9,color:P.rowan,weight:2,dashArray:'3 3',fillColor:'#fff',fillOpacity:1}).addTo(map);
-  m.bindPopup(`<b>${esc(p.place)}</b><br><small>${esc(L0.measured?'現地で確かめた位置':L0.coord_note)}</small><br><a href="guide.html#${esc(p.id)}">場所のページへ ›</a>`);
-  pts.push([L0.lat,L0.lng]);});
- const near=()=>map.fitBounds(pts,{padding:[30,30],maxZoom:14});near();
- $('mNear').onclick=near;
- $('mWide').onclick=()=>map.setView(map.getCenter(),10);
- $('mMe').onclick=()=>{if(!navigator.geolocation)return;$('mMe').textContent='探しています…';
-  navigator.geolocation.getCurrentPosition(pos=>{const ll=[pos.coords.latitude,pos.coords.longitude];
-   if(me)me.setLatLng(ll);else me=L.circleMarker(ll,{radius:7,color:'#fff',weight:2,fillColor:P.river,fillOpacity:1}).addTo(map);
-   map.setView(ll,14);$('mMe').textContent='現在地';},()=>{$('mMe').textContent='現在地（使えませんでした）'},{enableHighAccuracy:true,timeout:10000});};
+  const au=ptAudio(p),[ox,oy]=BUBBLE_POS[p.id]||[14,-BH-14];
+  const ex=Math.max(ox,Math.min(0,ox+BW)),ey=Math.max(oy,Math.min(0,oy+BH));   // nearest point of the bubble to the pin
+  const html=`<div class="pin${L0.measured?'':' um'}" data-id="${esc(p.id)}"><svg class="lead" width="1" height="1"><line x1="0" y1="0" x2="${ex}" y2="${ey}" stroke="${P.snow}" stroke-width="4" stroke-linecap="round"/><line x1="0" y1="0" x2="${ex}" y2="${ey}" stroke="${P.spruce}" stroke-width="1.5" stroke-linecap="round"/></svg><button class="bub" style="left:${ox}px;top:${oy}px;transform-origin:${-ox}px ${-oy}px" aria-label="${esc(cleanName(p))}"><div class="ph">${scene(p.id)}</div><b>${esc(SHORT[p.id]||cleanName(p))}</b><small>${au?`音声 ${Math.round(au.seconds)}秒`:''}${(p.highlights||[]).length>2?`・見どころ${p.highlights.length}`:''}</small></button><i class="dot"></i></div>`;
+  const m=L.marker([L0.lat,L0.lng],{icon:L.divIcon({className:'pinwrap',html,iconSize:[0,0],iconAnchor:[0,0]}),keyboard:false}).addTo(map);
+  m.on('click',()=>{tourHold=Date.now()+12000;openPlace(p)});
+  pins.push({p,m});ll.push([L0.lat,L0.lng]);});
+ const near=()=>map.fitBounds(ll,{paddingTopLeft:[100,175],paddingBottomRight:[70,60],maxZoom:12});near();
+ // bubbles pop out one by one, then a gentle tour highlights each place in turn
+ pins.forEach((x,i)=>setTimeout(()=>x.m.getElement().querySelector('.pin').classList.add('in'),reduce?0:900+i*420));
+ if(!reduce)tourT=setInterval(()=>{if(Date.now()<tourHold||document.hidden)return;tourI=(tourI+1)%pins.length;setAct(tourI)},4200);
+ setTimeout(()=>setAct(0),reduce?0:900+pins.length*420+400);
+ window.mapReady=true;
+ map.on('dragstart zoomstart',()=>{tourHold=Date.now()+10000;met.map=true});
+ $('mNear').onclick=()=>{near();met.map=true};
+ $('mWide').onclick=()=>{map.setView(map.getCenter(),10);met.map=true};
+ $('mPhoto').onclick=()=>{const on=map.hasLayer(photo);if(on){map.removeLayer(photo);base.addTo(map)}else{map.removeLayer(base);photo.addTo(map)}$('mPhoto').classList.toggle('on',!on);$('mPhoto').textContent=on?'航空写真':'地図';met.map=true};
+ $('mMe').onclick=()=>{if(!navigator.geolocation)return;$('mMe').textContent='探しています…';met.map=true;
+  navigator.geolocation.getCurrentPosition(pos=>{const l=[pos.coords.latitude,pos.coords.longitude];
+   if(me)me.setLatLng(l);else me=L.circleMarker(l,{radius:7,color:'#fff',weight:2,fillColor:P.river,fillOpacity:1}).addTo(map);
+   map.setView(l,14);$('mMe').textContent='現在地';},()=>{$('mMe').textContent='使えません'},{enableHighAccuracy:true,timeout:10000});};
 }
+function setAct(i){pins.forEach((x,j)=>{const el=x.m.getElement().querySelector('.pin');el.classList.toggle('act',j===i);x.m.setZIndexOffset(j===i?1000:0)})}
+function refreshBubbles(){pins.forEach(x=>{if(PHOTOS[x.p.id])return;const ph=x.m.getElement()&&x.m.getElement().querySelector('.ph');if(ph)ph.innerHTML=scene(x.p.id)})}
+function openPlace(p){
+ met.places.add(p.id);const L0=p.location,au=ptAudio(p);
+ openSheet(`<div class="k">${esc(L0.area||'')}${L0.measured?'・現地で確かめた位置':''}</div><h3>${esc(cleanName(p))}</h3>
+  <div class="bigph">${scene(p.id)}</div>${PHOTOS[p.id]?`<div class="k">写真：${esc(PHOTOS[p.id].credit)}</div>`:'<div class="k">仮の絵です（写真は許可が出たら差し替え）</div>'}
+  <p>${esc(p.core.split('。').slice(0,2).join('。'))}。</p>
+  <div class="facts">${L0.access?`<div><b>行き方</b>${esc(L0.access)}</div>`:''}${L0.season?`<div><b>行ける時期</b>${esc(L0.season)}</div>`:''}${L0.measured?'':`<div><b>位置について</b>${esc(L0.coord_note)}</div>`}</div>
+  <a class="btn" style="display:block;text-align:center;text-decoration:none" href="guide.html#${esc(p.id)}">この場所のページへ（音声ガイド${au?` ${Math.round(au.seconds)}秒`:''}）</a>${relSrc(p)}`);
+}
+
+/* ---------- 30-second survey (about the whole guide; moved here from the place page) ---------- */
+const store={get(k,d){try{const v=localStorage.getItem('sk.'+k);return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem('sk.'+k,JSON.stringify(v))}catch(e){}}};
+const met={q:new Set(),life:new Set(),places:new Set(),audio:new Set(),map:false};
+const SV_E={"回答ID":"entry.1741191429","場所":"entry.1386446759","言語":"entry.1904372328","音声":"entry.1717385986","見たもの":"entry.243085511",
+ "満足度":"entry.621911558","どこから":"entry.1373056271","国・地域":"entry.874213765","誰と":"entry.143043900",
+ "聞きたい話":"entry.262425486","キャラ":"entry.1656007330","払える金額":"entry.1879801806","ひとこと":"entry.2048451290"};
+const SV_Q=[
+ {k:"満足度",type:"face",q:"このガイド、どうでしたか？",opts:[["5","😆","最高"],["4","🙂","よい"],["3","😐","ふつう"],["2","🙁","いまいち"],["1","😣","よくない"]]},
+ {k:"どこから",type:"one",q:"どこから来ましたか？",opts:[["北海道内","北海道内"],["道外","北海道の外（国内）"],["海外","海外"]]},
+ {k:"国・地域",type:"one",show:a=>a["どこから"]==="海外",q:"どちらの国・地域からですか？",opts:[["台湾","台湾"],["中国","中国"],["香港","香港"],["韓国","韓国"],["タイ","タイ"],["シンガポール","シンガポール"],["マレーシア","マレーシア"],["アメリカ","アメリカ"],["オーストラリア","オーストラリア"],["その他","その他"]]},
+ {k:"誰と",type:"one",q:"だれと来ましたか？",opts:[["ひとり","ひとり"],["家族","家族"],["友人・恋人","友人・恋人"],["ツアー・団体","ツアー・団体"]]},
+ {k:"聞きたい話",type:"multi",q:"もっと聞きたい話は？（いくつでも）",opts:[["岩・地形","岩・地形"],["植物","植物"],["動物","動物"],["名前の由来・歴史","名前の由来・歴史"],["アイヌ文化","アイヌ文化"],["地元の小ネタ・怪談","地元の小ネタ・怪談"]]},
+ {k:"キャラ",type:"one",q:"案内役のキャラクターがいるなら？",opts:[["かわいい系","かわいい系"],["ちょっと変でおもしろい系","ちょっと変で\nおもしろい系"],["いらない","いらない"]]},
+ {k:"払える金額",type:"one",q:"全部の場所を聞けるガイドが有料なら、いくらまで払えますか？",opts:[["無料なら使う","無料なら使う"],["100円","100円"],["300円","300円"],["500円以上","500円以上"]]},
+ {k:"ひとこと",type:"text",q:"ひとこと（なくても大丈夫です）"}
+];
+let sv=store.get('topSurvey',null),svJustDone=false;
+if(!sv||!sv.id)sv={id:'t-'+Date.now().toString(36)+Math.random().toString(36).slice(2,7),step:0,a:{},done:false};
+const svQs=()=>SV_Q.filter(q=>!q.show||q.show(sv.a));
+const svSave=()=>store.set('topSurvey',sv);
+function svSend(){
+ const seen=[met.places.size?`場所${met.places.size}件`:'',met.q.size?`問い${met.q.size}件`:'',met.life.size?`いきもの${met.life.size}件`:'',met.map?'地図を操作':''].filter(Boolean).join('、')||'なし';
+ const data={"回答ID":sv.id,"場所":"トップ","言語":"日本語","音声":met.audio.size?`トップで${met.audio.size}本聞いた`:"トップでは聞いていない","見たもの":seen};
+ Object.entries(sv.a).forEach(([k,v])=>data[k]=Array.isArray(v)?v.join('、'):v);
+ const body=new URLSearchParams();Object.entries(data).forEach(([k,v])=>{if(SV_E[k]&&v!=='')body.append(SV_E[k],v)});
+ if(!(navigator.sendBeacon&&navigator.sendBeacon(FORM,body)))fetch(FORM,{method:'POST',mode:'no-cors',body}).catch(()=>{});
+}
+function renderSurvey(){
+ const box=$('svBody'),qs=svQs();
+ if(sv.done){$('svStep').textContent='';$('svNote').textContent='';box.innerHTML=`<p class="sv-done">${svJustDone?'ありがとうございました！いただいた声でガイドを直していきます。':'回答ありがとうございました。'}</p>`;return}
+ if(sv.step>=qs.length)sv.step=qs.length-1;
+ const q=qs[sv.step],val=sv.a[q.k];$('svStep').textContent=`${sv.step+1} / ${qs.length}`;
+ let h=`<p class="sv-q">${esc(q.q)}</p>`;
+ if(q.type==='face')h+=`<div class="sv-faces" role="group">`+q.opts.map(o=>`<button data-v="${o[0]}" aria-pressed="${val===o[0]}"><b aria-hidden="true">${o[1]}</b>${esc(o[2])}</button>`).join('')+`</div>`;
+ if(q.type==='one'||q.type==='multi')h+=`<div class="sv-opts" role="group">`+q.opts.map(o=>{const on=q.type==='multi'?(val||[]).includes(o[0]):val===o[0];return `<button data-v="${esc(o[0])}" aria-pressed="${on}">${esc(o[1]).replace(/\n/g,'<br>')}</button>`}).join('')+`</div>`;
+ if(q.type==='text')h+=`<textarea class="sv-text" id="svText" aria-label="${esc(q.q)}">${esc(val||'')}</textarea>`;
+ const last=sv.step===qs.length-1,needGo=q.type==='multi'||q.type==='text';
+ h+=`<div class="sv-nav"><button class="skip" data-act="skip">とばす</button>${needGo?`<button class="go" data-act="next">${last?'送る':'次へ'}</button>`:''}</div>`;
+ box.innerHTML=h;
+}
+function svAdvance(){const qs=svQs();if(sv.step>=qs.length-1){sv.done=true;svJustDone=true;svSend()}else sv.step++;svSave();renderSurvey()}
+$('svBody').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;const q=svQs()[sv.step];
+ if(b.dataset.act==='skip'||b.dataset.act==='next'){if(q.type==='text'){const v=$('svText').value.trim();if(v)sv.a[q.k]=v}svAdvance();return}
+ if(q.type==='multi'){const c=new Set(sv.a[q.k]||[]);c.has(b.dataset.v)?c.delete(b.dataset.v):c.add(b.dataset.v);sv.a[q.k]=[...c];svSave();renderSurvey();return}
+ sv.a[q.k]=b.dataset.v;svSave();renderSurvey();setTimeout(svAdvance,220)});
+$('svBody').addEventListener('input',e=>{if(e.target.id==='svText'){sv.a['ひとこと']=e.target.value;svSave()}});
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden'&&!sv.done&&Object.keys(sv.a).length)svSend()});
 
 /* ---------- voices: sent to the Google Form; shown only after review ---------- */
 const FORM='https://docs.google.com/forms/d/e/1FAIpQLScVKSFtcSzJZOycSWl2JZFLdFYOZgSUonApkaAcxwUVFZmaVg/formResponse';
