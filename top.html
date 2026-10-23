@@ -39,6 +39,9 @@ section{padding:26px 16px 6px}
 .scene{position:absolute;inset:0;opacity:0;transform:scale(1.07);transition:opacity 3.2s cubic-bezier(.45,0,.25,1),transform 12s cubic-bezier(.3,0,.2,1)}
 .scene.on{opacity:1;transform:scale(1)}
 .scene svg,.scene img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.scene.photo::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(30,43,60,.55) 0%,rgba(30,43,60,0) 45%,rgba(30,43,60,0) 72%,rgba(30,43,60,.3) 100%);pointer-events:none}
+.hero.dark .ttl{text-shadow:0 1px 10px rgba(30,43,60,.45)}
+.sdots button:disabled{opacity:.35;cursor:default}
 .scene .far{transition:transform 12s cubic-bezier(.3,0,.2,1);transform:translateX(-6px)}
 .scene.on .far{transform:translateX(6px)}
 .fogb{position:absolute;left:-40%;width:180%;height:70px;top:150px;background:radial-gradient(closest-side,rgba(245,244,239,.42),rgba(245,244,239,0));animation:fogm 46s linear infinite;pointer-events:none}
@@ -53,7 +56,7 @@ section{padding:26px 16px 6px}
 .sdots{position:absolute;right:14px;top:calc(20px + env(safe-area-inset-top));display:flex;gap:4px}
 .sdots button{font-family:var(--display);font-size:12px;width:28px;height:28px;border-radius:50%;border:0;background:rgba(245,244,239,.6);color:var(--night);cursor:pointer;transition:background 1.5s,color 1.5s}
 .sdots button.on{background:var(--c);color:var(--snow)}
-.credit{position:absolute;right:10px;bottom:40px;font-size:10px;color:var(--snow);text-shadow:0 0 4px rgba(30,43,60,.6)}
+.credit{position:absolute;right:12px;bottom:42px;z-index:1;font-size:10.5px;color:var(--snow);text-shadow:0 0 4px rgba(30,43,60,.6)}
 
 /* ---------- today's info ---------- */
 .info{position:relative;z-index:2;margin:-34px 14px 0;display:grid;grid-template-columns:1fr 1fr;gap:8px}
@@ -117,7 +120,10 @@ section{padding:26px 16px 6px}
 .bub .ph svg,.bub .ph img,.bigph svg,.bigph img{width:100%;height:100%;display:block;object-fit:cover}
 .bub b{display:block;font-family:var(--display);font-weight:400;font-size:13.5px;padding:4px 5px 0;line-height:1.35;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--night);position:relative;z-index:1}
 .bub small{display:block;font-size:10px;color:var(--tuff);padding:0 5px 2px;line-height:1.4;position:relative;z-index:1}
-.bigph{height:190px;border-radius:16px;overflow:hidden;margin:4px 0 10px}
+.bigph{height:230px;border-radius:16px;overflow:hidden;margin:4px 0 6px;background:var(--mist)}
+.gal{display:flex;gap:6px;margin:6px 0 10px}
+.gal button{border:0;padding:0;width:64px;height:48px;border-radius:8px;overflow:hidden;cursor:pointer}
+.gal img{width:100%;height:100%;object-fit:cover;display:block}
 .facts{display:grid;gap:6px;font-size:13px;margin:8px 0}
 .facts div{background:#fff;border:1px solid var(--mist);border-radius:10px;padding:7px 10px}
 .facts b{display:block;font-size:11px;color:var(--tuff);font-weight:500}
@@ -206,7 +212,7 @@ body.sheet #sheet{transform:none;visibility:visible;transition:transform .55s cu
     <p class="sub">景色の吹き出しを押すと、その場所のくわしい話と音声ガイドへ</p>
     <div id="map"></div>
     <div class="maptools"><button id="mNear">全部の場所</button><button id="mWide">上川町まで</button><button id="mMe">現在地</button><button id="mPhoto">航空写真</button></div>
-    <div class="legend"><i style="background:var(--spruce)"></i>現地で確かめた位置　<i style="background:#fff;border:2px dashed var(--rowan)"></i>まだ現地で確かめていない位置<br>吹き出しの景色は仮の絵です。写真の許可が出たら差し替えます</div>
+    <div class="legend"><i style="background:var(--spruce)"></i>現地で確かめた位置　<i style="background:#fff;border:2px dashed var(--rowan)"></i>まだ現地で確かめていない位置<br>写真がまだない場所は、仮の絵を出しています</div>
   </section>
 
   <!-- 8-2 questions -->
@@ -276,7 +282,7 @@ body.sheet #sheet{transform:none;visibility:visible;transition:transform .55s cu
   <footer>
     試作版（日本語のみ）。書いてあることは、層雲峡ビジターセンター・観光協会・環境省・産総研などの公開資料で確かめた内容だけを載せ、出典を各項目に付けています。<br>
     地図：国土地理院 地理院タイル／天気：気象庁／音声：<span id="voiceCredit"></span><br>
-    写真は掲載の許可をいただいてから載せます。いまの絵は仮のものです。
+    写真がまだない場所・季節は、仮の絵を出しています。
   </footer>
 </div>
 
@@ -340,24 +346,47 @@ function particles(S){
  }
  return h;
 }
+/* ---------- photos (provided by はな; metadata removed, resized for the web) ---------- */
+const PHOTO_CREDIT='';   // e.g. '写真：○○' — shown next to every photo
+const HERO_PHOTOS=[
+ {s:'autumn',src:'photos/top/autumn-canyon-aerial.jpg',place:'層雲峡の渓谷（空撮）'},
+ {s:'autumn',src:'photos/momijidani-entrance/autumn-2.jpg',place:'紅葉谷'},
+ {s:'spring',src:'photos/ginga-ryusei/spring-ginga.jpg',place:'銀河の滝'},
+ {s:'spring',src:'photos/obako/spring-2.jpg',place:'大函'},
+ {s:'spring',src:'photos/ginga-ryusei/spring-ryusei.jpg',place:'流星の滝'},
+];
+const GALLERY={
+ 'momijidani-entrance':[{f:'autumn',s:'autumn',c:'秋の紅葉谷'},{f:'autumn-2',s:'autumn',c:'秋の紅葉谷'}],
+ 'ginga-ryusei':[{f:'spring',s:'spring',c:'春・双瀑台'},{f:'spring-ginga',s:'spring',c:'春・銀河の滝'},{f:'spring-ryusei',s:'spring',c:'春・流星の滝'}],
+ 'obako':[{f:'spring',s:'spring',c:'春の大函'},{f:'spring-2',s:'spring',c:'春の大函'}],
+};
+const SI={spring:0,summer:1,autumn:2,winter:3};
 const scenes=$('scenes'),dots=$('sdots'),hero=$('hero');
-SEASONS.forEach((S,i)=>{
- const d=document.createElement('div');d.className='scene';
- d.innerHTML=(S.photo?`<img src="${esc(S.photo.src)}" alt="${esc(S.photo.place)}（${S.n}）" loading="${i?'lazy':'eager'}">`:svg(S,i))+particles(S);
+const mo=new Date().getMonth()+1, nowS=mo>=5&&mo<=6?0:mo>=7&&mo<=8?1:mo>=9&&mo<=10?2:3;
+// slides: photos if there are any (starting from today's season), otherwise the drawn seasons
+let SLIDES=HERO_PHOTOS.map(x=>({...x,si:SI[x.s]})).sort((a,b)=>((a.si-nowS+4)%4)-((b.si-nowS+4)%4));
+if(!SLIDES.length)SLIDES=SEASONS.map((S,i)=>({si:i,draw:true}));
+SLIDES.forEach((x,i)=>{
+ const S=SEASONS[x.si],d=document.createElement('div');d.className='scene'+(x.draw?'':' photo');
+ d.innerHTML=(x.draw?svg(S,i):`<img src="${esc(x.src)}" alt="${esc(x.place)}（${S.n}）" ${i?'loading="lazy"':'fetchpriority="high"'}>`)+particles(S);
  scenes.appendChild(d);
- const b=document.createElement('button');b.textContent=S.n;b.style.setProperty('--c',S.c);b.setAttribute('aria-label',S.n+'の景色');
- b.onclick=()=>{held=true;show(i)};dots.appendChild(b);
 });
-const mo=new Date().getMonth()+1;
-let cur=mo>=5&&mo<=6?0:mo>=7&&mo<=8?1:mo>=9&&mo<=10?2:3,held=false;
+SEASONS.forEach((S,si)=>{
+ const first=SLIDES.findIndex(x=>x.si===si),b=document.createElement('button');
+ b.textContent=S.n;b.style.setProperty('--c',S.c);
+ if(first<0){b.disabled=true;b.title=S.n+'の写真はまだありません'}else{b.setAttribute('aria-label',S.n+'の景色');b.onclick=()=>{held=true;show(first)}}
+ dots.appendChild(b);
+});
+let cur=0,curS=SLIDES[0].si,held=false;
 function show(i){
- cur=i;[...scenes.children].forEach((e,j)=>e.classList.toggle('on',j===i));[...dots.children].forEach((e,j)=>e.classList.toggle('on',j===i));
- const S=SEASONS[i];hero.classList.toggle('dark',S.dark);document.documentElement.style.setProperty('--accent',S.accent);
- $('credit').textContent=S.photo?`${S.photo.place}　${S.photo.credit}`:'';
- if(window.mapReady)refreshBubbles();
+ cur=i;const x=SLIDES[i],S=SEASONS[x.si],changed=curS!==x.si;curS=x.si;
+ [...scenes.children].forEach((e,j)=>e.classList.toggle('on',j===i));[...dots.children].forEach((e,j)=>e.classList.toggle('on',j===curS));
+ hero.classList.toggle('dark',x.draw?S.dark:true);document.documentElement.style.setProperty('--accent',S.accent);
+ $('credit').textContent=x.draw?'':`${S.n}・${x.place}${PHOTO_CREDIT?'　'+PHOTO_CREDIT:''}`;
+ if(changed&&window.mapReady)refreshBubbles();
 }
-show(cur);
-if(!reduce)setInterval(()=>{if(!held&&!document.hidden)show((cur+1)%4)},11000);
+show(0);
+if(!reduce)setInterval(()=>{if(!held&&!document.hidden)show((cur+1)%SLIDES.length)},9000);
 
 /* ---------- weather (JMA, shown as-is with its time) ---------- */
 fetch('https://www.jma.go.jp/bosai/forecast/data/forecast/012000.json').then(r=>r.json()).then(d=>{
@@ -430,8 +459,7 @@ $('sheetBg').onclick=closeSheet;document.querySelector('#sheet .close').onclick=
 addEventListener('keydown',e=>{if(e.key==='Escape')closeSheet()});
 
 /* ---------- places map: pins with scenery bubbles ---------- */
-/* PHOTOS: when permission is given, add {src, credit} per place id and the bubble shows the photo instead of the drawing. */
-const PHOTOS={};
+const PHOTOS=GALLERY;
 /* where each bubble sits, as the offset (px) of its top-left corner from the pin; laid out so the bubbles never overlap at the first view */
 const BUBBLE_POS={'momijidani-entrance':[-98,-136],'ginga-ryusei':[-8,-152],'momiji-falls':[-108,34],'obako':[-138,-50]},BW=124,BH=118;
 const SHORT={'ginga-ryusei':'銀河・流星の滝'};
@@ -461,7 +489,9 @@ function thumb(id,S){
  }else g=crowns(14,44,[0,120]);
  return `<svg viewBox="0 0 120 74" preserveAspectRatio="xMidYMid slice" aria-hidden="true">${sky}${g}</svg>`;
 }
-const scene=(id)=>PHOTOS[id]?`<img src="${esc(PHOTOS[id].src)}" alt="">`:thumb(id,SEASONS[cur]);
+const pickPhoto=id=>{const g=GALLERY[id];return g&&(g.find(x=>SI[x.s]===curS)||g[0])};
+const photoSrc=(id,x,th)=>`photos/${id}/${x.f}${th?'-thumb':''}.jpg`;
+const scene=(id,big)=>{const x=pickPhoto(id);return x?`<img src="${photoSrc(id,x,!big)}" alt="${esc(x.c)}" loading="lazy">`:thumb(id,SEASONS[curS])};
 let map,me,pins=[],base,photo,tourT,tourHold=0,tourI=0;
 function initMap(){
  if(!window.L){$('map').innerHTML='<p class="sub" style="padding:14px">地図を読み込めませんでした</p>';return}
@@ -492,11 +522,15 @@ function initMap(){
    map.setView(l,14);$('mMe').textContent='現在地';},()=>{$('mMe').textContent='使えません'},{enableHighAccuracy:true,timeout:10000});};
 }
 function setAct(i){pins.forEach((x,j)=>{const el=x.m.getElement().querySelector('.pin');el.classList.toggle('act',j===i);x.m.setZIndexOffset(j===i?1000:0)})}
-function refreshBubbles(){pins.forEach(x=>{if(PHOTOS[x.p.id])return;const ph=x.m.getElement()&&x.m.getElement().querySelector('.ph');if(ph)ph.innerHTML=scene(x.p.id)})}
+function refreshBubbles(){pins.forEach(x=>{const ph=x.m.getElement()&&x.m.getElement().querySelector('.ph');if(ph)ph.innerHTML=scene(x.p.id)})}
+function gallery(id){const g=GALLERY[id];
+ return `<div class="k">${esc(pickPhoto(id).c)}${PHOTO_CREDIT?'　'+esc(PHOTO_CREDIT):''}</div>${g.length>1?`<div class="gal">${g.map(x=>`<button data-src="${photoSrc(id,x)}" data-c="${esc(x.c)}"><img src="${photoSrc(id,x,true)}" alt="${esc(x.c)}" loading="lazy"></button>`).join('')}</div>`:''}`}
+$('sheetBody').addEventListener('click',e=>{const b=e.target.closest('.gal button');if(!b)return;const big=$('sheetBody').querySelector('.bigph');
+ big.innerHTML=`<img src="${b.dataset.src}" alt="${b.dataset.c}">`;const k=big.nextElementSibling;if(k)k.textContent=b.dataset.c+(PHOTO_CREDIT?'　'+PHOTO_CREDIT:'')});
 function openPlace(p){
  met.places.add(p.id);const L0=p.location,au=ptAudio(p);
  openSheet(`<div class="k">${esc(L0.area||'')}${L0.measured?'・現地で確かめた位置':''}</div><h3>${esc(cleanName(p))}</h3>
-  <div class="bigph">${scene(p.id)}</div>${PHOTOS[p.id]?`<div class="k">写真：${esc(PHOTOS[p.id].credit)}</div>`:'<div class="k">仮の絵です（写真は許可が出たら差し替え）</div>'}
+  <div class="bigph">${scene(p.id,true)}</div>${GALLERY[p.id]?gallery(p.id):'<div class="k">仮の絵です（写真が届いたら差し替え）</div>'}
   <p>${esc(p.core.split('。').slice(0,2).join('。'))}。</p>
   <div class="facts">${L0.access?`<div><b>行き方</b>${esc(L0.access)}</div>`:''}${L0.season?`<div><b>行ける時期</b>${esc(L0.season)}</div>`:''}${L0.measured?'':`<div><b>位置について</b>${esc(L0.coord_note)}</div>`}</div>
   <a class="btn" style="display:block;text-align:center;text-decoration:none" href="guide.html#${esc(p.id)}">この場所のページへ（音声ガイド${au?` ${Math.round(au.seconds)}秒`:''}）</a>${relSrc(p)}`);

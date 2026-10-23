@@ -57,7 +57,9 @@
     "season_en": "June to early November (tourism association). In winter you can walk it on snowshoes (visitor center; going with a guide or joining a nature walk is recommended)",
     "access_en": "About 15 minutes on foot from the hot spring town to the entrance. From the entrance to Momiji Falls: about 700 m, about 30 minutes one way"
    },
-   "photos": {},
+   "photos": {
+    "autumn": "photos/momijidani-entrance/autumn.jpg"
+   },
    "highlights": [
     {
      "name": "柱状節理",
@@ -895,7 +897,9 @@
     "season_en": "All year",
     "access_en": "You can see them up close from the parking lot. About 20 minutes up the slope to Sobakudai Observatory"
    },
-   "photos": {},
+   "photos": {
+    "spring": "photos/ginga-ryusei/spring.jpg"
+   },
    "highlights": [
     {
      "name": "双瀑台",
@@ -1012,7 +1016,9 @@
     "season_en": "Winter access not yet confirmed",
     "access_en": "About 6 km from the hot spring town toward Kitami; on the left just past the new Obako tunnel"
    },
-   "photos": {},
+   "photos": {
+    "spring": "photos/obako/spring.jpg"
+   },
    "highlights": [
     {
      "name": "火砕流でできた柱状節理",
