@@ -202,14 +202,14 @@ body.sheet #sheet{transform:none;visibility:visible;transition:transform .55s cu
     <a id="wx" href="https://www.jma.go.jp/bosai/forecast/#area_type=class10s&area_code=012010" target="_blank" rel="noopener"><b>上川地方の天気</b><small>気象庁の予報</small><span class="go">見る ›</span></a>
     <a href="https://www.rinyu.co.jp/kurodake/" target="_blank" rel="noopener"><b>黒岳ロープウェイ</b><small>本日の運行状況（運営会社・りんゆう観光）</small><span class="go">見る ›</span></a>
     <a href="https://sounkyovc.net/trails" target="_blank" rel="noopener"><b>登山道・山の情報</b><small>層雲峡ビジターセンター</small><span class="go">見る ›</span></a>
-    <a class="warn" href="https://www.town.kamikawa.hokkaido.jp/" target="_blank" rel="noopener"><b>ヒグマのすむ森です</b><small>鈴など音の出るものを持って。出没情報は上川町へ</small><span class="go">見る ›</span></a>
+    <a class="warn" href="https://www.pref.hokkaido.lg.jp/ks/skn/higuma/229357.html" target="_blank" rel="noopener"><b>ヒグマのすむ森です</b><small>鈴など音の出るものを。いま出ている注意報（北海道）</small><span class="go">見る ›</span></a>
   </div>
   <p class="asof" id="asof">運行状況などは、公式のページをそのまま開きます（このページでは書き換えません）</p>
 
   <!-- 8-1 places + 10 map (merged) -->
   <section id="places">
     <h2><span class="ln"></span>行ってみたい場所</h2>
-    <p class="sub">景色の吹き出しを押すと、その場所のくわしい話と音声ガイドへ</p>
+    <p class="sub">ピンや吹き出しを押すと、その場所のページ（音声ガイド）がすぐ開きます</p>
     <div id="map"></div>
     <div class="maptools"><button id="mNear">全部の場所</button><button id="mWide">上川町まで</button><button id="mMe">現在地</button><button id="mPhoto">航空写真</button></div>
     <div class="legend"><i style="background:var(--spruce)"></i>現地で確かめた位置　<i style="background:#fff;border:2px dashed var(--rowan)"></i>まだ現地で確かめていない位置<br>写真がまだない場所は、仮の絵を出しています</div>
@@ -225,8 +225,8 @@ body.sheet #sheet{transform:none;visibility:visible;transition:transform .55s cu
   <!-- 8-3 creatures -->
   <section id="life">
     <h2><span class="ln"></span>層雲峡のいきもの</h2>
-    <p class="sub">紅葉谷で見られる植物と動物（層雲峡ビジターセンターの資料から）</p>
-    <div class="chips" id="lifeChips"></div>
+    <p class="sub">シャボン玉の中に、層雲峡でくらすいきものがいます（層雲峡ビジターセンターの資料から）</p>
+    <div id="lifeBubbles"></div>
     <button class="btn line" disabled>いきものの世界をのぞく（準備中）</button>
   </section>
 
@@ -290,6 +290,7 @@ body.sheet #sheet{transform:none;visibility:visible;transition:transform .55s cu
 <div id="sheet" role="dialog" aria-modal="true"><div class="grab"></div><button class="close" aria-label="閉じる">×</button><div id="sheetBody"></div></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script src="bubbles.js"></script>
 <script>
 const $=id=>document.getElementById(id);
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
@@ -446,12 +447,8 @@ function openQ(q){
  }
 }
 function renderLife(){
- const p=pt('momijidani-entrance');if(!p)return;
- const list=(p.highlights||[]).filter(h=>h.category==='植物'||h.category==='動物');
- $('lifeChips').innerHTML=list.map((h,i)=>`<button class="chip ${h.category==='植物'?'p':'a'}" data-n="${esc(h.name)}">${esc(h.name)}</button>`).join('');
- $('lifeChips').onclick=e=>{const b=e.target.closest('.chip');if(!b)return;met.life.add(b.dataset.n);const h=hlFind('momijidani-entrance',b.dataset.n);
-  openSheet(`<div class="k">${esc(h.category)}・紅葉谷</div><h3>${esc(h.name)}</h3><p>${esc(h.description)}</p>${h.when?`<span class="when">${esc(h.when)}</span>`:''}${h.note?`<p class="note">${esc(h.note)}</p>`:''}
-   <a class="btn line" style="display:block;text-align:center;text-decoration:none" href="guide.html#momijidani-entrance">紅葉谷のページで、地図と一緒に見る</a>${srcHTML(h.sources)}`)};
+ const places=[];const seen=new Set();G.points.forEach(p=>{if(p.location.lat&&!seen.has(p.place)){seen.add(p.place);places.push({id:p.id,name:cleanName(p)})}});
+ Bubbles.render($('lifeBubbles'),G.creatures||[],{lang:'ja',places,onOpen:c=>met.life.add(c.name)});
 }
 function openSheet(html){$('sheetBody').innerHTML=html;document.body.classList.add('sheet');$('sheetBody').querySelectorAll('audio').forEach(a=>a.addEventListener('play',()=>met.audio.add(a.src),{once:true}))}
 function closeSheet(){document.body.classList.remove('sheet');$('sheetBody').querySelectorAll('audio').forEach(a=>a.pause())}
@@ -504,7 +501,7 @@ function initMap(){
   const ex=Math.max(ox,Math.min(0,ox+BW)),ey=Math.max(oy,Math.min(0,oy+BH));   // nearest point of the bubble to the pin
   const html=`<div class="pin${L0.measured?'':' um'}" data-id="${esc(p.id)}"><svg class="lead" width="1" height="1"><line x1="0" y1="0" x2="${ex}" y2="${ey}" stroke="${P.snow}" stroke-width="4" stroke-linecap="round"/><line x1="0" y1="0" x2="${ex}" y2="${ey}" stroke="${P.spruce}" stroke-width="1.5" stroke-linecap="round"/></svg><button class="bub" style="left:${ox}px;top:${oy}px;transform-origin:${-ox}px ${-oy}px" aria-label="${esc(cleanName(p))}"><div class="ph">${scene(p.id)}</div><b>${esc(SHORT[p.id]||cleanName(p))}</b><small>${au?`音声 ${Math.round(au.seconds)}秒`:''}${(p.highlights||[]).length>2?`・見どころ${p.highlights.length}`:''}</small></button><i class="dot"></i></div>`;
   const m=L.marker([L0.lat,L0.lng],{icon:L.divIcon({className:'pinwrap',html,iconSize:[0,0],iconAnchor:[0,0]}),keyboard:false}).addTo(map);
-  m.on('click',()=>{tourHold=Date.now()+12000;openPlace(p)});
+  m.on('click',()=>{met.places.add(p.id);location.href='guide.html#'+p.id});
   pins.push({p,m});ll.push([L0.lat,L0.lng]);});
  const near=()=>map.fitBounds(ll,{paddingTopLeft:[100,175],paddingBottomRight:[70,60],maxZoom:12});near();
  // bubbles pop out one by one, then a gentle tour highlights each place in turn

@@ -1168,5 +1168,415 @@
     }
    }
   }
+ ],
+ "creatures": [
+  {
+   "id": "402fd841a42c8118a6c2e90850746c89",
+   "name": "紅葉",
+   "label": "紅葉",
+   "category": "植物",
+   "motif": "カエデの葉",
+   "when": "例年10月上旬〜中旬",
+   "description": "入口のまわりは温泉街の紅葉の名所。ハウチワカエデやナナカマドは赤〜橙に、イタヤカエデやカツラ、ダケカンバは黄色に色づく。",
+   "note": null,
+   "ainu_name": null,
+   "ainu_meaning": null,
+   "ainu_relation": null,
+   "relations": null,
+   "status": "2資料で一致",
+   "order": 1,
+   "name_en": "Autumn leaves",
+   "label_en": null,
+   "description_en": "The area around the trail entrance is the hot spring town's best-known spot for autumn color. Full-moon maple and Japanese rowan turn red to orange, while painted maple, katsura and Erman's birch turn yellow.",
+   "points": [
+    "momijidani-entrance"
+   ],
+   "sources": [
+    {
+     "name": "紅葉谷散策ガイド（層雲峡ビジターセンター）",
+     "url": "https://sounkyovc.net/wp-content/uploads/2023/08/momiji_valley_guide.pdf",
+     "name_en": "Momijidani trail guide (Sounkyo Visitor Center; in Japanese)"
+    },
+    {
+     "name": "層雲峡情報（層雲峡ビジターセンター）",
+     "url": "https://sounkyovc.net/info",
+     "name_en": "Sounkyo information (Sounkyo Visitor Center; in Japanese)"
+    },
+    {
+     "name": "紅葉谷の散策道（層雲峡観光協会）",
+     "url": "https://sounkyo.net/view/detail.html?content=8",
+     "name_en": "Momijidani trail (Sounkyo Tourism Association; in Japanese)"
+    }
+   ]
+  },
+  {
+   "id": "402fd841a42c812ba690f2d050281a71",
+   "name": "ウダイカンバの大木",
+   "label": "ウダイカンバ",
+   "category": "植物",
+   "motif": "カバノキ",
+   "when": null,
+   "description": "カバノキの仲間で、いちばん質のよい木材がとれる木。ほかのカバノキと比べものにならないほど良いことから「真樺（まかば）」と呼ばれる。",
+   "note": null,
+   "ainu_name": null,
+   "ainu_meaning": null,
+   "ainu_relation": null,
+   "relations": null,
+   "status": "出典あり",
+   "order": 2,
+   "name_en": "Big monarch birch",
+   "label_en": null,
+   "description_en": "A member of the birch family that gives the finest timber of them all. Its wood is so much better than that of other birches that it is called makaba, “the true birch”.",
+   "points": [
+    "momijidani-entrance"
+   ],
+   "sources": [
+    {
+     "name": "紅葉谷散策ガイド（層雲峡ビジターセンター）",
+     "url": "https://sounkyovc.net/wp-content/uploads/2023/08/momiji_valley_guide.pdf",
+     "name_en": "Momijidani trail guide (Sounkyo Visitor Center; in Japanese)"
+    },
+    {
+     "name": "紅葉谷散策マップ（層雲峡ビジターセンター）",
+     "url": "https://sounkyovc.net/wp-content/uploads/2023/08/momiji_valley_map.pdf",
+     "name_en": "Momijidani trail map (Sounkyo Visitor Center; in Japanese)"
+    }
+   ]
+  },
+  {
+   "id": "402fd841a42c819a93bacf8d81985d72",
+   "name": "カツラの木",
+   "label": "カツラ",
+   "category": "植物",
+   "motif": "カツラの葉",
+   "when": "黄葉は秋",
+   "description": "高さ20〜30m、太さ1〜2mにもなり、北海道でいちばん大きくなる木といわれる。秋に黄色く色づくと、よい香りがする。",
+   "note": null,
+   "ainu_name": null,
+   "ainu_meaning": null,
+   "ainu_relation": null,
+   "relations": null,
+   "status": "出典あり",
+   "order": 3,
+   "name_en": "Katsura tree",
+   "label_en": null,
+   "description_en": "Said to grow bigger than any other tree in Hokkaido, reaching 20–30 m tall and 1–2 m across. When its leaves turn yellow in autumn, they give off a sweet smell.",
+   "points": [
+    "momijidani-entrance"
+   ],
+   "sources": [
+    {
+     "name": "紅葉谷散策ガイド（層雲峡ビジターセンター）",
+     "url": "https://sounkyovc.net/wp-content/uploads/2023/08/momiji_valley_guide.pdf",
+     "name_en": "Momijidani trail guide (Sounkyo Visitor Center; in Japanese)"
+    },
+    {
+     "name": "紅葉谷散策マップ（層雲峡ビジターセンター）",
+     "url": "https://sounkyovc.net/wp-content/uploads/2023/08/momiji_valley_map.pdf",
+     "name_en": "Momijidani trail map (Sounkyo Visitor Center; in Japanese)"
+    }
+   ]
+  },
+  {
+   "id": "402fd841a42c811f9422d243338f9165",
+   "name": "倒木更新",
+   "label": "倒木更新",
+   "category": "植物",
+   "motif": "倒木と芽",
+   "when": null,
+   "description": "倒れた木や切り株の上に種が落ちて芽を出し、次の世代の木が育っていくこと。森の世代交代のかたちのひとつ。",
+   "note": null,
+   "ainu_name": null,
+   "ainu_meaning": null,
+   "ainu_relation": null,
+   "relations": null,
+   "status": "出典あり",
+   "order": 4,
+   "name_en": "Nurse logs",
+   "label_en": null,
+   "description_en": "Seeds land on fallen trees and stumps, sprout, and grow into the next generation of trees. It is one of the ways a forest renews itself.",
+   "points": [
+    "momijidani-entrance"
+   ],
+   "sources": [
+    {
+     "name": "紅葉谷散策ガイド（層雲峡ビジターセンター）",
+     "url": "https://sounkyovc.net/wp-content/uploads/2023/08/momiji_valley_guide.pdf",
+     "name_en": "Momijidani trail guide (Sounkyo Visitor Center; in Japanese)"
+    },
+    {
+     "name": "紅葉谷散策マップ（層雲峡ビジターセンター）",
+     "url": "https://sounkyovc.net/wp-content/uploads/2023/08/momiji_valley_map.pdf",
+     "name_en": "Momijidani trail map (Sounkyo Visitor Center; in Japanese)"
+    }
+   ]
+  },
+  {
+   "id": "402fd841a42c811e884bfdb6d9521153",
+   "name": "ミヤママタタビ",
+   "label": "ミヤママタタビ",
+   "category": "植物",
+   "motif": "つる",
+   "when": "葉の色が変わるのは花の時期",
+   "description": "ほかの木や岩に絡みついて伸びる、つる性の木。花の時期になると葉がピンク色に変わる。",
+   "note": null,
+   "ainu_name": null,
+   "ainu_meaning": null,
+   "ainu_relation": null,
+   "relations": null,
+   "status": "出典あり",
+   "order": 5,
+   "name_en": "Kolomikta vine",
+   "label_en": null,
+   "description_en": "A woody vine that grows by climbing other trees and rocks. Around flowering time, its leaves turn pink.",
+   "points": [
+    "momijidani-entrance"
+   ],
+   "sources": [
+    {
+     "name": "紅葉谷散策ガイド（層雲峡ビジターセンター）",
+     "url": "https://sounkyovc.net/wp-content/uploads/2023/08/momiji_valley_guide.pdf",
+     "name_en": "Momijidani trail guide (Sounkyo Visitor Center; in Japanese)"
+    },
+    {
+     "name": "紅葉谷散策マップ（層雲峡ビジターセンター）",
+     "url": "https://sounkyovc.net/wp-content/uploads/2023/08/momiji_valley_map.pdf",
+     "name_en": "Momijidani trail map (Sounkyo Visitor Center; in Japanese)"
+    }
+   ]
+  },
+  {
+   "id": "402fd841a42c81a09253c3d02928edcd",
+   "name": "紅葉谷で咲く花",
+   "label": "紅葉谷の花",
+   "category": "植物",
+   "motif": "花",
+   "when": "5月中旬ごろ〜夏",
+   "description": "紅葉谷のまわりでは150種以上の植物が見られる。5月中旬ごろ、ヒメイチゲやニリンソウから咲き始め、6月下旬にはヤマブキショウマやモミジカラマツ、7月以降はクルマユリやエゾトリカブトなどが続く。ゴゼンタチバナ、ムラサキヤシオ、ウコンウツギなどは、ビジターセンターの花図鑑で写真を見られる。",
+   "note": "植物は採らずに、見るだけにしましょう。",
+   "ainu_name": null,
+   "ainu_meaning": null,
+   "ainu_relation": null,
+   "relations": null,
+   "status": "出典あり",
+   "order": 6,
+   "name_en": "Flowers of Momijidani",
+   "label_en": null,
+   "description_en": "More than 150 plant species can be seen around Momijidani. Around mid-May, Anemone debilis and Anemone flaccida bloom first; in late June come Aruncus and Trautvetteria, and from July on, Lilium medeoloides, Ezo monkshood and others follow. Photos of bunchberry, Rhododendron albrechtii, Weigela middendorffiana and more are in the visitor center's flower guide (in Japanese).",
+   "points": [
+    "momijidani-entrance"
+   ],
+   "sources": [
+    {
+     "name": "紅葉谷散策ガイド（層雲峡ビジターセンター）",
+     "url": "https://sounkyovc.net/wp-content/uploads/2023/08/momiji_valley_guide.pdf",
+     "name_en": "Momijidani trail guide (Sounkyo Visitor Center; in Japanese)"
+    },
+    {
+     "name": "花図鑑（層雲峡ビジターセンター）",
+     "url": "https://sounkyovc.net/db/hanazukan",
+     "name_en": "Flower guide (Sounkyo Visitor Center; in Japanese)"
+    }
+   ]
+  },
+  {
+   "id": "402fd841a42c819c84faf6d2177de782",
+   "name": "マダラスズ",
+   "label": "マダラスズ",
+   "category": "虫",
+   "motif": "コオロギ",
+   "when": "紅葉谷では一年中",
+   "description": "体長6〜7mmの小さなコオロギ。平地では夏の虫だが、地熱のある温泉地では冬にも鳴くことで知られ、紅葉谷では一年中観察できる。",
+   "note": null,
+   "ainu_name": null,
+   "ainu_meaning": null,
+   "ainu_relation": null,
+   "relations": null,
+   "status": "出典あり",
+   "order": 7,
+   "name_en": "Madara-suzu cricket",
+   "label_en": null,
+   "description_en": "A tiny cricket, 6–7 mm long. In the lowlands it is a summer insect, but at hot spring areas warmed by geothermal heat it is known to sing even in winter, and in Momijidani it can be seen all year.",
+   "points": [
+    "momijidani-entrance"
+   ],
+   "sources": [
+    {
+     "name": "紅葉谷散策ガイド（層雲峡ビジターセンター）",
+     "url": "https://sounkyovc.net/wp-content/uploads/2023/08/momiji_valley_guide.pdf",
+     "name_en": "Momijidani trail guide (Sounkyo Visitor Center; in Japanese)"
+    },
+    {
+     "name": "紅葉谷散策マップ（層雲峡ビジターセンター）",
+     "url": "https://sounkyovc.net/wp-content/uploads/2023/08/momiji_valley_map.pdf",
+     "name_en": "Momijidani trail map (Sounkyo Visitor Center; in Japanese)"
+    }
+   ]
+  },
+  {
+   "id": "402fd841a42c81cb93ccf53ee1db4525",
+   "name": "ニホンザリガニの沢",
+   "label": "ニホンザリガニ",
+   "category": "水の生きもの",
+   "motif": "ザリガニ",
+   "when": null,
+   "description": "北海道と東北の一部にだけすむ、日本固有のザリガニ。体長4〜8cmと小さく、色は暗い褐色。江戸時代には、体の中にできる石が薬として大切にされた。",
+   "note": "生きものは捕まえずに、見るだけにしましょう。",
+   "ainu_name": null,
+   "ainu_meaning": null,
+   "ainu_relation": null,
+   "relations": null,
+   "status": "出典あり",
+   "order": 8,
+   "name_en": "Japanese crayfish stream",
+   "label_en": null,
+   "description_en": "A crayfish found only in Japan, living only in Hokkaido and parts of the Tohoku region. It is small, 4–8 cm long, and dark brown. In the Edo period, the stones that form inside its body were prized as medicine.",
+   "points": [
+    "momijidani-entrance"
+   ],
+   "sources": [
+    {
+     "name": "紅葉谷散策ガイド（層雲峡ビジターセンター）",
+     "url": "https://sounkyovc.net/wp-content/uploads/2023/08/momiji_valley_guide.pdf",
+     "name_en": "Momijidani trail guide (Sounkyo Visitor Center; in Japanese)"
+    },
+    {
+     "name": "紅葉谷散策マップ（層雲峡ビジターセンター）",
+     "url": "https://sounkyovc.net/wp-content/uploads/2023/08/momiji_valley_map.pdf",
+     "name_en": "Momijidani trail map (Sounkyo Visitor Center; in Japanese)"
+    }
+   ]
+  },
+  {
+   "id": "402fd841a42c810fb7dce872369ffd06",
+   "name": "クマの木",
+   "label": "クマの木",
+   "category": "動物",
+   "motif": "爪あと",
+   "when": null,
+   "description": "ヒグマの爪あとが残る木。以前この木にはコクワのつるが絡んでいて、実がなるころにクマがよじ登った跡だとされている。",
+   "note": "紅葉谷はヒグマのすむ場所です。鈴など音の鳴るものを持って歩きましょう。",
+   "ainu_name": null,
+   "ainu_meaning": null,
+   "ainu_relation": null,
+   "relations": null,
+   "status": "出典あり",
+   "order": 9,
+   "name_en": "Bear tree",
+   "label_en": null,
+   "description_en": "A tree that still carries a brown bear's claw marks. A kokuwa (hardy kiwi) vine used to wind around this tree, and the marks are said to be from a bear that climbed up when the fruit was ripe.",
+   "points": [
+    "momijidani-entrance"
+   ],
+   "sources": [
+    {
+     "name": "紅葉谷散策ガイド（層雲峡ビジターセンター）",
+     "url": "https://sounkyovc.net/wp-content/uploads/2023/08/momiji_valley_guide.pdf",
+     "name_en": "Momijidani trail guide (Sounkyo Visitor Center; in Japanese)"
+    },
+    {
+     "name": "層雲峡情報（層雲峡ビジターセンター）",
+     "url": "https://sounkyovc.net/info",
+     "name_en": "Sounkyo information (Sounkyo Visitor Center; in Japanese)"
+    }
+   ]
+  },
+  {
+   "id": "402fd841a42c81cb8ee5c8cb6e9faa0b",
+   "name": "クマゲラの採餌木",
+   "label": "クマゲラ",
+   "category": "鳥",
+   "motif": "キツツキ",
+   "when": null,
+   "description": "クマゲラが餌を探してつついた跡が残る木。クマゲラは体が黒く頭の後ろが赤い、日本最大のキツツキで、国の天然記念物。アイヌ語では「チプタチカム・カムイ」と呼ばれる。",
+   "note": null,
+   "ainu_name": "チプタチカム・カムイ",
+   "ainu_meaning": null,
+   "ainu_relation": null,
+   "relations": null,
+   "status": "出典あり",
+   "order": 10,
+   "name_en": "Black woodpecker feeding tree",
+   "label_en": null,
+   "description_en": "A tree marked where a black woodpecker pecked for food. With its black body and red on the back of its head, the black woodpecker is Japan's largest woodpecker and a national natural monument. In Ainu it is called Chiptachikam Kamuy (チプタチカム・カムイ).",
+   "points": [
+    "momijidani-entrance"
+   ],
+   "sources": [
+    {
+     "name": "紅葉谷散策ガイド（層雲峡ビジターセンター）",
+     "url": "https://sounkyovc.net/wp-content/uploads/2023/08/momiji_valley_guide.pdf",
+     "name_en": "Momijidani trail guide (Sounkyo Visitor Center; in Japanese)"
+    },
+    {
+     "name": "層雲峡情報（層雲峡ビジターセンター）",
+     "url": "https://sounkyovc.net/info",
+     "name_en": "Sounkyo information (Sounkyo Visitor Center; in Japanese)"
+    }
+   ]
+  },
+  {
+   "id": "402fd841a42c81ce8940c9efcabf430f",
+   "name": "エゾモモンガ",
+   "label": "エゾモモンガ",
+   "category": "動物",
+   "motif": "モモンガ",
+   "when": "主に夜に活動する",
+   "description": "北海道の低地から亜高山帯の森にすむ。前足と後ろ足のあいだの膜を広げて、木から木へと滑空する。",
+   "note": null,
+   "ainu_name": null,
+   "ainu_meaning": null,
+   "ainu_relation": null,
+   "relations": null,
+   "status": "出典あり",
+   "order": 11,
+   "name_en": "Ezo flying squirrel",
+   "label_en": null,
+   "description_en": "Lives in Hokkaido's forests, from the lowlands up to the subalpine zone. It glides from tree to tree by spreading the membrane between its front and back legs.",
+   "points": [
+    "momijidani-entrance"
+   ],
+   "sources": [
+    {
+     "name": "紅葉谷散策ガイド（層雲峡ビジターセンター）",
+     "url": "https://sounkyovc.net/wp-content/uploads/2023/08/momiji_valley_guide.pdf",
+     "name_en": "Momijidani trail guide (Sounkyo Visitor Center; in Japanese)"
+    },
+    {
+     "name": "紅葉谷散策マップ（層雲峡ビジターセンター）",
+     "url": "https://sounkyovc.net/wp-content/uploads/2023/08/momiji_valley_map.pdf",
+     "name_en": "Momijidani trail map (Sounkyo Visitor Center; in Japanese)"
+    }
+   ]
+  },
+  {
+   "id": "402fd841a42c81e2a0dfc86230151c6b",
+   "name": "キタキツネ・エゾシカ",
+   "label": "キタキツネ・エゾシカ",
+   "category": "動物",
+   "motif": "キツネ・シカ",
+   "when": null,
+   "description": "散策路では、ときどきキタキツネや、エゾシカの親子に出会うことがある（ビジターセンターの記録写真より）。",
+   "note": "野生動物に近づいたり、餌をあげたりしないでください。",
+   "ainu_name": null,
+   "ainu_meaning": null,
+   "ainu_relation": null,
+   "relations": null,
+   "status": "出典あり",
+   "order": 12,
+   "name_en": "Ezo red fox and Ezo sika deer",
+   "label_en": null,
+   "description_en": "On the trail you may sometimes meet an Ezo red fox, or a sika deer mother with her fawn (from the visitor center's record photos).",
+   "points": [
+    "momijidani-entrance"
+   ],
+   "sources": [
+    {
+     "name": "層雲峡情報（層雲峡ビジターセンター）",
+     "url": "https://sounkyovc.net/info",
+     "name_en": "Sounkyo information (Sounkyo Visitor Center; in Japanese)"
+    }
+   ]
+  }
  ]
 }

@@ -67,7 +67,7 @@ h1{font-family:var(--display);font-weight:800;font-size:2.1rem;line-height:1.2;m
 
 /* player */
 .player{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:14px}
-.modes[hidden]{display:none}
+.modes[hidden],#life-section[hidden]{display:none}
 .modes{display:flex;border:1px solid var(--line);border-radius:10px;overflow:hidden}
 .modes button{flex:1;border:0;background:transparent;font-size:.85rem;padding:8px 2px;cursor:pointer;color:var(--muted)}
 .modes button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
@@ -240,6 +240,11 @@ h2{font-family:var(--display);font-weight:800;font-size:1.25rem;margin:0}
     <div class="groups" id="groups"></div>
   </section>
 
+  <section id="life-section" hidden>
+    <div class="see-h"><h2 id="lifeH"></h2><span id="lifeCount"></span></div>
+    <div id="lifeBubbles"></div>
+  </section>
+
   <section id="others">
     <div class="section-h"><h2 data-t="othersH"></h2><span data-t="swipe"></span></div>
     <div class="strip" id="strip"></div>
@@ -274,6 +279,7 @@ h2{font-family:var(--display);font-weight:800;font-size:1.25rem;margin:0}
 </div>
 <audio id="audio" preload="metadata" playsinline></audio>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script src="bubbles.js"></script>
 <script>
 /* Everything on the page follows one language: text, audio, map labels and the things-to-see list.
    Data text comes from guide.json (Japanese fields, and the same field with _en for English). */
@@ -404,6 +410,14 @@ function renderText(){
 /* In-season check always reads the Japanese "見られる時期", which is the checked original */
 function inSeason(when,s){if(!when)return false;if(when.includes(T.ja.seasons[s])||when.includes("一年中"))return true;
   return (when.match(/(\d+)月/g)||[]).map(x=>parseInt(x)).some(m=>SEASON_MONTHS[s].includes(m))}
+/* Creatures linked to this place in Notion いきものDB (見られる場所), shown as soap bubbles */
+function renderLife(){
+  const list=(guide.creatures||[]).filter(c=>(c.points||[]).includes(cur.id)), sec=$("life-section");
+  sec.hidden=!list.length; if(!list.length||!window.Bubbles)return;
+  $("lifeH").textContent=lang==="en"?"Living things here":"ここにいるいきもの";
+  $("lifeCount").textContent=lang==="en"?`${list.length}`:`${list.length}種`;
+  Bubbles.render($("lifeBubbles"),list,{lang});
+}
 function renderSee(){
   const hl=cur.highlights||[], g=$("groups"), L=t();
   $("seeCount").textContent=hl.length?L.seeCount(hl.length):"";
@@ -524,7 +538,7 @@ function renderPager(){
 
 function show(id,keepScroll){
   cur=guide.points.find(p=>p.id===id)||guide.points[0];
-  touched=false; renderText(); renderPhoto(); renderPlayer(); renderPager(); drawMarkers(); renderSurvey();
+  touched=false; renderText(); renderPhoto(); renderPlayer(); renderPager(); drawMarkers(); renderSurvey(); renderLife();
   if("mediaSession" in navigator)navigator.mediaSession.metadata=new MediaMetadata({title:placeName(cur),artist:t().brand});
   if(!keepScroll)window.scrollTo({top:0});
 }

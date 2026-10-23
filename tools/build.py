@@ -6,6 +6,7 @@ Source of truth is Notion:
 
   - SKM 場所DB: 場所名・エリア・緯度・経度・地図レイヤー (linked from each script's 場所（SKM）)
   - SKM 見どころDB: 「ここで見られるもの」の項目 (検証状況が未検証のものは出さない) and their 出典 from 文献・ソースDB
+  - いきものDB（シャボン玉用）: いきもの1種1行。「見られる場所」で場所DBとつなぐと、その場所のページのシャボン玉に出る
 Photos are not in Notion: put your own photos at photos/<point id>/{spring,summer,autumn,winter}.jpg
 
 Usage
@@ -27,6 +28,7 @@ TTS_DIR = os.environ.get("TTS_DIR", os.path.join(os.path.dirname(os.path.abspath
 SCRIPT_DB = "394fd841a42c801e93aefb86a376294b"
 DICT_DB = "3155e6665c0244568a2edecd26eb962d"
 HIGHLIGHT_DB = "abe932fc06ea4106b6d93f8ccbda5d81"   # SKM 見どころDB（場所ページ用）
+CREATURE_DB = "5170af2562ef4103b5ac36f3f6f7e20d"    # いきものDB（シャボン玉用）: one row per species, linked to the places it lives
 CATEGORY_ORDER = ["地形・岩", "水・滝", "植物", "動物", "季節の現象", "名前・歴史"]
 
 # Voices offered in the player. style ids are VOICEVOX style ids.
@@ -128,7 +130,24 @@ def from_notion(token):
                 sources[sid] = dict(name=text(sp["資料名"]), name_en=text(sp.get("名前（英語）")) or None,
                                     url=(sp.get("URL") or {}).get("url"))
         highlights.append(h)
-    return {"scripts": scripts, "places": places, "highlights": highlights, "sources": sources,
+    creatures = []
+    for r in notion_query(CREATURE_DB, token):
+        p = r["properties"]
+        c = dict(id=r["id"].replace("-", ""), name=text(p["名前"]), label=text(p.get("表示名")) or None,
+                 category=sel(p["分類"]), motif=sel(p["モチーフ"]), places=rel(p["見られる場所"]), highlights=rel(p["見どころ"]),
+                 when=text(p["見られる季節"]) or None, description=text(p["説明"]), note=text(p["注意"]) or None,
+                 ainu_name=text(p["アイヌ語の名前"]) or None, ainu_meaning=text(p["アイヌ語の意味"]) or None,
+                 ainu_relation=text(p["アイヌの人々との関わり"]) or None, relations=text(p["まわりの生きものとの関係"]) or None,
+                 sources=rel(p["出典"]), status=sel(p["検証状況"]), order=num(p["表示順"]),
+                 name_en=text(p.get("名前（英語）")) or None, label_en=text(p.get("表示名（英語）")) or None,
+                 description_en=text(p.get("説明（英語）")) or None)
+        for sid in c["sources"]:
+            if sid not in sources:
+                sp = notion_page(sid, token)
+                sources[sid] = dict(name=text(sp["資料名"]), name_en=text(sp.get("名前（英語）")) or None,
+                                    url=(sp.get("URL") or {}).get("url"))
+        creatures.append(c)
+    return {"scripts": scripts, "places": places, "highlights": highlights, "sources": sources, "creatures": creatures,
             "dictionary": [d for d in dic if d["surface"] and d["reading"]]}
 
 
@@ -185,11 +204,26 @@ def point_meta(s, data):
                "photos": photos, "highlights": hl})
 
 
+def creatures_meta(data, points):
+    """Species for the bubbles. Only verified rows; each lists the point ids of the places it is linked to."""
+    srcs = data.get("sources") or {}
+    out = []
+    for c in data.get("creatures") or []:
+        if c.get("status") in (None, "未検証"): continue
+        pts = [p["id"] for s, p in zip(data["scripts"], points) if s.get("place_page") in c["places"]]
+        out.append({k: c.get(k) for k in ("id", "name", "label", "category", "motif", "when", "description", "note", "ainu_name",
+                                          "ainu_meaning", "ainu_relation", "relations", "status", "order", "name_en", "label_en",
+                                          "description_en")}
+                   | {"points": pts, "sources": [srcs[x] for x in c["sources"] if x in srcs]})
+    out.sort(key=lambda c: c.get("order") or 999)
+    return out
+
+
 def write_guide(data, points):
     guide = {"built_from": data.get("source", "Notion"), "exported_at": data.get("exported_at", ""),
              "voices": {"ja": {k: {"label": v["label"], "credit": v["credit"]} for k, v in JA_VOICES.items()},
                         "en": {k: {"label": v["label"], "credit": v["credit"]} for k, v in EN_VOICES.items()}},
-             "points": points}
+             "points": points, "creatures": creatures_meta(data, points)}
     json.dump(guide, open(os.path.join(ROOT, "guide.json"), "w"), ensure_ascii=False, indent=1)
 
 
