@@ -1,0 +1,430 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>層雲峡ガイド トップ（試作）</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Antique+Soft&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<style>
+/* Every color is named after something in Sounkyo's nature (see wireframe/style.html). */
+:root{
+  --snow:#F5F4EF;--mist:#E3E6E2;--tuff:#77736C;--night:#1E2B3C;--spruce:#2E4A3C;--river:#3D7C84;
+  --moss:#7E8A4E;--birch:#D7A33A;--rowan:#B5452C;--matatabi:#D995A6;--ice:#CFE3EA;--momonga:#A39A8C;
+  --display:"Zen Antique Soft",serif;--body:"Zen Kaku Gothic New",system-ui,sans-serif;
+  --accent:var(--rowan);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--snow);color:var(--night);font-family:var(--body);font-size:15px;line-height:1.75;-webkit-text-size-adjust:100%}
+a{color:var(--river)}
+button{font-family:var(--body);color:inherit}
+.page{max-width:560px;margin:0 auto;background:var(--snow);min-height:100vh;overflow:hidden}
+h2{font-family:var(--display);font-weight:400;font-size:21px;letter-spacing:.04em;margin:0 0 4px;display:flex;align-items:center;gap:10px}
+h2 .ln{width:18px;height:2px;background:var(--accent);flex:none;transition:background 3s}
+.sub{font-size:12.5px;color:var(--tuff);margin:0 0 12px}
+section{padding:26px 16px 6px}
+
+/* ---------- fog intro (short version) ---------- */
+#fog{position:fixed;inset:0;z-index:50;background:radial-gradient(120% 80% at 50% 45%,#fff 0%,var(--snow) 45%,var(--mist) 100%);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px;transition:opacity 1.6s cubic-bezier(.45,0,.25,1),filter 1.6s;pointer-events:none}
+#fog.go{opacity:0;filter:blur(8px)}
+#fog b{font-family:var(--display);font-weight:400;font-size:28px;letter-spacing:.1em;color:var(--night);opacity:.85}
+#fog span{font-family:var(--display);font-size:12px;letter-spacing:.35em;color:var(--tuff);animation:sway 3s ease-in-out infinite}
+@keyframes sway{50%{transform:translateX(6px)}}
+
+/* ---------- hero: four seasons cross-fade ---------- */
+.hero{height:350px;position:relative;overflow:hidden;background:var(--mist)}
+.scene{position:absolute;inset:0;opacity:0;transform:scale(1.07);transition:opacity 3.2s cubic-bezier(.45,0,.25,1),transform 12s cubic-bezier(.3,0,.2,1)}
+.scene.on{opacity:1;transform:scale(1)}
+.scene svg,.scene img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.scene .far{transition:transform 12s cubic-bezier(.3,0,.2,1);transform:translateX(-6px)}
+.scene.on .far{transform:translateX(6px)}
+.fogb{position:absolute;left:-40%;width:180%;height:70px;top:150px;background:radial-gradient(closest-side,rgba(245,244,239,.42),rgba(245,244,239,0));animation:fogm 46s linear infinite;pointer-events:none}
+.fogb.b{top:205px;height:50px;animation-duration:64s;animation-direction:reverse;opacity:.7}
+@keyframes fogm{from{transform:translateX(-12%)}50%{transform:translateX(12%)}to{transform:translateX(-12%)}}
+.pt{position:absolute;top:-14px;pointer-events:none;animation:fall linear infinite}
+@keyframes fall{0%{transform:translate(0,0) rotate(0)}50%{transform:translate(var(--sway),190px) rotate(160deg)}100%{transform:translate(0,380px) rotate(320deg)}}
+.ttl{position:absolute;left:20px;top:calc(20px + env(safe-area-inset-top));color:var(--night);transition:color 3s}
+.hero.dark .ttl{color:var(--snow)}
+.ttl b{font-family:var(--display);font-weight:400;font-size:28px;letter-spacing:.08em;display:block;line-height:1.5}
+.ttl span{font-family:var(--display);font-size:12px;letter-spacing:.3em}
+.sdots{position:absolute;right:14px;top:calc(20px + env(safe-area-inset-top));display:flex;gap:4px}
+.sdots button{font-family:var(--display);font-size:12px;width:28px;height:28px;border-radius:50%;border:0;background:rgba(245,244,239,.6);color:var(--night);cursor:pointer;transition:background 1.5s,color 1.5s}
+.sdots button.on{background:var(--c);color:var(--snow)}
+.credit{position:absolute;right:10px;bottom:40px;font-size:10px;color:var(--snow);text-shadow:0 0 4px rgba(30,43,60,.6)}
+
+/* ---------- today's info ---------- */
+.info{position:relative;z-index:2;margin:-34px 14px 0;display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.info a{display:block;text-decoration:none;color:var(--night);background:rgba(245,244,239,.97);box-shadow:0 2px 10px rgba(30,43,60,.10);border-radius:14px;padding:10px 12px;min-height:76px}
+.info b{display:block;font-size:13.5px;line-height:1.45}
+.info small{display:block;font-size:11px;color:var(--tuff);line-height:1.45;margin-top:3px}
+.info .go{font-size:11px;color:var(--river);font-weight:700}
+.info .warn b{color:var(--rowan)}
+.asof{font-size:11px;color:var(--tuff);margin:8px 16px 0}
+
+/* ---------- belts ---------- */
+.belt{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x proximity;padding:2px 16px 10px;margin:0 -16px;scrollbar-width:none}
+.belt::-webkit-scrollbar{display:none}
+.pcard{flex:0 0 172px;scroll-snap-align:start;border-radius:16px;overflow:hidden;background:#fff;border:1px solid var(--mist);text-decoration:none;color:var(--night)}
+.pcard .img{height:104px;position:relative}
+.pcard .img i{position:absolute;left:8px;bottom:6px;font-style:normal;font-size:10px;color:var(--snow);opacity:.9}
+.pcard .t{padding:9px 11px 11px;font-size:11.5px;color:var(--tuff);line-height:1.5}
+.pcard .t b{display:block;font-family:var(--display);font-weight:400;font-size:16px;color:var(--night);margin-bottom:2px}
+.qcard{flex:0 0 178px;scroll-snap-align:start;text-align:left;background:#fff;border:1.5px solid var(--spruce);border-radius:18px 18px 18px 4px;padding:13px;font-family:var(--display);font-size:15.5px;line-height:1.5;cursor:pointer}
+.qcard small{display:block;font-family:var(--body);font-size:11px;color:var(--tuff);margin-top:8px}
+.momo{width:42px;height:42px;border-radius:50%;background:var(--momonga);color:var(--snow);display:flex;align-items:center;justify-content:center;font-size:9px;flex:none}
+.say{display:flex;gap:10px;align-items:center;margin-bottom:10px}
+.say p{margin:0;background:#fff;border:1px solid var(--mist);border-radius:14px 14px 14px 4px;padding:8px 12px;font-size:13px}
+
+/* ---------- creatures ---------- */
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1px solid var(--tuff);background:#fff;border-radius:999px;padding:6px 13px;font-size:13px;cursor:pointer}
+.chip.p::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--moss);margin-right:6px;vertical-align:1px}
+.chip.a::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--birch);margin-right:6px;vertical-align:1px}
+.btn{font-family:var(--body);font-weight:700;border:0;border-radius:999px;padding:13px 22px;background:var(--spruce);color:var(--snow);font-size:14.5px;cursor:pointer;width:100%;margin-top:14px}
+.btn.line{background:transparent;color:var(--spruce);border:1.5px solid var(--spruce)}
+.btn[disabled]{opacity:.55;cursor:default}
+
+/* ---------- shops frame ---------- */
+.frame{border:1.5px solid var(--spruce);border-radius:16px;padding:16px 14px;position:relative}
+.frame::before,.frame::after{content:"";position:absolute;left:10px;right:10px;border-top:1px solid var(--spruce)}
+.frame::before{top:5px}.frame::after{bottom:5px}
+.frame h2{margin-bottom:2px}
+
+/* ---------- map ---------- */
+#map{height:330px;border-radius:16px;border:1px solid var(--mist);z-index:1}
+.maptools{display:flex;gap:8px;margin-top:8px}
+.maptools button{flex:1;border:1px solid var(--spruce);background:#fff;border-radius:999px;padding:8px;font-size:12.5px;color:var(--spruce);cursor:pointer}
+.legend{font-size:11.5px;color:var(--tuff);margin-top:6px}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:50%;vertical-align:-1px;margin-right:4px}
+.leaflet-popup-content{font-family:var(--body);font-size:13px;line-height:1.6}
+
+/* ---------- voices ---------- */
+.empty{background:#fff;border:1px dashed var(--momonga);border-radius:16px;padding:16px;text-align:center;font-size:13px;color:var(--tuff)}
+form.voice{margin-top:12px;background:#fff;border:1px solid var(--mist);border-radius:16px;padding:14px;display:none}
+form.voice.open{display:block}
+form.voice label{display:block;font-size:12.5px;font-weight:700;margin:8px 0 4px}
+form.voice select,form.voice textarea{width:100%;font-family:var(--body);font-size:15px;border:1px solid var(--tuff);border-radius:10px;padding:8px;background:var(--snow);color:var(--night)}
+form.voice textarea{min-height:90px;resize:vertical}
+.fine{font-size:11px;color:var(--tuff);margin:6px 0 0}
+
+/* ---------- more info ---------- */
+.links{display:grid;gap:8px}
+.links a{display:flex;justify-content:space-between;gap:10px;align-items:center;background:#fff;border:1px solid var(--mist);border-radius:14px;padding:11px 14px;text-decoration:none;color:var(--night)}
+.links a b{display:block;font-size:14px}
+.links a small{display:block;font-size:11.5px;color:var(--tuff);line-height:1.5}
+.links a::after{content:"↗";color:var(--river);flex:none}
+
+footer{padding:26px 16px 40px;font-size:11px;color:var(--tuff);line-height:1.7}
+.contour{height:60px;margin-top:20px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 60'%3E%3Cg fill='none' stroke='%233D7C84' stroke-width='1' opacity='.35'%3E%3Cpath d='M0 50C80 30 120 55 200 38s140-10 200-30'/%3E%3Cpath d='M0 38C84 20 126 42 204 26s136-12 196-30'/%3E%3Cpath d='M0 26C88 10 132 30 208 14s132-14 192-30'/%3E%3C/g%3E%3C/svg%3E") center/cover}
+
+/* ---------- bottom sheet ---------- */
+#sheetBg{position:fixed;inset:0;background:rgba(30,43,60,.35);z-index:40;opacity:0;pointer-events:none;transition:opacity .4s}
+#sheet{position:fixed;left:0;right:0;bottom:0;z-index:41;max-width:560px;margin:0 auto;background:var(--snow);border-radius:22px 22px 0 0;padding:10px 18px calc(24px + env(safe-area-inset-bottom));max-height:82vh;overflow:auto;transform:translateY(calc(100% + 40px));visibility:hidden;transition:transform .55s cubic-bezier(.3,0,.2,1),visibility 0s .55s}
+body.sheet #sheetBg{opacity:1;pointer-events:auto}
+body.sheet #sheet{transform:none;visibility:visible;transition:transform .55s cubic-bezier(.3,0,.2,1)}
+#sheet .grab{width:42px;height:4px;border-radius:4px;background:var(--mist);margin:0 auto 12px}
+#sheet h3{font-family:var(--display);font-weight:400;font-size:21px;margin:0 0 6px;line-height:1.5}
+#sheet .k{font-size:11.5px;color:var(--tuff)}
+#sheet p{margin:8px 0}
+#sheet .when{display:inline-block;background:var(--ice);border-radius:8px;padding:3px 9px;font-size:12px;margin:2px 0}
+#sheet .note{border-left:3px solid var(--rowan);padding:4px 10px;font-size:13px;background:#fff;border-radius:0 8px 8px 0}
+#sheet .src{font-size:11.5px;color:var(--tuff);border-top:1px solid var(--mist);margin-top:14px;padding-top:8px}
+#sheet .src a{display:block;margin:2px 0}
+#sheet audio{width:100%;margin:6px 0}
+#sheet .close{position:absolute;right:12px;top:10px;border:0;background:var(--mist);border-radius:50%;width:32px;height:32px;font-size:16px;cursor:pointer}
+
+@media (prefers-reduced-motion:reduce){.scene,.scene .far{transition:opacity .6s}.scene{transform:none}.fogb,.pt{display:none}#fog{display:none}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div id="fog" aria-hidden="true"><b>（サービス名）</b><span>層 雲 峡 ・ カ ム イ ミ ン タ ラ</span></div>
+
+<div class="page">
+  <!-- 7. hero -->
+  <div class="hero" id="hero">
+    <div id="scenes"></div>
+    <div class="fogb"></div><div class="fogb b"></div>
+    <div class="sdots" id="sdots" aria-label="季節"></div>
+    <div class="ttl"><span>カムイミンタラ</span><b>（サービス名）</b><span>層 雲 峡</span></div>
+    <div class="credit" id="credit"></div>
+  </div>
+
+  <div class="info">
+    <a id="wx" href="https://www.jma.go.jp/bosai/forecast/#area_type=class10s&area_code=012010" target="_blank" rel="noopener"><b>上川地方の天気</b><small>気象庁の予報</small><span class="go">見る ›</span></a>
+    <a href="https://www.rinyu.co.jp/kurodake/" target="_blank" rel="noopener"><b>黒岳ロープウェイ</b><small>本日の運行状況（運営会社・りんゆう観光）</small><span class="go">見る ›</span></a>
+    <a href="https://sounkyovc.net/trails" target="_blank" rel="noopener"><b>登山道・山の情報</b><small>層雲峡ビジターセンター</small><span class="go">見る ›</span></a>
+    <a class="warn" href="https://www.town.kamikawa.hokkaido.jp/" target="_blank" rel="noopener"><b>ヒグマのすむ森です</b><small>鈴など音の出るものを持って。出没情報は上川町へ</small><span class="go">見る ›</span></a>
+  </div>
+  <p class="asof" id="asof">運行状況などは、公式のページをそのまま開きます（このページでは書き換えません）</p>
+
+  <!-- 8-1 places -->
+  <section id="places">
+    <h2><span class="ln"></span>行ってみたい場所</h2>
+    <p class="sub">押すと、その場所のページ（音声ガイドつき）へ</p>
+    <div class="belt" id="placeBelt"></div>
+  </section>
+
+  <!-- 8-2 questions -->
+  <section id="questions">
+    <h2><span class="ln"></span>ふと、気になった？</h2>
+    <div class="say"><div class="momo">モモンガ</div><p>気になる問いを押してみて。30秒くらいで話すよ</p></div>
+    <div class="belt" id="qBelt"></div>
+  </section>
+
+  <!-- 8-3 creatures -->
+  <section id="life">
+    <h2><span class="ln"></span>層雲峡のいきもの</h2>
+    <p class="sub">紅葉谷で見られる植物と動物（層雲峡ビジターセンターの資料から）</p>
+    <div class="chips" id="lifeChips"></div>
+    <button class="btn line" disabled>いきものの世界をのぞく（準備中）</button>
+  </section>
+
+  <!-- 9 shops -->
+  <section id="shops">
+    <div class="frame">
+      <h2>寄ってから帰ろっか。</h2>
+      <p class="sub" style="margin:0">上川・層雲峡のお店を、みんなの口コミから探せるようにします。いま掲載するお店を集めているところです。</p>
+    </div>
+  </section>
+
+  <!-- 10 map -->
+  <section id="mapSec">
+    <h2><span class="ln"></span>マップ</h2>
+    <p class="sub">点を押すと場所の名前、もう一度押すとその場所のページへ</p>
+    <div id="map"></div>
+    <div class="maptools"><button id="mNear">層雲峡を見る</button><button id="mWide">上川町まで</button><button id="mMe">現在地</button></div>
+    <div class="legend"><i style="background:var(--spruce)"></i>現地で確かめた位置　<i style="background:#fff;border:2px dashed var(--rowan)"></i>まだ現地で確かめていない位置</div>
+  </section>
+
+  <!-- 11 voices -->
+  <section id="voices">
+    <h2><span class="ln"></span>みんなの声</h2>
+    <p class="sub">ここに来た人の、ひとこと</p>
+    <div class="empty" id="vEmpty">まだ載っている声はありません。<br>最初のひとことを、どうぞ。</div>
+    <button class="btn" id="vOpen">ひとこと書く</button>
+    <form class="voice" id="vForm">
+      <label for="vPlace">どこのこと？</label>
+      <select id="vPlace"><option value="層雲峡ぜんたい">層雲峡ぜんたい</option></select>
+      <label for="vText">ひとこと（200字まで）</label>
+      <textarea id="vText" maxlength="200" placeholder="例：朝の紅葉谷、霧がきれいでした"></textarea>
+      <p class="fine">名前や連絡先は書かないでください。届いた声は、確認してからここに載せます。</p>
+      <button class="btn" type="submit">送る</button>
+    </form>
+  </section>
+
+  <!-- 12 more -->
+  <section id="more">
+    <h2><span class="ln"></span>くわしく知りたい</h2>
+    <p class="sub">公式の情報へのリンク</p>
+    <div class="links">
+      <a href="https://www.rinyu.co.jp/kurodake/" target="_blank" rel="noopener"><span><b>黒岳ロープウェイ・リフト</b><small>運行状況・料金・営業時間（りんゆう観光）</small></span></a>
+      <a href="https://sounkyovc.net/trails" target="_blank" rel="noopener"><span><b>赤岳・銀泉台、黒岳などの登山道</b><small>山情報・登山道マップ（層雲峡ビジターセンター）</small></span></a>
+      <a href="https://tenki.jp/mountain/famous100/1/1/105.html" target="_blank" rel="noopener"><span><b>大雪山の山の天気・風</b><small>日本気象協会 tenki.jp</small></span></a>
+      <a href="http://info-road.hdb.hkd.mlit.go.jp/index.htm" target="_blank" rel="noopener"><span><b>道路・峠の情報</b><small>国土交通省 北海道開発局</small></span></a>
+      <a href="https://sounkyovc.net/" target="_blank" rel="noopener"><span><b>層雲峡ビジターセンター</b><small>9:00〜17:00。11〜5月は月曜休館（祝日なら翌日）、12/31〜1/5休館</small></span></a>
+      <a href="https://sounkyo.net/" target="_blank" rel="noopener"><span><b>層雲峡観光協会</b><small>宿・食事・イベント</small></span></a>
+      <a href="https://www.npa.go.jp/bureau/soumu/ishitsubutsu/ishitsu-todokedekensaku.html" target="_blank" rel="noopener"><span><b>落とし物をしたら</b><small>警察に届いた落とし物を探す（警察庁・都道府県別の検索）</small></span></a>
+    </div>
+  </section>
+
+  <div class="contour"></div>
+  <footer>
+    試作版（日本語のみ）。書いてあることは、層雲峡ビジターセンター・観光協会・環境省・産総研などの公開資料で確かめた内容だけを載せ、出典を各項目に付けています。<br>
+    地図：国土地理院 地理院タイル／天気：気象庁／音声：<span id="voiceCredit"></span><br>
+    写真は掲載の許可をいただいてから載せます。いまの絵は仮のものです。
+  </footer>
+</div>
+
+<div id="sheetBg"></div>
+<div id="sheet" role="dialog" aria-modal="true"><div class="grab"></div><button class="close" aria-label="閉じる">×</button><div id="sheetBody"></div></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script>
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ---------- fog intro ---------- */
+setTimeout(()=>$('fog').classList.add('go'),reduce?0:700);
+setTimeout(()=>$('fog').remove(),reduce?0:2600);
+
+/* ---------- seasons ---------- */
+const P={snow:'#F5F4EF',mist:'#E3E6E2',tuff:'#77736C',night:'#1E2B3C',spruce:'#2E4A3C',river:'#3D7C84',moss:'#7E8A4E',birch:'#D7A33A',rowan:'#B5452C',matatabi:'#D995A6',ice:'#CFE3EA'};
+/* photo: when permission is given, set {src, place, credit}. Each season can be a different place. */
+const SEASONS=[
+ {k:'spring',n:'春',c:P.matatabi,accent:P.matatabi,dark:false,photo:null,sky:[P.ice,P.snow],far:'#9AAFAE',cap:1,cliff:P.tuff,hill:P.moss,hill2:'#96A06A',crowns:[P.moss,'#9BA868',P.matatabi,P.snow],river:P.river,pt:{n:14,col:[P.matatabi,P.snow],shape:'petal'}},
+ {k:'summer',n:'夏',c:P.river,accent:P.river,dark:false,photo:null,sky:['#A9CBD2',P.mist],far:'#6F8D88',cap:.25,cliff:'#6C6962',hill:P.spruce,hill2:P.moss,crowns:[P.moss,'#5F7A4A',P.spruce],river:P.river,pt:{n:0}},
+ {k:'autumn',n:'秋',c:P.rowan,accent:P.rowan,dark:false,photo:null,sky:[P.ice,P.snow],far:P.tuff,cap:.45,cliff:P.tuff,hill:'#9C5A2E',hill2:P.birch,crowns:[P.rowan,P.birch,P.birch,P.rowan,P.moss],river:P.river,pt:{n:16,col:[P.rowan,P.birch],shape:'leaf'}},
+ {k:'winter',n:'冬',c:P.night,accent:P.river,dark:true,photo:null,sky:[P.night,'#3F5A6E'],far:P.ice,cap:1,cliff:'#5E5B55',hill:P.snow,hill2:P.ice,crowns:null,river:'#2B4256',pt:{n:26,col:[P.snow],shape:'snow'}}
+];
+function rnd(i){const x=Math.sin(i*99.13)*43758.5;return x-Math.floor(x)}
+function svg(S,idx){
+ let t='';
+ for(let i=0;i<22;i++){
+  const x=78+i*11+rnd(i+idx)*6,y=252+Math.sin(i*.7)*8+rnd(i*3)*6,h=20+rnd(i*7)*14;
+  if(i%3===0){t+=`<path d="M${x} ${y-h}l${h*.32} ${h}h${-h*.64}z" fill="${P.spruce}"/>`;if(S.k==='winter')t+=`<path d="M${x} ${y-h}l${h*.14} ${h*.44}h${-h*.28}z" fill="${P.snow}"/>`;}
+  else if(S.crowns){const c=S.crowns[i%S.crowns.length],r=6+rnd(i*5)*5;t+=`<rect x="${x-.8}" y="${y-r}" width="1.6" height="${r+2}" fill="${S.k==='autumn'?P.snow:P.tuff}"/><circle cx="${x}" cy="${y-r-2}" r="${r}" fill="${c}"/>`;}
+  else{t+=`<path d="M${x} ${y}v-${h*.8}M${x} ${y-h*.5}l5 -7M${x} ${y-h*.35}l-4 -6" stroke="${P.snow}" stroke-width="1.6" stroke-linecap="round"/>`;}
+ }
+ const cols=(x0,x1,top,col)=>{let o='';for(let x=x0;x<x1;x+=7)o+=`<path d="M${x} 340V${top+rnd(x)*20}" stroke="${col}" stroke-width="1" opacity=".3"/>`;return o};
+ const ice=S.k==='winter'?`<path d="M44 150c3 40-2 80 4 120M58 140c-2 50 3 90 0 130M340 132c2 46-3 92 3 138" stroke="${P.ice}" stroke-width="5" stroke-linecap="round" opacity=".9"/>`:'';
+ const stars=S.k==='winter'?[...Array(14)].map((_,i)=>`<circle cx="${20+rnd(i)*350}" cy="${10+rnd(i+40)*90}" r="${.7+rnd(i+9)}" fill="${P.snow}" opacity=".8"/>`).join('')+`<circle cx="300" cy="70" r="11" fill="${P.birch}" opacity=".85"/>`:'';
+ const sun=S.k==='summer'?`<circle cx="300" cy="72" r="14" fill="${P.snow}" opacity=".9"/>`:'';
+ return `<svg viewBox="0 0 390 340" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs><linearGradient id="g${idx}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${S.sky[0]}"/><stop offset="1" stop-color="${S.sky[1]}"/></linearGradient></defs>
+ <rect width="390" height="340" fill="url(#g${idx})"/>${stars}${sun}
+ <g class="far"><path d="M-10 196L50 160 92 170 150 112 182 134 214 98 250 126 292 116 340 146 400 136V300H-10z" fill="${S.far}"/>
+ <path d="M134 128L150 112 166 126 158 124 150 132 142 124zM198 114L214 98 232 114 222 111 214 120 206 111z" fill="${P.snow}" opacity="${S.cap}"/>
+ <path d="M278 124L292 116 306 124 298 123 292 128z" fill="${P.snow}" opacity="${S.cap*.8}"/></g>
+ <path d="M-10 340V258Q90 232 200 240T400 236V340z" fill="${S.hill2}"/>
+ <path d="M-10 340V270Q120 248 210 258T400 254V340z" fill="${S.hill}"/>
+ ${t}
+ <path d="M170 340Q190 300 197 292Q206 302 224 340z" fill="${S.river}"/>
+ <path d="M-2 340V118L26 108 52 128 72 172 82 340z" fill="${S.cliff}"/>${cols(2,80,128,S.k==='winter'?P.ice:P.night)}
+ <path d="M392 340V100L364 94 338 122 320 170 312 340z" fill="${S.cliff}"/>${cols(314,392,112,S.k==='winter'?P.ice:P.night)}
+ ${S.k==='winter'?`<path d="M-2 120L26 110 52 130 40 132 26 120 10 126zM392 102L364 96 338 124 352 122 366 106 380 110z" fill="${P.snow}"/>`:''}
+ ${ice}</svg>`;
+}
+function particles(S){
+ if(reduce)return'';let h='';
+ for(let i=0;i<S.pt.n;i++){
+  const col=S.pt.col[i%S.pt.col.length],left=rnd(i+3)*100,dur=9+rnd(i+11)*9,del=-rnd(i+17)*dur,sway=(rnd(i+23)*40-20)+'px';
+  const shape=S.pt.shape==='snow'?`width:${2+rnd(i)*3}px;height:${2+rnd(i)*3}px;border-radius:50%;background:${col};opacity:.85`
+   :S.pt.shape==='petal'?`width:6px;height:4px;border-radius:60% 40% 60% 40%;background:${col};opacity:.85`
+   :`width:7px;height:5px;border-radius:0 80% 0 80%;background:${col};opacity:.9`;
+  h+=`<i class="pt" style="left:${left}%;animation-duration:${dur}s;animation-delay:${del}s;--sway:${sway};${shape}"></i>`;
+ }
+ return h;
+}
+const scenes=$('scenes'),dots=$('sdots'),hero=$('hero');
+SEASONS.forEach((S,i)=>{
+ const d=document.createElement('div');d.className='scene';
+ d.innerHTML=(S.photo?`<img src="${esc(S.photo.src)}" alt="${esc(S.photo.place)}（${S.n}）" loading="${i?'lazy':'eager'}">`:svg(S,i))+particles(S);
+ scenes.appendChild(d);
+ const b=document.createElement('button');b.textContent=S.n;b.style.setProperty('--c',S.c);b.setAttribute('aria-label',S.n+'の景色');
+ b.onclick=()=>{held=true;show(i)};dots.appendChild(b);
+});
+const mo=new Date().getMonth()+1;
+let cur=mo>=5&&mo<=6?0:mo>=7&&mo<=8?1:mo>=9&&mo<=10?2:3,held=false;
+function show(i){
+ cur=i;[...scenes.children].forEach((e,j)=>e.classList.toggle('on',j===i));[...dots.children].forEach((e,j)=>e.classList.toggle('on',j===i));
+ const S=SEASONS[i];hero.classList.toggle('dark',S.dark);document.documentElement.style.setProperty('--accent',S.accent);
+ $('credit').textContent=S.photo?`${S.photo.place}　${S.photo.credit}`:'';
+}
+show(cur);
+if(!reduce)setInterval(()=>{if(!held&&!document.hidden)show((cur+1)%4)},11000);
+
+/* ---------- weather (JMA, shown as-is with its time) ---------- */
+fetch('https://www.jma.go.jp/bosai/forecast/data/forecast/012000.json').then(r=>r.json()).then(d=>{
+ const ts=d[0].timeSeries[0],a=ts.areas.find(x=>x.area.code==='012010');if(!a)return;
+ const w=a.weathers[0].replace(/　/g,' ');const rt=new Date(d[0].reportDatetime);
+ $('wx').innerHTML=`<b>${esc(w)}</b><small>上川地方・気象庁<br>${rt.getMonth()+1}/${rt.getDate()} ${rt.getHours()}時発表</small><span class="go">くわしく ›</span>`;
+}).catch(()=>{});
+
+/* ---------- data from guide.json (verified content only) ---------- */
+const QUESTIONS=[
+ {q:'なぜ崖が、柱みたいに並んでいるの？',tag:'地形',point:'obako'},
+ {q:'「層雲峡」って、だれが名づけたの？',tag:'名前・歴史',point:'naming-1921'},
+ {q:'男滝・女滝って、どういうこと？',tag:'滝',point:'ginga-ryusei'},
+ {q:'温泉は、どこから湧いているの？',tag:'水',hl:['momijidani-entrance','温泉の湧出口']},
+ {q:'冬でも鳴く虫がいるって、本当？',tag:'いきもの',hl:['momijidani-entrance','マダラスズ']},
+ {q:'クマって、いるの？',tag:'安全',hl:['momijidani-entrance','クマの木']},
+ {q:'「赤石川」の名前のもとは？',tag:'アイヌ語の名前',hl:['momijidani-entrance','赤石川']},
+ {q:'木が縦に裂けているのはなぜ？',tag:'冬',hl:['momijidani-entrance','凍裂木']},
+];
+const PLACE_COLORS={'自然景観':[P.river,P.ice],'地質・地形':[P.tuff,P.birch],'歴史・人物':[P.spruce,P.moss]};
+let G=null;
+fetch('guide.json',{cache:'no-store'}).then(r=>r.json()).then(g=>{G=g;renderPlaces();renderQuestions();renderLife();initMap();renderVoicePlaces();
+ $('voiceCredit').textContent=Object.values(g.voices.ja).map(v=>v.credit).join('、');
+});
+const pt=id=>G.points.find(p=>p.id===id);
+const ptAudio=p=>{const a=p.audio||{};return a['core:himari']||a['core:sora']||Object.values(a)[0]};
+
+function renderPlaces(){
+ const seen=new Set();let h='';
+ G.points.forEach(p=>{
+  if(seen.has(p.place))return;seen.add(p.place);
+  const [c1,c2]=PLACE_COLORS[p.category]||[P.spruce,P.moss];const au=ptAudio(p);
+  const acc=(p.location.access||'').split('。')[0];
+  h+=`<a class="pcard" href="guide.html#${esc(p.id)}"><div class="img" style="background:linear-gradient(135deg,${c1},${c2})"><i>写真は準備中</i></div><div class="t"><b>${esc(p.place.replace(/（.*）/,''))}</b>${esc(acc||p.category)}${au?`<br>音声 ${Math.round(au.seconds)}秒`:''}</div></a>`;
+ });
+ $('placeBelt').innerHTML=h;autoScroll($('placeBelt'));
+}
+function autoScroll(el){
+ if(reduce)return;el.style.scrollSnapType='none';let pause=performance.now()+2500,last=performance.now(),x=0;
+ const stop=()=>{pause=performance.now()+5000};['pointerdown','wheel','touchstart'].forEach(e=>el.addEventListener(e,stop,{passive:true}));
+ (function step(t){const dt=Math.min(t-last,50);last=t;const max=el.scrollWidth-el.clientWidth;
+  if(t<pause||max<4||document.hidden){x=el.scrollLeft}
+  else{x+=dt*0.02;if(x>=max){pause=t+3000;el.scrollTo({left:0,behavior:'smooth'})}else el.scrollLeft=x}
+  requestAnimationFrame(step)})(last);
+}
+function hlFind(pid,name){const p=pt(pid);return p&&(p.highlights||[]).find(h=>h.name===name)}
+function renderQuestions(){
+ $('qBelt').innerHTML=QUESTIONS.map((q,i)=>{
+  const ok=q.point?pt(q.point):hlFind(...q.hl);if(!ok)return'';
+  const au=q.point&&ptAudio(ok);
+  return `<button class="qcard" data-i="${i}">${esc(q.q)}<small>${esc(q.tag)}${au?`・音声 ${Math.round(au.seconds)}秒`:''}</small></button>`}).join('');
+ $('qBelt').onclick=e=>{const b=e.target.closest('.qcard');if(b)openQ(QUESTIONS[b.dataset.i])};
+}
+function srcHTML(list){return list&&list.length?`<div class="src">出典${list.map(s=>`<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.name)}</a>`).join('')}</div>`:''}
+function relSrc(p){const m=new Map();(p.highlights||[]).forEach(h=>(h.sources||[]).forEach(x=>m.set(x.url,x)));
+ return `<div class="src">この話は、出典つきの知識データベース（層雲峡ナレッジマップ）と照らし合わせて確かめた台本です。${m.size?'<br>関連する資料':''}${[...m.values()].map(s=>`<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.name)}</a>`).join('')}</div>`}
+function openQ(q){
+ if(q.point){
+  const p=pt(q.point),au=ptAudio(p);
+  openSheet(`<div class="k">${esc(q.tag)}</div><h3>${esc(q.q)}</h3>${au?`<audio controls preload="none" src="${esc(au.src)}"></audio>`:''}<p>${esc(p.core)}</p>
+   ${p.location.lat?`<a class="btn line" style="display:block;text-align:center;text-decoration:none" href="guide.html#${esc(p.id)}">${esc(p.place.replace(/（.*）/,''))}のページへ</a>`:''}${relSrc(p)}`);
+ }else{
+  const p=pt(q.hl[0]),h=hlFind(...q.hl);
+  openSheet(`<div class="k">${esc(q.tag)}</div><h3>${esc(q.q)}</h3><p><b>${esc(h.name)}</b></p><p>${esc(h.description)}</p>${h.when?`<span class="when">${esc(h.when)}</span>`:''}${h.note?`<p class="note">${esc(h.note)}</p>`:''}
+   <a class="btn line" style="display:block;text-align:center;text-decoration:none" href="guide.html#${esc(p.id)}">${esc(p.place)}のページへ</a>${srcHTML(h.sources)}`);
+ }
+}
+function renderLife(){
+ const p=pt('momijidani-entrance');if(!p)return;
+ const list=(p.highlights||[]).filter(h=>h.category==='植物'||h.category==='動物');
+ $('lifeChips').innerHTML=list.map((h,i)=>`<button class="chip ${h.category==='植物'?'p':'a'}" data-n="${esc(h.name)}">${esc(h.name)}</button>`).join('');
+ $('lifeChips').onclick=e=>{const b=e.target.closest('.chip');if(!b)return;const h=hlFind('momijidani-entrance',b.dataset.n);
+  openSheet(`<div class="k">${esc(h.category)}・紅葉谷</div><h3>${esc(h.name)}</h3><p>${esc(h.description)}</p>${h.when?`<span class="when">${esc(h.when)}</span>`:''}${h.note?`<p class="note">${esc(h.note)}</p>`:''}
+   <a class="btn line" style="display:block;text-align:center;text-decoration:none" href="guide.html#momijidani-entrance">紅葉谷のページで、地図と一緒に見る</a>${srcHTML(h.sources)}`)};
+}
+function openSheet(html){$('sheetBody').innerHTML=html;document.body.classList.add('sheet')}
+function closeSheet(){document.body.classList.remove('sheet');$('sheetBody').querySelectorAll('audio').forEach(a=>a.pause())}
+$('sheetBg').onclick=closeSheet;document.querySelector('#sheet .close').onclick=closeSheet;
+addEventListener('keydown',e=>{if(e.key==='Escape')closeSheet()});
+
+/* ---------- map ---------- */
+let map,me;
+function initMap(){
+ if(!window.L){$('map').innerHTML='<p class="sub" style="padding:14px">地図を読み込めませんでした</p>';return}
+ map=L.map('map',{scrollWheelZoom:false,zoomControl:true});
+ L.tileLayer('https://cyberjapandata.gsi.go.jp/xyz/pale/{z}/{x}/{y}.png',{maxZoom:18,attribution:'<a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank">国土地理院</a>'}).addTo(map);
+ const pts=[];const seen=new Set();
+ G.points.forEach(p=>{const L0=p.location;if(!L0.lat||seen.has(p.place))return;seen.add(p.place);
+  const m=L.circleMarker([L0.lat,L0.lng],L0.measured?{radius:9,color:P.snow,weight:2,fillColor:P.spruce,fillOpacity:1}:{radius:9,color:P.rowan,weight:2,dashArray:'3 3',fillColor:'#fff',fillOpacity:1}).addTo(map);
+  m.bindPopup(`<b>${esc(p.place)}</b><br><small>${esc(L0.measured?'現地で確かめた位置':L0.coord_note)}</small><br><a href="guide.html#${esc(p.id)}">場所のページへ ›</a>`);
+  pts.push([L0.lat,L0.lng]);});
+ const near=()=>map.fitBounds(pts,{padding:[30,30],maxZoom:14});near();
+ $('mNear').onclick=near;
+ $('mWide').onclick=()=>map.setView(map.getCenter(),10);
+ $('mMe').onclick=()=>{if(!navigator.geolocation)return;$('mMe').textContent='探しています…';
+  navigator.geolocation.getCurrentPosition(pos=>{const ll=[pos.coords.latitude,pos.coords.longitude];
+   if(me)me.setLatLng(ll);else me=L.circleMarker(ll,{radius:7,color:'#fff',weight:2,fillColor:P.river,fillOpacity:1}).addTo(map);
+   map.setView(ll,14);$('mMe').textContent='現在地';},()=>{$('mMe').textContent='現在地（使えませんでした）'},{enableHighAccuracy:true,timeout:10000});};
+}
+
+/* ---------- voices: sent to the Google Form; shown only after review ---------- */
+const FORM='https://docs.google.com/forms/d/e/1FAIpQLScVKSFtcSzJZOycSWl2JZFLdFYOZgSUonApkaAcxwUVFZmaVg/formResponse';
+const E={id:'entry.1741191429',place:'entry.1386446759',lang:'entry.1904372328',text:'entry.2048451290'};
+function renderVoicePlaces(){const seen=new Set();G.points.forEach(p=>{if(seen.has(p.place))return;seen.add(p.place);$('vPlace').insertAdjacentHTML('beforeend',`<option value="${esc(p.id)}">${esc(p.place)}</option>`)})}
+$('vOpen').onclick=()=>{$('vForm').classList.add('open');$('vOpen').style.display='none';$('vText').focus()};
+$('vForm').onsubmit=e=>{e.preventDefault();const t=$('vText').value.trim();if(!t)return;
+ const body=new URLSearchParams({[E.id]:'v-'+Date.now().toString(36)+Math.random().toString(36).slice(2,6),[E.place]:'みんなの声:'+$('vPlace').value,[E.lang]:'ja',[E.text]:t});
+ if(!(navigator.sendBeacon&&navigator.sendBeacon(FORM,body)))fetch(FORM,{method:'POST',mode:'no-cors',body}).catch(()=>{});
+ $('vForm').innerHTML='<p style="margin:0;text-align:center">ありがとうございます。<br>確認してから、ここに載せます。</p>';
+};
+</script>
+</body>
+</html>
