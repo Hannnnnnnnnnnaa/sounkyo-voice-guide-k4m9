@@ -1,6 +1,6 @@
 {
  "built_from": "Notion SAKB 台本DB（MVP採用 かつ SKM照合=整合済）と 読み上げ辞書",
- "exported_at": "2026-10-17",
+ "exported_at": "2026-10-25",
  "voices": {
   "ja": {
    "himari": {
@@ -951,6 +951,52 @@
        "name_en": "Ginga & Ryusei Falls (Sounkyo Tourism Association; in Japanese)"
       }
      ]
+    },
+    {
+     "name": "滝つぼがない滝",
+     "category": "水・滝",
+     "description": "石狩川はほかの川より力強く谷を削ったため、小さな川はずっと高いところを流れ、石狩川と合流する場所に大きな落差ができた。それが流星の滝・銀河の滝などの層雲峡の滝。滝の水が水量の多い石狩川に直接落ち、川の水がクッションになるので、大きな滝つぼが見当たらない。",
+     "when": null,
+     "map_number": null,
+     "status": "出典あり",
+     "note": null,
+     "link": null,
+     "name_en": null,
+     "description_en": null,
+     "when_en": null,
+     "note_en": null,
+     "lat": null,
+     "lng": null,
+     "sources": [
+      {
+       "name": "ファイル「1 大雪山の生い立ち」（大雪山の形成・層雲峡のなりたち）",
+       "name_en": "How Daisetsuzan was formed (Sounkyo Visitor Center file; in Japanese)",
+       "url": null
+      }
+     ]
+    },
+    {
+     "name": "冬の銀河の滝（氷瀑）",
+     "category": "季節の現象",
+     "description": "冬には銀河の滝が凍り、氷の量が日本最大規模の氷瀑になる。一方、水量が多く勢いよく落ちる流星の滝は、滝全体が凍ることはほとんどない。層雲峡では国道沿いだけでも20以上の滝が12月上旬にはほぼ凍り、日本最大規模の自然氷瀑群になる。",
+     "when": "冬（12月上旬ごろから）",
+     "map_number": null,
+     "status": "出典あり",
+     "note": "氷瀑を近くで見るときは、ヘルメットなどをかぶりましょう。",
+     "link": null,
+     "name_en": null,
+     "description_en": null,
+     "when_en": null,
+     "note_en": null,
+     "lat": null,
+     "lng": null,
+     "sources": [
+      {
+       "name": "冊子「層雲峡・雪と氷の造形美」",
+       "name_en": "Snow and ice of Sounkyo (Sounkyo Visitor Center booklet; in Japanese)",
+       "url": null
+      }
+     ]
     }
    ],
    "audio": {
@@ -1049,6 +1095,52 @@
      ]
     },
     {
+     "name": "大函・小函のでき方",
+     "category": "地形・岩",
+     "description": "「函」は、川の両側が切り立って箱のようになった地形を指す和人の言葉。アイヌ語でも「シュオプ・ニセイ（函の・絶壁）」と呼ばれる。約3万年前の噴火でせき止められた石狩川（古大雪湖）が、台地の弱いところから削り始めた場所が、今の大函・小函だとされている。",
+     "when": null,
+     "map_number": null,
+     "status": "出典あり",
+     "note": null,
+     "link": null,
+     "name_en": null,
+     "description_en": null,
+     "when_en": null,
+     "note_en": null,
+     "lat": null,
+     "lng": null,
+     "sources": [
+      {
+       "name": "ファイル「1 大雪山の生い立ち」（大雪山の形成・層雲峡のなりたち）",
+       "name_en": "How Daisetsuzan was formed (Sounkyo Visitor Center file; in Japanese)",
+       "url": null
+      }
+     ]
+    },
+    {
+     "name": "古大雪湖の跡（地層）",
+     "category": "地形・岩",
+     "description": "約3万年前、火砕流でせき止められた石狩川に、奥行き7〜8kmの大きな天然湖「古大雪湖」ができた。大函の出店の裏の右側では、そのころの泥・砂礫と溶結凝灰岩の層が交互に重なっているのが見られ、何度も噴火の堆積物が押し寄せたことを物語っている。",
+     "when": null,
+     "map_number": null,
+     "status": "出典あり",
+     "note": "現地での正確な位置はまだ確かめていません。",
+     "link": null,
+     "name_en": null,
+     "description_en": null,
+     "when_en": null,
+     "note_en": null,
+     "lat": null,
+     "lng": null,
+     "sources": [
+      {
+       "name": "ファイル「1 大雪山の生い立ち」（大雪山の形成・層雲峡のなりたち）",
+       "name_en": "How Daisetsuzan was formed (Sounkyo Visitor Center file; in Japanese)",
+       "url": null
+      }
+     ]
+    },
+    {
      "name": "石狩川が刻んだ峡谷",
      "category": "水・滝",
      "description": "柱状節理の岩を、石狩川が下へ下へと掘り込んでできた峡谷。大函では、両岸に切り立つ岩壁のあいだを川が流れる。",
@@ -1068,6 +1160,52 @@
        "name": "層雲峡の核心部 Part1（環境省北海道地方環境事務所）",
        "url": "https://hokkaido.env.go.jp/blog/2020/07/part-1.html",
        "name_en": "The heart of Sounkyo, Part 1 (Ministry of the Environment, Hokkaido Regional Office; in Japanese)"
+      }
+     ]
+    },
+    {
+     "name": "フロストフラワー（霜の華）",
+     "category": "季節の現象",
+     "description": "冬、ニセイチャロマップ川や石狩川の川沿いでは、毎日のように霜の結晶が見られる。川に張った氷から昇華した水蒸気が結晶になり、花のように見える。岩穴の入り口では、外の気温がマイナスなら天候に関係なく、大きいもので7cm前後の六花型の結晶も見られる。",
+     "when": "冬",
+     "map_number": null,
+     "status": "出典あり",
+     "note": "川や岩穴は薄い氷だけの場所があります。層雲峡ビジターセンターなどの観察会を利用しましょう。",
+     "link": null,
+     "name_en": null,
+     "description_en": null,
+     "when_en": null,
+     "note_en": null,
+     "lat": null,
+     "lng": null,
+     "sources": [
+      {
+       "name": "冊子「層雲峡・雪と氷の造形美」",
+       "name_en": "Snow and ice of Sounkyo (Sounkyo Visitor Center booklet; in Japanese)",
+       "url": null
+      }
+     ]
+    },
+    {
+     "name": "ニセイチャロマップ氷柱群",
+     "category": "季節の現象",
+     "description": "大函駐車場から入る林道沿い、ニセイチャロマップ川の下流で、高さ約10mの氷柱が横幅約200mにわたって並ぶ（北海道最大規模の氷柱群）。岩肌からしみ出した雨水や雪どけ水が、崖を垂れながら凍り付き、上から下へ少しずつ育ったもの。長い氷柱には、極寒だけでなく、とけたり凍ったりする寒暖の差も必要。",
+     "when": "例年12月上旬ごろ〜翌年3月上旬ごろ",
+     "map_number": null,
+     "status": "出典あり",
+     "note": "林道は作業などで入れないことがあります。事前に層雲峡ビジターセンターや観光案内所で確かめましょう。1〜2月はビジターセンターの観察会があります。",
+     "link": null,
+     "name_en": null,
+     "description_en": null,
+     "when_en": null,
+     "note_en": null,
+     "lat": null,
+     "lng": null,
+     "sources": [
+      {
+       "name": "冊子「層雲峡・雪と氷の造形美」",
+       "name_en": "Snow and ice of Sounkyo (Sounkyo Visitor Center booklet; in Japanese)",
+       "url": null
       }
      ]
     }
@@ -1207,41 +1345,194 @@
      "url": "https://sounkyo.net/view/detail.html?content=8",
      "name_en": "Momijidani trail (Sounkyo Tourism Association; in Japanese)"
     }
-   ]
+   ],
+   "photo": null,
+   "photo_credit": null
   },
   {
-   "id": "402fd841a42c812ba690f2d050281a71",
-   "name": "ウダイカンバの大木",
-   "label": "ウダイカンバ",
+   "id": "404fd841a42c81f5a853cefd088cdc2b",
+   "name": "ダケカンバ",
+   "label": "岳樺の紅葉",
    "category": "植物",
    "motif": "カバノキ",
-   "when": null,
-   "description": "カバノキの仲間で、いちばん質のよい木材がとれる木。ほかのカバノキと比べものにならないほど良いことから「真樺（まかば）」と呼ばれる。",
+   "when": "黄葉は秋（紅葉谷は例年10月上旬〜中旬、銀泉台は9月上旬ごろから）",
+   "description": "高い山に多いカバノキの仲間で、秋には黄〜黄褐色に色づく。葉のふちのギザギザは不ぞろいな二重のギザギザで、樹皮は灰褐色。黒岳では標高1500〜1800m（7合目〜8合目）あたりが「ダケカンバ帯」になっている。",
    "note": null,
    "ainu_name": null,
    "ainu_meaning": null,
    "ainu_relation": null,
-   "relations": null,
-   "status": "出典あり",
+   "relations": "層雲峡の柱状節理の割れ目にたまった土にも、しがみつくように生えている",
+   "status": "2資料で一致",
    "order": 2,
-   "name_en": "Big monarch birch",
+   "name_en": "Erman's birch",
    "label_en": null,
-   "description_en": "A member of the birch family that gives the finest timber of them all. Its wood is so much better than that of other birches that it is called makaba, “the true birch”.",
+   "description_en": null,
    "points": [
     "momijidani-entrance"
    ],
    "sources": [
     {
-     "name": "紅葉谷散策ガイド（層雲峡ビジターセンター）",
-     "url": "https://sounkyovc.net/wp-content/uploads/2023/08/momiji_valley_guide.pdf",
-     "name_en": "Momijidani trail guide (Sounkyo Visitor Center; in Japanese)"
+     "name": "ファイル「紅葉谷散策ガイドマップ」（紅葉谷の自然・見られる植物・紅黄葉する樹木・樹木の見分け方・ヒグマのフィールドサイン・遭遇時の対処法）",
+     "name_en": "Momijidani trail guide file (Sounkyo Visitor Center; in Japanese)",
+     "url": null
     },
     {
-     "name": "紅葉谷散策マップ（層雲峡ビジターセンター）",
-     "url": "https://sounkyovc.net/wp-content/uploads/2023/08/momiji_valley_map.pdf",
-     "name_en": "Momijidani trail map (Sounkyo Visitor Center; in Japanese)"
+     "name": "冊子「大雪山・層雲峡の紅葉」",
+     "name_en": "Autumn colors of Daisetsuzan and Sounkyo (Sounkyo Visitor Center booklet; in Japanese)",
+     "url": null
+    },
+    {
+     "name": "層雲峡ビジターセンター館内展示パネル・Q&Aファイル（高山植物群落・高山蝶・ナキウサギ・地形・柱状節理・動物）",
+     "name_en": "Sounkyo Visitor Center exhibit panels and Q&A files (in Japanese)",
+     "url": null
     }
-   ]
+   ],
+   "photo": null,
+   "photo_credit": null
+  },
+  {
+   "id": "404fd841a42c81f8b91ded60017a6b80",
+   "name": "ハウチワカエデ",
+   "label": "ハウチワカエデ",
+   "category": "植物",
+   "motif": "カエデの葉",
+   "when": "紅葉は例年10月上旬〜中旬",
+   "description": "秋に赤〜橙色に色づくカエデ。紅葉谷の鮮やかな赤い紅葉をつくる木のひとつ。",
+   "note": null,
+   "ainu_name": null,
+   "ainu_meaning": null,
+   "ainu_relation": null,
+   "relations": null,
+   "status": "2資料で一致",
+   "order": 3,
+   "name_en": "Full-moon maple",
+   "label_en": null,
+   "description_en": null,
+   "points": [
+    "momijidani-entrance"
+   ],
+   "sources": [
+    {
+     "name": "ファイル「紅葉谷散策ガイドマップ」（紅葉谷の自然・見られる植物・紅黄葉する樹木・樹木の見分け方・ヒグマのフィールドサイン・遭遇時の対処法）",
+     "name_en": "Momijidani trail guide file (Sounkyo Visitor Center; in Japanese)",
+     "url": null
+    },
+    {
+     "name": "冊子「大雪山・層雲峡の紅葉」",
+     "name_en": "Autumn colors of Daisetsuzan and Sounkyo (Sounkyo Visitor Center booklet; in Japanese)",
+     "url": null
+    }
+   ],
+   "photo": null,
+   "photo_credit": null
+  },
+  {
+   "id": "404fd841a42c81ab805bf1089ee146ed",
+   "name": "イタヤカエデ",
+   "label": "イタヤカエデ",
+   "category": "植物",
+   "motif": "カエデの葉",
+   "when": "黄葉は例年10月上旬〜中旬",
+   "description": "秋に黄色く色づくカエデ。紅葉谷で見られる、黄葉する代表的な木のひとつ。",
+   "note": null,
+   "ainu_name": null,
+   "ainu_meaning": null,
+   "ainu_relation": null,
+   "relations": null,
+   "status": "2資料で一致",
+   "order": 4,
+   "name_en": "Painted maple",
+   "label_en": null,
+   "description_en": null,
+   "points": [
+    "momijidani-entrance"
+   ],
+   "sources": [
+    {
+     "name": "ファイル「紅葉谷散策ガイドマップ」（紅葉谷の自然・見られる植物・紅黄葉する樹木・樹木の見分け方・ヒグマのフィールドサイン・遭遇時の対処法）",
+     "name_en": "Momijidani trail guide file (Sounkyo Visitor Center; in Japanese)",
+     "url": null
+    },
+    {
+     "name": "冊子「大雪山・層雲峡の紅葉」",
+     "name_en": "Autumn colors of Daisetsuzan and Sounkyo (Sounkyo Visitor Center booklet; in Japanese)",
+     "url": null
+    }
+   ],
+   "photo": null,
+   "photo_credit": null
+  },
+  {
+   "id": "404fd841a42c812d8fffdecde73ddd07",
+   "name": "ナナカマド",
+   "label": "ナナカマド",
+   "category": "植物",
+   "motif": "ナナカマド",
+   "when": "紅葉は例年10月上旬〜中旬",
+   "description": "秋に赤〜橙色に色づく木。紅葉谷の紅葉を彩る木のひとつ。",
+   "note": null,
+   "ainu_name": null,
+   "ainu_meaning": null,
+   "ainu_relation": null,
+   "relations": "実はヒグマもよく食べる。高い山では、ナナカマドの実を食べたヒグマの糞がよく見つかる",
+   "status": "2資料で一致",
+   "order": 5,
+   "name_en": "Japanese rowan",
+   "label_en": null,
+   "description_en": null,
+   "points": [
+    "momijidani-entrance"
+   ],
+   "sources": [
+    {
+     "name": "ファイル「紅葉谷散策ガイドマップ」（紅葉谷の自然・見られる植物・紅黄葉する樹木・樹木の見分け方・ヒグマのフィールドサイン・遭遇時の対処法）",
+     "name_en": "Momijidani trail guide file (Sounkyo Visitor Center; in Japanese)",
+     "url": null
+    },
+    {
+     "name": "層雲峡ビジターセンター館内展示パネル・Q&Aファイル（高山植物群落・高山蝶・ナキウサギ・地形・柱状節理・動物）",
+     "name_en": "Sounkyo Visitor Center exhibit panels and Q&A files (in Japanese)",
+     "url": null
+    }
+   ],
+   "photo": null,
+   "photo_credit": null
+  },
+  {
+   "id": "404fd841a42c8101a9b9c6bce00aaf2f",
+   "name": "オガラバナ",
+   "label": "オガラバナ",
+   "category": "植物",
+   "motif": "カエデの葉",
+   "when": "紅葉は秋（銀泉台は9月上旬ごろから、紅葉谷は例年10月上旬〜中旬）",
+   "description": "秋に橙〜赤色に色づく木。紅葉谷で見られる紅葉する樹木のひとつで、赤岳・銀泉台でも、ウラジロナナカマドやダケカンバなどと一緒に9月上旬ごろから色づく。",
+   "note": null,
+   "ainu_name": null,
+   "ainu_meaning": null,
+   "ainu_relation": null,
+   "relations": null,
+   "status": "2資料で一致",
+   "order": 6,
+   "name_en": "Mountain maple (Acer ukurunduense)",
+   "label_en": null,
+   "description_en": null,
+   "points": [
+    "momijidani-entrance"
+   ],
+   "sources": [
+    {
+     "name": "ファイル「紅葉谷散策ガイドマップ」（紅葉谷の自然・見られる植物・紅黄葉する樹木・樹木の見分け方・ヒグマのフィールドサイン・遭遇時の対処法）",
+     "name_en": "Momijidani trail guide file (Sounkyo Visitor Center; in Japanese)",
+     "url": null
+    },
+    {
+     "name": "冊子「大雪山・層雲峡の紅葉」",
+     "name_en": "Autumn colors of Daisetsuzan and Sounkyo (Sounkyo Visitor Center booklet; in Japanese)",
+     "url": null
+    }
+   ],
+   "photo": null,
+   "photo_credit": null
   },
   {
    "id": "402fd841a42c819a93bacf8d81985d72",
@@ -1257,7 +1548,7 @@
    "ainu_relation": null,
    "relations": null,
    "status": "出典あり",
-   "order": 3,
+   "order": 7,
    "name_en": "Katsura tree",
    "label_en": null,
    "description_en": "Said to grow bigger than any other tree in Hokkaido, reaching 20–30 m tall and 1–2 m across. When its leaves turn yellow in autumn, they give off a sweet smell.",
@@ -1275,7 +1566,153 @@
      "url": "https://sounkyovc.net/wp-content/uploads/2023/08/momiji_valley_map.pdf",
      "name_en": "Momijidani trail map (Sounkyo Visitor Center; in Japanese)"
     }
-   ]
+   ],
+   "photo": null,
+   "photo_credit": null
+  },
+  {
+   "id": "402fd841a42c812ba690f2d050281a71",
+   "name": "ウダイカンバの大木",
+   "label": "ウダイカンバ",
+   "category": "植物",
+   "motif": "カバノキ",
+   "when": null,
+   "description": "カバノキの仲間で、いちばん質のよい木材がとれる木。ほかのカバノキと比べものにならないほど良いことから「真樺（まかば）」と呼ばれる。",
+   "note": null,
+   "ainu_name": null,
+   "ainu_meaning": null,
+   "ainu_relation": null,
+   "relations": null,
+   "status": "出典あり",
+   "order": 8,
+   "name_en": "Big monarch birch",
+   "label_en": null,
+   "description_en": "A member of the birch family that gives the finest timber of them all. Its wood is so much better than that of other birches that it is called makaba, “the true birch”.",
+   "points": [
+    "momijidani-entrance"
+   ],
+   "sources": [
+    {
+     "name": "紅葉谷散策ガイド（層雲峡ビジターセンター）",
+     "url": "https://sounkyovc.net/wp-content/uploads/2023/08/momiji_valley_guide.pdf",
+     "name_en": "Momijidani trail guide (Sounkyo Visitor Center; in Japanese)"
+    },
+    {
+     "name": "紅葉谷散策マップ（層雲峡ビジターセンター）",
+     "url": "https://sounkyovc.net/wp-content/uploads/2023/08/momiji_valley_map.pdf",
+     "name_en": "Momijidani trail map (Sounkyo Visitor Center; in Japanese)"
+    }
+   ],
+   "photo": null,
+   "photo_credit": null
+  },
+  {
+   "id": "404fd841a42c81d0a3e4d550b46cfefd",
+   "name": "トドマツ",
+   "label": "トドマツ",
+   "category": "植物",
+   "motif": "針葉樹",
+   "when": null,
+   "description": "モミの仲間の針葉樹。葉は長く、先がへこんでいる。樹皮はなめらかな灰白色で、薄くてやわらかく、地衣類がよくついている。紅葉谷では、散策路の中ほどから針葉樹が目立つようになる。",
+   "note": null,
+   "ainu_name": null,
+   "ainu_meaning": null,
+   "ainu_relation": null,
+   "relations": "クマゲラは、樹皮がなめらかでまっすぐ伸びたトドマツなどに巣穴を掘る。エゾモモンガはトドマツなどの葉を食べ、雪の上に食べ残しが散らばる",
+   "status": "出典あり",
+   "order": 9,
+   "name_en": "Sakhalin fir",
+   "label_en": null,
+   "description_en": null,
+   "points": [
+    "momijidani-entrance"
+   ],
+   "sources": [
+    {
+     "name": "ファイル「紅葉谷散策ガイドマップ」（紅葉谷の自然・見られる植物・紅黄葉する樹木・樹木の見分け方・ヒグマのフィールドサイン・遭遇時の対処法）",
+     "name_en": "Momijidani trail guide file (Sounkyo Visitor Center; in Japanese)",
+     "url": null
+    },
+    {
+     "name": "層雲峡ビジターセンター館内展示パネル・Q&Aファイル（高山植物群落・高山蝶・ナキウサギ・地形・柱状節理・動物）",
+     "name_en": "Sounkyo Visitor Center exhibit panels and Q&A files (in Japanese)",
+     "url": null
+    },
+    {
+     "name": "冊子「層雲峡・雪と氷の造形美」",
+     "name_en": "Snow and ice of Sounkyo (Sounkyo Visitor Center booklet; in Japanese)",
+     "url": null
+    }
+   ],
+   "photo": null,
+   "photo_credit": null
+  },
+  {
+   "id": "404fd841a42c81a98154da5fbc138e86",
+   "name": "アカエゾマツ",
+   "label": "アカエゾマツ",
+   "category": "植物",
+   "motif": "針葉樹",
+   "when": null,
+   "description": "トウヒの仲間の針葉樹。葉は短く、先はやや尖り、断面は四角〜ひし形。樹皮は黒っぽい赤褐色で、うろこ状に大きくはがれやすい。湿地や荒れ地に強く、ほかの木が育たない高山の湿原にも、形を変えながら入り込んで育つ。",
+   "note": null,
+   "ainu_name": null,
+   "ainu_meaning": null,
+   "ainu_relation": null,
+   "relations": null,
+   "status": "出典あり",
+   "order": 10,
+   "name_en": "Sakhalin spruce",
+   "label_en": null,
+   "description_en": null,
+   "points": [
+    "momijidani-entrance"
+   ],
+   "sources": [
+    {
+     "name": "ファイル「紅葉谷散策ガイドマップ」（紅葉谷の自然・見られる植物・紅黄葉する樹木・樹木の見分け方・ヒグマのフィールドサイン・遭遇時の対処法）",
+     "name_en": "Momijidani trail guide file (Sounkyo Visitor Center; in Japanese)",
+     "url": null
+    },
+    {
+     "name": "層雲峡ビジターセンター館内展示パネル・Q&Aファイル（高山植物群落・高山蝶・ナキウサギ・地形・柱状節理・動物）",
+     "name_en": "Sounkyo Visitor Center exhibit panels and Q&A files (in Japanese)",
+     "url": null
+    }
+   ],
+   "photo": null,
+   "photo_credit": null
+  },
+  {
+   "id": "404fd841a42c81a3a537f427728d9fac",
+   "name": "クロエゾマツ",
+   "label": "クロエゾマツ",
+   "category": "植物",
+   "motif": "針葉樹",
+   "when": null,
+   "description": "トウヒの仲間の針葉樹。葉は長く、先は尖り、断面は平たい。樹皮は黒褐色で、不規則なうろこ状に薄くはがれやすく、老木では深く割れる。",
+   "note": null,
+   "ainu_name": null,
+   "ainu_meaning": null,
+   "ainu_relation": null,
+   "relations": null,
+   "status": "出典あり",
+   "order": 11,
+   "name_en": "Yezo spruce",
+   "label_en": null,
+   "description_en": null,
+   "points": [
+    "momijidani-entrance"
+   ],
+   "sources": [
+    {
+     "name": "ファイル「紅葉谷散策ガイドマップ」（紅葉谷の自然・見られる植物・紅黄葉する樹木・樹木の見分け方・ヒグマのフィールドサイン・遭遇時の対処法）",
+     "name_en": "Momijidani trail guide file (Sounkyo Visitor Center; in Japanese)",
+     "url": null
+    }
+   ],
+   "photo": null,
+   "photo_credit": null
   },
   {
    "id": "402fd841a42c811f9422d243338f9165",
@@ -1291,7 +1728,7 @@
    "ainu_relation": null,
    "relations": null,
    "status": "出典あり",
-   "order": 4,
+   "order": 12,
    "name_en": "Nurse logs",
    "label_en": null,
    "description_en": "Seeds land on fallen trees and stumps, sprout, and grow into the next generation of trees. It is one of the ways a forest renews itself.",
@@ -1309,7 +1746,9 @@
      "url": "https://sounkyovc.net/wp-content/uploads/2023/08/momiji_valley_map.pdf",
      "name_en": "Momijidani trail map (Sounkyo Visitor Center; in Japanese)"
     }
-   ]
+   ],
+   "photo": null,
+   "photo_credit": null
   },
   {
    "id": "402fd841a42c811e884bfdb6d9521153",
@@ -1325,7 +1764,7 @@
    "ainu_relation": null,
    "relations": null,
    "status": "出典あり",
-   "order": 5,
+   "order": 13,
    "name_en": "Kolomikta vine",
    "label_en": null,
    "description_en": "A woody vine that grows by climbing other trees and rocks. Around flowering time, its leaves turn pink.",
@@ -1343,7 +1782,50 @@
      "url": "https://sounkyovc.net/wp-content/uploads/2023/08/momiji_valley_map.pdf",
      "name_en": "Momijidani trail map (Sounkyo Visitor Center; in Japanese)"
     }
-   ]
+   ],
+   "photo": null,
+   "photo_credit": null
+  },
+  {
+   "id": "404fd841a42c8149b615c795d848c9ea",
+   "name": "ウコンウツギ",
+   "label": "ウコンウツギ",
+   "category": "植物",
+   "motif": "花",
+   "when": null,
+   "description": "高さ1〜2mにもなる低木で、黄色い花を咲かせる。雪どけ水が豊かな高山の草原にも見られ、赤岳・銀泉台では秋に紅葉する樹木のひとつ。紅葉谷で見られる植物にも挙げられている。",
+   "note": null,
+   "ainu_name": null,
+   "ainu_meaning": null,
+   "ainu_relation": null,
+   "relations": null,
+   "status": "2資料で一致",
+   "order": 14,
+   "name_en": "Weigela middendorffiana",
+   "label_en": null,
+   "description_en": null,
+   "points": [
+    "momijidani-entrance"
+   ],
+   "sources": [
+    {
+     "name": "ファイル「紅葉谷散策ガイドマップ」（紅葉谷の自然・見られる植物・紅黄葉する樹木・樹木の見分け方・ヒグマのフィールドサイン・遭遇時の対処法）",
+     "name_en": "Momijidani trail guide file (Sounkyo Visitor Center; in Japanese)",
+     "url": null
+    },
+    {
+     "name": "冊子「大雪山・層雲峡の紅葉」",
+     "name_en": "Autumn colors of Daisetsuzan and Sounkyo (Sounkyo Visitor Center booklet; in Japanese)",
+     "url": null
+    },
+    {
+     "name": "層雲峡ビジターセンター館内展示パネル・Q&Aファイル（高山植物群落・高山蝶・ナキウサギ・地形・柱状節理・動物）",
+     "name_en": "Sounkyo Visitor Center exhibit panels and Q&A files (in Japanese)",
+     "url": null
+    }
+   ],
+   "photo": null,
+   "photo_credit": null
   },
   {
    "id": "402fd841a42c81a09253c3d02928edcd",
@@ -1359,7 +1841,7 @@
    "ainu_relation": null,
    "relations": null,
    "status": "出典あり",
-   "order": 6,
+   "order": 15,
    "name_en": "Flowers of Momijidani",
    "label_en": null,
    "description_en": "More than 150 plant species can be seen around Momijidani. Around mid-May, Anemone debilis and Anemone flaccida bloom first; in late June come Aruncus and Trautvetteria, and from July on, Lilium medeoloides, Ezo monkshood and others follow. Photos of bunchberry, Rhododendron albrechtii, Weigela middendorffiana and more are in the visitor center's flower guide (in Japanese).",
@@ -1377,7 +1859,9 @@
      "url": "https://sounkyovc.net/db/hanazukan",
      "name_en": "Flower guide (Sounkyo Visitor Center; in Japanese)"
     }
-   ]
+   ],
+   "photo": null,
+   "photo_credit": null
   },
   {
    "id": "402fd841a42c819c84faf6d2177de782",
@@ -1393,7 +1877,7 @@
    "ainu_relation": null,
    "relations": null,
    "status": "出典あり",
-   "order": 7,
+   "order": 16,
    "name_en": "Madara-suzu cricket",
    "label_en": null,
    "description_en": "A tiny cricket, 6–7 mm long. In the lowlands it is a summer insect, but at hot spring areas warmed by geothermal heat it is known to sing even in winter, and in Momijidani it can be seen all year.",
@@ -1411,7 +1895,9 @@
      "url": "https://sounkyovc.net/wp-content/uploads/2023/08/momiji_valley_map.pdf",
      "name_en": "Momijidani trail map (Sounkyo Visitor Center; in Japanese)"
     }
-   ]
+   ],
+   "photo": null,
+   "photo_credit": null
   },
   {
    "id": "402fd841a42c81cb93ccf53ee1db4525",
@@ -1427,7 +1913,7 @@
    "ainu_relation": null,
    "relations": null,
    "status": "出典あり",
-   "order": 8,
+   "order": 17,
    "name_en": "Japanese crayfish stream",
    "label_en": null,
    "description_en": "A crayfish found only in Japan, living only in Hokkaido and parts of the Tohoku region. It is small, 4–8 cm long, and dark brown. In the Edo period, the stones that form inside its body were prized as medicine.",
@@ -1445,7 +1931,9 @@
      "url": "https://sounkyovc.net/wp-content/uploads/2023/08/momiji_valley_map.pdf",
      "name_en": "Momijidani trail map (Sounkyo Visitor Center; in Japanese)"
     }
-   ]
+   ],
+   "photo": null,
+   "photo_credit": null
   },
   {
    "id": "402fd841a42c810fb7dce872369ffd06",
@@ -1461,7 +1949,7 @@
    "ainu_relation": null,
    "relations": null,
    "status": "出典あり",
-   "order": 9,
+   "order": 18,
    "name_en": "Bear tree",
    "label_en": null,
    "description_en": "A tree that still carries a brown bear's claw marks. A kokuwa (hardy kiwi) vine used to wind around this tree, and the marks are said to be from a bear that climbed up when the fruit was ripe.",
@@ -1479,41 +1967,156 @@
      "url": "https://sounkyovc.net/info",
      "name_en": "Sounkyo information (Sounkyo Visitor Center; in Japanese)"
     }
-   ]
+   ],
+   "photo": null,
+   "photo_credit": null
   },
   {
-   "id": "402fd841a42c81cb8ee5c8cb6e9faa0b",
-   "name": "クマゲラの採餌木",
-   "label": "クマゲラ",
-   "category": "鳥",
-   "motif": "キツツキ",
+   "id": "404fd841a42c814b9280e7a5b734ee63",
+   "name": "ヒグマ",
+   "label": "ヒグマ",
+   "category": "動物",
+   "motif": "クマ",
    "when": null,
-   "description": "クマゲラが餌を探してつついた跡が残る木。クマゲラは体が黒く頭の後ろが赤い、日本最大のキツツキで、国の天然記念物。アイヌ語では「チプタチカム・カムイ」と呼ばれる。",
-   "note": null,
-   "ainu_name": "チプタチカム・カムイ",
+   "description": "日本の陸にすむ野生動物でいちばん大きい。オスは体長2m・体重400kgになるものもいる。目より鼻と耳がよく発達している。ふだんは植物を中心に食べ、アリや昆虫の幼虫、ザリガニ、ときにはエゾシカも食べる。11月から4月なかばまで穴で冬眠し、1〜2月に穴の中で子どもを産む。",
+   "note": "ヒグマのすむ森です。鈴やホイッスルなど音の出るものを持ち、糞や足跡を見つけたら引き返しましょう。子グマのそばには必ず母グマがいます。食べ残しは必ず持ち帰ってください。",
+   "ainu_name": "キムンカムイ",
    "ainu_meaning": null,
    "ainu_relation": null,
-   "relations": null,
-   "status": "出典あり",
-   "order": 10,
-   "name_en": "Black woodpecker feeding tree",
+   "relations": "コクワ、ナナカマドの実、ヤマブドウ、コケモモの実、ハイマツの実、フキ、ザゼンソウ、トビケラの幼虫、アリなどを食べる",
+   "status": "2資料で一致",
+   "order": 19,
+   "name_en": "Brown bear",
    "label_en": null,
-   "description_en": "A tree marked where a black woodpecker pecked for food. With its black body and red on the back of its head, the black woodpecker is Japan's largest woodpecker and a national natural monument. In Ainu it is called Chiptachikam Kamuy (チプタチカム・カムイ).",
+   "description_en": null,
    "points": [
     "momijidani-entrance"
    ],
    "sources": [
     {
-     "name": "紅葉谷散策ガイド（層雲峡ビジターセンター）",
-     "url": "https://sounkyovc.net/wp-content/uploads/2023/08/momiji_valley_guide.pdf",
-     "name_en": "Momijidani trail guide (Sounkyo Visitor Center; in Japanese)"
+     "name": "層雲峡ビジターセンター館内展示パネル・Q&Aファイル（高山植物群落・高山蝶・ナキウサギ・地形・柱状節理・動物）",
+     "name_en": "Sounkyo Visitor Center exhibit panels and Q&A files (in Japanese)",
+     "url": null
     },
+    {
+     "name": "ファイル「紅葉谷散策ガイドマップ」（紅葉谷の自然・見られる植物・紅黄葉する樹木・樹木の見分け方・ヒグマのフィールドサイン・遭遇時の対処法）",
+     "name_en": "Momijidani trail guide file (Sounkyo Visitor Center; in Japanese)",
+     "url": null
+    },
+    {
+     "name": "豊かな森の生活者 クマと共存するために クマを知って事故を防ごう！",
+     "name_en": "Living with bears (Ministry of the Environment pamphlet, 2016; in Japanese)",
+     "url": null
+    }
+   ],
+   "photo": null,
+   "photo_credit": null
+  },
+  {
+   "id": "404fd841a42c81a0a5afda4cf9a60695",
+   "name": "エゾシカ",
+   "label": "エゾシカ",
+   "category": "動物",
+   "motif": "シカ",
+   "when": "一年中（冬は数頭〜数十頭の群れになる）",
+   "description": "北海道全域にすむシカ。明治12年と36年の大雪で大量に死に、一時は数がとても少なくなったが、その後の保護で増え、大雪山系では一年中見られる。夏〜秋は草や木の実・葉を、冬はハルニレなどの樹皮やヤナギの小枝を食べる。オスの角は毎年生えかわり、春に生えた袋角が9月ごろ堅くなり、冬の終わりに根元から抜け落ちる。",
+   "note": "野生動物に近づいたり、餌をあげたりしないでください。",
+   "ainu_name": "ユク",
+   "ainu_meaning": null,
+   "ainu_relation": null,
+   "relations": "毛の色が森にとけこみ、森が隠れ場になっている。ヒグマに食べられることもある",
+   "status": "2資料で一致",
+   "order": 20,
+   "name_en": "Ezo sika deer",
+   "label_en": null,
+   "description_en": null,
+   "points": [
+    "momijidani-entrance"
+   ],
+   "sources": [
+    {
+     "name": "層雲峡ビジターセンター館内展示パネル・Q&Aファイル（高山植物群落・高山蝶・ナキウサギ・地形・柱状節理・動物）",
+     "name_en": "Sounkyo Visitor Center exhibit panels and Q&A files (in Japanese)",
+     "url": null
+    },
+    {
+     "name": "ファイル「紅葉谷散策ガイドマップ」（紅葉谷の自然・見られる植物・紅黄葉する樹木・樹木の見分け方・ヒグマのフィールドサイン・遭遇時の対処法）",
+     "name_en": "Momijidani trail guide file (Sounkyo Visitor Center; in Japanese)",
+     "url": null
+    }
+   ],
+   "photo": null,
+   "photo_credit": null
+  },
+  {
+   "id": "404fd841a42c81cabb74fc2288925d4f",
+   "name": "ウラジロナナカマド",
+   "label": "ウラジロナナカマド",
+   "category": "植物",
+   "motif": "ナナカマド",
+   "when": "紅葉は9月上旬〜中旬（銀泉台）",
+   "description": "高い山で赤く色づくナナカマドの仲間。大雪山では9月上旬ごろから赤く色づき、赤岳・銀泉台や高原沼の紅葉をつくる主な樹木のひとつ。",
+   "note": null,
+   "ainu_name": null,
+   "ainu_meaning": null,
+   "ainu_relation": null,
+   "relations": null,
+   "status": "出典あり",
+   "order": 20,
+   "name_en": "Sorbus matsumurana",
+   "label_en": null,
+   "description_en": null,
+   "points": [],
+   "sources": [
+    {
+     "name": "冊子「大雪山・層雲峡の紅葉」",
+     "name_en": "Autumn colors of Daisetsuzan and Sounkyo (Sounkyo Visitor Center booklet; in Japanese)",
+     "url": null
+    }
+   ],
+   "photo": null,
+   "photo_credit": null
+  },
+  {
+   "id": "402fd841a42c81e2a0dfc86230151c6b",
+   "name": "キタキツネ",
+   "label": "キタキツネ",
+   "category": "動物",
+   "motif": "キツネ",
+   "when": null,
+   "description": "散策路では、ときどきキタキツネに出会うことがある（ビジターセンターの記録写真より）。冬は雪の上に残る足跡などから、その暮らしが見えてくることもある。",
+   "note": "野生動物に近づいたり、餌をあげたりしないでください。",
+   "ainu_name": null,
+   "ainu_meaning": null,
+   "ainu_relation": null,
+   "relations": null,
+   "status": "出典あり",
+   "order": 21,
+   "name_en": "Ezo red fox and Ezo sika deer",
+   "label_en": null,
+   "description_en": null,
+   "points": [
+    "momijidani-entrance"
+   ],
+   "sources": [
     {
      "name": "層雲峡情報（層雲峡ビジターセンター）",
      "url": "https://sounkyovc.net/info",
      "name_en": "Sounkyo information (Sounkyo Visitor Center; in Japanese)"
+    },
+    {
+     "name": "ファイル「紅葉谷散策ガイドマップ」（紅葉谷の自然・見られる植物・紅黄葉する樹木・樹木の見分け方・ヒグマのフィールドサイン・遭遇時の対処法）",
+     "name_en": "Momijidani trail guide file (Sounkyo Visitor Center; in Japanese)",
+     "url": null
+    },
+    {
+     "name": "冊子「層雲峡・雪と氷の造形美」",
+     "name_en": "Snow and ice of Sounkyo (Sounkyo Visitor Center booklet; in Japanese)",
+     "url": null
     }
-   ]
+   ],
+   "photo": null,
+   "photo_credit": null
   },
   {
    "id": "402fd841a42c81ce8940c9efcabf430f",
@@ -1521,18 +2124,18 @@
    "label": "エゾモモンガ",
    "category": "動物",
    "motif": "モモンガ",
-   "when": "主に夜に活動する",
-   "description": "北海道の低地から亜高山帯の森にすむ。前足と後ろ足のあいだの膜を広げて、木から木へと滑空する。",
-   "note": null,
-   "ainu_name": null,
+   "when": "主に夜に活動する（冬は活動時間が短くなる）",
+   "description": "北海道の低地から亜高山帯の森にすむ。前足と後ろ足のあいだの膜（飛膜）を広げて、木から木へと滑空する。体長は約15〜18cmで、飛膜を広げるとハガキくらいの大きさ。日没の約60分後に巣穴から出て、日の出の約50分前に戻る。昔は「晩鳥（バンドリ）」とも呼ばれた。",
+   "note": "モモンガや巣のある木に近づきすぎず、静かに見守りましょう。",
+   "ainu_name": "アッ／アッカムイ",
    "ainu_meaning": null,
    "ainu_relation": null,
-   "relations": null,
+   "relations": "トドマツなどの木の芽・葉・樹皮・種子を食べる。巣穴はキツツキなどの古巣を主に使う",
    "status": "出典あり",
-   "order": 11,
+   "order": 22,
    "name_en": "Ezo flying squirrel",
    "label_en": null,
-   "description_en": "Lives in Hokkaido's forests, from the lowlands up to the subalpine zone. It glides from tree to tree by spreading the membrane between its front and back legs.",
+   "description_en": null,
    "points": [
     "momijidani-entrance"
    ],
@@ -1546,37 +2149,366 @@
      "name": "紅葉谷散策マップ（層雲峡ビジターセンター）",
      "url": "https://sounkyovc.net/wp-content/uploads/2023/08/momiji_valley_map.pdf",
      "name_en": "Momijidani trail map (Sounkyo Visitor Center; in Japanese)"
+    },
+    {
+     "name": "冊子「層雲峡・雪と氷の造形美」",
+     "name_en": "Snow and ice of Sounkyo (Sounkyo Visitor Center booklet; in Japanese)",
+     "url": null
+    },
+    {
+     "name": "ファイル「紅葉谷散策ガイドマップ」（紅葉谷の自然・見られる植物・紅黄葉する樹木・樹木の見分け方・ヒグマのフィールドサイン・遭遇時の対処法）",
+     "name_en": "Momijidani trail guide file (Sounkyo Visitor Center; in Japanese)",
+     "url": null
     }
-   ]
+   ],
+   "photo": null,
+   "photo_credit": null
   },
   {
-   "id": "402fd841a42c81e2a0dfc86230151c6b",
-   "name": "キタキツネ・エゾシカ",
-   "label": "キタキツネ・エゾシカ",
-   "category": "動物",
-   "motif": "キツネ・シカ",
-   "when": null,
-   "description": "散策路では、ときどきキタキツネや、エゾシカの親子に出会うことがある（ビジターセンターの記録写真より）。",
-   "note": "野生動物に近づいたり、餌をあげたりしないでください。",
-   "ainu_name": null,
+   "id": "402fd841a42c81cb8ee5c8cb6e9faa0b",
+   "name": "クマゲラの採餌木",
+   "label": "クマゲラ",
+   "category": "鳥",
+   "motif": "キツツキ",
+   "when": "木をたたくドラミングは3月〜7月に多い",
+   "description": "クマゲラが餌を探してつついた跡が残る木。クマゲラは体が黒く頭の後ろが赤い、日本最大のキツツキ（約45cm）で、国の天然記念物。枯れ木や巨木の多い、針葉樹と広葉樹がまざった広い森にすむ。冬は生きたトドマツやエゾマツの幹に縦長の大きな穴を開けて、中のムネアカオオアリを食べる。",
+   "note": null,
+   "ainu_name": "チプタチカム・カムイ",
    "ainu_meaning": null,
    "ainu_relation": null,
-   "relations": null,
+   "relations": "アリやカミキリムシの幼虫などを食べる。巣穴はまっすぐなトドマツなどに掘る。古い巣穴はエゾモモンガなどが使う",
    "status": "出典あり",
-   "order": 12,
-   "name_en": "Ezo red fox and Ezo sika deer",
+   "order": 23,
+   "name_en": "Black woodpecker feeding tree",
    "label_en": null,
-   "description_en": "On the trail you may sometimes meet an Ezo red fox, or a sika deer mother with her fawn (from the visitor center's record photos).",
+   "description_en": null,
    "points": [
     "momijidani-entrance"
    ],
    "sources": [
     {
+     "name": "紅葉谷散策ガイド（層雲峡ビジターセンター）",
+     "url": "https://sounkyovc.net/wp-content/uploads/2023/08/momiji_valley_guide.pdf",
+     "name_en": "Momijidani trail guide (Sounkyo Visitor Center; in Japanese)"
+    },
+    {
      "name": "層雲峡情報（層雲峡ビジターセンター）",
      "url": "https://sounkyovc.net/info",
      "name_en": "Sounkyo information (Sounkyo Visitor Center; in Japanese)"
+    },
+    {
+     "name": "層雲峡ビジターセンター館内展示パネル・Q&Aファイル（高山植物群落・高山蝶・ナキウサギ・地形・柱状節理・動物）",
+     "name_en": "Sounkyo Visitor Center exhibit panels and Q&A files (in Japanese)",
+     "url": null
+    },
+    {
+     "name": "ファイル「紅葉谷散策ガイドマップ」（紅葉谷の自然・見られる植物・紅黄葉する樹木・樹木の見分け方・ヒグマのフィールドサイン・遭遇時の対処法）",
+     "name_en": "Momijidani trail guide file (Sounkyo Visitor Center; in Japanese)",
+     "url": null
     }
-   ]
+   ],
+   "photo": null,
+   "photo_credit": null
+  },
+  {
+   "id": "404fd841a42c813daa60f7597a300216",
+   "name": "コマクサ",
+   "label": "コマクサ",
+   "category": "植物",
+   "motif": "高山の花",
+   "when": null,
+   "description": "「高山植物の女王」と呼ばれる。風当たりが強く、地中が凍土になる石の多い場所（風衝地・れき地）に生え、夏のあいだにとける水を頼りに育つ。枯れるときに種をまき散らす。",
+   "note": null,
+   "ainu_name": null,
+   "ainu_meaning": null,
+   "ainu_relation": null,
+   "relations": "ウスバキチョウの幼虫は、コマクサだけを食べて育つ",
+   "status": "出典あり",
+   "order": 30,
+   "name_en": "Dicentra peregrina",
+   "label_en": null,
+   "description_en": null,
+   "points": [],
+   "sources": [
+    {
+     "name": "層雲峡ビジターセンター館内展示パネル・Q&Aファイル（高山植物群落・高山蝶・ナキウサギ・地形・柱状節理・動物）",
+     "name_en": "Sounkyo Visitor Center exhibit panels and Q&A files (in Japanese)",
+     "url": null
+    }
+   ],
+   "photo": null,
+   "photo_credit": null
+  },
+  {
+   "id": "404fd841a42c811582f0cc6f253263d2",
+   "name": "ウスバキチョウ",
+   "label": "ウスバキチョウ",
+   "category": "虫",
+   "motif": "チョウ",
+   "when": null,
+   "description": "氷河期に大陸から渡ってきて、暖かくなった後も大雪山などの高山に残ったチョウ（氷河期の生き証人）。卵はコマクサの近くの石の下に産まれて冬を越し、幼虫はコマクサだけを食べ、さなぎで冬を越す。卵から3年目に成虫になり、ミネズオウやイワウメの蜜を吸う。",
+   "note": "天然記念物で、捕獲は禁止されています。",
+   "ainu_name": null,
+   "ainu_meaning": null,
+   "ainu_relation": null,
+   "relations": "幼虫の食べ物はコマクサだけ。成虫はミネズオウ、イワウメの蜜を吸う",
+   "status": "出典あり",
+   "order": 31,
+   "name_en": "Parnassius eversmanni",
+   "label_en": null,
+   "description_en": null,
+   "points": [],
+   "sources": [
+    {
+     "name": "層雲峡ビジターセンター館内展示パネル・Q&Aファイル（高山植物群落・高山蝶・ナキウサギ・地形・柱状節理・動物）",
+     "name_en": "Sounkyo Visitor Center exhibit panels and Q&A files (in Japanese)",
+     "url": null
+    }
+   ],
+   "photo": null,
+   "photo_credit": null
+  },
+  {
+   "id": "404fd841a42c810cb428e46b3fd703fa",
+   "name": "ダイセツタカネヒカゲ",
+   "label": "ダイセツタカネヒカゲ",
+   "category": "虫",
+   "motif": "チョウ",
+   "when": "成虫は6月下旬〜8月上旬",
+   "description": "6月下旬〜8月上旬、風の強い岩の多い尾根に現れる高山蝶。羽の模様が岩場の色に似ていて、止まると見失うほど。止まるときに羽を閉じて横倒しになる（日光浴や強風への適応といわれる）。幼虫はダイセツイワスゲやミヤマクロスゲを食べ、幼虫のまま2回冬を越し、3年目にチョウになる。",
+   "note": "天然記念物で、捕獲は禁止されています。",
+   "ainu_name": null,
+   "ainu_meaning": null,
+   "ainu_relation": null,
+   "relations": "幼虫はダイセツイワスゲ、ミヤマクロスゲを食べる。成虫はミネズオウ、イワウメ、コケモモの蜜を吸う",
+   "status": "出典あり",
+   "order": 32,
+   "name_en": "Oeneis melissa daisetsuzana",
+   "label_en": null,
+   "description_en": null,
+   "points": [],
+   "sources": [
+    {
+     "name": "層雲峡ビジターセンター館内展示パネル・Q&Aファイル（高山植物群落・高山蝶・ナキウサギ・地形・柱状節理・動物）",
+     "name_en": "Sounkyo Visitor Center exhibit panels and Q&A files (in Japanese)",
+     "url": null
+    }
+   ],
+   "photo": null,
+   "photo_credit": null
+  },
+  {
+   "id": "404fd841a42c81219bd9c56aa62ef591",
+   "name": "アサヒヒョウモン",
+   "label": "アサヒヒョウモン",
+   "category": "虫",
+   "motif": "チョウ",
+   "when": "6月中旬から。最盛期は6月下旬〜7月上旬",
+   "description": "6月中旬から雪田の花畑を舞う、鮮やかなオレンジ色にヒョウのような斑点のあるチョウ。日本のヒョウモンチョウでもっとも小さく、シジミチョウくらいの大きさ。幼虫はキバナシャクナゲを食べて幼虫のまま冬を越し、春にさなぎになってチョウになる。",
+   "note": "天然記念物で、捕獲は禁止されています。",
+   "ainu_name": null,
+   "ainu_meaning": null,
+   "ainu_relation": null,
+   "relations": "幼虫はキバナシャクナゲを食べる。成虫はエゾノツガザクラ、ミネズオウ、イワウメなどの蜜を吸う",
+   "status": "出典あり",
+   "order": 33,
+   "name_en": "Clossiana freija asahidakeana",
+   "label_en": null,
+   "description_en": null,
+   "points": [],
+   "sources": [
+    {
+     "name": "層雲峡ビジターセンター館内展示パネル・Q&Aファイル（高山植物群落・高山蝶・ナキウサギ・地形・柱状節理・動物）",
+     "name_en": "Sounkyo Visitor Center exhibit panels and Q&A files (in Japanese)",
+     "url": null
+    }
+   ],
+   "photo": null,
+   "photo_credit": null
+  },
+  {
+   "id": "404fd841a42c81088c50d869f1bc9a33",
+   "name": "クモマベニヒカゲ",
+   "label": "クモマベニヒカゲ",
+   "category": "虫",
+   "motif": "チョウ",
+   "when": "7月下旬",
+   "description": "花畑が最盛期を迎える7月下旬に現れる、紅色の高山蝶で、大雪山の高山蝶では一番おそく登場する。幼虫は湿地に生えるイワノガリヤスを食べ、卵で1回目、幼虫で2回目の冬を越し、3年目にチョウになる。",
+   "note": null,
+   "ainu_name": null,
+   "ainu_meaning": null,
+   "ainu_relation": null,
+   "relations": "幼虫はイワノガリヤスを食べる。成虫はコガネギク、チシマノキンバイソウなどの蜜を吸う",
+   "status": "出典あり",
+   "order": 34,
+   "name_en": "Erebia ligea",
+   "label_en": null,
+   "description_en": null,
+   "points": [],
+   "sources": [
+    {
+     "name": "層雲峡ビジターセンター館内展示パネル・Q&Aファイル（高山植物群落・高山蝶・ナキウサギ・地形・柱状節理・動物）",
+     "name_en": "Sounkyo Visitor Center exhibit panels and Q&A files (in Japanese)",
+     "url": null
+    }
+   ],
+   "photo": null,
+   "photo_credit": null
+  },
+  {
+   "id": "404fd841a42c81dc9f63fb371665c60b",
+   "name": "ナキウサギ",
+   "label": "ナキウサギ",
+   "category": "動物",
+   "motif": "ナキウサギ",
+   "when": null,
+   "description": "約7万〜1万年前の氷河期に、大陸と地続きだった北海道へやってきて、暖かくなった後は大雪山の岩場で生きのびた。体は13cmほど・100gほどで耳が丸く短く、開拓のころは「ゴンボネズミ」と呼ばれていた。冬眠しないため、秋はコケモモやクロマメノキ、いろいろな葉を岩の下のすみかに運んで貯める。",
+   "note": null,
+   "ainu_name": null,
+   "ainu_meaning": null,
+   "ainu_relation": null,
+   "relations": "コケモモ、クロマメノキなどの植物を集めて貯める。岩場で鳥のような短い声で鳴く",
+   "status": "出典あり",
+   "order": 35,
+   "name_en": "Northern pika",
+   "label_en": null,
+   "description_en": null,
+   "points": [],
+   "sources": [
+    {
+     "name": "層雲峡ビジターセンター館内展示パネル・Q&Aファイル（高山植物群落・高山蝶・ナキウサギ・地形・柱状節理・動物）",
+     "name_en": "Sounkyo Visitor Center exhibit panels and Q&A files (in Japanese)",
+     "url": null
+    }
+   ],
+   "photo": null,
+   "photo_credit": null
+  },
+  {
+   "id": "404fd841a42c81328f37cc8613a344b3",
+   "name": "モウセンゴケ",
+   "label": "モウセンゴケ",
+   "category": "植物",
+   "motif": "食虫植物",
+   "when": null,
+   "description": "湿原の虫ハンター。葉の毛のネバネバで虫を捕まえて動けなくし、やがて消化してしまう食虫植物。",
+   "note": null,
+   "ainu_name": null,
+   "ainu_meaning": null,
+   "ainu_relation": null,
+   "relations": null,
+   "status": "出典あり",
+   "order": 36,
+   "name_en": "Round-leaved sundew",
+   "label_en": null,
+   "description_en": null,
+   "points": [],
+   "sources": [
+    {
+     "name": "層雲峡ビジターセンター館内展示パネル・Q&Aファイル（高山植物群落・高山蝶・ナキウサギ・地形・柱状節理・動物）",
+     "name_en": "Sounkyo Visitor Center exhibit panels and Q&A files (in Japanese)",
+     "url": null
+    }
+   ],
+   "photo": null,
+   "photo_credit": null
+  },
+  {
+   "id": "404fd841a42c81db954cd66157a11e97",
+   "name": "シマフクロウ",
+   "label": "シマフクロウ",
+   "category": "鳥",
+   "motif": "フクロウ",
+   "when": null,
+   "description": "日本では北海道だけにすむ大きなフクロウ（約70cm）。大きな広葉樹の洞に巣をつくり、魚のいる川のある森にすむ。主にウグイやサケ科の魚を食べ、ネズミやウサギ、鳥、カエルなども食べる。このような森は年々減っていて、大雪山でもごく限られた場所になっている。",
+   "note": "天然記念物。生息地は公開しません。",
+   "ainu_name": "コタンコロカムイ",
+   "ainu_meaning": "村を守る神",
+   "ainu_relation": null,
+   "relations": null,
+   "status": "出典あり",
+   "order": 37,
+   "name_en": "Blakiston's fish owl",
+   "label_en": null,
+   "description_en": null,
+   "points": [],
+   "sources": [
+    {
+     "name": "層雲峡ビジターセンター館内展示パネル・Q&Aファイル（高山植物群落・高山蝶・ナキウサギ・地形・柱状節理・動物）",
+     "name_en": "Sounkyo Visitor Center exhibit panels and Q&A files (in Japanese)",
+     "url": null
+    }
+   ],
+   "photo": null,
+   "photo_credit": null
+  },
+  {
+   "id": "404fd841a42c8110ba0bd38986b00c82",
+   "name": "トドノネオオワタムシ",
+   "label": "雪虫",
+   "category": "虫",
+   "motif": "雪虫",
+   "when": "晩秋（層雲峡周辺では9月下旬から）",
+   "description": "体長5mmほどで、全身が綿毛に包まれたような小さな虫。ふわふわ舞う姿が雪のように見えるので「雪虫」と呼ばれる。初雪の少し前の晩秋に出ることが多く、冬の訪れを知らせる風物詩。層雲峡周辺では9月下旬になると飛び始める。",
+   "note": null,
+   "ainu_name": "ウパシキリ",
+   "ainu_meaning": "互い・走る・虫",
+   "ainu_relation": null,
+   "relations": null,
+   "status": "2資料で一致",
+   "order": 38,
+   "name_en": "Snow aphid (woolly aphid)",
+   "label_en": null,
+   "description_en": null,
+   "points": [],
+   "sources": [
+    {
+     "name": "冊子「大雪山・層雲峡の紅葉」",
+     "name_en": "Autumn colors of Daisetsuzan and Sounkyo (Sounkyo Visitor Center booklet; in Japanese)",
+     "url": null
+    },
+    {
+     "name": "冊子「層雲峡・雪と氷の造形美」",
+     "name_en": "Snow and ice of Sounkyo (Sounkyo Visitor Center booklet; in Japanese)",
+     "url": null
+    }
+   ],
+   "photo": null,
+   "photo_credit": null
+  },
+  {
+   "id": "404fd841a42c81e0a50cfeb56e030634",
+   "name": "ミヤマクワガタ",
+   "label": "ミヤマクワガタ",
+   "category": "虫",
+   "motif": "クワガタ",
+   "when": null,
+   "description": "日本のクワガタの中でも大型で、体は黒褐色。背中とお腹に金灰色の短い毛が生え、脚に黄褐色の模様がある。オスは80mmを超えるものもいて、頭の後ろに横に張り出した「耳状突起」がある。",
+   "note": null,
+   "ainu_name": null,
+   "ainu_meaning": null,
+   "ainu_relation": null,
+   "relations": null,
+   "status": "出典あり",
+   "order": 39,
+   "name_en": "Miyama stag beetle",
+   "label_en": null,
+   "description_en": null,
+   "points": [],
+   "sources": [
+    {
+     "name": "層雲峡ビジターセンター館内展示パネル・Q&Aファイル（高山植物群落・高山蝶・ナキウサギ・地形・柱状節理・動物）",
+     "name_en": "Sounkyo Visitor Center exhibit panels and Q&A files (in Japanese)",
+     "url": null
+    },
+    {
+     "name": "大雪山国立公園 層雲峡ビジターセンターだより 春号（上川公園の自然・上川町の桜）",
+     "name_en": "Sounkyo Visitor Center newsletter, spring issue (in Japanese)",
+     "url": null
+    }
+   ],
+   "photo": null,
+   "photo_credit": null
   }
  ]
 }

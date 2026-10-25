@@ -67,7 +67,10 @@ h1{font-family:var(--display);font-weight:800;font-size:2.1rem;line-height:1.2;m
 
 /* player */
 .player{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:14px}
-.modes[hidden],#life-section[hidden]{display:none}
+.modes[hidden],#life-section[hidden],.life-chips[hidden]{display:none}
+.life-chips{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 10px}
+.life-chips button{border:1.5px solid #2E4A3C;background:transparent;color:#2E4A3C;border-radius:999px;padding:5px 13px;font:500 13px "Zen Kaku Gothic New",system-ui,sans-serif;cursor:pointer}
+.life-chips button[aria-pressed="true"]{background:#2E4A3C;color:#F5F4EF}
 .modes{display:flex;border:1px solid var(--line);border-radius:10px;overflow:hidden}
 .modes button{flex:1;border:0;background:transparent;font-size:.85rem;padding:8px 2px;cursor:pointer;color:var(--muted)}
 .modes button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
@@ -242,6 +245,7 @@ h2{font-family:var(--display);font-weight:800;font-size:1.25rem;margin:0}
 
   <section id="life-section" hidden>
     <div class="see-h"><h2 id="lifeH"></h2><span id="lifeCount"></span></div>
+    <div class="life-chips" id="lifeChips" role="group" aria-label="しぼりこみ" hidden></div>
     <div id="lifeBubbles"></div>
   </section>
 
@@ -412,11 +416,19 @@ function inSeason(when,s){if(!when)return false;if(when.includes(T.ja.seasons[s]
   return (when.match(/(\d+)月/g)||[]).map(x=>parseInt(x)).some(m=>SEASON_MONTHS[s].includes(m))}
 /* Creatures linked to this place in Notion いきものDB (見られる場所), shown as soap bubbles */
 function renderLife(){
-  const list=(guide.creatures||[]).filter(c=>(c.points||[]).includes(cur.id)), sec=$("life-section");
-  sec.hidden=!list.length; if(!list.length||!window.Bubbles)return;
+  const all=(guide.creatures||[]).filter(c=>(c.points||[]).includes(cur.id)), sec=$("life-section");
+  sec.hidden=!all.length; if(!all.length||!window.Bubbles)return;
+  const EN={植物:"Plants",動物:"Animals",鳥:"Birds",虫:"Insects",水の生きもの:"Water life"};
   $("lifeH").textContent=lang==="en"?"Living things here":"ここにいるいきもの";
-  $("lifeCount").textContent=lang==="en"?`${list.length}`:`${list.length}種`;
-  Bubbles.render($("lifeBubbles"),list,{lang});
+  $("lifeCount").textContent=String(all.length);
+  const cats=[...new Set(all.map(c=>c.category))], chips=$("lifeChips");
+  const draw=k=>{Bubbles.render($("lifeBubbles"),k?all.filter(c=>c.category===k):all,{lang});
+    chips.querySelectorAll("button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.k===(k||"")))};
+  chips.hidden=all.length<9||cats.length<2;
+  chips.innerHTML=[["",lang==="en"?"All":"すべて"],...cats.map(k=>[k,lang==="en"?(EN[k]||k):k])]
+    .map(([k,l])=>`<button type="button" data-k="${k}">${l}</button>`).join("");
+  chips.onclick=e=>{const b=e.target.closest("button");if(b)draw(b.dataset.k)};
+  draw("");
 }
 function renderSee(){
   const hl=cur.highlights||[], g=$("groups"), L=t();

@@ -8,6 +8,7 @@ Source of truth is Notion:
   - SKM 見どころDB: 「ここで見られるもの」の項目 (検証状況が未検証のものは出さない) and their 出典 from 文献・ソースDB
   - いきものDB（シャボン玉用）: いきもの1種1行。「見られる場所」で場所DBとつなぐと、その場所のページのシャボン玉に出る
 Photos are not in Notion: put your own photos at photos/<point id>/{spring,summer,autumn,winter}.jpg
+  and real photos of a species at photos/creatures/<いきものDBのページID>.jpg (its credit goes in いきものDB「写真クレジット」)
 
 Usage
   python3 tools/build.py                    # read tools/notion_export.json (written by Claude from Notion)
@@ -140,7 +141,7 @@ def from_notion(token):
                  ainu_relation=text(p["アイヌの人々との関わり"]) or None, relations=text(p["まわりの生きものとの関係"]) or None,
                  sources=rel(p["出典"]), status=sel(p["検証状況"]), order=num(p["表示順"]),
                  name_en=text(p.get("名前（英語）")) or None, label_en=text(p.get("表示名（英語）")) or None,
-                 description_en=text(p.get("説明（英語）")) or None)
+                 description_en=text(p.get("説明（英語）")) or None, photo_credit=text(p.get("写真クレジット")) or None)
         for sid in c["sources"]:
             if sid not in sources:
                 sp = notion_page(sid, token)
@@ -211,10 +212,13 @@ def creatures_meta(data, points):
     for c in data.get("creatures") or []:
         if c.get("status") in (None, "未検証"): continue
         pts = [p["id"] for s, p in zip(data["scripts"], points) if s.get("place_page") in c["places"]]
+        photo = next((f"photos/creatures/{c['id']}.{e}" for e in ("webp", "jpg", "jpeg", "png")
+                      if os.path.exists(os.path.join(ROOT, f"photos/creatures/{c['id']}.{e}"))), None)
         out.append({k: c.get(k) for k in ("id", "name", "label", "category", "motif", "when", "description", "note", "ainu_name",
                                           "ainu_meaning", "ainu_relation", "relations", "status", "order", "name_en", "label_en",
                                           "description_en")}
-                   | {"points": pts, "sources": [srcs[x] for x in c["sources"] if x in srcs]})
+                   | {"points": pts, "sources": [srcs[x] for x in c["sources"] if x in srcs],
+                      "photo": photo, "photo_credit": c.get("photo_credit") if photo else None})
     out.sort(key=lambda c: c.get("order") or 999)
     return out
 

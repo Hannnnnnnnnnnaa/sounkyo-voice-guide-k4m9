@@ -222,14 +222,6 @@ body.sheet #sheet{transform:none;visibility:visible;transition:transform .55s cu
     <div class="belt" id="qBelt"></div>
   </section>
 
-  <!-- 8-3 creatures -->
-  <section id="life">
-    <h2><span class="ln"></span>層雲峡のいきもの</h2>
-    <p class="sub">シャボン玉の中に、層雲峡でくらすいきものがいます（層雲峡ビジターセンターの資料から）</p>
-    <div id="lifeBubbles"></div>
-    <button class="btn line" disabled>いきものの世界をのぞく（準備中）</button>
-  </section>
-
   <!-- 9 shops -->
   <section id="shops">
     <div class="frame">
@@ -290,7 +282,6 @@ body.sheet #sheet{transform:none;visibility:visible;transition:transform .55s cu
 <div id="sheet" role="dialog" aria-modal="true"><div class="grab"></div><button class="close" aria-label="閉じる">×</button><div id="sheetBody"></div></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
-<script src="bubbles.js"></script>
 <script>
 const $=id=>document.getElementById(id);
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
@@ -409,7 +400,7 @@ const QUESTIONS=[
 ];
 const PLACE_COLORS={'自然景観':[P.river,P.ice],'地質・地形':[P.tuff,P.birch],'歴史・人物':[P.spruce,P.moss]};
 let G=null;
-fetch('guide.json',{cache:'no-store'}).then(r=>r.json()).then(g=>{G=g;renderQuestions();renderLife();initMap();renderVoicePlaces();renderSurvey();
+fetch('guide.json',{cache:'no-store'}).then(r=>r.json()).then(g=>{G=g;renderQuestions();initMap();renderVoicePlaces();renderSurvey();
  $('voiceCredit').textContent=Object.values(g.voices.ja).map(v=>v.credit).join('、');
 });
 const pt=id=>G.points.find(p=>p.id===id);
@@ -445,10 +436,6 @@ function openQ(q){
   openSheet(`<div class="k">${esc(q.tag)}</div><h3>${esc(q.q)}</h3><p><b>${esc(h.name)}</b></p><p>${esc(h.description)}</p>${h.when?`<span class="when">${esc(h.when)}</span>`:''}${h.note?`<p class="note">${esc(h.note)}</p>`:''}
    <a class="btn line" style="display:block;text-align:center;text-decoration:none" href="guide.html#${esc(p.id)}">${esc(p.place)}のページへ</a>${srcHTML(h.sources)}`);
  }
-}
-function renderLife(){
- const places=[];const seen=new Set();G.points.forEach(p=>{if(p.location.lat&&!seen.has(p.place)){seen.add(p.place);places.push({id:p.id,name:cleanName(p)})}});
- Bubbles.render($('lifeBubbles'),G.creatures||[],{lang:'ja',places,onOpen:c=>met.life.add(c.name)});
 }
 function openSheet(html){$('sheetBody').innerHTML=html;document.body.classList.add('sheet');$('sheetBody').querySelectorAll('audio').forEach(a=>a.addEventListener('play',()=>met.audio.add(a.src),{once:true}))}
 function closeSheet(){document.body.classList.remove('sheet');$('sheetBody').querySelectorAll('audio').forEach(a=>a.pause())}
