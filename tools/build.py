@@ -8,7 +8,8 @@ Source of truth is Notion:
   - SKM 見どころDB: 「ここで見られるもの」の項目 (検証状況が未検証のものは出さない) and their 出典 from 文献・ソースDB
   - いきものDB（シャボン玉用）: いきもの1種1行。「見られる場所」で場所DBとつなぐと、その場所のページのシャボン玉に出る
 Photos are not in Notion: put your own photos at photos/<point id>/{spring,summer,autumn,winter}.jpg
-  and real photos of a species at photos/creatures/<いきものDBのページID>.jpg (its credit goes in いきものDB「写真クレジット」)
+  and real photos of a species at photos/creatures/<いきものDBのページID>.jpg (author, license and source page in photos/creatures/credits.json;
+  the same credit is copied to いきものDB「写真クレジット」)
 
 Usage
   python3 tools/build.py                    # read tools/notion_export.json (written by Claude from Notion)
@@ -206,8 +207,11 @@ def point_meta(s, data):
 
 
 def creatures_meta(data, points):
-    """Species for the bubbles. Only verified rows; each lists the point ids of the places it is linked to."""
+    """Species for the bubbles. Only verified rows; each lists the point ids of the places it is linked to.
+    Real photos: photos/creatures/<id>.jpg, with author / license / source page in photos/creatures/credits.json."""
     srcs = data.get("sources") or {}
+    cpath = os.path.join(ROOT, "photos/creatures/credits.json")
+    credits = json.load(open(cpath)) if os.path.exists(cpath) else {}
     out = []
     for c in data.get("creatures") or []:
         if c.get("status") in (None, "未検証"): continue
@@ -218,7 +222,10 @@ def creatures_meta(data, points):
                                           "ainu_meaning", "ainu_relation", "relations", "status", "order", "name_en", "label_en",
                                           "description_en")}
                    | {"points": pts, "sources": [srcs[x] for x in c["sources"] if x in srcs],
-                      "photo": photo, "photo_credit": c.get("photo_credit") if photo else None})
+                      "photo": photo,
+                      "photo_credit": ((credits.get(c["id"]) or {}).get("credit") or c.get("photo_credit")) if photo else None,
+                      "photo_source": (credits.get(c["id"]) or {}).get("source_url") if photo else None,
+                      "photo_license_url": (credits.get(c["id"]) or {}).get("license_url") if photo else None})
     out.sort(key=lambda c: c.get("order") or 999)
     return out
 

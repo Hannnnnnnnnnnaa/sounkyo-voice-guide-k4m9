@@ -73,7 +73,8 @@ const css=`
 .bb-full .x{position:fixed;right:16px;top:calc(14px + env(safe-area-inset-top));width:40px;height:40px;border-radius:50%;border:0;background:rgba(30,43,60,.08);font-size:20px;cursor:pointer;color:#1E2B3C;z-index:2}
 .bb-full .ph{position:relative;margin:0 0 46px}
 .bb-full .ph img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:22px;background:#E3E6E2;box-shadow:0 8px 24px rgba(30,43,60,.18)}
-.bb-full .ph figcaption{position:absolute;right:10px;top:10px;font-size:10.5px;color:#fff;background:rgba(30,43,60,.55);border-radius:6px;padding:2px 7px}
+.bb-full .ph figcaption{position:absolute;right:10px;top:10px;max-width:calc(100% - 20px);font-size:10.5px;line-height:1.4;color:#fff;background:rgba(30,43,60,.6);border-radius:6px;padding:2px 7px}
+.bb-full .ph figcaption a{color:#fff;text-decoration:underline;text-underline-offset:2px}
 .bb-full .ph .art{position:absolute;left:50%;bottom:-42px;width:84px;height:84px;margin:0;transform:translateX(-50%);background:radial-gradient(circle at 32% 26%,#fff 0 7%,rgba(255,255,255,0) 18%),radial-gradient(circle,rgba(245,244,239,.9) 55%,rgba(207,227,234,.95) 100%)}
 .bb-full .ph.none{border-radius:22px;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;flex-direction:column;
  background:repeating-linear-gradient(135deg,rgba(207,227,234,.45) 0 12px,rgba(207,227,234,.25) 12px 24px);box-shadow:inset 0 0 0 1.5px rgba(61,124,132,.18);margin-bottom:14px}
@@ -99,8 +100,8 @@ const css=`
 function injectCSS(){if(document.getElementById('bb-css'))return;const s=document.createElement('style');s.id='bb-css';s.textContent=css;document.head.appendChild(s)}
 function rnd(i){const x=Math.sin(i*12.9898+7)*43758.5453;return x-Math.floor(x)}
 
-const T={ja:{hint:'シャボン玉を押してみて',nophoto:'本物の写真は準備中です',close:'とじる',ainu:'アイヌ語の名前',meaning:'意味',when:'見られる季節',ainuRel:'アイヌの人々との関わり',rel:'まわりの生きものとの関係',src:'出典',where:'見られる場所',cat:{植物:'植物',動物:'動物',鳥:'鳥',虫:'虫',水の生きもの:'水の生きもの','キノコ・菌':'キノコ・菌'}},
- en:{hint:'Tap a bubble',nophoto:'Photo coming soon',close:'Close',ainu:'Ainu name',meaning:'Meaning',when:'When to see it',ainuRel:'Ties with the Ainu people',rel:'Ties with other living things',src:'Sources',where:'Where to see it',cat:{植物:'Plant',動物:'Animal',鳥:'Bird',虫:'Insect',水の生きもの:'Water life','キノコ・菌':'Fungus'}}};
+const T={ja:{hint:'シャボン玉を押してみて',nophoto:'本物の写真は準備中です',lic:'ライセンス',close:'とじる',ainu:'アイヌ語の名前',meaning:'意味',when:'見られる季節',ainuRel:'アイヌの人々との関わり',rel:'まわりの生きものとの関係',src:'出典',where:'見られる場所',cat:{植物:'植物',動物:'動物',鳥:'鳥',虫:'虫',水の生きもの:'水の生きもの','キノコ・菌':'キノコ・菌'}},
+ en:{hint:'Tap a bubble',nophoto:'Photo coming soon',lic:'License',close:'Close',ainu:'Ainu name',meaning:'Meaning',when:'When to see it',ainuRel:'Ties with the Ainu people',rel:'Ties with other living things',src:'Sources',where:'Where to see it',cat:{植物:'Plant',動物:'Animal',鳥:'Bird',虫:'Insect',水の生きもの:'Water life','キノコ・菌':'Fungus'}}};
 
 function render(el,list,opt={}){
  injectCSS();const lang=opt.lang==='en'?'en':'ja',L=T[lang];
@@ -119,7 +120,7 @@ function open(btn,c,lang,opt){
  const d=document.createElement('div');d.className='bb-full';d.setAttribute('role','dialog');d.setAttribute('aria-modal','true');d.setAttribute('aria-label',name);
  d.style.setProperty('--x',cx+'px');d.style.setProperty('--y',cy+'px');d.style.setProperty('--r0',(r.width/2)+'px');d.style.setProperty('--r1',far+'px');
  d.innerHTML=`<button class="x" aria-label="${L.close}">×</button><div class="in">
-  ${c.photo?`<figure class="ph"><img src="${esc(c.photo)}" alt="${esc(name)}" decoding="async">${c.photo_credit?`<figcaption>${esc(c.photo_credit)}</figcaption>`:''}<div class="art">${svg(c.motif)}</div></figure>`
+  ${c.photo?`<figure class="ph"><img src="${esc(c.photo)}" alt="${esc(name)}" decoding="async">${c.photo_credit?`<figcaption>${c.photo_source?`<a href="${esc(c.photo_source)}" target="_blank" rel="noopener">${esc(c.photo_credit)}</a>`:esc(c.photo_credit)}${c.photo_license_url?` <a href="${esc(c.photo_license_url)}" target="_blank" rel="noopener">${L.lic}</a>`:''}</figcaption>`:''}<div class="art">${svg(c.motif)}</div></figure>`
    :`<div class="ph none"><div class="art">${svg(c.motif)}</div><span>${L.nophoto}</span></div>`}<p class="lab">${esc(L.cat[c.category]||c.category||'')}</p><h3>${esc(label)}</h3>
   ${label!==name?`<p class="lab" style="margin-top:-2px">${esc(name)}</p>`:''}
   ${c.ainu_name?`<p class="ai">${L.ainu}：${esc(c.ainu_name)}${c.ainu_meaning?`（${L.meaning}：${esc(c.ainu_meaning)}）`:''}</p>`:''}
