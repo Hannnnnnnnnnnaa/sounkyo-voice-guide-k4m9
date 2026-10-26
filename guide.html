@@ -382,7 +382,7 @@ function renderChrome(){
 /* Photo credit: author / license, linked to the source page (required by CC BY / CC BY-SA) */
 function photoCredit(p,s){
   const c=(p.photo_credits||{})[s]; if(!c) return "";
-  const txt=lang==="en"?(c.credit_en||c.credit):c.credit;
+  const txt=lang==="en"?(c.credit_en||c.credit):(c.caption?c.caption+"　":"")+c.credit;
   return `<small class="pcred">${c.source_url?`<a href="${esc(c.source_url)}" target="_blank" rel="noopener">${esc(txt)}</a>`:esc(txt)}${c.license_url?` <a href="${esc(c.license_url)}" target="_blank" rel="noopener">${lang==="en"?"License":"ライセンス"}</a>`:""}</small>`;
 }
 function photoHTML(p,s,big){

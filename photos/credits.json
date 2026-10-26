@@ -44,7 +44,7 @@
   "credit_en": "Photo: lienyuan lee / CC BY 3.0 (Wikimedia Commons, resized)"
  },
  "photos/ginga-ryusei/winter.jpg": {
-  "caption": "冬・流星の滝",
+  "caption": "冬・流星の滝付近の川",
   "file": "File:Ryusei-no-taki.jpg",
   "author": "AsPJT",
   "license": "CC0",
@@ -141,5 +141,137 @@
   "taken": "14 September 2003",
   "credit": "写真：lienyuan lee／CC BY 3.0（Wikimedia Commons・縮小して掲載）",
   "credit_en": "Photo: lienyuan lee / CC BY 3.0 (Wikimedia Commons, resized)"
+ },
+ "photos/momijidani-entrance/spring.jpg": {
+  "caption": "春・層雲峡の石狩川（銀河の滝付近）",
+  "stand_in": true,
+  "credit": "写真：RJD／CC BY 3.0（Wikimedia Commons・縮小して掲載）",
+  "credit_en": "Photo: RJD / CC BY 3.0 (Wikimedia Commons, resized)",
+  "file": "File:Ishikari-River.Kamikawa-Sounkyo2022.JPG",
+  "author": "RJD",
+  "license": "CC BY 3.0",
+  "license_url": "https://creativecommons.org/licenses/by/3.0",
+  "source_url": "https://commons.wikimedia.org/wiki/File:Ishikari-River.Kamikawa-Sounkyo2022.JPG",
+  "taken": "2022年6月19日"
+ },
+ "photos/momijidani-entrance/summer.jpg": {
+  "caption": "夏・層雲峡温泉から見た岩壁",
+  "stand_in": true,
+  "credit": "写真：x768／CC BY-SA 2.0（Flickr・縮小して掲載）",
+  "credit_en": "Photo: x768 / CC BY-SA 2.0 (Flickr, resized)",
+  "file": "Sōunkyō",
+  "author": "x768",
+  "license": "CC BY-SA 2.0",
+  "license_url": "https://creativecommons.org/licenses/by-sa/2.0/",
+  "source_url": "https://www.flickr.com/photos/129661249@N02/30672868512",
+  "taken": "2016-08-03"
+ },
+ "photos/momijidani-entrance/winter.jpg": {
+  "caption": "冬・層雲峡の川（流星の滝付近）",
+  "stand_in": true,
+  "credit": "写真：AsPJT／CC0（Wikimedia Commons）",
+  "credit_en": "Photo: AsPJT / CC0 (Wikimedia Commons)",
+  "file": "File:Ryusei-no-taki.jpg",
+  "author": "AsPJT",
+  "license": "CC0",
+  "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+  "source_url": "https://commons.wikimedia.org/wiki/File:Ryusei-no-taki.jpg",
+  "taken": "2017-12-25 08:59:13"
+ },
+ "photos/momiji-falls/spring.jpg": {
+  "caption": "春・近くの流星の滝",
+  "stand_in": true,
+  "credit": "写真：Craford／CC BY-SA 3.0（Wikimedia Commons・縮小して掲載）",
+  "credit_en": "Photo: Craford / CC BY-SA 3.0 (Wikimedia Commons, resized)",
+  "file": "File:Fall ryusei 1.jpg",
+  "author": "Craford",
+  "license": "CC BY-SA 3.0",
+  "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+  "source_url": "https://commons.wikimedia.org/wiki/File:Fall_ryusei_1.jpg",
+  "taken": "2006-05-12"
+ },
+ "photos/momiji-falls/summer.jpg": {
+  "caption": "夏・銀河の滝近くの沢",
+  "stand_in": true,
+  "credit": "写真：othree／CC BY 2.0（Flickr・縮小して掲載）",
+  "credit_en": "Photo: othree / CC BY 2.0 (Flickr, resized)",
+  "file": "銀河、流星の滝",
+  "author": "othree",
+  "license": "CC BY 2.0",
+  "license_url": "https://creativecommons.org/licenses/by/2.0/",
+  "source_url": "https://www.flickr.com/photos/12452841@N00/7976731991",
+  "taken": "2012-09-06"
+ },
+ "photos/momiji-falls/autumn.jpg": {
+  "caption": "秋・層雲峡の沢の小さな滝",
+  "stand_in": true,
+  "credit": "写真：y_ogagaga／CC BY 2.0（Flickr・縮小して掲載）",
+  "credit_en": "Photo: y_ogagaga / CC BY 2.0 (Flickr, resized)",
+  "file": "DSC_0251",
+  "author": "y_ogagaga",
+  "license": "CC BY 2.0",
+  "license_url": "https://creativecommons.org/licenses/by/2.0/",
+  "source_url": "https://www.flickr.com/photos/50463420@N06/5083276631",
+  "taken": "2010-10-11"
+ },
+ "photos/momiji-falls/winter.jpg": {
+  "caption": "冬・層雲峡氷瀑まつり",
+  "stand_in": true,
+  "credit": "写真：ながいの／CC BY-SA 2.0（Flickr・縮小して掲載）",
+  "credit_en": "Photo: ながいの / CC BY-SA 2.0 (Flickr, resized)",
+  "file": "層雲峡氷瀑祭り、思っていたよりなかなか見応えありました。 氷のオブジェから建物からスケールデカい。",
+  "author": "ながいの",
+  "license": "CC BY-SA 2.0",
+  "license_url": "https://creativecommons.org/licenses/by-sa/2.0/",
+  "source_url": "https://www.flickr.com/photos/98189432@N07/24349939923",
+  "taken": "2016-02-12"
+ },
+ "photos/ginga-ryusei/autumn.jpg": {
+  "caption": "秋・銀河の滝付近の森（初雪）",
+  "stand_in": true,
+  "credit": "写真：Focx Photography／CC BY-SA 2.0（Flickr・縮小して掲載）",
+  "credit_en": "Photo: Focx Photography / CC BY-SA 2.0 (Flickr, resized)",
+  "file": "Sounkyo Autumn Mountains II",
+  "author": "Focx Photography",
+  "license": "CC BY-SA 2.0",
+  "license_url": "https://creativecommons.org/licenses/by-sa/2.0/",
+  "source_url": "https://www.flickr.com/photos/30780900@N02/8134830340",
+  "taken": "2012-10-21"
+ },
+ "photos/obako/spring.jpg": {
+  "caption": "春・大函の上流の大雪ダム",
+  "stand_in": true,
+  "credit": "写真：pakku／CC BY 3.0（Wikimedia Commons・縮小して掲載）",
+  "credit_en": "Photo: pakku / CC BY 3.0 (Wikimedia Commons, resized)",
+  "file": "File:大雪ダム - panoramio.jpg",
+  "author": "pakku",
+  "license": "CC BY 3.0",
+  "license_url": "https://creativecommons.org/licenses/by/3.0",
+  "source_url": "https://commons.wikimedia.org/wiki/File:%E5%A4%A7%E9%9B%AA%E3%83%80%E3%83%A0_-_panoramio.jpg",
+  "taken": "20 May 2011"
+ },
+ "photos/obako/winter.jpg": {
+  "caption": "冬・層雲峡の川（流星の滝付近）",
+  "stand_in": true,
+  "credit": "写真：AsPJT／CC0（Wikimedia Commons）",
+  "credit_en": "Photo: AsPJT / CC0 (Wikimedia Commons)",
+  "file": "File:Ryusei-no-taki.jpg",
+  "author": "AsPJT",
+  "license": "CC0",
+  "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+  "source_url": "https://commons.wikimedia.org/wiki/File:Ryusei-no-taki.jpg",
+  "taken": "2017-12-25 08:59:13"
+ },
+ "photos/naming-1921/spring.jpg": {
+  "caption": "春先・層雲峡温泉（4月）",
+  "stand_in": true,
+  "credit": "写真：Daigaku2051／パブリックドメイン（Wikimedia Commons）",
+  "credit_en": "Photo: Daigaku2051 / Public domain (Wikimedia Commons)",
+  "file": "File:HPIM2742.JPG",
+  "author": "Daigaku2051",
+  "license": "パブリックドメイン",
+  "license_url": null,
+  "source_url": "https://commons.wikimedia.org/wiki/File:HPIM2742.JPG",
+  "taken": "2007-04"
  }
 }
