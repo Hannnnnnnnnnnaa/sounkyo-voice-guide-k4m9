@@ -56,7 +56,8 @@ section{padding:26px 16px 6px}
 .sdots{position:absolute;right:14px;top:calc(20px + env(safe-area-inset-top));display:flex;gap:4px}
 .sdots button{font-family:var(--display);font-size:12px;width:28px;height:28px;border-radius:50%;border:0;background:rgba(245,244,239,.6);color:var(--night);cursor:pointer;transition:background 1.5s,color 1.5s}
 .sdots button.on{background:var(--c);color:var(--snow)}
-.credit{position:absolute;right:12px;bottom:42px;z-index:1;font-size:10.5px;color:var(--snow);text-shadow:0 0 4px rgba(30,43,60,.6)}
+.credit{position:absolute;right:12px;left:12px;text-align:right;bottom:42px;z-index:2;font-size:10.5px;line-height:1.4;color:var(--snow);text-shadow:0 0 4px rgba(30,43,60,.7)}
+.credit a,#sheet .k a{color:inherit;text-decoration:underline;text-underline-offset:2px}
 
 /* ---------- today's info ---------- */
 .info{position:relative;z-index:2;margin:-34px 14px 0;display:grid;grid-template-columns:1fr 1fr;gap:8px}
@@ -338,19 +339,24 @@ function particles(S){
  }
  return h;
 }
-/* ---------- photos (provided by はな; metadata removed, resized for the web) ---------- */
-const PHOTO_CREDIT='写真提供：層雲峡ビジターセンター';   // shown next to every photo
+/* ---------- photos: Wikimedia Commons (CC0 / CC BY / CC BY-SA / public domain), resized, metadata removed.
+   Author, license and source page of each file are in photos/credits.json and are shown with the photo. ---------- */
+let CRED={};
+const credHTML=path=>{const c=CRED[path];if(!c)return'';
+ return `${c.source_url?`<a href="${esc(c.source_url)}" target="_blank" rel="noopener">${esc(c.credit)}</a>`:esc(c.credit)}${c.license_url?` <a href="${esc(c.license_url)}" target="_blank" rel="noopener">ライセンス</a>`:''}`};
 const HERO_PHOTOS=[
- {s:'autumn',src:'photos/top/autumn-canyon-aerial.jpg',place:'層雲峡の渓谷（空撮）'},
- {s:'autumn',src:'photos/momijidani-entrance/autumn-2.jpg',place:'紅葉谷'},
- {s:'spring',src:'photos/ginga-ryusei/spring-ginga.jpg',place:'銀河の滝'},
- {s:'spring',src:'photos/obako/spring-2.jpg',place:'大函'},
- {s:'spring',src:'photos/ginga-ryusei/spring-ryusei.jpg',place:'流星の滝'},
+ {s:'spring',src:'photos/ginga-ryusei/spring.jpg',place:'銀河の滝'},
+ {s:'summer',src:'photos/top/summer-gorge.jpg',place:'層雲峡の渓谷'},
+ {s:'summer',src:'photos/ginga-ryusei/summer.jpg',place:'銀河の滝'},
+ {s:'autumn',src:'photos/top/autumn-gorge.jpg',place:'層雲峡の渓谷'},
+ {s:'autumn',src:'photos/obako/autumn.jpg',place:'大函'},
+ {s:'winter',src:'photos/naming-1921/winter.jpg',place:'層雲峡氷瀑まつり'},
 ];
 const GALLERY={
- 'momijidani-entrance':[{f:'autumn',s:'autumn',c:'秋の紅葉谷'},{f:'autumn-2',s:'autumn',c:'秋の紅葉谷'}],
- 'ginga-ryusei':[{f:'spring',s:'spring',c:'春・双瀑台'},{f:'spring-ginga',s:'spring',c:'春・銀河の滝'},{f:'spring-ryusei',s:'spring',c:'春・流星の滝'}],
- 'obako':[{f:'spring',s:'spring',c:'春の大函'},{f:'spring-2',s:'spring',c:'春の大函'}],
+ 'momijidani-entrance':[{f:'autumn',s:'autumn',c:'秋・紅葉谷への道'}],
+ 'ginga-ryusei':[{f:'spring',s:'spring',c:'春・銀河の滝'},{f:'spring-2',s:'spring',c:'春・流星の滝'},{f:'summer',s:'summer',c:'夏・銀河の滝'},{f:'summer-2',s:'summer',c:'夏・流星の滝'},{f:'winter',s:'winter',c:'冬・流星の滝'}],
+ 'obako':[{f:'summer',s:'summer',c:'夏の大函'},{f:'autumn',s:'autumn',c:'秋の大函'}],
+ 'naming-1921':[{f:'summer',s:'summer',c:'夏・温泉街のプロムナード'},{f:'autumn',s:'autumn',c:'秋・層雲峡温泉'},{f:'winter',s:'winter',c:'冬・層雲峡氷瀑まつり'}],
 };
 const SI={spring:0,summer:1,autumn:2,winter:3};
 const scenes=$('scenes'),dots=$('sdots'),hero=$('hero');
@@ -374,10 +380,11 @@ function show(i){
  cur=i;const x=SLIDES[i],S=SEASONS[x.si],changed=curS!==x.si;curS=x.si;
  [...scenes.children].forEach((e,j)=>e.classList.toggle('on',j===i));[...dots.children].forEach((e,j)=>e.classList.toggle('on',j===curS));
  hero.classList.toggle('dark',x.draw?S.dark:true);document.documentElement.style.setProperty('--accent',S.accent);
- $('credit').textContent=x.draw?'':`${S.n}・${x.place}${PHOTO_CREDIT?'　'+PHOTO_CREDIT:''}`;
+ $('credit').innerHTML=x.draw?'':`${esc(S.n)}・${esc(x.place)}　${credHTML(x.src)}`;
  if(changed&&window.mapReady)refreshBubbles();
 }
 show(0);
+fetch('photos/credits.json',{cache:'no-store'}).then(r=>r.json()).then(c=>{CRED=c;show(cur)}).catch(()=>{});
 if(!reduce)setInterval(()=>{if(!held&&!document.hidden)show((cur+1)%SLIDES.length)},9000);
 
 /* ---------- weather (JMA, shown as-is with its time) ---------- */
@@ -507,10 +514,10 @@ function initMap(){
 }
 function setAct(i){pins.forEach((x,j)=>{const el=x.m.getElement().querySelector('.pin');el.classList.toggle('act',j===i);x.m.setZIndexOffset(j===i?1000:0)})}
 function refreshBubbles(){pins.forEach(x=>{const ph=x.m.getElement()&&x.m.getElement().querySelector('.ph');if(ph)ph.innerHTML=scene(x.p.id)})}
-function gallery(id){const g=GALLERY[id];
- return `<div class="k">${esc(pickPhoto(id).c)}${PHOTO_CREDIT?'　'+esc(PHOTO_CREDIT):''}</div>${g.length>1?`<div class="gal">${g.map(x=>`<button data-src="${photoSrc(id,x)}" data-c="${esc(x.c)}"><img src="${photoSrc(id,x,true)}" alt="${esc(x.c)}" loading="lazy"></button>`).join('')}</div>`:''}`}
+function gallery(id){const g=GALLERY[id],x0=pickPhoto(id);
+ return `<div class="k">${esc(x0.c)}　${credHTML(photoSrc(id,x0))}</div>${g.length>1?`<div class="gal">${g.map(x=>`<button data-src="${photoSrc(id,x)}" data-c="${esc(x.c)}"><img src="${photoSrc(id,x,true)}" alt="${esc(x.c)}" loading="lazy"></button>`).join('')}</div>`:''}`}
 $('sheetBody').addEventListener('click',e=>{const b=e.target.closest('.gal button');if(!b)return;const big=$('sheetBody').querySelector('.bigph');
- big.innerHTML=`<img src="${b.dataset.src}" alt="${b.dataset.c}">`;const k=big.nextElementSibling;if(k)k.textContent=b.dataset.c+(PHOTO_CREDIT?'　'+PHOTO_CREDIT:'')});
+ big.innerHTML=`<img src="${b.dataset.src}" alt="${b.dataset.c}">`;const k=big.nextElementSibling;if(k)k.innerHTML=esc(b.dataset.c)+'　'+credHTML(b.dataset.src)});
 function openPlace(p){
  met.places.add(p.id);const L0=p.location,au=ptAudio(p);
  openSheet(`<div class="k">${esc(L0.area||'')}${L0.measured?'・現地で確かめた位置':''}</div><h3>${esc(cleanName(p))}</h3>

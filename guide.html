@@ -125,7 +125,8 @@ details[open]>summary .chev{transform:rotate(45deg)}
 /* survey: answered by tapping on the page, sent to a Google Form */
 .survey{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:12px;transition:box-shadow .3s}
 #photo{position:relative}
-.pcred{position:absolute;right:8px;bottom:6px;font-size:10.5px;color:#fff;text-shadow:0 0 4px rgba(0,0,0,.65);pointer-events:none}
+.pcred{position:absolute;right:8px;bottom:6px;left:8px;text-align:right;font-size:10.5px;line-height:1.4;color:#fff;text-shadow:0 0 4px rgba(0,0,0,.75)}
+.pcred a{color:#fff;text-decoration:underline;text-underline-offset:2px}
 .survey{display:none!important}  /* the survey now lives on the top page */
 .sv-link{display:block;text-decoration:none;border:1px solid var(--line);border-radius:16px;padding:14px 16px;background:var(--surface);color:var(--ink);font-size:.9rem}
 .sv-link b{display:block;font-size:1rem}
@@ -378,9 +379,15 @@ function renderChrome(){
   const u=new URL(location.href); u.searchParams.set("lang",lang); history.replaceState(null,"",u);
 }
 
+/* Photo credit: author / license, linked to the source page (required by CC BY / CC BY-SA) */
+function photoCredit(p,s){
+  const c=(p.photo_credits||{})[s]; if(!c) return "";
+  const txt=lang==="en"?(c.credit_en||c.credit):c.credit;
+  return `<small class="pcred">${c.source_url?`<a href="${esc(c.source_url)}" target="_blank" rel="noopener">${esc(txt)}</a>`:esc(txt)}${c.license_url?` <a href="${esc(c.license_url)}" target="_blank" rel="noopener">${lang==="en"?"License":"ライセンス"}</a>`:""}</small>`;
+}
 function photoHTML(p,s,big){
   const src=p.photos&&p.photos[s], S=t().seasons[s];
-  if(src) return `<img src="${esc(src)}" alt="${esc(t().photoAlt(placeName(p),S))}" loading="${big?"eager":"lazy"}">${big?`<small class="pcred">${lang==="en"?"Photo: Sounkyo Visitor Center":"写真提供：層雲峡ビジターセンター"}</small>`:""}`;
+  if(src) return `<img src="${esc(src)}" alt="${esc(t().photoAlt(placeName(p),S))}" loading="${big?"eager":"lazy"}">${big?photoCredit(p,s):""}`;
   return `<div class="ph"><b>${S}</b>${big?`<span>${t().photoSoon(S)}</span>`:""}</div>`;
 }
 function renderPhoto(){

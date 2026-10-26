@@ -7,7 +7,8 @@ Source of truth is Notion:
   - SKM 場所DB: 場所名・エリア・緯度・経度・地図レイヤー (linked from each script's 場所（SKM）)
   - SKM 見どころDB: 「ここで見られるもの」の項目 (検証状況が未検証のものは出さない) and their 出典 from 文献・ソースDB
   - いきものDB（シャボン玉用）: いきもの1種1行。「見られる場所」で場所DBとつなぐと、その場所のページのシャボン玉に出る
-Photos are not in Notion: put your own photos at photos/<point id>/{spring,summer,autumn,winter}.jpg
+Photos are not in Notion: put photos at photos/<point id>/{spring,summer,autumn,winter}.jpg
+  (author / license / source page of each in photos/credits.json, keyed by the file path)
   and real photos of a species at photos/creatures/<いきものDBのページID>.jpg (author, license and source page in photos/creatures/credits.json;
   the same credit is copied to いきものDB「写真クレジット」)
 
@@ -192,6 +193,9 @@ def point_meta(s, data):
             if os.path.exists(os.path.join(ROOT, rel)):
                 photos[season] = rel
                 break
+    cpath = os.path.join(ROOT, "photos/credits.json")
+    pcred = json.load(open(cpath)) if os.path.exists(cpath) else {}
+    photo_credits = {k: pcred[v] for k, v in photos.items() if v in pcred}
     srcs = data.get("sources") or {}
     hl = [h for h in (data.get("highlights") or [])
           if s.get("place_page") in h["places"] and h.get("status") not in (None, "未検証") and h.get("category")]
@@ -203,7 +207,7 @@ def point_meta(s, data):
             | {"place_en": pl.get("name_en") or "",
                "location": {k: pl.get(k) for k in ("area", "lat", "lng", "measured", "coord_note", "layers", "season", "access",
                                                    "season_en", "access_en")},
-               "photos": photos, "highlights": hl})
+               "photos": photos, "photo_credits": photo_credits, "highlights": hl})
 
 
 def creatures_meta(data, points):
