@@ -5,6 +5,11 @@
   if (!page) return;
   const POSES = ['stand','wave','crouch','jump','glide','land','think','surprise','sleepy','yuagari'];
   const STORAGE = 'sounkyo-guide:momonga-resting';
+  const DOCK = 'sounkyo-guide:momonga-dock';
+  const ICONS = {
+    rest: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20.4 13.1A8.5 8.5 0 0 1 10.9 3.6a8.5 8.5 0 1 0 9.5 9.5Z"/></svg>',
+    wake: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>'
+  };
   const IDLE = 45000;
   const motion = matchMedia('(prefers-reduced-motion: reduce)');
   const reading = document.createElement('div');
@@ -14,7 +19,7 @@
   document.body.classList.add('momonga-enabled');
   const stage = document.createElement('div');
   stage.className = 'momonga-stage';
-  stage.innerHTML = '<div class="momonga-lane"></div><div class="momonga-position"><button type="button" class="momonga-pet" hidden><img alt="" width="80" height="80" draggable="false"></button><div class="momonga-dialogue" role="status" aria-live="polite" hidden></div></div><button type="button" class="momonga-rest"></button>';
+  stage.innerHTML = '<div class="momonga-lane"></div><div class="momonga-position"><button type="button" class="momonga-pet" hidden><img alt="" width="80" height="80" draggable="false"></button><button type="button" class="momonga-rest"></button><div class="momonga-dialogue" role="status" aria-live="polite" hidden></div></div>';
   document.body.append(stage);
   const lane = stage.querySelector('.momonga-lane');
   const position = stage.querySelector('.momonga-position');
@@ -25,8 +30,12 @@
   const credit = document.createElement('span');
   credit.className = 'momonga-credit';
   page.querySelector('footer')?.append(credit);
-  let resting = false;
-  try { resting = localStorage.getItem(STORAGE) === 'true'; } catch (_) { /* Storage can be denied. */ }
+  let resting = false, dockFraction = 0;
+  try {
+    resting = localStorage.getItem(STORAGE) === 'true';
+    const saved = Number(localStorage.getItem(DOCK));
+    if (Number.isFinite(saved)) dockFraction = Math.max(0, Math.min(1, saved));
+  } catch (_) { /* Storage can be denied. */ }
   let lines = [], pose = 'stand', side = 'left', x = 12;
   let lastActivity = Date.now(), journeyTimer, idleTimer, bubbleTimer, action = null, assetsPromise;
   const images = new Map();
@@ -37,7 +46,10 @@
   function labels() {
     const en = language() === 'en';
     pet.setAttribute('aria-label', en ? 'Greet the flying squirrel' : 'モモンガにあいさつする');
-    rest.textContent = en ? (resting ? 'Wake the flying squirrel' : 'Let the flying squirrel rest') : (resting ? 'モモンガを起こす' : 'モモンガを休ませる');
+    const label = en ? (resting ? 'Wake the flying squirrel' : 'Let the flying squirrel rest') : (resting ? 'モモンガを起こす' : 'モモンガを休ませる');
+    rest.setAttribute('aria-label', label);
+    rest.title = label;
+    rest.innerHTML = resting ? ICONS.wake : ICONS.rest;
     rest.setAttribute('aria-pressed', String(resting));
     credit.textContent = en ? 'Flying squirrel: AI-created illustration (ChatGPT)' : 'エゾモモンガ：AIで作ったイメージ（ChatGPT）';
   }
@@ -49,7 +61,11 @@
     if (images.has(pose)) sprite.src = images.get(pose).src;
   }
   function locate() {
-    x = side === 'left' ? 12 : Math.max(12, lane.clientWidth - 92);
+    const right = Math.max(12, lane.clientWidth - 144);
+    if (resting) {
+      x = 12 + dockFraction * (right - 12);
+      side = dockFraction < 0.5 ? 'left' : 'right';
+    } else x = side === 'left' ? 12 : right;
     position.style.transition = 'none';
     position.style.setProperty('--momonga-x', `${x}px`);
     position.dataset.side = side;
@@ -106,8 +122,8 @@
     setPose('jump');
     pet.classList.add('momonga-lift');
     if (!await delay(220, signal)) return;
-    side = x < lane.clientWidth / 2 - 40 ? 'right' : 'left';
-    const target = side === 'right' ? Math.max(12, lane.clientWidth - 92) : 12;
+    side = x < (lane.clientWidth - 132) / 2 ? 'right' : 'left';
+    const target = side === 'right' ? Math.max(12, lane.clientWidth - 144) : 12;
     pet.dataset.direction = target > x ? 'right' : 'left';
     setPose('glide');
     const duration = Math.min(1800, Math.max(1000, Math.abs(target - x) * 2.2));
@@ -131,11 +147,11 @@
     if (!available.length) return;
     // Database text is displayed as text, never executed as HTML.
     bubble.textContent = available[Math.floor(Math.random() * available.length)];
-    const spaceLeft = x - 12, spaceRight = lane.clientWidth - x - 92;
+    const spaceLeft = x - 24, spaceRight = lane.clientWidth - x - 156;
     const onRight = spaceRight >= spaceLeft;
     const width = Math.min(220, Math.max(spaceLeft, spaceRight));
     bubble.style.width = `${width}px`;
-    bubble.style.left = `${onRight ? 92 : -width - 12}px`;
+    bubble.style.left = `${onRight ? 144 : -width - 12}px`;
     bubble.style.right = 'auto';
     bubble.hidden = false;
     bubbleTimer = setTimeout(hideBubble, 6000);
@@ -167,7 +183,7 @@
   async function activate(intro) {
     await loadAssets();
     if (resting || document.hidden || !images.has('stand')) return;
-    pet.hidden = false; locate();
+    pet.hidden = false;
     if (!intro || motion.matches) { setPose('stand'); idle(); schedule(); return; }
     const controller = action = new AbortController();
     setPose('yuagari');
@@ -176,11 +192,17 @@
   }
   function setResting(value, persist = true) {
     resting = value;
-    if (persist) { try { localStorage.setItem(STORAGE, String(value)); } catch (_) { /* Keep this page working without persistence. */ } }
     clearTimers(); stopAction(); hideBubble();
+    if (resting) dockFraction = Math.max(0, Math.min(1, (x - 12) / Math.max(1, lane.clientWidth - 156)));
+    if (persist) {
+      try {
+        localStorage.setItem(DOCK, String(dockFraction));
+        localStorage.setItem(STORAGE, String(value));
+      } catch (_) { /* Keep this page working without persistence. */ }
+    }
     document.body.classList.toggle('momonga-resting', resting);
     pet.hidden = resting || !images.has('stand');
-    labels(); locate();
+    labels();
     if (!resting) { lastActivity = Date.now(); activate(false); }
   }
   pet.addEventListener('click', greet);

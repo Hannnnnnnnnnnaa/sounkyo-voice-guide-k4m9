@@ -1,6 +1,9 @@
 {
   "passed": true,
-  "screenshots": 4,
+  "screenshots": 6,
   "realMotionFrames": 32,
+  "laneHeight": 90,
+  "characterSize": 80,
+  "iconSize": 44,
   "browser": "156.0.8078.79"
 }

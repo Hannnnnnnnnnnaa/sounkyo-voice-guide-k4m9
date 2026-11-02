@@ -28,9 +28,21 @@ async function safe(page) {
     const p=document.querySelector('.momonga-pet');
     const r=p.getBoundingClientRect();
     const rest=document.querySelector('.momonga-rest').getBoundingClientRect();
-    return {separate:reading.bottom<=lane.top+.5,visible:p.hidden||r.top>=lane.top-.5&&r.bottom<=rest.top+.5&&r.left>=0&&r.right<=innerWidth,scrolling:document.documentElement.scrollWidth<=innerWidth};
+    const button=document.querySelector('.momonga-rest');
+    const dialogue=document.querySelector('.momonga-dialogue');
+    const d=dialogue.getBoundingClientRect();
+    const overlaps=(a,b)=>a.left<b.right&&a.right>b.left&&a.top<b.bottom&&a.bottom>b.top;
+    const inside=r=>r.top>=lane.top-.5&&r.bottom<=lane.bottom+.5&&r.left>=0&&r.right<=innerWidth;
+    return {
+      separate:reading.bottom<=lane.top+.5,
+      visible:(p.hidden||inside(r))&&inside(rest),
+      scrolling:document.documentElement.scrollWidth<=innerWidth,
+      sizes:Math.abs(lane.height-90)<.01&&Math.abs(rest.width-44)<.01&&Math.abs(rest.height-44)<.01&&(p.hidden||Math.abs(r.width-80)<.01&&Math.abs(r.height-80)<.01),
+      iconOnly:button.textContent.trim()===''&&Boolean(button.getAttribute('aria-label'))&&Boolean(button.querySelector('svg[aria-hidden="true"]')),
+      noOverlap:(p.hidden||!overlaps(r,rest))&&(dialogue.hidden||inside(d)&&!overlaps(d,rest)&&!overlaps(d,r))
+    };
   });
-  assert.deepEqual(result,{separate:true,visible:true,scrolling:true});
+  assert.deepEqual(result,{separate:true,visible:true,scrolling:true,sizes:true,iconOnly:true,noOverlap:true});
 }
 async function context(options={}) {
   const ctx=await browser.newContext({viewport:{width:390,height:844},locale:'ja-JP',...options});
@@ -89,13 +101,20 @@ try {
     await page.setViewportSize({width:844,height:390});
     await safe(page);
     await page.setViewportSize({width:390,height:844});
+    const dock=await page.locator('.momonga-rest').boundingBox();
     await tap(page,'.momonga-rest');
     assert.equal(await page.locator(pet).isVisible(),false);
+    assert.deepEqual(await page.locator('.momonga-rest').boundingBox(),dock,'wake icon stays in the same place');
+    assert.equal(await page.locator('.momonga-rest').getAttribute('aria-label'),'モモンガを起こす');
+    await safe(page);
     assert.equal(await page.evaluate(()=>localStorage.getItem('sounkyo-guide:momonga-resting')),'true');
     await page.reload({waitUntil:'domcontentloaded'});
     assert.equal(await page.locator(pet).isVisible(),false,'rest persists after reload');
+    assert.deepEqual(await page.locator('.momonga-rest').boundingBox(),dock,'wake icon position survives reload');
+    await safe(page);
     await tap(page,'.momonga-rest');
     await until(()=>page.locator(pet).isVisible(),'wake button restores mascot');
+    assert.deepEqual(await page.locator('.momonga-rest').boundingBox(),dock,'waking does not move the control');
     await page.emulateMedia({reducedMotion:'reduce'});
     await page.clock.runFor(1);
     assert.equal(await pose(page),'stand');
@@ -133,6 +152,11 @@ try {
     await page.clock.runFor(2000);
     await safe(page);
     await page.screenshot({path:path.join(output,name+'.png'),animations:'disabled'});
+    if(width===390) {
+      await tap(page,'.momonga-rest');
+      await safe(page);
+      await page.screenshot({path:path.join(output,name+'-resting.png'),animations:'disabled'});
+    }
     await ctx.close();
   }
   // Real elapsed time and a real CSS glide, recorded as frames for the PR GIF.
@@ -147,6 +171,6 @@ try {
   }
   await film.close();
   assert.deepEqual(failures,[],'no browser JavaScript errors');
-  await fs.writeFile(path.join(output,'checks.json'),JSON.stringify({passed:true,screenshots:4,realMotionFrames:32,browser:browser.version()},null,2));
+  await fs.writeFile(path.join(output,'checks.json'),JSON.stringify({passed:true,screenshots:6,realMotionFrames:32,laneHeight:90,characterSize:80,iconSize:44,browser:browser.version()},null,2));
   console.log('PASS screenshots and real-time motion frames:',output);
 } finally { await browser.close(); }
