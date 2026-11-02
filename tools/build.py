@@ -238,8 +238,10 @@ def write_guide(data, points):
     guide = {"built_from": data.get("source", "Notion"), "exported_at": data.get("exported_at", ""),
              "voices": {"ja": {k: {"label": v["label"], "credit": v["credit"]} for k, v in JA_VOICES.items()},
                         "en": {k: {"label": v["label"], "credit": v["credit"]} for k, v in EN_VOICES.items()}},
-             "points": points, "creatures": creatures_meta(data, points)}
-    json.dump(guide, open(os.path.join(ROOT, "guide.json"), "w"), ensure_ascii=False, indent=1)
+             "points": points, "creatures": creatures_meta(data, points),
+             "momonga_lines": data.get("momonga_lines", [])}
+    with open(os.path.join(ROOT, "guide.json"), "w", encoding="utf-8") as output:
+        json.dump(guide, output, ensure_ascii=False, indent=1)
 
 
 def meta_only(data):

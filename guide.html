@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Shippori+Mincho:wght@600;800&display=swap">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<link rel="stylesheet" href="momonga.css">
 <style>
 /* Layout: one spot per page, read top to bottom — seasonal photo, voice, text, other spots strip, map. The season sets the accent color. */
 :root{
@@ -285,6 +286,7 @@ h2{font-family:var(--display);font-weight:800;font-size:1.25rem;margin:0}
 <audio id="audio" preload="metadata" playsinline></audio>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script src="bubbles.js"></script>
+<script src="momonga.js"></script>
 <script>
 /* Everything on the page follows one language: text, audio, map labels and the things-to-see list.
    Data text comes from guide.json (Japanese fields, and the same field with _en for English). */
@@ -559,7 +561,7 @@ function show(id,keepScroll){
   cur=guide.points.find(p=>p.id===id)||guide.points[0];
   touched=false; renderText(); renderPhoto(); renderPlayer(); renderPager(); drawMarkers(); renderSurvey(); renderLife();
   if("mediaSession" in navigator)navigator.mediaSession.metadata=new MediaMetadata({title:placeName(cur),artist:t().brand});
-  if(!keepScroll)window.scrollTo({top:0});
+  if(!keepScroll)(document.getElementById('momonga-reading') || window).scrollTo({top:0});
 }
 function setLang(l){
   if(l===lang)return; lang=l; store.set("lang",lang);
@@ -665,6 +667,7 @@ window.addEventListener("hashchange",()=>{const id=location.hash.slice(1);if(gui
 
 store.set("lang",lang); renderChrome(); $("title").textContent=t().loading;
 fetch("guide.json",{cache:"no-store"}).then(r=>r.json()).then(g=>{
+  window.Momonga?.setData(g);
   guide=g; renderChrome(); initMap(); renderCats(); show(location.hash.slice(1)); startStrip();
 }).catch(()=>{$("title").textContent=t().failTitle;$("topic").textContent=t().failBody});
 </script>

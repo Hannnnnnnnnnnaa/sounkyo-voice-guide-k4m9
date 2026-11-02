@@ -1,2 +1,5 @@
 tts/
 __pycache__/
+artifacts/
+photos/momonga/*.png
+photos/momonga/setting-sheet.*
