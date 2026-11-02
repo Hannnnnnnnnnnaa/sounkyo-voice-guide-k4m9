@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Antique+Soft&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<link rel="stylesheet" href="momonga.css">
 <style>
 /* Every color is named after something in Sounkyo's nature (see wireframe/style.html). */
 :root{
@@ -283,6 +284,7 @@ body.sheet #sheet{transform:none;visibility:visible;transition:transform .55s cu
 <div id="sheet" role="dialog" aria-modal="true"><div class="grab"></div><button class="close" aria-label="閉じる">×</button><div id="sheetBody"></div></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script src="momonga.js"></script>
 <script>
 const $=id=>document.getElementById(id);
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
@@ -408,7 +410,7 @@ const QUESTIONS=[
 ];
 const PLACE_COLORS={'自然景観':[P.river,P.ice],'地質・地形':[P.tuff,P.birch],'歴史・人物':[P.spruce,P.moss]};
 let G=null;
-fetch('guide.json',{cache:'no-store'}).then(r=>r.json()).then(g=>{G=g;renderQuestions();initMap();renderVoicePlaces();renderSurvey();
+fetch('guide.json',{cache:'no-store'}).then(r=>r.json()).then(g=>{G=g;window.Momonga?.setData(g);renderQuestions();initMap();renderVoicePlaces();renderSurvey();
  $('voiceCredit').textContent=Object.values(g.voices.ja).map(v=>v.credit).join('、');
 });
 const pt=id=>G.points.find(p=>p.id===id);
