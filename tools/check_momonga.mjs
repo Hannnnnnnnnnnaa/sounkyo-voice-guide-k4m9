@@ -5,172 +5,204 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 const { chromium } = await import(process.env.PLAYWRIGHT_MODULE || 'playwright');
 const base = process.env.BASE_URL || 'http://127.0.0.1:8766';
-const output = path.resolve(process.env.QA_OUTPUT || 'artifacts/momonga');
-await fs.mkdir(output, {recursive:true});
+const output = path.resolve(process.env.QA_OUTPUT || 'artifacts/momonga-motion');
+await fs.mkdir(output,{recursive:true});
 const browser = await chromium.launch({channel:process.env.BROWSER_CHANNEL || 'chrome',headless:true});
-const failures = [];
-const pet = '.momonga-pet';
-const pose = page => page.locator(pet).getAttribute('data-pose');
+const failures = [], pet = '.momonga-pet';
 const hostWait = ms => new Promise(resolve => setTimeout(resolve,ms));
-async function until(test, label) {
-  for (let i=0;i<300;i++) { if (await test()) return; await hostWait(50); }
-  throw new Error('Timed out: '+label);
-}
-async function tap(page, selector) {
-  const box=await page.locator(selector).boundingBox();
-  assert.ok(box,selector+' is visible');
-  await page.mouse.click(box.x+box.width/2,box.y+box.height/2);
-}
-async function safe(page) {
-  const result=await page.evaluate(() => {
-    const lane=document.querySelector('.momonga-lane').getBoundingClientRect();
-    const reading=document.querySelector('#momonga-reading').getBoundingClientRect();
-    const p=document.querySelector('.momonga-pet');
-    const r=p.getBoundingClientRect();
-    const rest=document.querySelector('.momonga-rest').getBoundingClientRect();
-    const button=document.querySelector('.momonga-rest');
-    const dialogue=document.querySelector('.momonga-dialogue');
-    const d=dialogue.getBoundingClientRect();
-    const overlaps=(a,b)=>a.left<b.right&&a.right>b.left&&a.top<b.bottom&&a.bottom>b.top;
-    const inside=r=>r.top>=lane.top-.5&&r.bottom<=lane.bottom+.5&&r.left>=0&&r.right<=innerWidth;
-    return {
-      separate:reading.bottom<=lane.top+.5,
-      visible:(p.hidden||inside(r))&&inside(rest),
-      scrolling:document.documentElement.scrollWidth<=innerWidth,
-      sizes:Math.abs(lane.height-90)<.01&&Math.abs(rest.width-44)<.01&&Math.abs(rest.height-44)<.01&&(p.hidden||Math.abs(r.width-80)<.01&&Math.abs(r.height-80)<.01),
-      iconOnly:button.textContent.trim()===''&&Boolean(button.getAttribute('aria-label'))&&Boolean(button.querySelector('svg[aria-hidden="true"]')),
-      noOverlap:(p.hidden||!overlaps(r,rest))&&(dialogue.hidden||inside(d)&&!overlaps(d,rest)&&!overlaps(d,r))
-    };
-  });
-  assert.deepEqual(result,{separate:true,visible:true,scrolling:true,sizes:true,iconOnly:true,noOverlap:true});
-}
+const pose = page => page.locator(pet).getAttribute('data-pose');
 async function context(options={}) {
   const ctx=await browser.newContext({viewport:{width:390,height:844},locale:'ja-JP',...options});
   // Never submit synthetic survey answers while exercising the existing pages.
   await ctx.route('**/*',r=>new URL(r.request().url()).origin!==base && !['GET','HEAD'].includes(r.request().method()) ? r.abort() : r.continue());
-  await ctx.addInitScript(() => { Math.random=()=>0; });
+  // Reproducible choices while retaining the production distribution of motion types.
+  await ctx.addInitScript(() => { let seed=51; Math.random=()=>((seed=(seed*1664525+1013904223)>>>0)/4294967296); });
   return ctx;
 }
 async function open(ctx,url,clock=true) {
   const page=await ctx.newPage();
   page.on('pageerror',error=>failures.push(url+': '+error.message));
   if(clock) {
-    const now=new Date('2026-10-31T07:00:00Z');
+    const now=new Date('2026-11-04T07:00:00Z');
     await page.clock.install({time:now});
-    await page.clock.pauseAt(now);
+    await page.clock.pauseAt(new Date(now.getTime()+10000));
   }
   await page.goto(base+'/'+url,{waitUntil:'domcontentloaded'});
-  await until(()=>page.locator(pet).isVisible(),'mascot loads');
-  await until(()=>page.evaluate(()=>Boolean(window.Momonga)),'component loads');
+  await page.waitForFunction(()=>document.querySelector('.momonga-facing img.is-visible'));
   return page;
 }
+async function tap(page,selector) {
+  // Use the public control, at its rendered position, rather than an internal test API.
+  await page.locator(selector).click();
+}
+async function layout(page) {
+  const result=await page.evaluate(() => {
+    const stage=document.querySelector('.momonga-stage'), p=document.querySelector('.momonga-pet'), r=p.getBoundingClientRect();
+    const b=document.querySelector('.momonga-rest'), box=b.getBoundingClientRect();
+    return {
+      ordinary:!document.querySelector('#momonga-reading,.momonga-lane')&&document.querySelector('.page').parentElement===document.body&&getComputedStyle(document.body).overflow!=='hidden',
+      overlay:getComputedStyle(stage).position==='fixed'&&getComputedStyle(stage).pointerEvents==='none',
+      size:Math.abs(r.width-(innerWidth>=768?64:52))<.01 && Math.abs(r.height-r.width)<.01,
+      icon:box.width===44&&box.height===44&&b.textContent.trim()===''&&Boolean(b.getAttribute('aria-label')),
+      noHorizontalScroll:document.documentElement.scrollWidth<=innerWidth,
+      inViewport:p.hidden||r.x>=0&&r.y>=0&&r.right<=innerWidth&&r.bottom<=innerHeight,
+      bubblePassThrough:getComputedStyle(document.querySelector('.momonga-dialogue')).pointerEvents==='none'
+    };
+  });
+  assert.deepEqual(result,{ordinary:true,overlay:true,size:true,icon:true,noHorizontalScroll:true,inViewport:true,bubblePassThrough:true});
+}
+async function safeStop(page) {
+  const collisions=await page.evaluate(() => {
+    const p=document.querySelector('.momonga-pet');
+    if(p.hidden||p.dataset.parked!=='true') return [];
+    const r=p.getBoundingClientRect();
+    const selector='a[href],button,input,textarea,select,summary,[role="button"],[role="link"],[contenteditable="true"],audio,video,iframe,#map,.leaflet-container,.player,.bar,[data-momonga-avoid]';
+    return [...document.querySelectorAll(selector)].filter(el=>!el.closest('.momonga-stage')&&getComputedStyle(el).visibility!=='hidden').filter(el=>[...el.getClientRects()].some(b=>b.width&&b.height&&r.left<b.right&&r.right>b.left&&r.top<b.bottom&&r.bottom>b.top)).map(el=>el.id||el.tagName);
+  });
+  assert.deepEqual(collisions,[],'parked mascot avoids all protected controls');
+}
+async function step(page,ms) { await page.clock.runFor(ms); await safeStop(page); }
 try {
+  const observed=new Set();
   for (const file of ['top.html','guide.html?lang=ja#momijidani-entrance']) {
-    const ctx=await context();
-    const page=await open(ctx,file);
-    assert.equal(await pose(page),'yuagari');
-    await safe(page);
-    await page.clock.runFor(2000);
+    const ctx=await context(), page=await open(ctx,file);
+    await layout(page);
+    await step(page,2500);
     assert.equal(await pose(page),'stand');
-    await page.clock.runFor(10000);
-    assert.equal(await pose(page),'crouch');
-    await page.clock.runFor(260);
-    assert.equal(await pose(page),'jump');
-    await page.clock.runFor(220);
-    assert.equal(await pose(page),'glide');
-    await safe(page);
-    await page.clock.runFor(1000);
-    assert.equal(await pose(page),'land');
-    await page.clock.runFor(1319);
-    assert.equal(await pose(page),'land','clumsy landing keeps its extra second');
-    await page.clock.runFor(1);
-    assert.equal(await pose(page),'stand');
-    await tap(page,pet);
+    const breathBefore=await page.locator('.momonga-body').getAttribute('style');
+    await step(page,250);
+    assert.notEqual(await page.locator('.momonga-body').getAttribute('style'),breathBefore,'a parked mascot breathes, including at a viewport corner');
+    // Inspect actual RAF positions, pose fades and stretch through several random journeys.
+    let previous, largestFrameStep=0, fading=false, squashed=false, stretched=false, facingLeft=false, facingRight=false;
+    for(let i=0;i<360;i++) {
+      await step(page,100);
+      const sample=await page.evaluate(()=>{
+        const p=document.querySelector('.momonga-pet');
+        const pos=new DOMMatrixReadOnly(getComputedStyle(document.querySelector('.momonga-position')).transform);
+        const body=new DOMMatrixReadOnly(getComputedStyle(document.querySelector('.momonga-body')).transform);
+        return {x:pos.m41,y:pos.m42,motion:p.dataset.motion,sy:Math.hypot(body.m21,body.m22),flip:document.querySelector('.momonga-facing').style.transform,fade:[...p.querySelectorAll('img')].some(i=>{const a=Number(getComputedStyle(i).opacity);return a>0&&a<1;})};
+      });
+      if(previous) largestFrameStep=Math.max(largestFrameStep,Math.hypot(sample.x-previous.x,sample.y-previous.y));
+      previous=sample; observed.add(sample.motion);
+      fading ||= sample.fade; squashed ||= sample.sy<.94; stretched ||= sample.sy>1.03;
+      if(sample.motion==='glide') { facingRight ||= sample.flip==='scaleX(-1)'; facingLeft ||= sample.flip==='scaleX(1)'; }
+    }
+    assert.ok(largestFrameStep<100,'no teleports between samples');
+    assert.ok(fading,'sprites crossfade'); assert.ok(squashed&&stretched,'jump anticipation/stretch/landing squash');
+    const beforeHidden=await page.locator('.momonga-position').getAttribute('style');
+    await page.evaluate(()=>{Object.defineProperty(document,'hidden',{configurable:true,get:()=>true});document.dispatchEvent(new Event('visibilitychange'));});
+    await step(page,20000);
+    assert.equal(await page.locator('.momonga-position').getAttribute('style'),beforeHidden,'hidden-tab handler stops RAF movement');
+    await page.evaluate(()=>{delete document.hidden;document.dispatchEvent(new Event('visibilitychange'));});
+    // A pointer action keeps the idle timer separate from autonomous carousels.
+    await page.mouse.click(4,4);
+    await step(page,50000);
+    assert.equal(await pose(page),'sleepy','45 seconds without visitor activity parks and sleeps');
+    await page.evaluate(()=>window.scrollBy({top:scrollY>300?-180:180,behavior:'instant'}));
+    // Native scroll events are delivered by the compositor, outside the paused JS clock.
+    await hostWait(100);
+    await step(page,100);
+    assert.notEqual(await pose(page),'sleepy','window scrolling wakes the mascot');
+    assert.ok(await page.evaluate(()=>scrollY>0),'the normal window scrolls');
+    // Let scroll follow-through settle, then greet.
+    await step(page,5000);
+    await tap(page,pet); await step(page,16);
     assert.equal(await pose(page),'surprise');
-    await page.clock.runFor(280);
+    const start=await page.locator('.momonga-position').boundingBox();
+    await step(page,160);
+    const bounced=await page.locator('.momonga-position').boundingBox();
+    assert.ok(bounced.y<start.y,'tap makes a small jump');
+    await step(page,300);
     assert.equal(await pose(page),'wave');
-    assert.equal(await page.locator('.momonga-dialogue').isVisible(),false,'missing Notion lines stay silent');
-    await page.clock.runFor(1500);
-    await page.clock.runFor(50000);
-    assert.equal(await pose(page),'sleepy','automatic carousels must not count as activity');
-    await page.evaluate(()=>document.querySelector('#momonga-reading').scrollTo({top:200,behavior:'instant'}));
-    await until(async()=>await pose(page)==='stand','scroll wakes mascot');
-    await safe(page);
-    await page.setViewportSize({width:320,height:568});
-    await safe(page);
-    await page.setViewportSize({width:844,height:390});
-    await safe(page);
-    await page.setViewportSize({width:390,height:844});
+    assert.equal(await page.locator('.momonga-dialogue').isVisible(),false,'no Notion lines means no bubble');
+    await step(page,2000);
+    await page.evaluate(()=>window.Momonga.setData({momonga_lines:[{text:'QA-JA',text_en:'QA-EN'}]}));
+    await tap(page,pet); await step(page,400);
+    assert.equal(await page.locator('.momonga-dialogue').textContent(),'QA-JA');
     const dock=await page.locator('.momonga-rest').boundingBox();
     await tap(page,'.momonga-rest');
     assert.equal(await page.locator(pet).isVisible(),false);
-    assert.deepEqual(await page.locator('.momonga-rest').boundingBox(),dock,'wake icon stays in the same place');
+    assert.deepEqual(await page.locator('.momonga-rest').boundingBox(),dock);
     assert.equal(await page.locator('.momonga-rest').getAttribute('aria-label'),'モモンガを起こす');
-    await safe(page);
-    assert.equal(await page.evaluate(()=>localStorage.getItem('sounkyo-guide:momonga-resting')),'true');
     await page.reload({waitUntil:'domcontentloaded'});
-    assert.equal(await page.locator(pet).isVisible(),false,'rest persists after reload');
-    assert.deepEqual(await page.locator('.momonga-rest').boundingBox(),dock,'wake icon position survives reload');
-    await safe(page);
+    await page.waitForFunction(()=>document.querySelector('.momonga-facing img.is-visible'));
+    assert.equal(await page.locator(pet).isVisible(),false,'rest persists');
     await tap(page,'.momonga-rest');
-    await until(()=>page.locator(pet).isVisible(),'wake button restores mascot');
-    assert.deepEqual(await page.locator('.momonga-rest').boundingBox(),dock,'waking does not move the control');
+    assert.equal(await page.locator(pet).isVisible(),true);
     await page.emulateMedia({reducedMotion:'reduce'});
-    await page.clock.runFor(1);
+    await step(page,100);
+    const still=await page.locator('.momonga-position').boundingBox();
+    await step(page,60000);
     assert.equal(await pose(page),'stand');
-    await tap(page,pet);
-    await page.clock.runFor(60000);
-    assert.equal(await pose(page),'stand','reduced motion never changes pose');
-    console.log('PASS interaction, idle, persistence, reduced motion:',file);
+    assert.deepEqual(await page.locator('.momonga-position').boundingBox(),still,'reduced motion stays still');
+    await tap(page,pet); await step(page,400);
+    assert.equal(await pose(page),'stand','reduced motion has no greeting bounce');
+    await step(page,6001);
+    assert.equal(await page.locator('.momonga-dialogue').isVisible(),false);
+    for(const viewport of [{width:320,height:568},{width:844,height:390},{width:390,height:844}]) {
+      await page.setViewportSize(viewport); await step(page,100); await layout(page); await safeStop(page);
+    }
+    console.log('PASS window scroll, safety, animation, idle, tap, rest, reduced motion:',file,{largestFrameStep,facingLeft,facingRight});
     await ctx.close();
   }
-  // Test fixtures only. Production dialogue remains entirely in guide.json.
-  const ctx=await context();
-  const page=await open(ctx,'guide.html?lang=en#momijidani-entrance');
-  await page.clock.runFor(2000);
+  for(const kind of ['hop','glide','float']) assert.ok(observed.has(kind),'observed '+kind);
+  // No safe place means no parked mascot covering a control, including with reduced motion.
+  const ctx=await context({reducedMotion:'reduce'}), page=await open(ctx,'guide.html?lang=en#momijidani-entrance');
   await page.evaluate(()=>window.Momonga.setData({momonga_lines:[{text:'QA-JA',text_en:'QA-EN'}]}));
-  await tap(page,pet); await page.clock.runFor(280);
+  await tap(page,pet);
   assert.equal(await page.locator('.momonga-dialogue').textContent(),'QA-EN');
-  await safe(page);
   await page.evaluate(()=>window.Momonga.setData({momonga_lines:[{text:'QA-JA'}]}));
-  await tap(page,pet); await page.clock.runFor(280);
-  assert.equal(await page.locator('.momonga-dialogue').textContent(),'QA-JA','English falls back to approved Japanese');
+  await tap(page,pet);
+  assert.equal(await page.locator('.momonga-dialogue').textContent(),'QA-JA');
   await page.evaluate(()=>window.Momonga.setData({momonga_lines:['<img src=x onerror="window.qaInjected=true">']}));
-  await tap(page,pet); await page.clock.runFor(280);
+  await tap(page,pet);
   assert.equal(await page.locator('.momonga-dialogue img').count(),0);
   assert.equal(await page.evaluate(()=>window.qaInjected),undefined);
-  console.log('PASS Notion-only dialogue, language fallback, text-only rendering');
+  await page.evaluate(()=>{const blocker=document.createElement('button');blocker.id='qa-blocker';blocker.style='position:fixed;inset:0;z-index:1;width:100%;height:100%';document.body.append(blocker);dispatchEvent(new Event('resize'));});
+  assert.equal(await page.locator(pet).isVisible(),false);
+  await page.evaluate(()=>{document.querySelector('#qa-blocker').remove();dispatchEvent(new Event('resize'));});
+  assert.equal(await page.locator(pet).isVisible(),true);
+  // A transparent overlay and bubble must not swallow an underlying page button.
+  assert.equal(await page.evaluate(()=>{const b=document.querySelector('.lang button');const r=b.getBoundingClientRect();return document.elementFromPoint(r.x+r.width/2,r.y+r.height/2).closest('button')===b;}),true);
+  console.log('PASS approved dialogue, fallback, HTML escaping, full-screen control avoidance and click-through');
   await ctx.close();
   for (const [name,url,width,scheme] of [
-    ['top-mobile','top.html',390,'light'],
-    ['guide-mobile','guide.html?lang=ja#momijidani-entrance',390,'light'],
-    ['top-desktop','top.html',1280,'light'],
-    ['guide-desktop-en-dark','guide.html?lang=en#momijidani-entrance',1280,'dark']
+    ['top-mobile','top.html',390,'light'],['guide-mobile','guide.html?lang=ja#momijidani-entrance',390,'light'],
+    ['top-desktop','top.html',1280,'light'],['guide-desktop-en-dark','guide.html?lang=en#momijidani-entrance',1280,'dark']
   ]) {
     const ctx=await context({viewport:{width,height:width===390?844:900},colorScheme:scheme});
-    const page=await open(ctx,url);
-    await page.clock.runFor(2000);
-    await safe(page);
+    const page=await open(ctx,url); await step(page,3000); await layout(page);
     await page.screenshot({path:path.join(output,name+'.png'),animations:'disabled'});
-    if(width===390) {
-      await tap(page,'.momonga-rest');
-      await safe(page);
-      await page.screenshot({path:path.join(output,name+'-resting.png'),animations:'disabled'});
-    }
     await ctx.close();
   }
-  // Real elapsed time and a real CSS glide, recorded as frames for the PR GIF.
-  const film=await context();
-  const live=await open(film,'top.html',false);
-  await until(async()=>await pose(live)==='crouch','real-time movement starts');
-  await fs.mkdir(path.join(output,'frames'),{recursive:true});
-  for(let i=0;i<32;i++) {
-    await safe(live);
-    await live.screenshot({path:path.join(output,'frames',String(i).padStart(3,'0')+'.png')});
-    await hostWait(60);
-  }
+  // Full viewport, real elapsed RAF motion. No sped-up clock in the PR recording.
+  const film=await context(), live=await open(film,'guide.html?lang=ja#momijidani-entrance',false);
+  const frameDir=path.join(output,'frames');
+  await fs.rm(frameDir,{recursive:true,force:true});
+  await fs.mkdir(frameDir,{recursive:true});
+  const cdp=await film.newCDPSession(live), recording=[], frames=[];
+  let capturing=true;
+  cdp.on('Page.screencastFrame',event=>{
+    cdp.send('Page.screencastFrameAck',{sessionId:event.sessionId}).catch(()=>{});
+    if (!capturing) return;
+    const at=event.metadata.timestamp*1000;
+    if (!Number.isFinite(at) || at<=0 || recording.length && at<recording.at(-1).at) return;
+    frames.push(Buffer.from(event.data,'base64'));
+    recording.push({at});
+  });
+  await cdp.send('Page.startScreencast',{format:'jpeg',quality:85,maxWidth:390,maxHeight:844,everyNthFrame:4});
+  await hostWait(16000);
+  await cdp.send('Page.stopScreencast');
+  capturing=false;
+  await cdp.detach();
+  for(let i=0;i<frames.length;i++) await fs.writeFile(path.join(frameDir,String(i).padStart(4,'0')+'.jpg'),frames[i]);
+  const began=recording[0].at;
+  recording.forEach(frame=>{frame.at-=began;});
   await film.close();
+  assert.ok(recording.at(-1).at>=10000,'recording is at least 10 real seconds');
+  assert.ok(recording.at(-1).at<30000,'recording timestamps are continuous');
   assert.deepEqual(failures,[],'no browser JavaScript errors');
-  await fs.writeFile(path.join(output,'checks.json'),JSON.stringify({passed:true,screenshots:6,realMotionFrames:32,laneHeight:90,characterSize:80,iconSize:44,browser:browser.version()},null,2));
-  console.log('PASS screenshots and real-time motion frames:',output);
+  await fs.writeFile(path.join(output,'checks.json'),JSON.stringify({passed:true,screenshots:4,realMotionFrames:recording.length,recordingMs:recording.at(-1).at,recordingPage:'guide.html',viewport:'390x844',mobileSize:52,desktopSize:64,iconSize:44,motions:[...observed],browser:browser.version()},null,2));
+  await fs.writeFile(path.join(output,'recording.json'),JSON.stringify(recording));
+  console.log('PASS screenshots and 16-second real-time recording:',output);
 } finally { await browser.close(); }

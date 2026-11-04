@@ -1,0 +1,21 @@
+{
+  "passed": true,
+  "screenshots": 4,
+  "realMotionFrames": 234,
+  "recordingMs": 15899.3759765625,
+  "viewport": "390x844",
+  "mobileSize": 52,
+  "desktopSize": 64,
+  "iconSize": 44,
+  "motions": [
+    "idle",
+    "glide",
+    "hop",
+    "float"
+  ],
+  "browser": "156.0.8078.81",
+  "recordingPage": "guide.html",
+  "gifDurationMs": 15970,
+  "gifFrames": 234,
+  "gifSizeBytes": 507629
+}
