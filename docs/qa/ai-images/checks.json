@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "landscapeImages": 18,
+  "thumbnails": 18,
+  "missingSeasonalPaths": 6,
+  "guideSeasonLanguageChecks": 40,
+  "screenshots": 5,
+  "browser": "156.0.8078.81",
+  "metadataVerifiedImages": 36,
+  "creditsVerifiedAgainstCsv": 18,
+  "nonImageContentUnchanged": true
+}
