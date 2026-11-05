@@ -1,0 +1,302 @@
+[
+  {
+    "path": "top/autumn-gorge.jpg",
+    "input": "top/autumn-gorge.png",
+    "reference": "R01",
+    "season_changed": false,
+    "size": [
+      1600,
+      900
+    ],
+    "thumbnail": [
+      400,
+      225
+    ],
+    "bytes": 537718
+  },
+  {
+    "path": "top/summer-gorge.jpg",
+    "input": "top/summer-gorge.jpg",
+    "reference": "R02",
+    "season_changed": false,
+    "size": [
+      1280,
+      720
+    ],
+    "thumbnail": [
+      400,
+      225
+    ],
+    "bytes": 330314
+  },
+  {
+    "path": "momijidani-entrance/autumn.jpg",
+    "input": "momijidani-entrance/autumn.jpg",
+    "reference": "R03",
+    "season_changed": false,
+    "size": [
+      1448,
+      1086
+    ],
+    "thumbnail": [
+      400,
+      300
+    ],
+    "bytes": 528109
+  },
+  {
+    "path": "momijidani-entrance/spring.jpg",
+    "input": "momijidani-entrance/spring.png",
+    "reference": "R03",
+    "season_changed": true,
+    "size": [
+      1448,
+      1086
+    ],
+    "thumbnail": [
+      400,
+      300
+    ],
+    "bytes": 505560
+  },
+  {
+    "path": "momijidani-entrance/summer.jpg",
+    "status": "準備中",
+    "reference": "R03"
+  },
+  {
+    "path": "momijidani-entrance/winter.jpg",
+    "status": "準備中",
+    "reference": "R03"
+  },
+  {
+    "path": "ginga-ryusei/spring.jpg",
+    "input": "ginga-ryusei/spring.jpg",
+    "reference": "R04",
+    "season_changed": false,
+    "size": [
+      1200,
+      1600
+    ],
+    "thumbnail": [
+      300,
+      400
+    ],
+    "bytes": 501010
+  },
+  {
+    "path": "ginga-ryusei/spring-2.jpg",
+    "input": "ginga-ryusei/summer3.jpeg",
+    "reference": "R05",
+    "season_changed": false,
+    "size": [
+      1447,
+      1087
+    ],
+    "thumbnail": [
+      400,
+      300
+    ],
+    "bytes": 568735
+  },
+  {
+    "path": "ginga-ryusei/summer.jpg",
+    "input": "ginga-ryusei/summer.jpeg",
+    "reference": "R06",
+    "season_changed": false,
+    "size": [
+      1280,
+      896
+    ],
+    "thumbnail": [
+      400,
+      280
+    ],
+    "bytes": 259275
+  },
+  {
+    "path": "ginga-ryusei/summer-2.jpg",
+    "input": "ginga-ryusei/summer2.jpeg",
+    "reference": "R07",
+    "season_changed": false,
+    "size": [
+      1280,
+      898
+    ],
+    "thumbnail": [
+      400,
+      281
+    ],
+    "bytes": 217912
+  },
+  {
+    "path": "ginga-ryusei/autumn.jpg",
+    "input": "ginga-ryusei/autumn.jpg",
+    "reference": "R06",
+    "season_changed": true,
+    "size": [
+      1280,
+      896
+    ],
+    "thumbnail": [
+      400,
+      280
+    ],
+    "bytes": 189059
+  },
+  {
+    "path": "ginga-ryusei/winter.jpg",
+    "input": "ginga-ryusei/winter.jpg",
+    "reference": "R08",
+    "season_changed": false,
+    "size": [
+      1280,
+      960
+    ],
+    "thumbnail": [
+      400,
+      300
+    ],
+    "bytes": 171096
+  },
+  {
+    "path": "obako/summer.jpg",
+    "input": "obako/summer.jpeg",
+    "reference": "R09",
+    "season_changed": false,
+    "size": [
+      1280,
+      960
+    ],
+    "thumbnail": [
+      400,
+      300
+    ],
+    "bytes": 350120
+  },
+  {
+    "path": "obako/autumn.jpg",
+    "input": "obako/autumn.jpg",
+    "reference": "R10",
+    "season_changed": false,
+    "size": [
+      1280,
+      958
+    ],
+    "thumbnail": [
+      400,
+      299
+    ],
+    "bytes": 303680
+  },
+  {
+    "path": "obako/spring.jpg",
+    "input": "obako/15（再制作）spring.jpeg",
+    "reference": "R09",
+    "season_changed": true,
+    "size": [
+      1280,
+      960
+    ],
+    "thumbnail": [
+      400,
+      300
+    ],
+    "bytes": 244337
+  },
+  {
+    "path": "obako/winter.jpg",
+    "input": "obako/winter2.png",
+    "reference": "R09",
+    "season_changed": true,
+    "size": [
+      1448,
+      1086
+    ],
+    "thumbnail": [
+      400,
+      300
+    ],
+    "bytes": 422453
+  },
+  {
+    "path": "naming-1921/summer.jpg",
+    "input": "naming-1921/spring.png",
+    "reference": "R11",
+    "season_changed": false,
+    "size": [
+      1448,
+      1086
+    ],
+    "thumbnail": [
+      400,
+      300
+    ],
+    "bytes": 379223
+  },
+  {
+    "path": "naming-1921/spring.jpg",
+    "input": "naming-1921/spring2.png",
+    "reference": "R12",
+    "season_changed": false,
+    "size": [
+      1448,
+      1086
+    ],
+    "thumbnail": [
+      400,
+      300
+    ],
+    "bytes": 428081
+  },
+  {
+    "path": "naming-1921/autumn.jpg",
+    "input": "naming-1921/Autumn.png",
+    "reference": "R11",
+    "season_changed": true,
+    "size": [
+      1448,
+      1086
+    ],
+    "thumbnail": [
+      400,
+      300
+    ],
+    "bytes": 335749
+  },
+  {
+    "path": "naming-1921/winter.jpg",
+    "input": "naming-1921/winter.png",
+    "reference": "R11",
+    "season_changed": true,
+    "size": [
+      1448,
+      1086
+    ],
+    "thumbnail": [
+      400,
+      300
+    ],
+    "bytes": 390303
+  },
+  {
+    "path": "momiji-falls/spring.jpg",
+    "status": "準備中",
+    "reference": null
+  },
+  {
+    "path": "momiji-falls/summer.jpg",
+    "status": "準備中",
+    "reference": null
+  },
+  {
+    "path": "momiji-falls/autumn.jpg",
+    "status": "準備中",
+    "reference": null
+  },
+  {
+    "path": "momiji-falls/winter.jpg",
+    "status": "準備中",
+    "reference": null
+  }
+]

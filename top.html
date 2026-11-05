@@ -57,7 +57,7 @@ section{padding:26px 16px 6px}
 .sdots{position:absolute;right:14px;top:calc(20px + env(safe-area-inset-top));display:flex;gap:4px}
 .sdots button{font-family:var(--display);font-size:12px;width:28px;height:28px;border-radius:50%;border:0;background:rgba(245,244,239,.6);color:var(--night);cursor:pointer;transition:background 1.5s,color 1.5s}
 .sdots button.on{background:var(--c);color:var(--snow)}
-.credit{position:absolute;right:12px;left:12px;text-align:right;bottom:42px;z-index:2;font-size:10.5px;line-height:1.4;color:var(--snow);text-shadow:0 0 4px rgba(30,43,60,.7)}
+.credit{position:absolute;right:12px;left:12px;text-align:right;bottom:42px;z-index:2;padding:4px 6px;border-radius:6px;background:rgba(30,43,60,.78);font-size:10.5px;line-height:1.4;color:var(--snow);text-shadow:0 0 4px rgba(30,43,60,.7)}
 .credit a,#sheet .k a{color:inherit;text-decoration:underline;text-underline-offset:2px}
 
 /* ---------- today's info ---------- */
@@ -123,6 +123,7 @@ section{padding:26px 16px 6px}
 .bub b{display:block;font-family:var(--display);font-weight:400;font-size:13.5px;padding:4px 5px 0;line-height:1.35;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--night);position:relative;z-index:1}
 .bub small{display:block;font-size:10px;color:var(--tuff);padding:0 5px 2px;line-height:1.4;position:relative;z-index:1}
 .bigph{height:230px;border-radius:16px;overflow:hidden;margin:4px 0 6px;background:var(--mist)}
+.photo-pending{width:100%;height:100%;display:grid;place-items:center;background:var(--mist);color:var(--tuff);font-size:12px}
 .gal{display:flex;gap:6px;margin:6px 0 10px}
 .gal button{border:0;padding:0;width:64px;height:48px;border-radius:8px;overflow:hidden;cursor:pointer}
 .gal img{width:100%;height:100%;object-fit:cover;display:block}
@@ -341,8 +342,8 @@ function particles(S){
  }
  return h;
 }
-/* ---------- photos: Wikimedia Commons (CC0 / CC BY / CC BY-SA / public domain), resized, metadata removed.
-   Author, license and source page of each file are in photos/credits.json and are shown with the photo. ---------- */
+/* ---------- AI images based on the approved reference photos; resized, metadata removed.
+   Original author, license and source page are in photos/credits.json. ---------- */
 let CRED={};
 const credHTML=path=>{const c=CRED[path];if(!c)return'';
  return `${c.source_url?`<a href="${esc(c.source_url)}" target="_blank" rel="noopener">${esc(c.credit)}</a>`:esc(c.credit)}${c.license_url?` <a href="${esc(c.license_url)}" target="_blank" rel="noopener">ライセンス</a>`:''}`};
@@ -352,14 +353,13 @@ const HERO_PHOTOS=[
  {s:'summer',src:'photos/ginga-ryusei/summer.jpg',place:'銀河の滝'},
  {s:'autumn',src:'photos/top/autumn-gorge.jpg',place:'層雲峡の渓谷'},
  {s:'autumn',src:'photos/obako/autumn.jpg',place:'大函'},
- {s:'winter',src:'photos/naming-1921/winter.jpg',place:'層雲峡氷瀑まつり'},
+ {s:'winter',src:'photos/naming-1921/winter.jpg',place:'温泉街'},
 ];
 const GALLERY={
- 'momijidani-entrance':[{f:'spring',s:'spring',c:'春・層雲峡の石狩川（銀河の滝付近）'},{f:'summer',s:'summer',c:'夏・層雲峡温泉から見た岩壁'},{f:'autumn',s:'autumn',c:'秋・紅葉谷への道'},{f:'winter',s:'winter',c:'冬・層雲峡の川（流星の滝付近）'}],
- 'momiji-falls':[{f:'spring',s:'spring',c:'春・近くの流星の滝'},{f:'summer',s:'summer',c:'夏・銀河の滝近くの沢'},{f:'autumn',s:'autumn',c:'秋・層雲峡の沢の小さな滝'},{f:'winter',s:'winter',c:'冬・層雲峡氷瀑まつり'}],
- 'ginga-ryusei':[{f:'spring',s:'spring',c:'春・銀河の滝'},{f:'spring-2',s:'spring',c:'春・流星の滝'},{f:'summer',s:'summer',c:'夏・銀河の滝'},{f:'summer-2',s:'summer',c:'夏・流星の滝'},{f:'autumn',s:'autumn',c:'秋・銀河の滝付近の森（初雪）'},{f:'winter',s:'winter',c:'冬・流星の滝付近の川'}],
- 'obako':[{f:'spring',s:'spring',c:'春・大函の上流の大雪ダム'},{f:'summer',s:'summer',c:'夏の大函'},{f:'autumn',s:'autumn',c:'秋の大函'},{f:'winter',s:'winter',c:'冬・層雲峡の川（流星の滝付近）'}],
- 'naming-1921':[{f:'spring',s:'spring',c:'春先・層雲峡温泉（4月）'},{f:'summer',s:'summer',c:'夏・温泉街のプロムナード'},{f:'autumn',s:'autumn',c:'秋・層雲峡温泉'},{f:'winter',s:'winter',c:'冬・層雲峡氷瀑まつり'}],
+ 'momijidani-entrance':[{f:'spring',s:'spring',c:'春・紅葉谷への道'},{f:'autumn',s:'autumn',c:'秋・紅葉谷への道'}],
+ 'ginga-ryusei':[{f:'spring',s:'spring',c:'春・銀河の滝'},{f:'spring-2',s:'spring',c:'春・流星の滝'},{f:'summer',s:'summer',c:'夏・銀河の滝'},{f:'summer-2',s:'summer',c:'夏・流星の滝'},{f:'autumn',s:'autumn',c:'秋・銀河の滝'},{f:'winter',s:'winter',c:'冬・流星の滝付近の川'}],
+ 'obako':[{f:'spring',s:'spring',c:'春の大函'},{f:'summer',s:'summer',c:'夏の大函'},{f:'autumn',s:'autumn',c:'秋の大函'},{f:'winter',s:'winter',c:'冬の大函'}],
+ 'naming-1921':[{f:'spring',s:'spring',c:'春先・層雲峡温泉（4月）'},{f:'summer',s:'summer',c:'夏・温泉街のプロムナード'},{f:'autumn',s:'autumn',c:'秋・温泉街のプロムナード'},{f:'winter',s:'winter',c:'冬・温泉街のプロムナード'}],
 };
 const SI={spring:0,summer:1,autumn:2,winter:3};
 const scenes=$('scenes'),dots=$('sdots'),hero=$('hero');
@@ -483,9 +483,9 @@ function thumb(id,S){
  }else g=crowns(14,44,[0,120]);
  return `<svg viewBox="0 0 120 74" preserveAspectRatio="xMidYMid slice" aria-hidden="true">${sky}${g}</svg>`;
 }
-const pickPhoto=id=>{const g=GALLERY[id];return g&&(g.find(x=>SI[x.s]===curS)||g[0])};
+const pickPhoto=id=>(GALLERY[id]||[]).find(x=>SI[x.s]===curS);
 const photoSrc=(id,x,th)=>`photos/${id}/${x.f}${th?'-thumb':''}.jpg`;
-const scene=(id,big)=>{const x=pickPhoto(id);return x?`<img src="${photoSrc(id,x,!big)}" alt="${esc(x.c)}" loading="lazy">`:thumb(id,SEASONS[curS])};
+const scene=(id,big)=>{const x=pickPhoto(id);return x?`<img src="${photoSrc(id,x,!big)}" alt="${esc(x.c)}" loading="lazy">`:'<div class="photo-pending">準備中</div>'};
 let map,me,pins=[],base,photo,tourT,tourHold=0,tourI=0;
 function initMap(){
  if(!window.L){$('map').innerHTML='<p class="sub" style="padding:14px">地図を読み込めませんでした</p>';return}
@@ -517,14 +517,14 @@ function initMap(){
 }
 function setAct(i){pins.forEach((x,j)=>{const el=x.m.getElement().querySelector('.pin');el.classList.toggle('act',j===i);x.m.setZIndexOffset(j===i?1000:0)})}
 function refreshBubbles(){pins.forEach(x=>{const ph=x.m.getElement()&&x.m.getElement().querySelector('.ph');if(ph)ph.innerHTML=scene(x.p.id)})}
-function gallery(id){const g=GALLERY[id],x0=pickPhoto(id);
- return `<div class="k">${esc(x0.c)}　${credHTML(photoSrc(id,x0))}</div>${g.length>1?`<div class="gal">${g.map(x=>`<button data-src="${photoSrc(id,x)}" data-c="${esc(x.c)}"><img src="${photoSrc(id,x,true)}" alt="${esc(x.c)}" loading="lazy"></button>`).join('')}</div>`:''}`}
+function gallery(id){const g=GALLERY[id]||[],x0=pickPhoto(id);
+ return `<div class="k">${x0?`${esc(x0.c)}　${credHTML(photoSrc(id,x0))}`:'準備中'}</div>${g.length>(x0?1:0)?`<div class="gal">${g.map(x=>`<button data-src="${photoSrc(id,x)}" data-c="${esc(x.c)}"><img src="${photoSrc(id,x,true)}" alt="${esc(x.c)}" loading="lazy"></button>`).join('')}</div>`:''}`}
 $('sheetBody').addEventListener('click',e=>{const b=e.target.closest('.gal button');if(!b)return;const big=$('sheetBody').querySelector('.bigph');
  big.innerHTML=`<img src="${b.dataset.src}" alt="${b.dataset.c}">`;const k=big.nextElementSibling;if(k)k.innerHTML=esc(b.dataset.c)+'　'+credHTML(b.dataset.src)});
 function openPlace(p){
  met.places.add(p.id);const L0=p.location,au=ptAudio(p);
  openSheet(`<div class="k">${esc(L0.area||'')}${L0.measured?'・現地で確かめた位置':''}</div><h3>${esc(cleanName(p))}</h3>
-  <div class="bigph">${scene(p.id,true)}</div>${GALLERY[p.id]?gallery(p.id):'<div class="k">仮の絵です（写真が届いたら差し替え）</div>'}
+  <div class="bigph">${scene(p.id,true)}</div>${gallery(p.id)}
   <p>${esc(p.core.split('。').slice(0,2).join('。'))}。</p>
   <div class="facts">${L0.access?`<div><b>行き方</b>${esc(L0.access)}</div>`:''}${L0.season?`<div><b>行ける時期</b>${esc(L0.season)}</div>`:''}${L0.measured?'':`<div><b>位置について</b>${esc(L0.coord_note)}</div>`}</div>
   <a class="btn" style="display:block;text-align:center;text-decoration:none" href="guide.html#${esc(p.id)}">この場所のページへ（音声ガイド${au?` ${Math.round(au.seconds)}秒`:''}）</a>${relSrc(p)}`);
