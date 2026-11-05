@@ -185,11 +185,62 @@ body.sheet #sheet{transform:none;visibility:visible;transition:transform .55s cu
 #sheet audio{width:100%;margin:6px 0}
 #sheet .close{position:absolute;right:12px;top:10px;border:0;background:var(--mist);border-radius:50%;width:32px;height:32px;font-size:16px;cursor:pointer}
 
+
+/* ---------- first-visit guide inside the fog (ゆもんが) ---------- */
+#intro{position:fixed;inset:0;z-index:52;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:calc(24px + env(safe-area-inset-top)) 22px calc(24px + env(safe-area-inset-bottom));
+ background:radial-gradient(120% 80% at 50% 45%,#fff 0%,var(--snow) 45%,var(--mist) 100%);transition:opacity 1.2s cubic-bezier(.45,0,.25,1),filter 1.2s}
+#intro:not([hidden]){animation:inFade .7s ease both}
+@keyframes inFade{from{opacity:0}to{opacity:1}}
+#intro.go{opacity:0;filter:blur(8px);pointer-events:none}
+#intro[hidden]{display:none}
+body.intro{overflow:hidden}
+body.intro .momonga-stage{visibility:hidden}
+.in-skip{position:absolute;right:14px;top:calc(12px + env(safe-area-inset-top));border:0;background:transparent;color:var(--tuff);font-size:13px;padding:8px 10px;cursor:pointer}
+.in-stars{display:flex;gap:18px;margin:0 0 18px;min-height:22px}
+.in-stars svg{width:20px;height:20px}
+.in-stars svg path{fill:none;stroke:var(--night);stroke-width:1.3}
+.in-stars svg.on path{fill:var(--night)}
+.in-card{width:100%;max-width:340px;display:flex;flex-direction:column;align-items:center;text-align:center;animation:inIn .6s ease both}
+@keyframes inIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.in-say{position:relative;background:#fff;border:1.5px solid var(--night);border-radius:999px;padding:10px 22px;font-family:var(--display);font-size:20px;letter-spacing:.06em;margin:0 0 14px}
+.in-say::after{content:"";position:absolute;left:50%;bottom:-9px;width:14px;height:14px;background:#fff;border-right:1.5px solid var(--night);border-bottom:1.5px solid var(--night);transform:translateX(-50%) rotate(45deg)}
+.in-momo{width:190px;height:190px;object-fit:contain;transform-origin:50% 92%}
+.in-momo.hop{animation:inHop 1.1s cubic-bezier(.3,0,.3,1) 2}
+@keyframes inHop{0%,100%{transform:translateY(0) scale(1,1)}12%{transform:translateY(0) scale(1.07,.88)}40%{transform:translateY(-42px) scale(.95,1.06)}66%{transform:translateY(0) scale(1.06,.9)}80%{transform:translateY(0) scale(1,1)}}
+.in-head{display:flex;align-items:flex-end;justify-content:center;gap:6px;margin:0 0 14px}
+.in-head .in-say{font-size:18px;margin:0 0 30px}
+.in-head .in-say::after{left:auto;right:18px;transform:rotate(45deg)}
+.in-mini{width:76px;height:76px;object-fit:contain}
+.in-mini.q{position:relative}
+.in-q{font-family:var(--display);font-size:22px;letter-spacing:.06em;margin:0 0 6px}
+.in-list{list-style:none;margin:6px 0 0;padding:0;width:100%;display:flex;flex-direction:column;gap:8px}
+.in-list button{width:100%;display:flex;align-items:center;gap:12px;background:#fff;border:1px solid var(--mist);border-radius:14px;padding:11px 14px;font-size:16px;cursor:pointer;text-align:left}
+.in-list button:disabled{opacity:.5;cursor:default}
+.in-list button small{margin-left:auto;font-size:11px;color:var(--tuff)}
+.in-list button[aria-pressed="true"]{border-color:var(--night);box-shadow:inset 0 0 0 1px var(--night)}
+.in-list svg{width:30px;height:20px;flex:none;border:1px solid var(--mist);border-radius:3px}
+.in-two{display:flex;flex-direction:column;gap:10px;width:100%;margin:10px 0 0}
+.in-two>button{border:0;border-bottom:1.5px solid var(--night);background:transparent;font-size:19px;padding:8px 4px;cursor:pointer;font-family:var(--body)}
+.in-two>button[aria-pressed="true"]{color:var(--river);border-color:var(--river);font-weight:700}
+.in-where{width:100%;margin:12px 0 0;text-align:left}
+.in-where p{margin:0 0 6px;font-size:14px;color:var(--tuff)}
+.in-chips{display:flex;flex-wrap:wrap;gap:6px}
+.in-chips button{border:1px solid var(--mist);background:#fff;border-radius:999px;padding:6px 12px;font-size:13px;cursor:pointer}
+.in-chips button[aria-pressed="true"]{background:var(--night);color:var(--snow);border-color:var(--night)}
+.in-src{font-size:10.5px;color:var(--tuff);margin:8px 0 0}
+.in-next{margin:18px 0 0;border:0;background:var(--night);color:var(--snow);border-radius:999px;padding:12px 34px;font-size:15px;font-weight:700;cursor:pointer}
+.in-next:disabled{opacity:.35;cursor:default}
+.in-end{font-family:var(--display);font-size:22px;line-height:1.7;letter-spacing:.06em;margin:4px 0 8px}
+.in-link{font-size:13px;color:var(--river)}
+.again{border:0;background:transparent;color:var(--river);text-decoration:underline;font-size:11px;padding:0;cursor:pointer}
+@media (prefers-reduced-motion:reduce){#intro,.in-card{transition:none;animation:none}.in-momo.hop{animation:none}}
+
 @media (prefers-reduced-motion:reduce){.scene,.scene .far{transition:opacity .6s}.scene{transform:none}.fogb,.pt{display:none}#fog{display:none}html{scroll-behavior:auto}}
 </style>
 </head>
 <body>
 <div id="fog" aria-hidden="true"><b>（サービス名）</b><span>層 雲 峡 ・ カ ム イ ミ ン タ ラ</span></div>
+<div id="intro" hidden role="dialog" aria-modal="true" aria-label="はじめての案内"><button type="button" class="in-skip" id="inSkip">スキップ</button><div class="in-stars" id="inStars" aria-hidden="true"></div><div class="in-card" id="inCard"></div></div>
 
 <div class="page">
   <!-- 7. hero -->
@@ -277,7 +328,8 @@ body.sheet #sheet{transform:none;visibility:visible;transition:transform .55s cu
   <footer>
     試作版（日本語のみ）。書いてあることは、層雲峡ビジターセンター・観光協会・環境省・産総研などの公開資料で確かめた内容だけを載せ、出典を各項目に付けています。<br>
     地図：国土地理院 地理院タイル／天気：気象庁／音声：<span id="voiceCredit"></span><br>
-    写真がまだない場所・季節は、仮の絵を出しています。
+    写真がまだない場所・季節は、仮の絵を出しています。<br>
+    <button type="button" class="again" id="introAgain">最初の案内（ゆもんが）をもう一度見る</button>
   </footer>
 </div>
 
@@ -291,9 +343,54 @@ const $=id=>document.getElementById(id);
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-/* ---------- fog intro ---------- */
-setTimeout(()=>$('fog').classList.add('go'),reduce?0:700);
-setTimeout(()=>$('fog').remove(),reduce?0:2600);
+/* ---------- fog intro + first-visit guide (ゆもんが): language, day trip / overnight, where to stay ---------- */
+const INTRO=(()=>{
+ const KEY='sk.onboard', LS={get(k){try{return JSON.parse(localStorage.getItem(k))}catch(e){return null}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+ // 宿泊施設：上川町「層雲峡エリア 宿泊施設」（2024年10月3日更新）の掲載順。休業中の施設は除いています。
+ const STAYS=['朝陽リゾートホテル','層雲閣MOUNTAIN RESORT 1923','ホテル大雪','層雲峡 朝陽亭','層雲峡観光ホテル','マウントビューホテル','湯元銀泉閣','HOTEL KUMOI','層雲峡ホステル','民宿とだて','ペンション山の上','ペンションユーカラ','温泉ペンション銀河','黒岳石室'];
+ const STAR='<svg viewBox="0 0 20 20"><path d="M10 1.5C10.8 6.8 13.2 9.2 18.5 10C13.2 10.8 10.8 13.2 10 18.5C9.2 13.2 6.8 10.8 1.5 10C6.8 9.2 9.2 6.8 10 1.5Z"/></svg>';
+ const FLAG={ja:'<svg viewBox="0 0 30 20"><rect width="30" height="20" fill="#fff"/><circle cx="15" cy="10" r="6" fill="#BC002D"/></svg>',
+  en:'<svg viewBox="0 0 30 20"><rect width="30" height="20" fill="#012169"/><path d="M0 0L30 20M30 0L0 20" stroke="#fff" stroke-width="4"/><path d="M0 0L30 20M30 0L0 20" stroke="#C8102E" stroke-width="1.6"/><path d="M15 0V20M0 10H30" stroke="#fff" stroke-width="6"/><path d="M15 0V20M0 10H30" stroke="#C8102E" stroke-width="3.4"/></svg>',
+  zh:'<svg viewBox="0 0 30 20"><rect width="30" height="20" fill="#EE1C25"/><path d="M5 3l1.2 3.6H10L7 8.8l1.1 3.6L5 10.2 1.9 12.4 3 8.8 0 6.6h3.8z" fill="#FFFF00"/></svg>',
+  es:'<svg viewBox="0 0 30 20"><rect width="30" height="20" fill="#AA151B"/><rect y="5" width="30" height="10" fill="#F1BF00"/></svg>'};
+ const T={ja:{q1:'どの言語？',q2:'日帰り？宿泊？',day:'日帰り',stay:'宿泊',where:'どこに泊まる？',undecided:'まだ決めていない',next:'つぎへ',end:'層雲峡エリアを<br>たのしめますように！',skip:'スキップ',soon:'準備中',src:'宿の一覧：上川町「層雲峡エリア 宿泊施設」より'},
+  en:{q1:'Which language?',q2:'Day trip or overnight?',day:'Day trip',stay:'Staying overnight',where:'Where are you staying?',undecided:'Not decided yet',next:'Next',end:'Enjoy the<br>Sounkyo area!',skip:'Skip',soon:'Coming soon',src:'Lodging list: Kamikawa Town "Sounkyo area accommodation"',guide:'Open the place guides in English ›',note:'This top page is in Japanese for now.'}};
+ const el=$('intro'),card=$('inCard'),stars=$('inStars'),img=n=>`photos/momonga/${n}.webp`;
+ let a={lang:null,stay:null,hotel:null},step=0,timer;
+ const L=()=>T[a.lang==='en'?'en':'ja'];
+ const setStars=n=>{stars.innerHTML=n?[1,2,3].map(i=>STAR.replace('<svg',`<svg class="${i<=n?'on':''}"`)).join(''):''};
+ function show(n){
+  step=n;clearTimeout(timer);$('inSkip').textContent=L().skip;card.style.animation='none';card.offsetWidth;card.style.animation='';
+  if(n===0){setStars(0);
+   card.innerHTML=`<div class="in-say">ぼく ゆもんが！</div><img class="in-momo hop" src="${img('wave')}" alt="エゾモモンガのゆもんが">`;
+   timer=setTimeout(()=>show(1),reduce?3200:2600);setTimeout(()=>{if(step===0)card.onclick=()=>show(1)},0);return}
+  card.onclick=null;
+  if(n===1){setStars(1);
+   card.innerHTML=`<div class="in-head"><div class="in-say">どの言語？</div><img class="in-mini" src="${img('think')}" alt=""></div>
+    <ul class="in-list">${[['ja','日本語'],['en','English'],['zh','中文',1],['es','Español',1]].map(([k,n,soon])=>`<li><button type="button" data-l="${k}" ${soon?'disabled':''} aria-pressed="${a.lang===k}" lang="${k}">${FLAG[k]}${n}${soon?`<small>${T.ja.soon} / ${T.en.soon}</small>`:''}</button></li>`).join('')}</ul>`;
+   card.querySelectorAll('[data-l]').forEach(b=>b.onclick=()=>{a.lang=b.dataset.l;LS.set('sounkyo-guide:lang',a.lang);show(2)});return}
+  if(n===2){setStars(2);const t=L();
+   card.innerHTML=`<div class="in-head" style="flex-direction:row-reverse"><div class="in-say">${t.q2}</div><img class="in-mini" src="${img('think')}" alt=""></div>
+    <div class="in-two"><button type="button" data-s="day" aria-pressed="${a.stay==='day'}">${t.day}</button><button type="button" data-s="stay" aria-pressed="${a.stay==='stay'}">${t.stay}</button></div>
+    <div class="in-where" ${a.stay==='stay'?'':'hidden'}><p>└ ${t.where}</p><div class="in-chips">${[...STAYS,t.undecided].map(h=>`<button type="button" data-h="${esc(h)}" aria-pressed="${a.hotel===h}">${esc(h)}</button>`).join('')}</div><p class="in-src">${t.src}</p></div>
+    <button type="button" class="in-next" ${a.stay==='day'||(a.stay==='stay'&&a.hotel)?'':'disabled'}>${t.next}</button>`;
+   card.querySelectorAll('[data-s]').forEach(b=>b.onclick=()=>{a.stay=b.dataset.s;if(a.stay==='day')a.hotel=null;show(2)});
+   card.querySelectorAll('[data-h]').forEach(b=>b.onclick=()=>{a.hotel=b.dataset.h;show(2)});
+   card.querySelector('.in-next').onclick=()=>show(3);return}
+  if(n===3){setStars(3);const t=L();
+   card.innerHTML=`<p class="in-end">${t.end}</p><img class="in-momo hop" src="${img('jump')}" alt="">${a.lang==='en'?`<p class="in-src">${t.note}</p><a class="in-link" href="guide.html?lang=en">${t.guide}</a>`:''}`;
+   LS.set(KEY,{...a,at:new Date().toISOString().slice(0,10)});
+   timer=setTimeout(close,a.lang==='en'?5200:3200);setTimeout(()=>{if(step===3)card.onclick=e=>{if(!e.target.closest('a'))close()}},0)}
+ }
+ function close(){clearTimeout(timer);el.classList.add('go');document.body.classList.remove('intro');$('fog')&&$('fog').classList.add('go');
+  setTimeout(()=>{el.hidden=true;el.classList.remove('go');$('fog')&&$('fog').remove()},reduce?0:1300)}
+ function open(){a={lang:null,stay:null,hotel:null};el.hidden=false;document.body.classList.add('intro');show(0)}
+ $('inSkip').onclick=()=>{if(!LS.get(KEY))LS.set(KEY,{skipped:true,at:new Date().toISOString().slice(0,10)});close()};
+ $('introAgain').onclick=()=>{scrollTo(0,0);open()};
+ return {first:!LS.get(KEY),open,close};
+})();
+if(INTRO.first){setTimeout(INTRO.open,reduce?0:900)}
+else{setTimeout(()=>$('fog').classList.add('go'),reduce?0:700);setTimeout(()=>$('fog')&&$('fog').remove(),reduce?0:2600)}
 
 /* ---------- seasons ---------- */
 const P={snow:'#F5F4EF',mist:'#E3E6E2',tuff:'#77736C',night:'#1E2B3C',spruce:'#2E4A3C',river:'#3D7C84',moss:'#7E8A4E',birch:'#D7A33A',rowan:'#B5452C',matatabi:'#D995A6',ice:'#CFE3EA'};
