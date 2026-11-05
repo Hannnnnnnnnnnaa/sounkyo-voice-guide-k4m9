@@ -79,7 +79,7 @@ section{padding:26px 16px 6px}
 .pcard .t b{display:block;font-family:var(--display);font-weight:400;font-size:16px;color:var(--night);margin-bottom:2px}
 .qcard{flex:0 0 178px;scroll-snap-align:start;text-align:left;background:#fff;border:1.5px solid var(--spruce);border-radius:18px 18px 18px 4px;padding:13px;font-family:var(--display);font-size:15.5px;line-height:1.5;cursor:pointer}
 .qcard small{display:block;font-family:var(--body);font-size:11px;color:var(--tuff);margin-top:8px}
-.momo{width:42px;height:42px;border-radius:50%;background:var(--momonga);color:var(--snow);display:flex;align-items:center;justify-content:center;font-size:9px;flex:none}
+.momo{display:block;width:64px;height:64px;object-fit:contain;flex:none}
 .say{display:flex;gap:10px;align-items:center;margin-bottom:10px}
 .say p{margin:0;background:#fff;border:1px solid var(--mist);border-radius:14px 14px 14px 4px;padding:8px 12px;font-size:13px}
 
@@ -272,7 +272,7 @@ body.intro .momonga-stage{visibility:hidden}
   <!-- 8-2 questions -->
   <section id="questions">
     <h2><span class="ln"></span>ふと、気になった？</h2>
-    <div class="say"><div class="momo">モモンガ</div><p>気になる問いを押してみて。30秒くらいで話すよ</p></div>
+    <div class="say"><img class="momo" src="photos/momonga/wave.webp" width="64" height="64" alt="エゾモモンガ" loading="lazy" decoding="async"><p>気になる問いを押してみて。30秒くらいで話すよ</p></div>
     <div class="belt" id="qBelt"></div>
   </section>
 
